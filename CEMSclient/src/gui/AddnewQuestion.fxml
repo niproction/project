@@ -20,7 +20,7 @@
             </Label>
             <ImageView fitHeight="69.0" fitWidth="67.0" layoutX="8.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/add%20new%20question.png" />
+                  <Image url="@../../../../../Desktop/qems/add%20new%20question.png" />
                </image>
             </ImageView>
             <Line endX="525.0" layoutX="115.0" layoutY="88.0" startX="-116.0" />
@@ -71,12 +71,12 @@
             <Button fx:id="clearBtn" layoutX="321.0" layoutY="603.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="78.0" text="Clear" />
             <ImageView fitHeight="18.0" fitWidth="27.0" layoutX="328.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/clear.png" />
+                  <Image url="@../../../../../Desktop/qems/clear.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="18.0" fitWidth="27.0" layoutX="193.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/save.png" />
+                  <Image url="@../../../../../Desktop/qems/save.png" />
                </image>
             </ImageView>
          </children>

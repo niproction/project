@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 
 import controllers.FxmlSceen;
 import controllers.SceneController;
-import controllers.SceneController.ANIMATE_ON;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -27,7 +26,10 @@ public class homeController {
     private AnchorPane ap; // Value injected by FXMLLoader
     @FXML
     private Button addNewQuestion;
-
+    @FXML
+    private Button logOutButton;
+    @FXML
+    private Button exitButton;
     SceneController sceen;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -40,6 +42,13 @@ public class homeController {
     	if(event.getSource()==addNewQuestion) {
     		SceneController sceen = new SceneController(FxmlSceen.ADD_NEW_QUESTION, ap);
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+    	}
+    	else if(event.getSource()==logOutButton) {
+    		SceneController sceen = new SceneController(FxmlSceen.LOGIN, ap);
+			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+    	}
+    	else if(event.getSource()==exitButton) {
+    		System.exit(0);
     	}
     }
 }

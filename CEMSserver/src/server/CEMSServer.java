@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import common.DataPacket;
-import controller.serverGUI;
+import gui.serverGUI;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -81,7 +81,6 @@ public class CEMSServer extends AbstractServer {
 
 
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-
 		controller.setInput_logs(controller.getInput_logs().getText()+"Message received from " + client+"\n");
 
 		ServerDataPacketHandler handler = new ServerDataPacketHandler(App_server.mysqlCon.getCon());
@@ -93,8 +92,8 @@ public class CEMSServer extends AbstractServer {
 		{
 			System.out.println("Sending response to client");
 			try {
-				System.out.println("Sending response to client");
 				client.sendToClient(to_be_returend_DataPacket);
+				System.out.println("Sending response to client");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

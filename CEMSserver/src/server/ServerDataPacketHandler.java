@@ -43,10 +43,11 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
                     stmt=con.createStatement();
                     
                     ResultSet rs=stmt.executeQuery("SELECT * from admins WHERE email='"+(String)( dataPacket.GET_Data_parameters().get(0))+"' AND password='"+(String)(dataPacket.GET_Data_parameters().get(1))+"'");
-
+                    System.out.println(dataPacket.GET_Data_parameters().get(0)+"33333");
                     if(rs.next())
                     {
                         System.out.println("found");
+                        System.out.println(rs.getString(2));
                         ArrayList<Object> arr = new ArrayList<Object>();
                         arr.add(new user( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  ));
                         Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN, arr, "", true);    // create DataPacket that contains true to indicate that the user information is correct

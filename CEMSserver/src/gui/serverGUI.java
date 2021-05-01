@@ -2,7 +2,7 @@
  * Sample Skeleton for 'serverGUI.fxml' Controller Class
  */
 
-package controller;
+package gui;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

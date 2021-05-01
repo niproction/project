@@ -6,7 +6,6 @@ package common;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This interface implements the abstract method used to display
@@ -23,7 +22,7 @@ public class DataPacket implements Serializable
 	}
 
   public enum Request {
-		LOGIN, SECCSESFULLY_LOGINED, LOGOUT,READ_EXAMS, ADD_NEW_QUESTION
+		LOGIN, SECCSESFULLY_LOGINED, LOGOUT,READ_EXAMS,ADD_NEW_QUESTION
 
 
 

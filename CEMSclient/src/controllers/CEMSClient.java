@@ -2,7 +2,6 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 package controllers;
-import ocsf.client.*;
 import java.io.IOException;
 
 import common.ChatIF;
@@ -56,12 +55,13 @@ public class CEMSClient extends AbstractClient
   public void handleMessageFromServer(Object msg) 
   {
     //awaitResponse = false; // reset to false untill the responce will come back
-
+	  System.out.println("login msg1");
 		ClientDataPacketHandler handler = new ClientDataPacketHandler();
 		DataPacket to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
 		
     //if(msg instanceof DataPacket)
     //  clientUI.display(((DataPacket)msg).toString());
+		System.out.println("login msg2");
 
     awaitResponse = false;
 

@@ -6,7 +6,6 @@ import client.App_client;
 import common.DataPacket;
 import controllers.FxmlSceen;
 import controllers.SceneController;
-import controllers.SceneController.ANIMATE_ON;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

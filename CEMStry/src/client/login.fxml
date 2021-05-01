@@ -9,15 +9,16 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.loginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.loginController">
    <children>
       <AnchorPane prefHeight="437.0" prefWidth="264.0" style="-fx-background-color: #0C39FF;">
          <children>
             <ImageView fitHeight="67.0" fitWidth="88.0" layoutX="99.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Desktop/pngtree-user-login-or-authenticate-icon-on-gray-background-flat-icon-ve-png-image_1786166.jpg" />
+                  <Image url="@../../../../Desktop/pngtree-user-login-or-authenticate-icon-on-gray-background-flat-icon-ve-png-image_1786166.jpg" />
                </image>
             </ImageView>
             <Label alignment="CENTER" layoutX="68.0" layoutY="240.0" prefHeight="16.0" prefWidth="129.0" text="login">
@@ -31,6 +32,16 @@
       <PasswordField fx:id="txtPassword" layoutX="313.0" layoutY="171.0" prefHeight="25.0" prefWidth="192.0" promptText="password" />
       <Button fx:id="btnSignIn" layoutX="453.0" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" text="Sign in" />
       <Hyperlink layoutX="313.0" layoutY="220.0" prefHeight="23.0" prefWidth="122.0" text="forgot password" />
+      <Button layoutX="313.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="192.0" style="-fx-background-color: #0C39FF;" text="sign in with facebook" textFill="#e9e8ed" />
+      <ImageView fitHeight="23.0" fitWidth="28.0" layoutX="319.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/facebook--600.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="315.0" layoutY="319.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="192.0" text="Sign Up" />
+      <Line endX="-12.33331298828125" layoutX="409.0" layoutY="262.0" startX="-100.0" />
+      <Label layoutX="403.0" layoutY="253.0" text="or" />
+      <Line endX="-39.0" layoutX="543.0" layoutY="262.0" startX="-119.66668701171875" />
       <Label fx:id="lbl_close" alignment="CENTER" layoutX="575.0" layoutY="3.0" onMouseClicked="#handleButtonAction" prefHeight="23.0" prefWidth="23.0" text="X" textFill="#1862c7" visible="false">
          <font>
             <Font size="18.0" />
@@ -38,6 +49,5 @@
       </Label>
       <Label fx:id="lblErrors" alignment="CENTER" layoutX="313.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" />
       <Accordion />
-      <Label fx:id="errorLable" alignment="CENTER" layoutX="314.0" layoutY="196.0" prefHeight="17.0" prefWidth="192.0" text="Wrong Username/Password" textFill="#f80b0b" />
    </children>
 </AnchorPane>

@@ -13,43 +13,43 @@
             <Button fx:id="addNewQuestion" alignment="CENTER_RIGHT" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" prefHeight="64.0" prefWidth="166.0" text="Add New Question" />
             <ImageView fitHeight="45.0" fitWidth="48.0" layoutX="7.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/add%20new%20question.png" />
+                  <Image url="@../../../../../Desktop/qems/add%20new%20question.png" />
                </image>
             </ImageView>
             <Button alignment="CENTER_RIGHT" layoutX="166.0" layoutY="2.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="149.0" text="Update Question" />
             <ImageView fitHeight="45.0" fitWidth="48.0" layoutX="168.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/Update%20Question.png" />
+                  <Image url="@../../../../../Desktop/qems/Update%20Question.png" />
                </image>
             </ImageView>
             <Button alignment="CENTER_RIGHT" layoutX="315.0" layoutY="2.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="149.0" text="All Question" />
             <ImageView fitHeight="45.0" fitWidth="48.0" layoutX="321.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/all%20questions.png" />
+                  <Image url="@../../../../../Desktop/qems/all%20questions.png" />
                </image>
             </ImageView>
             <Button alignment="CENTER_RIGHT" layoutX="462.0" layoutY="2.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="156.0" text="Delete Question" />
             <ImageView fitHeight="45.0" fitWidth="48.0" layoutX="470.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/delete%20Question.png" />
+                  <Image url="@../../../../../Desktop/qems/delete%20Question.png" />
                </image>
             </ImageView>
             <Button alignment="CENTER_RIGHT" layoutX="617.0" layoutY="2.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="166.0" text="All Studens Result" />
             <ImageView fitHeight="45.0" fitWidth="48.0" layoutX="617.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/all%20student%20result.png" />
+                  <Image url="@../../../../../Desktop/qems/all%20student%20result.png" />
                </image>
             </ImageView>
-            <Button alignment="CENTER_RIGHT" layoutX="783.0" layoutY="2.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="126.0" text="Logout" />
+            <Button fx:id="logOutButton" alignment="CENTER_RIGHT" layoutX="783.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" prefHeight="64.0" prefWidth="126.0" text="Logout" />
             <ImageView fitHeight="45.0" fitWidth="48.0" layoutX="791.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/Logout.png" />
+                  <Image url="@../../../../../Desktop/qems/Logout.png" />
                </image>
             </ImageView>
-            <Button alignment="CENTER_RIGHT" layoutX="909.0" layoutY="2.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="149.0" text="Exit" />
+            <Button fx:id="exitButton" alignment="CENTER_RIGHT" layoutX="909.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" prefHeight="64.0" prefWidth="149.0" text="Exit" />
             <ImageView fitHeight="45.0" fitWidth="48.0" layoutX="926.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../Desktop/qems/Close.png" />
+                  <Image url="@../../../../../Desktop/qems/Close.png" />
                </image>
             </ImageView>
          </children>
