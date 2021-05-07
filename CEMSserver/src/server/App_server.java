@@ -16,7 +16,7 @@ public class App_server extends Application {
 		try {
             Parent root = FXMLLoader.load(getClass().getResource("../gui/serverGUI.fxml"));
             Scene scene = new Scene(root, 492, 598);
-        wqw
+        System.out.print("Dasd");
             primaryStage.setTitle("Server manager");
             primaryStage.setScene(scene);
             primaryStage.show();
