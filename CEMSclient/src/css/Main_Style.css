@@ -1,0 +1,7 @@
+.button{
+
+-fx-background-color:transparent;
+-fx-background-image: url("../img/menu-icon.png");
+-fx-background-repeat: stretch;   
+-fx-background-size: 32 32;
+}
