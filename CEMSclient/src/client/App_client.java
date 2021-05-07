@@ -1,7 +1,7 @@
 package client;
 
 	
-import common.user;
+import common.User;
 import controllers.ClientController;
 import controllers.FxmlSceen;
 import controllers.SceneController;
@@ -13,7 +13,7 @@ public class App_client extends Application {
 	public static Stage primaryStage;
 	public static ClientController chat=null;
 	
-	public static user user=null;
+	public static User user=null;
 	//public static user user=null;
 	//public static user user=null;
 

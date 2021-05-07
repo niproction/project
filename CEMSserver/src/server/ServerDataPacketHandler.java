@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 import common.DataPacket;
 import common.IncomingDataPacketHandler;
-import common.qustion;
-import common.user;
+import common.Qustion;
+import common.User;
 
 public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
@@ -42,14 +42,16 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
                 try {
                     stmt=con.createStatement();
                     
-                    ResultSet rs=stmt.executeQuery("SELECT * from admins WHERE email='"+(String)( dataPacket.GET_Data_parameters().get(0))+"' AND password='"+(String)(dataPacket.GET_Data_parameters().get(1))+"'");
+                    ResultSet rs=stmt.executeQuery("SELECT * from users WHERE email='"+(String)( dataPacket.GET_Data_parameters().get(0))+"' AND password='"+(String)(dataPacket.GET_Data_parameters().get(1))+"'");
                     System.out.println(dataPacket.GET_Data_parameters().get(0)+"33333");
                     if(rs.next())
                     {
                         System.out.println("found");
                         System.out.println(rs.getString(2));
                         ArrayList<Object> arr = new ArrayList<Object>();
-                        arr.add(new user( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  ));
+                        User pass_user = new User( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  );
+                        
+                        arr.add(pass_user);
                         Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN, arr, "", true);    // create DataPacket that contains true to indicate that the user information is correct
                     }
                     else
@@ -73,7 +75,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				
 				System.out.println("question has been saved");
 				ArrayList<Object> arr = new ArrayList<Object>();
-				 arr.add(new qustion( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  ));
+				 arr.add(new Qustion( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  ));
                  Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.ADD_NEW_QUESTION, arr, "", true);    // create DataPacket that contains true to indicate that the user information is correct
 				
 				

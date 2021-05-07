@@ -36,7 +36,7 @@ public enum FxmlSceen{
         }
         @Override
         String GET_FxmlFile(){
-            return "../gui/Home.fxml";
+            return "../gui/Main.fxml";
         }
         @Override
         Animation GET_ON_Scene_Load_Animation(){

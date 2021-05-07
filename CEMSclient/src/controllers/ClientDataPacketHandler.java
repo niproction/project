@@ -4,7 +4,7 @@ import client.App_client;
 import common.DataPacket;
 import common.IncomingDataPacketHandler;
 import javafx.stage.Stage;
-import common.user;
+import common.User;
 
 public class ClientDataPacketHandler implements IncomingDataPacketHandler {
     private DataPacket Responce_dataPacket;
@@ -41,7 +41,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
             if(dataPacket.GET_result_boolean())
             {
                 System.out.println("user corrent");
-                App_client.user = (user)(dataPacket.GET_Data_parameters().get(0));
+                App_client.user = (User)(dataPacket.GET_Data_parameters().get(0));
 
                 //App_client.switchs(FxmlSceen.HOME);///controller
             }
