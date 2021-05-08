@@ -57,6 +57,9 @@ public class serverGUI {
     @FXML
     private Button button_stop_server;
     
+    @FXML
+    private Button button_create_tables;
+    
     private double scrollPosition;
     
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -123,6 +126,7 @@ public class serverGUI {
             //e.printStackTrace();
     
         }
+        button_create_tables.setVisible(false);
     }
     public TextArea getInput_logs() {
         return input_logs;
@@ -298,6 +302,8 @@ public class serverGUI {
 
                 button_stop_server.setVisible(true);
                 button_stop_server.setDisable(false);
+                
+                button_create_tables.setVisible(true);
             }
             else{
                 App_server.mysqlCon.disconnetFromDB();
