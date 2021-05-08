@@ -4,7 +4,9 @@ import client.App_client;
 import common.DataPacket;
 import common.IncomingDataPacketHandler;
 import javafx.stage.Stage;
-import common.User;
+import common.Student;
+import common.Teacher;
+import common.Principle;
 
 public class ClientDataPacketHandler implements IncomingDataPacketHandler {
     private DataPacket Responce_dataPacket;
@@ -61,7 +63,20 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
             if(dataPacket.GET_result_boolean())
             {
                 System.out.println("user corrent");
-                App_client.user = (User)(dataPacket.GET_Data_parameters().get(0));
+                if(dataPacket.GET_Data_parameters().get(0) instanceof Student)
+                {
+                	App_client.user = (Student)(dataPacket.GET_Data_parameters().get(0));
+                }
+                else if(dataPacket.GET_Data_parameters().get(0) instanceof Teacher)
+                {
+                	App_client.user = (Teacher)(dataPacket.GET_Data_parameters().get(0));
+                }
+                else if(dataPacket.GET_Data_parameters().get(0) instanceof Principle)
+                {
+                	App_client.user = (Principle)(dataPacket.GET_Data_parameters().get(0));
+                }else {}
+                
+                //App_client.user = (User)(dataPacket.GET_Data_parameters().get(0));
 
                 
                 //SceenController sceen = new SceenController(primaryStage, FxmlSceen.HOME, Lon);
