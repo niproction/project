@@ -10,7 +10,7 @@ public class initTables {
 	
 	public initTables(Connection con)
 	{
-		
+		this.con=con;
 	}
 	public void createUsers()
 	{
