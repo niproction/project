@@ -45,7 +45,7 @@
 
 <VBox minHeight="700.0" minWidth="800.0" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
   <children>
-      <MenuBar>
+      <MenuBar stylesheets="@../css/Main_Style.css">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
