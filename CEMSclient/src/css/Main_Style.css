@@ -14,7 +14,7 @@
 }
 .button-logout{
 	-fx-background-color:transparent;
-	-fx-background-image: url("../img/loguot-icon.png");
+	-fx-background-image: url("../img/logout-icon.png");
 	-fx-background-repeat: stretch;   
 	-fx-background-size: 32 32;
 }
