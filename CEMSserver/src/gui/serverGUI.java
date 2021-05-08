@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import server.App_server;
 import server.CEMSServer;
+import server.initTables;
 import server.mysqlConnection;
 
 public class serverGUI {
@@ -329,6 +330,8 @@ public class serverGUI {
     
     @FXML
     void build_tables_button(MouseEvent event) {
-
+    	initTables db = new initTables(App_server.mysqlCon.getCon());
+    	db.createUsers();
+    	db.createQuestions();
     }
 }
