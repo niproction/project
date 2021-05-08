@@ -2,7 +2,7 @@ package common;
 
 import java.io.Serializable;
 
-public class Qustion implements Serializable {
+public class Question implements Serializable {
 	 private String id;
 	 private String info;
 	 private String option1;
@@ -12,7 +12,7 @@ public class Qustion implements Serializable {
 	 private String answer;
 	 
 
-	    public Qustion(String id, String info){
+	    public Question(String id, String info){
 	        this.id=id;
 	        this.info=info;
 	    }

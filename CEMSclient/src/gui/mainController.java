@@ -65,13 +65,27 @@ public class mainController {
 	}
 	
 	
+	@FXML
+    void button_logout_clicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void button_logout_entered(MouseEvent event) {
+
+    }
+
+    @FXML
+    void button_logout_exited(MouseEvent event) {
+
+    }
 	
-	
-	@FXML // This method is called by the FXMLLoader when initialization is complete
+	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
 		// FXMLLoader object = new SceneController();
 		// Pane screen = object.get();
 		// page_box.setCenter(button_menu);
+		//App_client.user.
 		
 		ChangeListener<Number> listener = new ChangeListener<Number>() {
             private Point2D stageSize = null ;

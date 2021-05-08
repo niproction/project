@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import common.DataPacket;
 import common.IncomingDataPacketHandler;
-import common.Qustion;
+import common.Question;
 import common.User;
 
 public class ServerDataPacketHandler implements IncomingDataPacketHandler {
@@ -48,6 +48,9 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
                     {
                         System.out.println("found");
                         System.out.println(rs.getString(2));
+                        rs.getString(2);
+                        rs.getString(3);
+                        rs.getString(4);
                         ArrayList<Object> arr = new ArrayList<Object>();
                         User pass_user = new User( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  );
                         
@@ -75,7 +78,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				
 				System.out.println("question has been saved");
 				ArrayList<Object> arr = new ArrayList<Object>();
-				 arr.add(new Qustion( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  ));
+				 arr.add(new Question( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  ));
                  Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.ADD_NEW_QUESTION, arr, "", true);    // create DataPacket that contains true to indicate that the user information is correct
 				
 				
