@@ -11,6 +11,18 @@
 	-fx-background-repeat: stretch;   
 	-fx-background-size: 32 32;
 }
+.button-logout{
+	-fx-background-color:transparent;
+	-fx-background-image: url("../img/loguot-icon.png");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 32 32;
+}
+
+.button-logout:hover {
+    -fx-background-image: url("../img/logout-icon-hover.png");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 32 32;
+}
 
 .left{
 	-fx-background-color: #4dafdC;
