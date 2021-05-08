@@ -14,6 +14,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -29,6 +30,9 @@ public class mainController {
 
 	@FXML // fx:id="button_menu"
 	private ImageView button_menu; // Value injected by FXMLLoader
+
+	@FXML
+	private Label label_bar_welcome;
 
 	@FXML
 	private BorderPane page_box;
@@ -59,6 +63,9 @@ public class mainController {
 	void button_menu_exited(MouseEvent event) {
 		System.out.println("exited");
 	}
+	
+	
+	
 	
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() {
