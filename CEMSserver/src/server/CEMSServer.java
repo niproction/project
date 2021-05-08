@@ -98,6 +98,10 @@ public class CEMSServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
+		else
+		{
+			System.out.println("not generated response DataPacket");
+		}
 	}
 
 

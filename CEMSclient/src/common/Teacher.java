@@ -2,6 +2,7 @@ package common;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Teacher extends User implements Serializable {
 	private Question[] questions;
 	private Exam[] exams;

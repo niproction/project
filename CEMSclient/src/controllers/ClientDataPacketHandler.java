@@ -43,7 +43,19 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
             if(dataPacket.GET_result_boolean())
             {
                 System.out.println("user corrent");
-                App_client.user = (User)(dataPacket.GET_Data_parameters().get(0));
+                if(dataPacket.GET_Data_parameters().get(0) instanceof Student)
+                {
+                	App_client.user = (Student)(dataPacket.GET_Data_parameters().get(0));
+                }
+                else if(dataPacket.GET_Data_parameters().get(0) instanceof Teacher)
+                {
+                	App_client.user = (Teacher)(dataPacket.GET_Data_parameters().get(0));
+                }
+                else if(dataPacket.GET_Data_parameters().get(0) instanceof Principle)
+                {
+                	App_client.user = (Principle)(dataPacket.GET_Data_parameters().get(0));
+                }else {}
+                //App_client.user = (User)(dataPacket.GET_Data_parameters().get(0));
 
                 //App_client.switchs(FxmlSceen.HOME);///controller
             }

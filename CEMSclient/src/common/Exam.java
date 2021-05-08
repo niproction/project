@@ -1,10 +1,12 @@
 package common;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Exam {
+@SuppressWarnings("serial")
+public class Exam implements Serializable {
 	private int examID;
 	private Question[] question;
 	private Date date;
