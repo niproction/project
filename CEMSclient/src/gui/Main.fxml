@@ -1,36 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
-  All rights reserved. Use is subject to license terms.
-
-  This file is available and licensed under the following license:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions
-  are met:
-
-  - Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-  - Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
-    the documentation and/or other materials provided with the distribution.
-  - Neither the name of Oracle Corporation nor the names of its
-    contributors may be used to endorse or promote products derived
-    from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
+<!-- Copyright (c) 2015, 2019, Gluon and/or its affiliates. All rights reserved. 
+	Use is subject to license terms. This file is available and licensed under 
+	the following license: Redistribution and use in source and binary forms, 
+	with or without modification, are permitted provided that the following conditions 
+	are met: - Redistributions of source code must retain the above copyright 
+	notice, this list of conditions and the following disclaimer. - Redistributions 
+	in binary form must reproduce the above copyright notice, this list of conditions 
+	and the following disclaimer in the documentation and/or other materials 
+	provided with the distribution. - Neither the name of Oracle Corporation 
+	nor the names of its contributors may be used to endorse or promote products 
+	derived from this software without specific prior written permission. THIS 
+	SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+	WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+	IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+	INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF 
+	USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+	THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+	EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -42,60 +32,72 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="700.0" minWidth="800.0" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
-  <children>
-      <HBox prefHeight="54.0" prefWidth="750.0" styleClass="menu-bar" stylesheets="@../css/Main_Style.css">
-         <children>
-            <Pane prefHeight="54.0" prefWidth="62.0">
-               <children>
-                  <Button mnemonicParsing="false" onMouseClicked="#button_menu_clicked" onMouseEntered="#button_menu_enterd" onMouseExited="#button_menu_exited" prefHeight="32.0" prefWidth="32.0" styleClass="button-menu" stylesheets="@../css/Main_Style.css" />
-               </children>
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </Pane>
-            <Pane prefHeight="44.0" prefWidth="475.0">
-               <children>
-                  <Label fx:id="label_bar_welcome" text="Label">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </Pane>
-            <Pane prefHeight="44.0" prefWidth="32.0">
-               <children>
-                  <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#button_logout_clicked" onMouseEntered="#button_logout_entered" onMouseExited="#button_logout_exited" prefHeight="32.0" prefWidth="32.0" styleClass="button-logout" stylesheets="@../css/Main_Style.css" />
-               </children>
-               <HBox.margin>
-                  <Insets left="200.0" top="10.0" />
-               </HBox.margin>
-            </Pane>
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </HBox>
-      <BorderPane fx:id="page_box">
-         <center>
-          <AnchorPane maxHeight="-1.0" maxWidth="-1.0" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets top="10.0" />
-               </BorderPane.margin></AnchorPane>
-         </center>
-         <VBox.margin>
-            <Insets top="10.0" />
-         </VBox.margin>
-         <left>
-            <Pane fx:id="box_left" styleClass="left" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
-         </left>
-         <right>
-            <Pane fx:id="box_right" styleClass="right" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
-         </right>
-      </BorderPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-  </children>
-</VBox>
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
+ 
+
+	<children>
+		<VBox layoutX="51.0" layoutY="-14.0" prefHeight="200.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<children>
+				<HBox prefHeight="54.0" prefWidth="750.0" styleClass="menu-bar" stylesheets="@../css/Main_Style.css">
+					<children>
+						<Pane prefHeight="54.0" prefWidth="62.0">
+							<children>
+								<Button mnemonicParsing="false" onMouseClicked="#button_menu_clicked" onMouseEntered="#button_menu_enterd" onMouseExited="#button_menu_exited" prefHeight="32.0" prefWidth="32.0" styleClass="button-menu" stylesheets="@../css/Main_Style.css" />
+							</children>
+							<HBox.margin>
+								<Insets top="10.0" />
+							</HBox.margin>
+						</Pane>
+						<Pane prefHeight="44.0" prefWidth="475.0">
+							<children>
+								<HBox prefHeight="30.0" prefWidth="367.0">
+									<children>
+										<Label fx:id="label_bar_welcome" text="Label">
+											<font>
+												<Font size="20.0" />
+											</font>
+										</Label>
+										<Label fx:id="label_bar_roletype" text="Label">
+											<HBox.margin>
+												<Insets left="15.0" top="8.0" />
+											</HBox.margin>
+										</Label>
+									</children>
+								</HBox>
+							</children>
+							<HBox.margin>
+								<Insets top="10.0" />
+							</HBox.margin>
+						</Pane>
+						<Pane prefHeight="44.0" prefWidth="32.0">
+							<children>
+								<Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#button_logout_clicked" onMouseEntered="#button_logout_entered" onMouseExited="#button_logout_exited" prefHeight="32.0" prefWidth="32.0" styleClass="button-logout" stylesheets="@../css/Main_Style.css" />
+							</children>
+							<HBox.margin>
+								<Insets left="200.0" top="10.0" />
+							</HBox.margin>
+						</Pane>
+					</children>
+					<VBox.margin>
+						<Insets />
+					</VBox.margin>
+				</HBox>
+			</children>
+		</VBox>
+		<BorderPane fx:id="page_box">
+			<center>
+				<AnchorPane maxHeight="-1.0" maxWidth="-1.0" BorderPane.alignment="CENTER">
+					<BorderPane.margin>
+						<Insets top="10.0" />
+					</BorderPane.margin>
+				</AnchorPane>
+			</center>
+			<left>
+				<Pane fx:id="box_left" styleClass="left" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
+			</left>
+			<right>
+				<Pane fx:id="box_right" styleClass="right" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
+			</right>
+		</BorderPane>
+	</children>
+</AnchorPane>

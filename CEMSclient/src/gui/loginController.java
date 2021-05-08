@@ -36,6 +36,7 @@ public class loginController implements Initializable {
 	public void initialize(URL url,ResourceBundle rb)
 	{
 		errorLable.setVisible(false);
+		
 	}
 
 	public void handleButtonAction(MouseEvent event) {

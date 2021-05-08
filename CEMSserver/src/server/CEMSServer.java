@@ -90,7 +90,7 @@ public class CEMSServer extends AbstractServer {
 		// if the return DataPacket is not null means we need to return an update message to the client
 		if(to_be_returend_DataPacket != null)
 		{
-			System.out.println("Sending response to client");
+			System.out.println("tring send response to client");
 			try {
 				client.sendToClient(to_be_returend_DataPacket);
 				System.out.println("Sending response to client");

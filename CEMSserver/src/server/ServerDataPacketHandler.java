@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 import common.DataPacket;
 import common.IncomingDataPacketHandler;
+import common.Principle;
 import common.Question;
+import common.Student;
 import common.Teacher;
 import common.User;
 
@@ -59,27 +61,28 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
                         if(roleType.equals("student"))
                         {
                         	System.out.println("detected student");
+                        	Student pass_user = new Student( rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)  );
+                        	parameter.add(pass_user);
                         }
                         else if(roleType.equals("teacher"))
                         {
                         	System.out.println("detected teacherrrr");
-                        	Teacher pass_user = new Teacher( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1)), (String)(dataPacket.GET_Data_parameters().get(2)), (String)(dataPacket.GET_Data_parameters().get(3)), (String)(dataPacket.GET_Data_parameters().get(4))  );
-                        	System.out.println("en");
+                        	Teacher pass_user = new Teacher( rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)  );
                         	parameter.add(pass_user);
                         	
                         }
                         else if(roleType.equals("principle"))
                         {
-                        	//Student pass_user = new Student( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  );
                         	System.out.println("detected principle");
+                        	Principle pass_user = new Principle( rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)  );
+                        	parameter.add(pass_user);
                         }
                         else
                         {
                         	System.out.println("detected Problem");
                         }
-                        //User pass_user = new User( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  );
                         
-                        //parameter.add(pass_user);
+                        
                         Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN, parameter, "", true);    // create DataPacket that contains true to indicate that the user information is correct
                         System.out.println("end search");
                     }
