@@ -87,8 +87,6 @@ public class mainController {
                 }
                 stageSize = new Point2D(SceneController.primaryStage.getWidth(), SceneController.primaryStage.getHeight());                
             }
-
-
         };
 
         SceneController.primaryStage.widthProperty().addListener(listener);
