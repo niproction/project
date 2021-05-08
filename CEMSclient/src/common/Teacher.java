@@ -1,6 +1,8 @@
 package common;
 
-public class Teacher extends User {
+import java.io.Serializable;
+
+public class Teacher extends User implements Serializable {
 	private Question[] questions;
 	private Exam[] exams;
 	

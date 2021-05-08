@@ -36,7 +36,7 @@ public class App_client extends Application {
 	public void stop(){
 		chat.GET_client().connectionClosed();//quit();
 		Platform.exit();
-		System.out.println("Sdas");
+		System.out.println("stopped");
 	}
 	public static void main(String[] args) {
 		launch(args);

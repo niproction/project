@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import common.DataPacket;
 import common.IncomingDataPacketHandler;
 import common.Question;
+import common.Teacher;
 import common.User;
 
 public class ServerDataPacketHandler implements IncomingDataPacketHandler {
@@ -42,7 +43,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
                 try {
                     stmt=con.createStatement();
                     
-                    ResultSet rs=stmt.executeQuery("SELECT * from users WHERE email='"+(String)( dataPacket.GET_Data_parameters().get(0))+"' AND password='"+(String)(dataPacket.GET_Data_parameters().get(1))+"'");
+                    ResultSet rs=stmt.executeQuery("SELECT * from users WHERE (username='"+(String)( dataPacket.GET_Data_parameters().get(0))+"' OR email='"+(String)( dataPacket.GET_Data_parameters().get(1))+"') AND password='"+(String)(dataPacket.GET_Data_parameters().get(2))+"'");
                     System.out.println(dataPacket.GET_Data_parameters().get(0)+"33333");
                     if(rs.next())
                     {
@@ -50,9 +51,25 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
                         System.out.println(rs.getString(2));
                         rs.getString(2);
                         rs.getString(3);
-                        rs.getString(4);
+                        ;
                         ArrayList<Object> arr = new ArrayList<Object>();
-                        User pass_user = new User( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  );
+                        Object pass_user=null;
+                        if(rs.getString(8).equals("student"))
+                        {
+                        	pass_user=null;
+                        	//Student pass_user = new Student( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  );
+                            
+                        }
+                        else if(rs.getString(8).equals("teacher"))
+                        {
+                        	pass_user = new Teacher( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1)), (String)(dataPacket.GET_Data_parameters().get(2)), (String)(dataPacket.GET_Data_parameters().get(3)), (String)(dataPacket.GET_Data_parameters().get(4))  );
+                        }
+                        else
+                        {
+                        	pass_user=null;
+                        	//Principal pass_user = new Teacher( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1)), (String)(dataPacket.GET_Data_parameters().get(2)), (String)(dataPacket.GET_Data_parameters().get(3)), (String)(dataPacket.GET_Data_parameters().get(4))  );
+                        }
+                        //User pass_user = new User( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  );
                         
                         arr.add(pass_user);
                         Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN, arr, "", true);    // create DataPacket that contains true to indicate that the user information is correct

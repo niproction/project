@@ -52,12 +52,12 @@ public class loginController implements Initializable {
 	private void logIn()
 	{
 		errorLable.setVisible(false);
-		String email=txtUserName.getText().toString();
+		String username_email=txtUserName.getText().toString();
 		String password=txtPassword.getText().toString();
 		ArrayList<Object> parameters = new ArrayList<Object>();
-		parameters.add(email);
+		parameters.add(username_email);
 		parameters.add(password);
-		System.out.println(parameters.get(0)+" "+parameters.get(1));
+		//System.out.println(parameters.get(0)+" "+parameters.get(1));
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGIN, parameters, null, true);
 		System.out.println("tring to send");
 

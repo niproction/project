@@ -304,6 +304,7 @@ public class serverGUI {
                 button_stop_server.setDisable(false);
                 
                 button_create_tables.setVisible(true);
+                button_create_tables.setDisable(false);
             }
             else{
                 App_server.mysqlCon.disconnetFromDB();
@@ -339,5 +340,6 @@ public class serverGUI {
     	initTables db = new initTables(App_server.mysqlCon.getCon());
     	db.createUsers();
     	db.createQuestions();
+    	button_create_tables.setDisable(true);
     }
 }

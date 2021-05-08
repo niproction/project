@@ -20,6 +20,9 @@ public class initTables {
                 + "	username varchar(25) NOT NULL,\n"
                 + "	password varchar(25) NOT NULL,\n"
                 + "	email varchar(25) NOT NULL,\n"
+                + "	firstName varchar(25) NOT NULL,\n"
+                + "	lastName varchar(25) NOT NULL,\n"
+                + "	ID varchar(25) NOT NULL,\n"
                 + "	roleType varchar(10) NOT NULL,\n"
                 + " PRIMARY KEY (uid));";
         
@@ -29,9 +32,9 @@ public class initTables {
             stmt.execute(sql);
             
             stmt=con.createStatement();
-			int rs=stmt.executeUpdate("INSERT INTO users (username, password, email, roleType) VALUES ('s', '1111', 's@g.com','student')");
-			rs=stmt.executeUpdate("INSERT INTO users (username, password, email, roleType) VALUES ('t', '1111', 't@g.com','teacher')");
-			rs=stmt.executeUpdate("INSERT INTO users (username, password, email, roleType) VALUES ('p', '1111', 'p@g.com','principle')");
+			int rs=stmt.executeUpdate("INSERT INTO users (username, password, email, firstName, LastName, ID, roleType) VALUES ('s', '1111', 's@g.com', 'tomer', 'levi', '212352534', 'student')");
+			rs=stmt.executeUpdate("INSERT INTO users (username, password, email, firstName, LastName, ID, roleType) VALUES ('t', '1111', 't@g.com', 'Aviv', 'Jibly', '', 'teacher')");
+			rs=stmt.executeUpdate("INSERT INTO users (username, password, email, firstName, LastName, ID, roleType) VALUES ('p', '1111', 'p@g.com', 'Elon', 'Musk', '', 'principle')");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
