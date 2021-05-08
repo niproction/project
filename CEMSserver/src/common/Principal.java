@@ -2,12 +2,12 @@ package common;
 
 import java.io.Serializable;
 
-public class Principle extends User implements Serializable {
+public class Principal extends User implements Serializable {
 	private Question[] questions;
 	private Exam[] exams;
 	
 	
-	public Principle(String username, String password, String email, String firstName, String lastName) {
+	public Principal(String username, String password, String email, String firstName, String lastName) {
 		super(username,password,email,firstName,lastName);
 		
 	}

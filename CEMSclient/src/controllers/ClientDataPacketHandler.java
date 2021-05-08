@@ -6,7 +6,7 @@ import common.IncomingDataPacketHandler;
 import javafx.stage.Stage;
 import common.Student;
 import common.Teacher;
-import common.Principle;
+import common.Principal;
 
 public class ClientDataPacketHandler implements IncomingDataPacketHandler {
     private DataPacket Responce_dataPacket;
@@ -53,9 +53,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
                 	App_client.user = (Teacher)(dataPacket.GET_Data_parameters().get(0));
                 	System.out.println("user setted to teacher");
                 }
-                else if(dataPacket.GET_Data_parameters().get(0) instanceof Principle)
+                else if(dataPacket.GET_Data_parameters().get(0) instanceof Principal)
                 {
-                	App_client.user = (Principle)(dataPacket.GET_Data_parameters().get(0));
+                	App_client.user = (Principal)(dataPacket.GET_Data_parameters().get(0));
                 	System.out.println("user setted to principle");
                 }else {}
                 
@@ -84,9 +84,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
                 {
                 	App_client.user = (Teacher)(dataPacket.GET_Data_parameters().get(0));
                 }
-                else if(dataPacket.GET_Data_parameters().get(0) instanceof Principle)
+                else if(dataPacket.GET_Data_parameters().get(0) instanceof Principal)
                 {
-                	App_client.user = (Principle)(dataPacket.GET_Data_parameters().get(0));
+                	App_client.user = (Principal)(dataPacket.GET_Data_parameters().get(0));
                 }else {}
                 
                 //App_client.user = (User)(dataPacket.GET_Data_parameters().get(0));

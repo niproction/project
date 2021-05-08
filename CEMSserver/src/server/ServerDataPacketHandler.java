@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import common.DataPacket;
 import common.IncomingDataPacketHandler;
-import common.Principle;
+import common.Principal;
 import common.Question;
 import common.Student;
 import common.Teacher;
@@ -60,21 +60,21 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
                         
                         if(roleType.equals("student"))
                         {
-                        	System.out.println("detected student");
+                        	System.out.println("detected student user");
                         	Student pass_user = new Student( rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)  );
                         	parameter.add(pass_user);
                         }
                         else if(roleType.equals("teacher"))
                         {
-                        	System.out.println("detected teacherrrr");
+                        	System.out.println("detected teacher user");
                         	Teacher pass_user = new Teacher( rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)  );
                         	parameter.add(pass_user);
                         	
                         }
                         else if(roleType.equals("principle"))
                         {
-                        	System.out.println("detected principle");
-                        	Principle pass_user = new Principle( rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)  );
+                        	System.out.println("detected principal user");
+                        	Principal pass_user = new Principal( rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)  );
                         	parameter.add(pass_user);
                         }
                         else

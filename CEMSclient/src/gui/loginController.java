@@ -36,7 +36,8 @@ public class loginController implements Initializable {
 	public void initialize(URL url,ResourceBundle rb)
 	{
 		errorLable.setVisible(false);
-		
+		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
+		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 	}
 
 	public void handleButtonAction(MouseEvent event) {
@@ -71,8 +72,11 @@ public class loginController implements Initializable {
 		if(App_client.user != null)
 		{
 			System.out.println("Sdasdasdasda");
+			
+			// make animation and than load next page
 			SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+			
 			SceneController.primaryStage.setMinWidth(800);
 			SceneController.primaryStage.setMinHeight(700);
 		}

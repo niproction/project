@@ -50,7 +50,7 @@
 						</Pane>
 						<Pane prefHeight="44.0" prefWidth="475.0">
 							<children>
-								<HBox prefHeight="30.0" prefWidth="367.0">
+								<HBox prefHeight="30.0" prefWidth="416.0">
 									<children>
 										<Label fx:id="label_bar_welcome" text="Label">
 											<font>

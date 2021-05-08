@@ -42,6 +42,7 @@ public class SceneController {
     public SceneController(AnchorPane rootContainer) {
         this.rootContainer = rootContainer;
     }
+  
     public SceneController(Stage primaryStage, Page sceenPage) {
         this.primaryStage = primaryStage;
         this.sceenPage = sceenPage;
@@ -62,8 +63,6 @@ public class SceneController {
         animation(false, animate);
     }
 
-    
-    
     
     
     

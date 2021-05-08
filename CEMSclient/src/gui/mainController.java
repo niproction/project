@@ -6,7 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import client.App_client;
-import common.Principle;
+import common.Principal;
 import common.Student;
 import common.Teacher;
 import controllers.PageProperties;
@@ -32,7 +32,7 @@ public class mainController {
 
 	@FXML // URL location of the FXML file that was given to the FXMLLoader
 	private URL location;
-	
+
 	@FXML // fx:id="button_menu"
 	private AnchorPane ap; // Value injected by FXMLLoader
 
@@ -43,71 +43,61 @@ public class mainController {
 	private Label label_bar_welcome;
 
 	@FXML
-    private Label label_bar_roletype;
-	
+	private Label label_bar_roletype;
+
 	@FXML
 	private BorderPane page_box;
-	
+
 	@FXML
 	private Pane box_left;
 	@FXML
 	private Pane box_right;
 
-	
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
-		
-		// FXMLLoader object = new SceneController();
-		// Pane screen = object.get();
-		// page_box.setCenter(button_menu);
-		
-		
+		// animate page on load
+		SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
+		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
+
 		ChangeListener<Number> listener = new ChangeListener<Number>() {
-            private Point2D stageSize = null ;
-            private Point2D previousStageSize = new Point2D(SceneController.primaryStage.getWidth(), SceneController.primaryStage.getHeight());
-            @Override
-            public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-                if (stageSize == null) {
-                    Platform.runLater(() -> {
-                        System.out.printf("Old: (%.1f, %.1f); new: (%.1f, %.1f)%n", 
-                                previousStageSize.getX(), previousStageSize.getY(), 
-                                stageSize.getX(), stageSize.getY());
-                        previousStageSize = stageSize;
-                        box_left.setMinSize((stageSize.getX()-800)/2, 100);
-                        box_right.setMinSize((stageSize.getX()-800)/2, 100);
-                        
-                        
-                        stageSize = null;
-                    });
-                     
-                }
-                stageSize = new Point2D(SceneController.primaryStage.getWidth(), SceneController.primaryStage.getHeight());                
-            }
-        };
+			private Point2D stageSize = null;
+			private Point2D previousStageSize = new Point2D(SceneController.primaryStage.getWidth(),
+					SceneController.primaryStage.getHeight());
 
-        SceneController.primaryStage.widthProperty().addListener(listener);
-        SceneController.primaryStage.heightProperty().addListener(listener);
+			@Override
+			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+				if (stageSize == null) {
+					Platform.runLater(() -> {
+						System.out.printf("Old: (%.1f, %.1f); new: (%.1f, %.1f)%n", previousStageSize.getX(),
+								previousStageSize.getY(), stageSize.getX(), stageSize.getY());
+						previousStageSize = stageSize;
+						box_left.setMinSize((stageSize.getX() - 800) / 2, 100);
+						box_right.setMinSize((stageSize.getX() - 800) / 2, 100);
 
-        
-        if(App_client.user instanceof Student)
-        {
-        	label_bar_welcome.setText("Welcome "+App_client.user.GET_firstName());
-        	label_bar_roletype.setText("(student)");
-        }
-        else if(App_client.user instanceof Teacher)
-        {
-        	label_bar_welcome.setText("Welcome "+App_client.user.GET_firstName());
-        	label_bar_roletype.setText("(teacher)");
-        }
-        else if(App_client.user instanceof Principle)
-        {
-        	label_bar_welcome.setText("Welcome "+App_client.user.GET_firstName());
-        	label_bar_roletype.setText("(principle)");
-        }
+						stageSize = null;
+					});
+
+				}
+				stageSize = new Point2D(SceneController.primaryStage.getWidth(),
+						SceneController.primaryStage.getHeight());
+			}
+		};
+
+		SceneController.primaryStage.widthProperty().addListener(listener);
+		SceneController.primaryStage.heightProperty().addListener(listener);
+
+		if (App_client.user instanceof Student) {
+			label_bar_welcome.setText("Welcome back" + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
+			label_bar_roletype.setText("(Student)");
+		} else if (App_client.user instanceof Teacher) {
+			label_bar_welcome.setText("Welcome back" + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
+			label_bar_roletype.setText("(Teacher)");
+		} else if (App_client.user instanceof Principal) {
+			label_bar_welcome.setText("Welcome back" + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
+			label_bar_roletype.setText("(Principal)");
+		}
 	}
-	
-	
-	
+
 	@FXML
 	void button_menu_clicked(MouseEvent event) {
 		System.out.println("clicked");
@@ -129,24 +119,24 @@ public class mainController {
 	void button_menu_exited(MouseEvent event) {
 		System.out.println("exited");
 	}
-	
-	
+
 	@FXML
-    void button_logout_clicked(MouseEvent event) {
+	void button_logout_clicked(MouseEvent event) {
+		App_client.user = null;
 
-    }
-
-    @FXML
-    void button_logout_entered(MouseEvent event) {
-
-    }
-
-    @FXML
-    void button_logout_exited(MouseEvent event) {
-    	App_client.user=null;
-    	SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
+		// make animation and than load page
+		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
-    }
-	
+	}
+
+	@FXML
+	void button_logout_entered(MouseEvent event) {
+
+	}
+
+	@FXML
+	void button_logout_exited(MouseEvent event) {
+
+	}
 
 }
