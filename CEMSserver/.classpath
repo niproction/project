@@ -6,5 +6,8 @@
 	<classpathentry kind="lib" path="src/mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="lib" path="mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="src" path="/OCSF"/>
+	<classpathentry kind="lib" path="C:/javafx-sdk-11.0.2/lib/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="C:/javafx-sdk-11.0.2/lib/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="C:/javafx-sdk-11.0.2/lib/javafx.graphics.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
