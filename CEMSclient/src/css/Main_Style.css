@@ -1,7 +1,23 @@
-.button{
+.menu-bar{
+	-fx-background-color: linear-gradient(to top,#42809C, #93DDFF);
+}
+.button-menu{
+	-fx-background-color:transparent;
+	-fx-background-image: url("../img/menu-icon.png");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 32 32;
+}
 
--fx-background-color:transparent;
--fx-background-image: url("../img/menu-icon.png");
--fx-background-repeat: stretch;   
--fx-background-size: 32 32;
+.button-menu:hover {
+    -fx-background-image: url("../img/menu-icon-hover.png");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 32 32;
+}
+
+.left{
+	-fx-background-color: #4dafdC;
+}
+
+.right{
+	-fx-background-color: #4dafdC;
 }

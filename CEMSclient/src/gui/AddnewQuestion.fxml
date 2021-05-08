@@ -9,9 +9,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.addNewQuestionController">
+<AnchorPane fx:id="ap" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.addNewQuestionController">
    <children>
-      <AnchorPane layoutY="-10.0" prefHeight="663.0" prefWidth="640.0">
+      <AnchorPane layoutY="-10.0" prefHeight="617.0" prefWidth="641.0">
          <children>
             <Label layoutX="86.0" layoutY="28.0" prefHeight="53.0" prefWidth="328.0" text="Add New Question">
                <font>
@@ -67,18 +67,8 @@
                </font>
             </Label>
             <TextField fx:id="answertxt" layoutX="184.0" layoutY="520.0" prefHeight="25.0" prefWidth="429.0" />
-            <Button fx:id="saveBtn" layoutX="185.0" layoutY="603.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" prefHeight="27.0" prefWidth="78.0" text="Save" />
-            <Button fx:id="clearBtn" layoutX="321.0" layoutY="603.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="78.0" text="Clear" />
-            <ImageView fitHeight="18.0" fitWidth="27.0" layoutX="328.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../Desktop/qems/clear.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="18.0" fitWidth="27.0" layoutX="193.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../Desktop/qems/save.png" />
-               </image>
-            </ImageView>
+            <Button fx:id="saveBtn" layoutX="184.0" layoutY="568.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" prefHeight="27.0" prefWidth="78.0" text="Save" />
+            <Button fx:id="clearBtn" layoutX="321.0" layoutY="568.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="78.0" text="Clear" />
          </children>
       </AnchorPane>
    </children>

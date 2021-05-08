@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import client.App_client;
 import common.DataPacket;
-import controllers.FxmlSceen;
+import controllers.PageProperties;
 import controllers.SceneController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -68,8 +68,10 @@ public class loginController implements Initializable {
 		if(App_client.user != null)
 		{
 			System.out.println("Sdasdasdasda");
-			SceneController sceen = new SceneController(FxmlSceen.HOME, ap);
+			SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+			SceneController.primaryStage.setMinWidth(800);
+			SceneController.primaryStage.setMinHeight(700);
 		}
 		else {
 			errorLable.setVisible(true);

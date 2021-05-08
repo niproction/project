@@ -1,8 +1,12 @@
 package controllers;
 
 import java.io.IOException;
+import java.net.URL;
 
-import controllers.FxmlSceen1.Animation;
+import javax.swing.text.View;
+
+import controllers.PageProperties.Animation;
+import controllers.PageProperties.Page;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,41 +14,43 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
 public class SceneController {
     public static Stage primaryStage;
-    private FxmlSceen sceenPage;
+    private Page sceenPage;
     private AnchorPane rootContainer; // the main container of the scene elements butons, box, checkbox and etc..
-
+    private static Pane view;
+    
+    
     public enum ANIMATE_ON{
         LOAD, UNLOAD
     };
 
 
+    
+    
+    
     /* ------------------- constractors -----------------------------------*/
     
-    public SceneController(FxmlSceen sceenPage) {
+    public SceneController(Page sceenPage) {
         this.sceenPage = sceenPage;
     }
     public SceneController(AnchorPane rootContainer) {
         this.rootContainer = rootContainer;
     }
-    public SceneController(Stage primaryStage, FxmlSceen sceenPage) {
+    public SceneController(Stage primaryStage, Page sceenPage) {
         this.primaryStage = primaryStage;
         this.sceenPage = sceenPage;
     }
 
-    public SceneController(FxmlSceen sceenPage, AnchorPane rootContainer) {
+    public SceneController(Page sceenPage, AnchorPane rootContainer) {
         this.sceenPage = sceenPage;
         this.rootContainer = rootContainer;
     }
-
-
-
-
 
     
     public void LoadSceen(ANIMATE_ON animate) {
@@ -56,7 +62,26 @@ public class SceneController {
         animation(false, animate);
     }
 
+    
+    
+    
+    
+    
 
+    public static Pane getPage(Page page) {
+    	try {
+    		URL file =	LoadInsidePage.class.getResource(page.GET_FxmlFile());
+    		if(file  == null) {
+    			throw new java.io.FileNotFoundException("file not found");
+    		}
+    		view = new FXMLLoader().load(file);
+    	}catch (Exception e) {
+			// TODO: handle exception
+    		System.out.println("No page found");
+		}
+    	
+    	return view;
+    }
 
 
     private void animation(boolean nextSceneload, ANIMATE_ON animate){

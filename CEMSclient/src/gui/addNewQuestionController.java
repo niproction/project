@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import client.App_client;
 import common.DataPacket;
-import controllers.FxmlSceen;
+import controllers.PageProperties;
 import controllers.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,12 +39,12 @@ public class addNewQuestionController {
 	@FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         //assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file 'Home.fxml'.";
-        sceen = new SceneController(FxmlSceen.ADD_NEW_QUESTION, ap);
+        sceen = new SceneController(PageProperties.Page.ADD_NEW_QUESTION, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
     }
 	public void handleOnAction(MouseEvent event) {
 		if(event.getSource()==backHomebtn) {
-			SceneController sceen = new SceneController(FxmlSceen.HOME, ap);
+			SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 		}
 		if(event.getSource()==saveBtn) {
@@ -71,7 +71,7 @@ public class addNewQuestionController {
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.ADD_NEW_QUESTION, parameters, null, true);
 		System.out.println("try create new question");
 		App_client.chat.accept(dataPacket);
-		SceneController sceen = new SceneController(FxmlSceen.HOME, ap);
+		SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 	}
 	

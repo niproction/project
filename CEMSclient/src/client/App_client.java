@@ -3,10 +3,13 @@ package client;
 	
 import common.User;
 import controllers.ClientController;
-import controllers.FxmlSceen;
+import controllers.PageProperties;
 import controllers.SceneController;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Point2D;
 import javafx.stage.Stage;
 
 public class App_client extends Application {
@@ -22,8 +25,11 @@ public class App_client extends Application {
 		SceneController.primaryStage = primaryStage;
 		chat= new ClientController("localhost", 5555);
 	
-		SceneController sceen = new SceneController(primaryStage, FxmlSceen.LOGIN);
+		SceneController sceen = new SceneController(primaryStage, PageProperties.Page.LOGIN);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.LOAD);
+		
+		//SceneController.primaryStage.setMinWidth(800);
+		//SceneController.primaryStage.setMinHeight(700);
 	}
 
 	@Override

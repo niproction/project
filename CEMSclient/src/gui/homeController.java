@@ -7,7 +7,7 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import controllers.FxmlSceen;
+import controllers.PageProperties;
 import controllers.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,16 +35,16 @@ public class homeController {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         //assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file 'Home.fxml'.";
-        sceen = new SceneController(FxmlSceen.HOME, ap);
+        sceen = new SceneController(PageProperties.Page.HOME, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
     }
     public void handleOnAction(MouseEvent event) {
     	if(event.getSource()==addNewQuestion) {
-    		SceneController sceen = new SceneController(FxmlSceen.ADD_NEW_QUESTION, ap);
+    		SceneController sceen = new SceneController(PageProperties.Page.ADD_NEW_QUESTION, ap);
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
     	}
     	else if(event.getSource()==logOutButton) {
-    		SceneController sceen = new SceneController(FxmlSceen.LOGIN, ap);
+    		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
     	}
     	else if(event.getSource()==exitButton) {
