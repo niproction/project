@@ -1,6 +1,4 @@
-.menu-bar{
-	-fx-background-color: linear-gradient(to top,#42809C, #93DDFF);
-}
+
 .button-menu{
 	-fx-background-color:transparent;
 	-fx-background-image: url("../img/menu-icon.png");
@@ -22,6 +20,13 @@
 	-fx-background-color: #4dafdC;
 }
 
+
+.menu{
+	-fx-background-color: linear-gradient(to top,#42809C, #93DDFF);
+}
+.menu:focused{
+	-fx-background-color: transparent;
+}
 .menu-item .label {
     -fx-text-fill: white;
 }
