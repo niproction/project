@@ -61,7 +61,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
             if(dataPacket.GET_result_boolean())
             {
                 System.out.println("user corrent");
-                //App_client.user = (user)(dataPacket.GET_Data_parameters().get(0));
+                App_client.user = (User)(dataPacket.GET_Data_parameters().get(0));
 
                 
                 //SceenController sceen = new SceenController(primaryStage, FxmlSceen.HOME, Lon);

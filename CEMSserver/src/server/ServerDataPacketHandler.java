@@ -42,7 +42,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
                 try {
                     stmt=con.createStatement();
                     
-                    ResultSet rs=stmt.executeQuery("SELECT * from admins1 WHERE email='"+(String)( dataPacket.GET_Data_parameters().get(0))+"' AND password='"+(String)(dataPacket.GET_Data_parameters().get(1))+"'");
+                    ResultSet rs=stmt.executeQuery("SELECT * from users WHERE email='"+(String)( dataPacket.GET_Data_parameters().get(0))+"' AND password='"+(String)(dataPacket.GET_Data_parameters().get(1))+"'");
                     System.out.println(dataPacket.GET_Data_parameters().get(0)+"33333");
                     if(rs.next())
                     {
