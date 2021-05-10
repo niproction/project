@@ -52,6 +52,9 @@
 .menu-item:focused .label {
     -fx-text-fill: blue;
 }
+.menu-left-box{
+	-fx-background-color: red;
+}
 
 .context-menu {
     -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";

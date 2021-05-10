@@ -32,14 +32,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
  
 
 	<children>
       <VBox prefHeight="700.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-      				<HBox maxHeight="54.0" minHeight="54.0" prefHeight="54.0" prefWidth="800.0" styleClass="menu-bar" stylesheets="@../css/Main_Style.css">
+      				<HBox maxHeight="54.0" minHeight="54.0" prefHeight="54.0" styleClass="menu-bar" stylesheets="@../css/Main_Style.css">
       					<children>
+                  <Pane fx:id="bar_left_box" minHeight="54.0" stylesheets="@../css/Main_Style.css" />
       						<Pane prefHeight="54.0" prefWidth="62.0">
       							<children>
       								<Button mnemonicParsing="false" onMouseClicked="#button_menu_clicked" onMouseEntered="#button_menu_enterd" onMouseExited="#button_menu_exited" prefHeight="32.0" prefWidth="32.0" styleClass="button-menu" stylesheets="@../css/Main_Style.css" />
@@ -74,21 +75,21 @@
       								<Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#button_logout_clicked" onMouseEntered="#button_logout_entered" onMouseExited="#button_logout_exited" prefHeight="32.0" prefWidth="32.0" styleClass="button-logout" stylesheets="@../css/Main_Style.css" />
       							</children>
       							<HBox.margin>
-      								<Insets left="200.0" top="10.0" />
+      								<Insets left="240.0" top="10.0" />
       							</HBox.margin>
       						</Pane>
       					</children>
       				</HBox>
             <HBox fx:id="page_container" prefHeight="648.0" prefWidth="800.0">
                <children>
-                  <AnchorPane fx:id="side_menu_box" minHeight="630.0" minWidth="0.0" />
-                  <Pane fx:id="menu_left_box" prefHeight="200.0" prefWidth="200.0" />
-                  <BorderPane fx:id="page_box" minHeight="640.0" minWidth="800.0" prefHeight="640.0" prefWidth="800.0">
+                  <AnchorPane fx:id="side_menu_box" maxWidth="0.0" minHeight="630.0" minWidth="0.0" prefWidth="0.0" />
+                  <Pane fx:id="menu_left_box" minWidth="40.0" styleClass="menu-left-box" stylesheets="@../css/Main_Style.css" />
+                  <BorderPane fx:id="page_box" minHeight="640.0" minWidth="800.0" prefHeight="640.0">
                      <right>
-            				<Pane fx:id="box_right" minWidth="0.0" prefWidth="0.0" styleClass="right" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
+            				<Pane fx:id="box_right" styleClass="right" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
                      </right>
                      <left>
-                        <Pane fx:id="box_left" minWidth="0.0" prefHeight="647.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
+                        <Pane fx:id="box_left" prefHeight="647.0" styleClass="left" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
                      </left>
                      <top>
                         <Pane minHeight="0.0" prefHeight="0.0" prefWidth="800.0" BorderPane.alignment="CENTER" />

@@ -54,10 +54,10 @@ public class mainController {
 	private Pane box_right;
 	
 	@FXML
-    private AnchorPane bar_left_box;
+    private Pane bar_left_box;
 
     @FXML
-    private AnchorPane bar_right_box;
+    private Pane bar_right_box;
 
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
@@ -80,8 +80,8 @@ public class mainController {
 						previousStageSize = stageSize;
 						box_left.setMinSize((stageSize.getX() - 800) / 2, 100);
 						box_right.setMinSize((stageSize.getX() - 800) / 2, 100);
-						bar_left_box.setMinSize((stageSize.getX() - 800) / 2, 100);
-						bar_right_box.setMinSize((stageSize.getX() - 800) / 2, 100);
+						bar_left_box.setMinSize((stageSize.getX() - 800) / 4, 100);
+						//bar_right_box.setMinSize((stageSize.getX() - 800) / 2, 100);
 						stageSize = null;
 					});
 
@@ -129,8 +129,8 @@ public class mainController {
 		// Pane screen = object.Sc();
 		page_box.setCenter(page);
 		System.out.println(page_box.getCenter());
-		SceneController.primaryStage.setMinWidth(800);
-		SceneController.primaryStage.setMinHeight(700);
+		//SceneController.primaryStage.setMinWidth(800);
+		//SceneController.primaryStage.setMinHeight(700);
 	}
 
 	@FXML
@@ -151,6 +151,8 @@ public class mainController {
 		// make animation and than load page
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+		SceneController.primaryStage.setMaxWidth(800);
+		SceneController.primaryStage.setMaxHeight(700);
 	}
 
 	@FXML

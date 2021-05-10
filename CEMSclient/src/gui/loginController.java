@@ -77,7 +77,7 @@ public class loginController implements Initializable {
 			SceneController sceen = new SceneController(PageProperties.Page.Main, ap);
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 			
-			SceneController.primaryStage.setMinWidth(800);
+			SceneController.primaryStage.setMinWidth(840);
 			SceneController.primaryStage.setMinHeight(700);
 		}
 		else {
