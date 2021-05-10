@@ -52,6 +52,13 @@ public class mainController {
 	private Pane box_left;
 	@FXML
 	private Pane box_right;
+	
+	@FXML
+    private AnchorPane bar_left_box;
+
+    @FXML
+    private AnchorPane bar_right_box;
+
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
@@ -73,7 +80,8 @@ public class mainController {
 						previousStageSize = stageSize;
 						box_left.setMinSize((stageSize.getX() - 800) / 2, 100);
 						box_right.setMinSize((stageSize.getX() - 800) / 2, 100);
-
+						bar_left_box.setMinSize((stageSize.getX() - 800) / 2, 100);
+						bar_right_box.setMinSize((stageSize.getX() - 800) / 2, 100);
 						stageSize = null;
 					});
 
@@ -87,16 +95,32 @@ public class mainController {
 		SceneController.primaryStage.heightProperty().addListener(listener);
 
 		if (App_client.user instanceof Student) {
-			label_bar_welcome.setText("Welcome back" + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
+			label_bar_welcome.setText("Welcome back, " + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
 			label_bar_roletype.setText("(Student)");
+			
+			//load Student home page
+			Pane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
+			page_box.setCenter(page);
+			
 		} else if (App_client.user instanceof Teacher) {
-			label_bar_welcome.setText("Welcome back" + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
+			label_bar_welcome.setText("Welcome back, " + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
 			label_bar_roletype.setText("(Teacher)");
+			
+			//load Teacher home page
+			Pane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
+			page_box.setCenter(page);
+			
 		} else if (App_client.user instanceof Principal) {
-			label_bar_welcome.setText("Welcome back" + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
+			label_bar_welcome.setText("Welcome back, " + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
 			label_bar_roletype.setText("(Principal)");
+			
+			//load Principal home page
+			Pane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
+			page_box.setCenter(page);
 		}
 	}
+	
+
 
 	@FXML
 	void button_menu_clicked(MouseEvent event) {

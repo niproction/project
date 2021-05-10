@@ -24,7 +24,7 @@ import ocsf.server.ConnectionToClient;
 public class CEMSServer extends AbstractServer {
 	// Class variables *************************************************
 	private serverGUI controller;
-	private ArrayList connected_users;
+	//private ArrayList<> connected_users;
 	final public static int DEFAULT_PORT = 5555;
 	private static boolean IsConnected = false;
 

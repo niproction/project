@@ -27,7 +27,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		HOME {
+		Main {
 			@Override
 			String GET_Title() {
 				return "HOME page";
@@ -48,6 +48,64 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		
+		//Student pages comes here
+		////////////////////////////////
+		
+		HomePage_Student {
+			@Override
+			String GET_Title() {
+				return "Student - home page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/Main.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+		
+		
+		
+		
+		
+		
+		//Teacher pages comes here
+		////////////////////////////////
+		HomePage_Teacher {
+			@Override
+			String GET_Title() {
+				return "Teacher - home page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/Main.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+		
+		
+		
+		
 		ADD_NEW_QUESTION {
 			@Override
 			String GET_Title() {
@@ -68,8 +126,42 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-		};
+			
+		},
+			
+			
+			
+		//Principal pages comes here
+		////////////////////////////////
+		HomePage_Principal {
+			@Override
+			String GET_Title() {
+				return "Principal - home page";
+			}
 
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/Main.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		}	
+			
+	
+			
+		;
+
+		
+		
+		
 		abstract String GET_Title();
 
 		abstract String GET_FxmlFile();
