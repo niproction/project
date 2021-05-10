@@ -21,7 +21,7 @@ public class loginController implements Initializable {
 	private AnchorPane ap;
 	@FXML
 	private Label lbl_close;
-	@FXML
+	@FXML	
 	private TextField txtUserName;
 	@FXML
 	private TextField txtPassword;
@@ -35,9 +35,14 @@ public class loginController implements Initializable {
 	@Override
 	public void initialize(URL url,ResourceBundle rb)
 	{
+		//set sizes
+		SceneController.primaryStage.setWidth(600);
+		SceneController.primaryStage.setHeight(500);
+		
 		errorLable.setVisible(false);
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
+		
 	}
 
 	public void handleButtonAction(MouseEvent event) {

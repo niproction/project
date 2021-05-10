@@ -13,7 +13,7 @@ import javafx.geometry.Point2D;
 import javafx.stage.Stage;
 
 public class App_client extends Application {
-	public static Stage primaryStage;
+	public static Stage primaryStage=null;
 	public static ClientController chat=null;
 	
 	public static User user=null;
@@ -28,14 +28,14 @@ public class App_client extends Application {
 		SceneController sceen = new SceneController(primaryStage, PageProperties.Page.LOGIN);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.LOAD);
 		
-		//SceneController.primaryStage.setMinWidth(800);
-		//SceneController.primaryStage.setMinHeight(700);
+		//SceneController.primaryStage.setMaxWidth(800);
+		//SceneController.primaryStage.setMaxHeight(700);
 	}
 
 	@Override
 	public void stop(){
 		chat.GET_client().connectionClosed();//quit();
-		Platform.exit();
+		//Platform.exit();
 		System.out.println("stopped");
 	}
 	public static void main(String[] args) {

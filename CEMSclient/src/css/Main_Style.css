@@ -52,7 +52,7 @@
 .menu-item:focused .label {
     -fx-text-fill: blue;
 }
-.menu-left-box{
+.menu-box{
 	-fx-background-color: red;
 }
 

@@ -49,6 +49,17 @@ public class mainController {
 	private BorderPane page_box;
 
 	@FXML
+	private AnchorPane box_left_of_menu;
+	
+	
+	@FXML
+	private AnchorPane menu_left_box;
+	
+	@FXML
+	private Pane menu_box;
+	
+	
+	@FXML
 	private Pane box_left;
 	@FXML
 	private Pane box_right;
@@ -62,6 +73,10 @@ public class mainController {
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
+		//set sizes
+		SceneController.primaryStage.setWidth(840);
+		SceneController.primaryStage.setHeight(700);
+		
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.Main, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
@@ -78,9 +93,10 @@ public class mainController {
 						System.out.printf("Old: (%.1f, %.1f); new: (%.1f, %.1f)%n", previousStageSize.getX(),
 								previousStageSize.getY(), stageSize.getX(), stageSize.getY());
 						previousStageSize = stageSize;
-						box_left.setMinSize((stageSize.getX() - 800) / 2, 100);
+						box_left.setMinSize((stageSize.getX() - 800) / 4, 100);
 						box_right.setMinSize((stageSize.getX() - 800) / 2, 100);
 						bar_left_box.setMinSize((stageSize.getX() - 800) / 4, 100);
+						box_left_of_menu.setMinSize((stageSize.getX() - 800) / 4, 100);
 						//bar_right_box.setMinSize((stageSize.getX() - 800) / 2, 100);
 						stageSize = null;
 					});
@@ -137,11 +153,17 @@ public class mainController {
 	void button_menu_enterd(MouseEvent event) {
 		System.out.println("entered");
 		// button_menu.
+		//SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
+		//sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+		menu_box.setMinWidth(40);
+		menu_box.setMinHeight(200);
 	}
 
 	@FXML
 	void button_menu_exited(MouseEvent event) {
 		System.out.println("exited");
+		menu_box.setMinWidth(0);
+		menu_box.setMinHeight(0);
 	}
 
 	@FXML
@@ -151,8 +173,7 @@ public class mainController {
 		// make animation and than load page
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
-		SceneController.primaryStage.setMaxWidth(800);
-		SceneController.primaryStage.setMaxHeight(700);
+
 	}
 
 	@FXML

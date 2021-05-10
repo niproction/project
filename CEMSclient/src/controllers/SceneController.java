@@ -25,6 +25,7 @@ public class SceneController {
     private AnchorPane rootContainer; // the main container of the scene elements butons, box, checkbox and etc..
     private static Pane view;
     
+    private Pane element;
     
     public enum ANIMATE_ON{
         LOAD, UNLOAD
@@ -52,7 +53,10 @@ public class SceneController {
         this.sceenPage = sceenPage;
         this.rootContainer = rootContainer;
     }
-
+    
+    public SceneController(Pane element) {
+        this.element = element;
+    }
     
     public void LoadSceen(ANIMATE_ON animate) {
         animation(true, animate);
@@ -63,6 +67,11 @@ public class SceneController {
         animation(false, animate);
     }
 
+    
+    public void AnimateElement(ANIMATE_ON animate)
+    {
+        animation(false, animate);
+    }
     
     
     
