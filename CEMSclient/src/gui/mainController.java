@@ -63,7 +63,7 @@ public class mainController {
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
 		// animate page on load
-		SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
+		SceneController sceen = new SceneController(PageProperties.Page.Main, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 
 		ChangeListener<Number> listener = new ChangeListener<Number>() {
@@ -99,7 +99,7 @@ public class mainController {
 			label_bar_roletype.setText("(Student)");
 			
 			//load Student home page
-			Pane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
+			Pane page = SceneController.getPage(PageProperties.Page.HomePage_Student);
 			page_box.setCenter(page);
 			
 		} else if (App_client.user instanceof Teacher) {
@@ -107,7 +107,7 @@ public class mainController {
 			label_bar_roletype.setText("(Teacher)");
 			
 			//load Teacher home page
-			Pane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
+			Pane page = SceneController.getPage(PageProperties.Page.HomePage_Teacher);
 			page_box.setCenter(page);
 			
 		} else if (App_client.user instanceof Principal) {
@@ -115,7 +115,7 @@ public class mainController {
 			label_bar_roletype.setText("(Principal)");
 			
 			//load Principal home page
-			Pane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
+			Pane page = SceneController.getPage(PageProperties.Page.HomePage_Principal);
 			page_box.setCenter(page);
 		}
 	}

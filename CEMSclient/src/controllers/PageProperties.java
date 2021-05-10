@@ -6,6 +6,10 @@ public class PageProperties {
 	}
 
 	public enum Page {
+		
+		// General screens
+		/////////////////////////////////////////////////////////////////////////////////
+		
 		LOGIN {
 			@Override
 			String GET_Title() {
@@ -27,6 +31,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		
 		Main {
 			@Override
 			String GET_Title() {
@@ -49,8 +54,11 @@ public class PageProperties {
 			}
 		},
 		
+		
+		
+		
 		//Student pages comes here
-		////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////
 		
 		HomePage_Student {
 			@Override
@@ -60,7 +68,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/Main.fxml";
+				return "../gui/StudentHomePage.fxml";
 			}
 
 			@Override
@@ -80,7 +88,8 @@ public class PageProperties {
 		
 		
 		//Teacher pages comes here
-		////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////
+		
 		HomePage_Teacher {
 			@Override
 			String GET_Title() {
@@ -89,7 +98,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/Main.fxml";
+				return "../gui/TeacherHomePage.fxml";
 			}
 
 			@Override
@@ -131,8 +140,11 @@ public class PageProperties {
 			
 			
 			
+		
+		
 		//Principal pages comes here
-		////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		
 		HomePage_Principal {
 			@Override
 			String GET_Title() {
@@ -141,7 +153,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/Main.fxml";
+				return "../gui/PrincipalHomePage.fxml";
 			}
 
 			@Override
