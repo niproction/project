@@ -169,6 +169,14 @@ public class mainController {
 		menu_box.setMinWidth(0);
 		menu_box.setMinHeight(0);
 	}
+	@FXML
+    void menu_exit(MouseEvent event) {
+		System.out.println("exited");
+		menu_box.setMinWidth(0);
+		menu_box.setMinHeight(0);
+    }
+
+	
 
 	@FXML
 	void button_logout_clicked(MouseEvent event) {

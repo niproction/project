@@ -84,7 +84,7 @@
                   <AnchorPane fx:id="box_left_of_menu" minHeight="630.0" minWidth="0.0" />
                   <AnchorPane fx:id="menu_left_box">
                      <children>
-                        <Pane fx:id="menu_box" minHeight="0.0" minWidth="0.0" onMouseEntered="#button_menu_enterd" onMouseExited="#button_menu_exited" styleClass="menu-box" stylesheets="@../css/Main_Style.css" />
+                        <Pane fx:id="menu_box" minHeight="0.0" minWidth="0.0" onMouseEntered="#button_menu_enterd" onMouseExited="#menu_exit" styleClass="menu-box" stylesheets="@../css/Main_Style.css" />
                      </children>
                   </AnchorPane>
                   <BorderPane fx:id="page_box" minHeight="640.0" minWidth="800.0" prefHeight="640.0">
