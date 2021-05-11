@@ -151,7 +151,7 @@ public class mainController {
 
 	@FXML
 	void button_menu_enterd(MouseEvent event) {
-		System.out.println("entered");
+		System.out.println("entered menu");
 		// button_menu.
 		//SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 		//sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
@@ -165,7 +165,7 @@ public class mainController {
 
 	@FXML
 	void button_menu_exited(MouseEvent event) {
-		System.out.println("exited");
+		System.out.println("exited menu btn");
 		menu_box.setMinWidth(0);
 		menu_box.setMinHeight(0);
 	}
@@ -174,6 +174,8 @@ public class mainController {
 		System.out.println("exited");
 		menu_box.setMinWidth(0);
 		menu_box.setMinHeight(0);
+		menu_box.setMaxWidth(0);
+		menu_box.setMaxHeight(0);
     }
 
 	
@@ -183,9 +185,10 @@ public class mainController {
 		App_client.user = null;
 
 		// make animation and than load page
-		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
-		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
-
+		//SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
+		//sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+		menu_box.setMinWidth(80);
+		menu_box.setMinHeight(200);
 	}
 
 	@FXML
