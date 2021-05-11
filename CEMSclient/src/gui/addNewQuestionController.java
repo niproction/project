@@ -44,7 +44,7 @@ public class addNewQuestionController {
     }
 	public void handleOnAction(MouseEvent event) {
 		if(event.getSource()==backHomebtn) {
-			SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
+			//SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 		}
 		if(event.getSource()==saveBtn) {

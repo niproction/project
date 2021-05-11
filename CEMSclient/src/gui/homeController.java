@@ -35,8 +35,8 @@ public class homeController {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         //assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file 'Home.fxml'.";
-        sceen = new SceneController(PageProperties.Page.HOME, ap);
-		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
+        //sceen = new SceneController(PageProperties.Page.HomePage_Student, ap);
+		//sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
     }
     public void handleOnAction(MouseEvent event) {
     	if(event.getSource()==addNewQuestion) {
