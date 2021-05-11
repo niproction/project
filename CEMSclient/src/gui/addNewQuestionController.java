@@ -71,7 +71,7 @@ public class addNewQuestionController {
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.ADD_NEW_QUESTION, parameters, null, true);
 		System.out.println("try create new question");
 		App_client.chat.accept(dataPacket);
-		SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
+		SceneController sceen = new SceneController(PageProperties.Page.HomePage_Teacher, ap);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 	}
 	
