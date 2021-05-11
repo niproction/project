@@ -18,6 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -69,6 +72,30 @@ public class mainController {
 
     @FXML
     private Pane bar_right_box;
+    @FXML
+    private MenuButton main_menu;
+    @FXML
+    private MenuItem displayStatisticalReport;
+    @FXML
+    private MenuItem checkRequest;
+    @FXML
+    private MenuItem information;
+    @FXML
+    private MenuItem createExam;
+    @FXML
+    private MenuItem setAxem;
+    @FXML
+    private MenuItem displayStatisticalReportTeacher;
+    @FXML
+    private MenuItem createQuestion;
+    @FXML
+    private MenuItem editQuestion;
+    @FXML
+    private MenuItem takeExam;
+    @FXML
+    private MenuItem historyOfExams;
+   
+    
 
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
@@ -76,7 +103,16 @@ public class mainController {
 		//set sizes
 		SceneController.primaryStage.setWidth(840);
 		SceneController.primaryStage.setHeight(700);
-		
+		displayStatisticalReport.setVisible(false);
+		checkRequest.setVisible(false);
+		information.setVisible(false);
+		createExam.setVisible(false);
+		setAxem.setVisible(false);
+		displayStatisticalReportTeacher.setVisible(false);
+		createQuestion.setVisible(false);
+		editQuestion.setVisible(false);
+		takeExam.setVisible(false);
+		historyOfExams.setVisible(false);
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.Main, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
@@ -111,6 +147,8 @@ public class mainController {
 		SceneController.primaryStage.heightProperty().addListener(listener);
 
 		if (App_client.user instanceof Student) {
+			takeExam.setVisible(true);
+			historyOfExams.setVisible(true);
 			label_bar_welcome.setText("Welcome back, " + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
 			label_bar_roletype.setText("(Student)");
 			
@@ -119,6 +157,11 @@ public class mainController {
 			page_box.setCenter(page);
 			
 		} else if (App_client.user instanceof Teacher) {
+			createExam.setVisible(true);
+			setAxem.setVisible(true);
+			displayStatisticalReportTeacher.setVisible(true);
+			createQuestion.setVisible(true);
+			editQuestion.setVisible(true);
 			label_bar_welcome.setText("Welcome back, " + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
 			label_bar_roletype.setText("(Teacher)");
 			
@@ -127,6 +170,9 @@ public class mainController {
 			page_box.setCenter(page);
 			
 		} else if (App_client.user instanceof Principal) {
+			displayStatisticalReport.setVisible(true);
+			checkRequest.setVisible(true);
+			information.setVisible(true);
 			label_bar_welcome.setText("Welcome back, " + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
 			label_bar_roletype.setText("(Principal)");
 			
@@ -185,8 +231,8 @@ public class mainController {
 		App_client.user = null;
 
 		// make animation and than load page
-		//SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
-		//sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
+		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 		menu_box.setMinWidth(80);
 		menu_box.setMinHeight(200);
 	}

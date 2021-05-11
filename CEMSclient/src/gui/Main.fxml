@@ -25,6 +25,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -32,7 +34,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
  
 
 	<children>
@@ -41,12 +43,25 @@
       				<HBox maxHeight="54.0" minHeight="54.0" prefHeight="54.0" styleClass="menu-bar" stylesheets="@../css/Main_Style.css">
       					<children>
       						<Pane prefHeight="54.0" prefWidth="62.0">
-      							<children>
-      								<Button mnemonicParsing="false" onMouseClicked="#button_menu_clicked" onMouseEntered="#button_menu_enterd" onMouseExited="#button_menu_exited" prefHeight="44.0" prefWidth="32.0" styleClass="button-menu" stylesheets="@../css/Main_Style.css" />
-      							</children>
       							<HBox.margin>
       								<Insets top="10.0" />
       							</HBox.margin>
+                     <children>
+                        <MenuButton fx:id="main_menu" layoutX="7.0" layoutY="2.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="47.0" styleClass="button-menu" stylesheets="@../css/Main_Style.css">
+                          <items>
+                            <MenuItem fx:id="displayStatisticalReport" mnemonicParsing="false" text="Display Statistical Report" />
+                            <MenuItem fx:id="checkRequest" mnemonicParsing="false" text="Check Requests" />
+                              <MenuItem fx:id="information" mnemonicParsing="false" text="Information" />
+                              <MenuItem fx:id="createExam" mnemonicParsing="false" text="Create Axem" />
+                              <MenuItem fx:id="setAxem" mnemonicParsing="false" text="Set Exam" />
+                              <MenuItem fx:id="displayStatisticalReportTeacher" mnemonicParsing="false" text="Display Statistical report" />
+                              <MenuItem fx:id="createQuestion" mnemonicParsing="false" text="create question" />
+                              <MenuItem fx:id="editQuestion" mnemonicParsing="false" text="Edit question" />
+                              <MenuItem fx:id="takeExam" mnemonicParsing="false" text="take exam" />
+                              <MenuItem fx:id="historyOfExams" mnemonicParsing="false" text="view history of exams" />
+                          </items>
+                        </MenuButton>
+                     </children>
       						</Pane>
       						<Pane prefHeight="44.0" prefWidth="475.0">
       							<children>
@@ -57,11 +72,11 @@
       												<Font size="20.0" />
       											</font>
       										</Label>
-      										<Label fx:id="label_bar_roletype" text="Label">
-      											<HBox.margin>
-      												<Insets left="15.0" top="8.0" />
-      											</HBox.margin>
-      										</Label>
+                              <Label fx:id="label_bar_roletype">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
       									</children>
       								</HBox>
       							</children>
@@ -71,7 +86,7 @@
       						</Pane>
       						<Pane prefHeight="44.0" prefWidth="32.0">
       							<children>
-      								<Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#button_logout_clicked" onMouseEntered="#button_logout_entered" onMouseExited="#button_logout_exited" prefHeight="32.0" prefWidth="32.0" styleClass="button-logout" stylesheets="@../css/Main_Style.css" />
+      								<Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#button_logout_clicked" onMouseEntered="#button_logout_entered" onMouseExited="#button_logout_exited" prefHeight="32.0" prefWidth="108.0" styleClass="button-logout" stylesheets="@../css/Main_Style.css" />
       							</children>
       							<HBox.margin>
       								<Insets left="240.0" top="10.0" />

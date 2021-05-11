@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -25,21 +24,11 @@
             <Font name="System Bold" size="50.0" />
          </font>
       </Text>
-      <Button layoutX="241.0" layoutY="139.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="331.0" text="History of exams">
+      <Button layoutX="407.0" layoutY="274.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="159.0" text="Take exam">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="235.0" layoutY="274.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="331.0" text="Take exam">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Button>
-      <TableView layoutX="241.0" layoutY="389.0" prefHeight="245.0" prefWidth="331.0">
-        <columns>
-          <TableColumn prefWidth="166.0" text="Course" />
-          <TableColumn prefWidth="164.0" text="Exam date" />
-        </columns>
-      </TableView>
+      <TextField layoutX="241.0" layoutY="274.0" prefHeight="46.0" prefWidth="149.0" promptText="Exam Password" />
    </children>
 </AnchorPane>
