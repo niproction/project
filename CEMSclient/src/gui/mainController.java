@@ -157,6 +157,10 @@ public class mainController {
 		//sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 		menu_box.setMinWidth(40);
 		menu_box.setMinHeight(200);
+		menu_box.setPrefWidth(40);
+		menu_box.setPrefHeight(200);
+		menu_box.setMaxWidth(40);
+		menu_box.setMaxHeight(200);
 	}
 
 	@FXML
