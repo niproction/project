@@ -1,4 +1,21 @@
-
+.logo{
+	-fx-background-color:transparent;
+	-fx-background-image: url("../img/logo.png");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 200 200;
+}
+.bg{
+	-fx-background-image: url("../img/bg.png");
+	-fx-background-color:#F4DCB7;
+	-fx-background-repeat: stretch;   
+	-fx-background-repeat: repeat ;   
+}
+.pages-bg{
+	
+	-fx-background-color:transparent;
+	-fx-background-repeat: stretch;   
+	-fx-background-repeat: repeat ;   
+}
 .button-menu{
 	-fx-background-color:transparent;
 	-fx-background-image: url("../img/menu-icon.png");
@@ -36,29 +53,37 @@
 
 
 .menu{
-	-fx-background-color: linear-gradient(to top,#42809C, #93DDFF);
+	-fx-background-color: linear-gradient(to top,#76A551, #99D46B);
 }
 .menu:focused{
 	-fx-background-color: transparent;
 }
+.menu-item {
+    -fx-padding: 0.2em 0.2em 0.2em 0.2em;
+    -fx-background: darkgray ;
+}
+
 .menu-item .label {
     -fx-text-fill: white;
+    -fx-font-size: 18.0 pt;
+    -fx-padding: 0.2em 0.2em 0.2em 0.2em;
 }
 
 .menu-item:focused {
-     -fx-background-color: darkgray;
+     -fx-background-color: #CA7CAD;
 }
 
 .menu-item:focused .label {
-    -fx-text-fill: blue;
-}
-.menu-box{
-	-fx-background-color: red;
+    -fx-text-fill: #7FFF00;
+    -fx-font-weight: bold; 
+    
 }
 
+
 .context-menu {
-    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
-    -fx-background-color: black;
+    
+    -fx-background-color: #7e4669;
+    
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
 /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */

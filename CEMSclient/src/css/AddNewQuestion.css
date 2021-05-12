@@ -1,0 +1,17 @@
+.logo{
+	-fx-background-color:transparent;
+	-fx-background-image: url("../img/logo.png");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 200 200;
+}
+.option{
+	-fx-background-color:transparent;
+	-fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4; 
+}
+.option:hover{
+	-fx-background-color:#6DFF2D;
+}
+
+.option-clicked{
+	-fx-background-color:#44D803;
+}

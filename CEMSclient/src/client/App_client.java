@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class App_client extends Application {
 	public static Stage primaryStage=null;
 	public static ClientController chat=null;
-	
+	 	
 	public static User user=null;
 	//public static user user=null;
 	//public static user user=null;

@@ -75,4 +75,79 @@ public class addNewQuestionController {
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	@FXML
+    void exithover_answer_1(MouseEvent event) {
+
+    }
+
+    @FXML
+    void exithover_answer_2(MouseEvent event) {
+
+    }
+
+    @FXML
+    void exithover_answer_3(MouseEvent event) {
+
+    }
+
+    @FXML
+    void exithover_answer_4(MouseEvent event) {
+
+    }
+
+   
+
+    @FXML
+    void hover_answer_1(MouseEvent event) {
+
+    }
+
+    @FXML
+    void hover_answer_2(MouseEvent event) {
+
+    }
+
+    @FXML
+    void hover_answer_3(MouseEvent event) {
+
+    }
+
+    @FXML
+    void hover_answer_4(MouseEvent event) {
+
+    }
+
+    @FXML
+    void set_correct_answer_1(MouseEvent event) {
+
+    }
+
+    @FXML
+    void set_correct_answer_2(MouseEvent event) {
+
+    }
+
+    @FXML
+    void set_correct_answer_3(MouseEvent event) {
+
+    }
+
+    @FXML
+    void set_correct_answer_4(MouseEvent event) {
+
+    }
+	
+	
+	
+	
+	
+	
 }
