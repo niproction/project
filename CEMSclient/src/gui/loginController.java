@@ -37,7 +37,7 @@ public class loginController implements Initializable {
 	{
 		//set sizes
 		SceneController.primaryStage.setWidth(400);
-		SceneController.primaryStage.setHeight(350);
+		SceneController.primaryStage.setHeight(400);
 		
 		errorLable.setVisible(false);
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);

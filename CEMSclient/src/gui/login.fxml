@@ -6,14 +6,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="350.0" maxWidth="400.0" minHeight="350.0" minWidth="400.0" styleClass="bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.loginController">
+<AnchorPane fx:id="ap" maxHeight="380.0" maxWidth="400.0" minHeight="380.0" minWidth="400.0" prefHeight="380.0" prefWidth="400.0" styleClass="bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.loginController">
    <children>
-      <ImageView fitHeight="102.0" fitWidth="159.0" layoutX="148.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="102.0" fitWidth="159.0" layoutX="151.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/logo.png" />
          </image>
@@ -23,12 +24,24 @@
             <Font name="System Italic" size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="txtUserName" layoutX="104.0" layoutY="157.0" prefHeight="25.0" prefWidth="192.0" promptText="username" />
-      <PasswordField fx:id="txtPassword" layoutX="104.0" layoutY="208.0" prefHeight="25.0" prefWidth="192.0" promptText="password" />
-      <Button fx:id="btnSignIn" layoutX="244.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" text="Sign in" />
-      <Hyperlink layoutX="104.0" layoutY="257.0" prefHeight="23.0" prefWidth="122.0" text="forgot password" />
-      <Label fx:id="lblErrors" alignment="CENTER" layoutX="104.0" layoutY="233.0" prefHeight="17.0" prefWidth="192.0" />
+      <TextField fx:id="txtUserName" layoutX="104.0" layoutY="159.0" prefHeight="25.0" prefWidth="192.0" promptText="username">
+         <effect>
+            <Reflection bottomOpacity="0.1" fraction="0.5" />
+         </effect>
+         <font>
+            <Font size="15.0" />
+         </font></TextField>
+      <PasswordField fx:id="txtPassword" layoutX="104.0" layoutY="220.0" prefHeight="25.0" prefWidth="192.0" promptText="password">
+         <effect>
+            <Reflection bottomOpacity="0.1" fraction="0.5" />
+         </effect>
+         <font>
+            <Font size="15.0" />
+         </font></PasswordField>
+      <Button fx:id="btnSignIn" layoutX="241.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" text="Sign in" />
+      <Hyperlink layoutX="104.0" layoutY="318.0" prefHeight="23.0" prefWidth="122.0" text="forgot password" />
+      <Label fx:id="lblErrors" alignment="CENTER" layoutX="104.0" layoutY="289.0" prefHeight="17.0" prefWidth="192.0" />
       <Accordion />
-      <Label fx:id="errorLable" alignment="CENTER" layoutX="104.0" layoutY="233.0" prefHeight="17.0" prefWidth="192.0" text="Wrong Username/Password" textFill="#f80b0b" />
+      <Label fx:id="errorLable" alignment="CENTER" layoutX="104.0" layoutY="289.0" prefHeight="17.0" prefWidth="192.0" text="Wrong Username/Password" textFill="#f80b0b" />
    </children>
 </AnchorPane>
