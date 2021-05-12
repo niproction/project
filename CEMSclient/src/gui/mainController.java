@@ -210,7 +210,13 @@ public class mainController {
 		//page_box.setCenter(page);
 		
 	}
-	
+	@FXML
+	void buttton_statistical_report(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
+		// Pane screen = object.Sc();
+		page_box.setCenter(page);
+		
+	}
 	
 
 	@FXML

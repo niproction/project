@@ -165,8 +165,30 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-		}	
+		},
+		
+		STATISTICAL_REPORTS {
+			@Override
+			String GET_Title() {
+				return "AddQuestion page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/statisticalReport.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
 			
+		}
 	
 			
 		;
