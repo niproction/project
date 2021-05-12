@@ -42,7 +42,7 @@
          <children>
             <VBox prefHeight="400.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <Pane minHeight="80.0" minWidth="600.0" onMouseClicked="#set_correct_answer_1" onMouseEntered="#hover_answer_1" onMouseExited="#exithover_answer_1" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
+                  <Pane fx:id="answer1" minHeight="80.0" minWidth="600.0" onMouseClicked="#set_correct_answer_1" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
                      <children>
                         <TextField fx:id="option4txt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
                         <Label layoutX="20.0" layoutY="20.0" text="Option 1.">
@@ -52,7 +52,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_2" onMouseEntered="#hover_answer_2" onMouseExited="#exithover_answer_2" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
+                  <Pane fx:id="answer2" minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_2" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
                      <children>
                         <TextField fx:id="questionInfotxt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
                         <Label layoutX="20.0" layoutY="20.0" text="Option 2.">
@@ -62,7 +62,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_3" onMouseEntered="#hover_answer_3" onMouseExited="#exithover_answer_3" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
+                  <Pane fx:id="answer3" minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_3" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
                      <children>
                         <TextField fx:id="option3txt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
                         <Label layoutX="20.0" layoutY="20.0" prefHeight="29.0" prefWidth="87.0" text="Option 3.">
@@ -72,7 +72,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_4" onMouseEntered="#hover_answer_4" onMouseExited="#exithover_answer_4" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
+                  <Pane fx:id="answer4" minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_4" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
                      <children>
                         <TextField fx:id="option1txt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
                         <Label layoutX="20.0" layoutY="20.0" text="Option 4.">
@@ -86,7 +86,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <TextArea layoutX="140.0" layoutY="117.0" prefHeight="80.0" prefWidth="500.0" />
+      <TextArea layoutX="140.0" layoutY="117.0" prefHeight="80.0" prefWidth="450.0" />
       <Label layoutX="681.0" layoutY="144.0" text="[number]">
          <font>
             <Font size="18.0" />

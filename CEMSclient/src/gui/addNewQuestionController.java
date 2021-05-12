@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 public class addNewQuestionController {
 		SceneController sceen;
@@ -32,6 +33,16 @@ public class addNewQuestionController {
 		private TextField option4txt;
 		@FXML
 		private TextField answertxt;
+		
+		@FXML
+		private Pane answer1;
+		@FXML
+		private Pane answer2;
+		@FXML
+		private Pane answer3;
+		@FXML
+		private Pane answer4;
+		
 		@FXML
 		private Button saveBtn;
 		@FXML
@@ -82,67 +93,46 @@ public class addNewQuestionController {
 	
 	
 	
-	
-	@FXML
-    void exithover_answer_1(MouseEvent event) {
-
-    }
-
-    @FXML
-    void exithover_answer_2(MouseEvent event) {
-
-    }
-
-    @FXML
-    void exithover_answer_3(MouseEvent event) {
-
-    }
-
-    @FXML
-    void exithover_answer_4(MouseEvent event) {
-
-    }
-
-   
-
-    @FXML
-    void hover_answer_1(MouseEvent event) {
-
-    }
-
-    @FXML
-    void hover_answer_2(MouseEvent event) {
-
-    }
-
-    @FXML
-    void hover_answer_3(MouseEvent event) {
-
-    }
-
-    @FXML
-    void hover_answer_4(MouseEvent event) {
-
-    }
 
     @FXML
     void set_correct_answer_1(MouseEvent event) {
-
+    	answer1.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
+    	answer2.getStyleClass().add("option");
+    	answer3.getStyleClass().add("option");
+    	answer4.getStyleClass().add("option");
     }
 
     @FXML
     void set_correct_answer_2(MouseEvent event) {
-
+    	answer2.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
+    	answer1.getStyleClass().clear();
+    	answer1.getStyleClass().add("option");
+    	answer3.getStyleClass().clear();
+    	answer3.getStyleClass().add("option");
+    	answer4.getStyleClass().clear();
+    	answer4.getStyleClass().add("option");
     }
 
     @FXML
     void set_correct_answer_3(MouseEvent event) {
-
+    	answer3.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
+    	answer1.getStyleClass().clear();
+    	answer1.getStyleClass().add("option");
+    	answer2.getStyleClass().clear();
+    	answer2.getStyleClass().add("option");
+    	answer4.getStyleClass().clear();
+    	answer4.getStyleClass().add("option");
     }
 
     @FXML
     void set_correct_answer_4(MouseEvent event) {
-
+    	answer4.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
+    	answer1.getStyleClass().clear();
+    	answer1.getStyleClass().add("option");
+    	answer2.getStyleClass().clear();
+    	answer2.getStyleClass().add("option");
+    	answer3.getStyleClass().clear();
+    	answer3.getStyleClass().add("option");
     }
 	
 	
