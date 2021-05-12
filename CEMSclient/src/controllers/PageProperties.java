@@ -55,7 +55,28 @@ public class PageProperties {
 		},
 		
 		
-		
+		STATISTICAL_REPORTS_BY {
+			@Override
+			String GET_Title() {
+				return "AddQuestion page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/statisticalReportBy.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+			
+		},
 		
 		//Student pages comes here
 		///////////////////////////////////////////////////////////////////////////////////////////

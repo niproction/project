@@ -229,7 +229,13 @@ public class mainController {
 		//SceneController.primaryStage.setMinWidth(800);
 		//SceneController.primaryStage.setMinHeight(700);
 	}
+	@FXML
+	void button_statisticalreportby(ActionEvent event) {
+		System.out.println("clicked");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.STATISTICAL_REPORTS_BY);
+		page_box.setCenter(page);
 
+	}
 	
 
 	@FXML

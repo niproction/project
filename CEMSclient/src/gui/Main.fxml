@@ -54,7 +54,7 @@
                               <MenuItem fx:id="displayStatisticalReportTeacher" mnemonicParsing="false" onAction="#buttton_statistical_report" text="Display Statistical report" />
                               <MenuItem fx:id="createQuestion" mnemonicParsing="false" onAction="#button_add_new_question_clicked" text="create question" />
                               <MenuItem fx:id="editQuestion" mnemonicParsing="false" text="Edit question" />
-                              <MenuItem fx:id="takeExam" mnemonicParsing="false" text="take exam" />
+                              <MenuItem fx:id="takeExam" mnemonicParsing="false" onAction="#button_statisticalreportby" text="take exam" />
                               <MenuItem fx:id="historyOfExams" mnemonicParsing="false" text="view history of exams" />
                           </items>
                         </MenuButton>
