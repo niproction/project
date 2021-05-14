@@ -164,7 +164,7 @@ public class mainController {
 			SceneController.primaryStage.setTitle("Cems: Student - home page");
 			takeExam.setVisible(true);
 			historyOfExams.setVisible(true);
-			label_bar_welcome.setText("Welcome back, " + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
+			label_bar_welcome.setText("Welcome back, " + App_client.user.getFirstName()+" "+App_client.user.getLastName());
 			label_bar_roletype.setText("(Student)");
 			
 			//load Student home page
@@ -178,7 +178,7 @@ public class mainController {
 			displayStatisticalReportTeacher.setVisible(true);
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
-			label_bar_welcome.setText("Welcome back, " + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
+			label_bar_welcome.setText("Welcome back, " + App_client.user.getFirstName()+" "+App_client.user.getLastName());
 			label_bar_roletype.setText("(Teacher)");
 			
 			//load Teacher home page
@@ -190,7 +190,7 @@ public class mainController {
 			displayStatisticalReport.setVisible(true);
 			checkRequest.setVisible(true);
 			information.setVisible(true);
-			label_bar_welcome.setText("Welcome back, " + App_client.user.GET_firstName()+" "+App_client.user.GET_lastName());
+			label_bar_welcome.setText("Welcome back, " + App_client.user.getFirstName()+" "+App_client.user.getLastName());
 			label_bar_roletype.setText("(Principal)");
 			
 			//load Principal home page

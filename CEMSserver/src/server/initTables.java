@@ -43,13 +43,14 @@ public class initTables {
 	public void createQuestions()
 	{
 		String sql = "CREATE TABLE IF NOT EXISTS questions (\n"
-                + "	qid INT NOT NULL AUTO_INCREMENT,\n"
+                + "	qid VARCHAR(8) NOT NULL,\n"
                 + "	question text NOT NULL,\n"
                 + "	option1 text NOT NULL,\n"
                 + "	option2 text NOT NULL,\n"
                 + "	option3 text NOT NULL,\n"
                 + "	option4 text NOT NULL,\n"
                 + "	answer INT NOT NULL,\n"
+                + " author text NOT NULL,\n"
                 + " PRIMARY KEY (qid));";
         
         try {
@@ -59,18 +60,20 @@ public class initTables {
             
             stmt=con.createStatement();
 			//int rs=stmt.executeUpdate("INSERT INTO questions (question, option1, option2, option3, option4, answer) VALUES ('Is it true?', 'Yes', 'No','I don\'t know', 'Maybe', 3)");
-			String myStatement = " INSERT INTO questions (question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?)";
+			String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, author) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement statement= con.prepareStatement   (myStatement );
-			statement.setString(1,"Is it true?");
-			statement.setString(2,"Yes");
-			statement.setString(3,"No");
-			statement.setString(4,"I don't know");
-			statement.setString(5,"Maybe");
-			statement.setInt(6,3);
+			statement.setString(1, "02000");
+			statement.setString(2,"Is it true?");
+			statement.setString(3,"Yes");
+			statement.setString(4,"No");
+			statement.setString(5,"I don't know");
+			statement.setString(6,"Maybe");
+			statement.setInt(7,2);
+			statement.setString(8, "Mira Cohen");
 			statement.executeUpdate();
 			
 			
-			myStatement = " INSERT INTO questions (question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?)";
+			/*myStatement = " INSERT INTO questions (question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?)";
 			statement= con.prepareStatement   (myStatement );
 			statement.setString(1,"Is it true?, again");
 			statement.setString(2,"Yes");
@@ -78,7 +81,7 @@ public class initTables {
 			statement.setString(4,"I don't know");
 			statement.setString(5,"Maybe");
 			statement.setInt(6,2);
-			statement.executeUpdate();
+			statement.executeUpdate();*/
 			
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="640.0" maxWidth="840.0" minHeight="640.0" minWidth="840.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.addNewQuestionController">
+<AnchorPane fx:id="ap" maxHeight="640.0" maxWidth="840.0" minHeight="640.0" minWidth="840.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.addNewQuestionController">
    <children>
       <Label layoutX="105.0" layoutY="21.0" prefHeight="53.0" prefWidth="328.0" text="Add New Question">
          <font>
@@ -26,25 +26,20 @@
          </image>
       </ImageView>
       <Line endX="840.0" endY="92.0" startX="-1.52587890625E-5" startY="92.0" />
-      <Label layoutX="677.0" layoutY="117.0" text="Question ID:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
       <Label layoutX="29.0" layoutY="117.0" text="Question:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <Button fx:id="saveBtn" layoutX="717.0" layoutY="550.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" prefHeight="27.0" prefWidth="78.0" text="Add" />
-      <Button fx:id="clearBtn" layoutX="707.0" layoutY="595.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="99.0" text="Clear inputs" />
+      <Button fx:id="clearBtn" layoutX="707.0" layoutY="595.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" prefHeight="27.0" prefWidth="99.0" text="Clear inputs" />
       <AnchorPane layoutX="16.0" layoutY="222.0" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="600.0">
          <children>
             <VBox prefHeight="400.0" prefWidth="600.0" spacing="20.0">
                <children>
                   <Pane fx:id="answer1" minHeight="80.0" minWidth="600.0" onMouseClicked="#set_correct_answer_1" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
                      <children>
-                        <TextField fx:id="option4txt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
+                        <TextField fx:id="option1txt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
                         <Label layoutX="20.0" layoutY="20.0" text="Option 1.">
                            <font>
                               <Font size="18.0" />
@@ -54,7 +49,7 @@
                   </Pane>
                   <Pane fx:id="answer2" minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_2" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
                      <children>
-                        <TextField fx:id="questionInfotxt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
+                        <TextField fx:id="option2txt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
                         <Label layoutX="20.0" layoutY="20.0" text="Option 2.">
                            <font>
                               <Font size="18.0" />
@@ -74,7 +69,7 @@
                   </Pane>
                   <Pane fx:id="answer4" minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_4" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
                      <children>
-                        <TextField fx:id="option1txt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
+                        <TextField fx:id="option4txt" layoutX="125.0" layoutY="20.0" prefHeight="30.0" prefWidth="450.0" />
                         <Label layoutX="20.0" layoutY="20.0" text="Option 4.">
                            <font>
                               <Font size="18.0" />
@@ -86,14 +81,9 @@
             </VBox>
          </children>
       </AnchorPane>
-      <TextArea layoutX="140.0" layoutY="117.0" prefHeight="80.0" prefWidth="450.0" />
-      <Label layoutX="681.0" layoutY="144.0" text="[number]">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <ChoiceBox layoutX="672.0" layoutY="236.0" prefHeight="25.0" prefWidth="135.0" />
-      <Label layoutX="675.0" layoutY="209.0" text="Choose field:">
+      <TextArea fx:id="questionInfotxt" layoutX="140.0" layoutY="117.0" prefHeight="80.0" prefWidth="450.0" />
+      <ChoiceBox fx:id="fieldBox" layoutX="671.0" layoutY="145.0" prefHeight="25.0" prefWidth="135.0" />
+      <Label layoutX="674.0" layoutY="118.0" text="Choose field:">
          <font>
             <Font size="18.0" />
          </font>
@@ -103,5 +93,20 @@
             <Image url="@../img/logo.png" />
          </image>
       </ImageView>
+      <Label fx:id="answerErrorLbl" layoutX="631.0" layoutY="513.0" text="error" textFill="#f40909">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="685.0" layoutY="219.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="seccessLabel" layoutX="641.0" layoutY="523.0" text="Question has been added!" textFill="#0af254">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

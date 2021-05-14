@@ -77,6 +77,7 @@ public class SceneController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("No page found");
+			e.printStackTrace();
 		}
 
 		return view;

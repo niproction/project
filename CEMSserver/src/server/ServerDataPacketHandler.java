@@ -1,6 +1,7 @@
 package server;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -96,20 +97,34 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
             else
                 System.out.println("not instance of");
             
-            return Responce_dataPacket;
         }
         else if( dataPacket.GET_Request() == DataPacket.Request.ADD_NEW_QUESTION) {
-        	Statement stmt;
+        	Statement stmt2;
+        	
+        	Question question=(Question) dataPacket.GET_Data_parameters().get(0);
         	try {
-				stmt=con.createStatement();
-				int rs=stmt.executeUpdate("INSERT INTO questions (ID,info,option1,option2,option3,option4,answer) VALUES ('"+Integer.parseInt((String)( dataPacket.GET_Data_parameters().get(0)))+"','"+(String)( dataPacket.GET_Data_parameters().get(1))+"','"+
-						(String)( dataPacket.GET_Data_parameters().get(2))+"','"+(String)( dataPacket.GET_Data_parameters().get(3))+"','"+(String)( dataPacket.GET_Data_parameters().get(4))+"','"+(String)( dataPacket.GET_Data_parameters().get(5))+"','"+
-						(String)( dataPacket.GET_Data_parameters().get(6))+"') ");
-				
+				stmt2=con.createStatement();
+				String query = "select count(*) from questions";
+			      //Executing the query
+			      ResultSet rs2 = stmt2.executeQuery(query);
+			      //Retrieving the result
+			      rs2.next();
+			      int count = rs2.getInt(1);
+			      count++;
+				String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, author) VALUES (?,?,?,?,?,?,?,?)";
+				PreparedStatement statement= con.prepareStatement   (myStatement );
+				statement.setString(1, question.getId()+count);
+				statement.setString(2,question.getInfo());
+				statement.setString(3,question.getOption1());
+				statement.setString(4,question.getOption2());
+				statement.setString(5,question.getOption3());
+				statement.setString(6,question.getOption4());
+				statement.setString(7,question.getAnswer());
+				statement.setString(8, ((User)dataPacket.GET_Data_parameters().get(1)).getFirstName()+" "+((User)dataPacket.GET_Data_parameters().get(1)).getLastName());
+				statement.executeUpdate();
 				System.out.println("question has been saved");
-				ArrayList<Object> arr = new ArrayList<Object>();
-				 arr.add(new Question( (String)(dataPacket.GET_Data_parameters().get(0)), (String)(dataPacket.GET_Data_parameters().get(1))  ));
-                 Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.ADD_NEW_QUESTION, arr, "", true);    // create DataPacket that contains true to indicate that the user information is correct
+				
+                 Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.ADD_NEW_QUESTION, null, "", true);    // create DataPacket that contains true to indicate that the user information is correct
 				
 				
 			} catch (SQLException e) {
@@ -117,7 +132,6 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			}
         }
   
-
 
         return Responce_dataPacket;
     }
