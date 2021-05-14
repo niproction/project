@@ -36,8 +36,10 @@ public class loginController implements Initializable {
 	public void initialize(URL url,ResourceBundle rb)
 	{
 		//set sizes
+		SceneController.primaryStage.setMinWidth(400);
+		SceneController.primaryStage.setMinHeight(405);
 		SceneController.primaryStage.setWidth(400);
-		SceneController.primaryStage.setHeight(400);
+		SceneController.primaryStage.setHeight(405);
 		
 		errorLable.setVisible(false);
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);

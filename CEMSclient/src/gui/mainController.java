@@ -168,7 +168,7 @@ public class mainController {
 			label_bar_roletype.setText("(Student)");
 			
 			//load Student home page
-			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Student);
+			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
 			page_box.setCenter(page);
 			
 		} else if (App_client.user instanceof Teacher) {
@@ -182,7 +182,7 @@ public class mainController {
 			label_bar_roletype.setText("(Teacher)");
 			
 			//load Teacher home page
-			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Teacher);
+			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
 			page_box.setCenter(page);
 			
 		} else if (App_client.user instanceof Principal) {
@@ -194,7 +194,7 @@ public class mainController {
 			label_bar_roletype.setText("(Principal)");
 			
 			//load Principal home page
-			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Principal);
+			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
 			page_box.setCenter(page);
 		}
 	}
@@ -237,6 +237,12 @@ public class mainController {
 
 	}
 	
+	@FXML
+	void button_create_exam(ActionEvent event) {
+		System.out.println("clicked");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
+		page_box.setCenter(page);
+	}
 
 	@FXML
 	void button_logout_clicked(MouseEvent event) {

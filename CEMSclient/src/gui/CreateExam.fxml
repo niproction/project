@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -11,72 +12,71 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="800.0" prefHeight="592.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.10317460317460317" layoutY="80.0" orientation="VERTICAL" prefHeight="573.0" prefWidth="802.0">
+      <SplitPane dividerPositions="0.10317460317460317" layoutY="80.0" orientation="VERTICAL" prefHeight="573.0" prefWidth="802.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css">
          <items>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="88.0" minWidth="800.0" prefHeight="88.0" prefWidth="800.0">
                <children>
-                  <Text layoutX="70.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Course:" textAlignment="CENTER" wrappingWidth="117.0">
+                  <Text layoutX="362.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Course:" textAlignment="CENTER" wrappingWidth="117.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ChoiceBox layoutX="220.0" layoutY="31.0" prefWidth="150.0" />
+                  <ChoiceBox layoutX="512.0" layoutY="31.0" prefWidth="150.0" />
+                  <Text layoutX="28.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Field:" textAlignment="CENTER" wrappingWidth="117.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox layoutX="178.0" layoutY="31.0" prefWidth="150.0" />
                </children>
             </AnchorPane>
-            <AnchorPane minWidth="800.0" prefWidth="800.0">
+            <AnchorPane minWidth="800.0" prefHeight="551.0" prefWidth="896.0">
                <children>
-                  <Text layoutX="70.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question 1:" wrappingWidth="92.0">
+                  <Text layoutX="70.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question:" wrappingWidth="92.0">
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <Text layoutX="70.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question 2:" wrappingWidth="92.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Text>
-                  <Text layoutX="70.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question 3:" wrappingWidth="92.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Text>
-                  <ChoiceBox layoutX="180.0" layoutY="30.0" prefHeight="25.0" prefWidth="238.0" />
-                  <ChoiceBox layoutX="180.0" layoutY="90.0" prefHeight="25.0" prefWidth="238.0" />
-                  <ChoiceBox layoutX="180.0" layoutY="150.0" prefHeight="25.0" prefWidth="238.0" />
-                  <Text layoutX="635.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="points:" wrappingWidth="47.13671875">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Text>
+                  <ChoiceBox layoutX="180.0" layoutY="30.0" prefHeight="25.0" prefWidth="412.0" />
                   <Text layoutX="635.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="points:" wrappingWidth="47.13671875">
                      <font>
                         <Font size="14.0" />
                      </font></Text>
-                  <Text layoutX="635.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="points:" wrappingWidth="47.13671875">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Text>
-                  <TextField layoutX="682.0" layoutY="150.0" prefHeight="25.0" prefWidth="41.0" />
                   <TextField layoutX="682.0" layoutY="30.0" prefHeight="25.0" prefWidth="41.0" />
-                  <TextField layoutX="682.0" layoutY="90.0" prefHeight="25.0" prefWidth="41.0" />
-                  <Button layoutX="450.0" layoutY="30.0" mnemonicParsing="false" text="Show Answers" />
-                  <Button layoutX="450.0" layoutY="90.0" mnemonicParsing="false" text="Show Answers" />
-                  <Button layoutX="450.0" layoutY="150.0" mnemonicParsing="false" text="Show Answers" />
-                  <Button layoutX="180.0" layoutY="280.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Add Question">
+                  <Button layoutX="324.0" layoutY="313.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Add Question">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
                   <ScrollBar layoutX="779.0" layoutY="8.0" orientation="VERTICAL" prefHeight="335.0" prefWidth="14.0" />
                   <AnchorPane layoutY="343.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100.0" minWidth="800.0" prefHeight="100.0" prefWidth="800.0">
                      <children>
-                        <Text layoutX="414.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sum of points:" wrappingWidth="92.0">
+                        <Text layoutX="414.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sum of points:" wrappingWidth="92.0">
                            <font>
                               <Font size="14.0" />
                            </font></Text>
-                        <TextField layoutX="514.0" layoutY="33.0" prefHeight="25.0" prefWidth="75.0" />
-                        <Button layoutX="671.0" layoutY="35.0" mnemonicParsing="false" text="SUBMIT">
+                        <Button layoutX="671.0" layoutY="62.0" mnemonicParsing="false" text="SUBMIT">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
+                        <Text layoutX="515.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100" wrappingWidth="47.13671875">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
+                  <TextArea layoutX="178.0" layoutY="78.0" prefHeight="81.0" prefWidth="412.0" />
+                  <Text layoutX="68.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comments for teacher:" wrappingWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <TextArea layoutX="178.0" layoutY="192.0" prefHeight="81.0" prefWidth="412.0" />
+                  <Text layoutX="68.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comments for students:" wrappingWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
          </items>

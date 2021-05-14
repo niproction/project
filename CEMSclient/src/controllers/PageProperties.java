@@ -54,7 +54,27 @@ public class PageProperties {
 			}
 		},
 		
-		
+		TEMP {
+			@Override
+			String GET_Title() {
+				return "Login page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/temp.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 		STATISTICAL_REPORTS_BY {
 			@Override
 			String GET_Title() {
@@ -158,7 +178,27 @@ public class PageProperties {
 			}
 			
 		},
-			
+		CREATE_EXAM {
+			@Override
+			String GET_Title() {
+				return "Login page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/CreateExam.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 			
 			
 		
