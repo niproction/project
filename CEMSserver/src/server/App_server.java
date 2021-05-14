@@ -27,9 +27,8 @@ public class App_server extends Application {
 
     @Override
 	public void stop(){
-		
-		System.exit(0);
 		System.out.println("stopped");
+		System.exit(0);
 	}
 	public static void main(String[] args) {
 		launch(args);

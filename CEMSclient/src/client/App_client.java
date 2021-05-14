@@ -35,8 +35,8 @@ public class App_client extends Application {
 	@Override
 	public void stop(){
 		chat.GET_client().connectionClosed();//quit();
-		//Platform.exit();
 		System.out.println("stopped");
+		System.exit(0);
 	}
 	public static void main(String[] args) {
 		launch(args);
