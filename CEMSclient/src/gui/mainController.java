@@ -211,6 +211,17 @@ public class mainController {
 		
 	}
 	@FXML
+	void button_edit_question_clicked(ActionEvent event) {
+		System.out.println("clicked");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.EDIT_QUESTION);
+		// Pane screen = object.Sc();
+		page_box.setCenter(page);
+		
+		//page_box.setCenter(page);
+	}
+		
+	
+	@FXML
 	void buttton_statistical_report(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.STATISTICAL_REPORTS);
 		// Pane screen = object.Sc();

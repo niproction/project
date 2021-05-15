@@ -1,6 +1,7 @@
 package client;	
 
 	
+import common.Question;
 import common.User;
 import controllers.ClientController;
 import controllers.PageProperties;
@@ -17,6 +18,7 @@ public class App_client extends Application {
 	public static ClientController chat=null;
 	 
 	public static User user=null;
+	public static Question Question=null;
 	//public static user user=null;
 	//public static user user=null;
 

@@ -33,7 +33,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="700.0" maxWidth="840.0" minHeight="700.0" minWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
+<AnchorPane fx:id="ap" maxHeight="700.0" maxWidth="840.0" minHeight="700.0" minWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
  
 
 	<children>
@@ -53,7 +53,7 @@
                               <MenuItem fx:id="setAxem" mnemonicParsing="false" text="Set Exam" />
                               <MenuItem fx:id="displayStatisticalReportTeacher" mnemonicParsing="false" onAction="#buttton_statistical_report" text="Display Statistical report" />
                               <MenuItem fx:id="createQuestion" mnemonicParsing="false" onAction="#button_add_new_question_clicked" text="Create question" />
-                              <MenuItem fx:id="editQuestion" mnemonicParsing="false" text="Edit question" />
+                              <MenuItem fx:id="editQuestion" mnemonicParsing="false" onAction="#button_edit_question_clicked" text="Edit question" />
                               <MenuItem fx:id="takeExam" mnemonicParsing="false" onAction="#button_statisticalreportby" text="Take exam" />
                               <MenuItem fx:id="historyOfExams" mnemonicParsing="false" text="View history of exams" />
                           </items>
