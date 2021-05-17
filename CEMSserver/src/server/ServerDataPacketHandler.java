@@ -95,11 +95,13 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		} else if (dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION) {
 			System.out.println("get questionnnnn");
 			String questionID = (String) dataPacket.GET_Data_parameters().get(0);
+			User user=(User)dataPacket.GET_Data_parameters().get(1);
 			Statement stmt;
 			try {
 				stmt = con.createStatement();
 
-				ResultSet rs = stmt.executeQuery("SELECT * from questions WHERE (qid='" + questionID + "')");
+				ResultSet rs = stmt.executeQuery("SELECT * from questions WHERE (qid='" + questionID + "') "
+						+ "AND (author= '"+user.getFirstName()+" "+user.getLastName()+"')");
 				System.out.println(questionID + "< looking for in in DB");
 				if (rs.next()) {
 
