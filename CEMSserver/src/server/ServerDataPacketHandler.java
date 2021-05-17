@@ -121,6 +121,9 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION,
 							parameter, "", true);
 				}
+				else
+					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION, null,
+							"", true);
 			} catch (Exception e) {
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION, null,
 						"", true);
@@ -128,11 +131,12 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 		} else if (dataPacket.GET_Request() == DataPacket.Request.EDIT_QUESTION) {
 			ArrayList<Object> parameters = new ArrayList<>();
+			System.out.println("got into edit question");
 			Question question = (Question) dataPacket.GET_Data_parameters().get(0);
 			PreparedStatement ps;
 			try {
 				ps = con.prepareStatement(
-						"update questions set qid=?,question=?,option1=?,option2=?,option3=?,option4=?,answer=?,author=? where qid =?)");
+						"update questions set qid=?,question=?,option1=?,option2=?,option3=?,option4=?,answer=?,author=? where qid =?");
 
 				ps.setString(1, question.getId());
 				ps.setString(2, question.getInfo());
@@ -170,7 +174,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				count++;
 				String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, author) VALUES (?,?,?,?,?,?,?,?)";
 				PreparedStatement statement = con.prepareStatement(myStatement);
-				statement.setString(1, question.getId() + count);
+				String idCounter=count<10?"00"+count:count<100?"0"+count:""+count;
+				statement.setString(1, question.getId() + idCounter);
 				statement.setString(2, question.getInfo());
 				statement.setString(3, question.getOption1());
 				statement.setString(4, question.getOption2());

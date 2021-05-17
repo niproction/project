@@ -4,8 +4,10 @@
 package controllers;
 import java.io.IOException;
 
+import client.App_client;
 import common.ChatIF;
 import common.DataPacket;
+import common.Question;
 import ocsf.client.AbstractClient;
 
 
@@ -56,9 +58,15 @@ public class CEMSClient extends AbstractClient
   {
     //awaitResponse = false; // reset to false untill the responce will come back
 	  System.out.println("login msg1");
+	  DataPacket dataPacket=(DataPacket) msg;
 		ClientDataPacketHandler handler = new ClientDataPacketHandler();
 		DataPacket to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
-		
+		if(dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION) {
+			System.out.println("login insert to get question");
+			//System.out.println(dataPacket.GET_Data_parameters().get(0));
+			if(dataPacket.GET_Data_parameters() != null)
+				App_client.Question=(Question)dataPacket.GET_Data_parameters().get(0);
+		}
     //if(msg instanceof DataPacket)
     //  clientUI.display(((DataPacket)msg).toString());
 		System.out.println("login msg2");

@@ -152,6 +152,8 @@ public class addNewQuestionController {
     	answer3.getStyleClass().add("option");
     	answer4.getStyleClass().add("option");
     	question.setAnswer("1");
+    	
+
     }
 
     @FXML
@@ -166,6 +168,7 @@ public class addNewQuestionController {
     	answer4.getStyleClass().clear();
     	answer4.getStyleClass().add("option");
     	question.setAnswer("2");
+
     }
 
     @FXML
@@ -180,6 +183,7 @@ public class addNewQuestionController {
     	answer4.getStyleClass().clear();
     	answer4.getStyleClass().add("option");
     	question.setAnswer("3");
+    	
     }
 
     @FXML
@@ -194,6 +198,7 @@ public class addNewQuestionController {
     	answer3.getStyleClass().clear();
     	answer3.getStyleClass().add("option");
     	question.setAnswer("4");
+    
     }
 	
 	

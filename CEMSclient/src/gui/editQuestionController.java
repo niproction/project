@@ -61,6 +61,9 @@ public class editQuestionController {
 		private TextField questionIDtxt;
 		@FXML
 		private Button questionIDBtn;
+		@FXML
+		private Label questionLabel;
+		
 		
 		Question question;
 	@FXML // This method is called by the FXMLLoader when initialization is complete
@@ -75,8 +78,11 @@ public class editQuestionController {
 		question=new Question();
     }
 	public void handleOnAction(MouseEvent event) {
+		answerErrorLbl.setVisible(false);
+		seccessLabel.setVisible(false);
 		if(event.getSource()==backHomebtn) {
 			//SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
+		
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 		}
 		if(event.getSource()==saveBtn) {
@@ -90,6 +96,7 @@ public class editQuestionController {
 		if(event.getSource()==questionIDBtn) {
 			ArrayList<Object> parameters=new ArrayList<>();
 			parameters.add(questionIDtxt.getText().toString());
+			System.out.println(questionIDtxt.getText().toString());
 			DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER,DataPacket.Request.GET_QUESTION,parameters,null,true);
 			System.out.println("trying to get the question");
 			App_client.chat.accept(dataPacket);
@@ -97,6 +104,7 @@ public class editQuestionController {
 			if(App_client.Question!=null) {
 				System.out.println("got the question");
 				question=App_client.Question;
+				App_client.Question=null;
 				insert();
 			}
 			else {
