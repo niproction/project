@@ -170,7 +170,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			User user=(User) dataPacket.GET_Data_parameters().get(1);
 			try {
 				stmt2 = con.createStatement();
-				String query = "select count(*) from questions";
+				String query = "select count(*) from questions where qid like '"+question.getId()+"%'";
 				// Executing the query
 				ResultSet rs2 = stmt2.executeQuery(query);
 				// Retrieving the result

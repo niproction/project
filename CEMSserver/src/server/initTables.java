@@ -59,7 +59,7 @@ public class initTables {
             stmt.execute(sql);
             
             stmt=con.createStatement();
-			//int rs=stmt.executeUpdate("INSERT INTO questions (question, option1, option2, option3, option4, answer) VALUES ('Is it true?', 'Yes', 'No','I don\'t know', 'Maybe', 3)");
+			
 			String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, authorID) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement statement= con.prepareStatement   (myStatement );
 			statement.setString(1, "02000");
@@ -72,16 +72,6 @@ public class initTables {
 			statement.setString(8, "434232");
 			statement.executeUpdate();
 			
-			
-			/*myStatement = " INSERT INTO questions (question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?)";
-			statement= con.prepareStatement   (myStatement );
-			statement.setString(1,"Is it true?, again");
-			statement.setString(2,"Yes");
-			statement.setString(3,"No");
-			statement.setString(4,"I don't know");
-			statement.setString(5,"Maybe");
-			statement.setInt(6,2);
-			statement.executeUpdate();*/
 			
         } catch (SQLException e) {
             System.out.println(e.getMessage());
