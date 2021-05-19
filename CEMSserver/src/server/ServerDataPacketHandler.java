@@ -77,7 +77,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 						} else {
 							System.out.println("detected Problem");
 						}
-						//dsfdsfas
+						
 						Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN,
 								parameter, "", true); // create DataPacket that contains true to indicate that the user
 														// information is correct
