@@ -4,21 +4,28 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class User implements Serializable {
-
+	
+	private String uid;
 	private String username;
 	private String password;
 	private String email;
 	private String firstName;
 	private String lastName;
 	
-	public User(String username, String password, String email, String firstName, String lastName) {
+	public User(String uid, String username, String password, String email, String firstName, String lastName) {
+		this.uid=uid;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-
+	public String getuid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid=uid;
+	}
 	public String getUsername() {
 		return username;
 	}

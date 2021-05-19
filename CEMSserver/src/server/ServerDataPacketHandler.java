@@ -59,18 +59,19 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 						if (roleType.equals("student")) {
 							System.out.println("detected student user");
-							Student pass_user = new Student(rs.getString(2), rs.getString(3), rs.getString(4),
+							Student pass_user = new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
 									rs.getString(5), rs.getString(6));
 							parameter.add(pass_user);
 						} else if (roleType.equals("teacher")) {
 							System.out.println("detected teacher user");
-							Teacher pass_user = new Teacher(rs.getString(2), rs.getString(3), rs.getString(4),
+							Teacher pass_user = new Teacher(rs.getString(1),rs.getString(2), rs.getString(3), rs.getString(4),
 									rs.getString(5), rs.getString(6));
 							parameter.add(pass_user);
+							
 
 						} else if (roleType.equals("principle")) {
 							System.out.println("detected principal user");
-							Principal pass_user = new Principal(rs.getString(2), rs.getString(3), rs.getString(4),
+							Principal pass_user = new Principal(rs.getString(1),rs.getString(2), rs.getString(3), rs.getString(4),
 									rs.getString(5), rs.getString(6));
 							parameter.add(pass_user);
 						} else {
@@ -101,7 +102,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				stmt = con.createStatement();
 
 				ResultSet rs = stmt.executeQuery("SELECT * from questions WHERE (qid='" + questionID + "') "
-						+ "AND (author= '"+user.getFirstName()+" "+user.getLastName()+"')");
+						+ "AND (authorID= '"+user.getuid()+"')");
 				System.out.println(questionID + "< looking for in in DB");
 				if (rs.next()) {
 
@@ -135,10 +136,11 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			ArrayList<Object> parameters = new ArrayList<>();
 			System.out.println("got into edit question");
 			Question question = (Question) dataPacket.GET_Data_parameters().get(0);
+			User user=(User)dataPacket.GET_Data_parameters().get(1);
 			PreparedStatement ps;
 			try {
 				ps = con.prepareStatement(
-						"update questions set qid=?,question=?,option1=?,option2=?,option3=?,option4=?,answer=?,author=? where qid =?");
+						"update questions set qid=?,question=?,option1=?,option2=?,option3=?,option4=?,answer=?,authorID=? where qid =?");
 
 				ps.setString(1, question.getId());
 				ps.setString(2, question.getInfo());
@@ -147,7 +149,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				ps.setString(5, question.getOption3());
 				ps.setString(6, question.getOption4());
 				ps.setString(7, question.getAnswer());
-				ps.setString(8, question.getAutor());
+				ps.setString(8, user.getuid());
 				ps.setString(9, question.getId());
 				int success = ps.executeUpdate();
 				parameters.add(question);
@@ -165,6 +167,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			Statement stmt2;
 
 			Question question = (Question) dataPacket.GET_Data_parameters().get(0);
+			User user=(User) dataPacket.GET_Data_parameters().get(1);
 			try {
 				stmt2 = con.createStatement();
 				String query = "select count(*) from questions";
@@ -174,7 +177,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				rs2.next();
 				int count = rs2.getInt(1);
 				count++;
-				String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, author) VALUES (?,?,?,?,?,?,?,?)";
+				String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, authorID) VALUES (?,?,?,?,?,?,?,?)";
 				PreparedStatement statement = con.prepareStatement(myStatement);
 				String idCounter=count<10?"00"+count:count<100?"0"+count:""+count;
 				statement.setString(1, question.getId() + idCounter);
@@ -184,8 +187,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				statement.setString(5, question.getOption3());
 				statement.setString(6, question.getOption4());
 				statement.setString(7, question.getAnswer());
-				statement.setString(8, ((User) dataPacket.GET_Data_parameters().get(1)).getFirstName() + " "
-						+ ((User) dataPacket.GET_Data_parameters().get(1)).getLastName());
+				statement.setString(8, user.getuid());
 				statement.executeUpdate();
 				System.out.println("question has been saved");
 

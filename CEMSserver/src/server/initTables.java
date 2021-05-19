@@ -50,7 +50,7 @@ public class initTables {
                 + "	option3 text NOT NULL,\n"
                 + "	option4 text NOT NULL,\n"
                 + "	answer INT NOT NULL,\n"
-                + " author text NOT NULL,\n"
+                + " authorID text NOT NULL,\n"
                 + " PRIMARY KEY (qid));";
         
         try {
@@ -60,7 +60,7 @@ public class initTables {
             
             stmt=con.createStatement();
 			//int rs=stmt.executeUpdate("INSERT INTO questions (question, option1, option2, option3, option4, answer) VALUES ('Is it true?', 'Yes', 'No','I don\'t know', 'Maybe', 3)");
-			String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, author) VALUES (?,?,?,?,?,?,?,?)";
+			String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, authorID) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement statement= con.prepareStatement   (myStatement );
 			statement.setString(1, "02000");
 			statement.setString(2,"Is it true?");
@@ -69,7 +69,7 @@ public class initTables {
 			statement.setString(5,"I don't know");
 			statement.setString(6,"Maybe");
 			statement.setInt(7,2);
-			statement.setString(8, "Mira Cohen");
+			statement.setString(8, "434232");
 			statement.executeUpdate();
 			
 			

@@ -94,6 +94,10 @@ public class editQuestionController {
 				answerErrorLbl.setVisible(false);
 				seccessLabel.setVisible(false);
 				save();
+				question=null;
+				App_client.Question=null;
+				canUpdate=false;
+				questionIDtxt.setText("");
 			}
 			else {
 				answerErrorLbl.setText("You must choose question first");
@@ -107,6 +111,10 @@ public class editQuestionController {
 			clear();
 		}
 		if (event.getSource() == questionIDBtn) {
+			question=null;
+			App_client.Question=null;
+			canUpdate=false;
+			clear();
 			ArrayList<Object> parameters = new ArrayList<>();
 			parameters.add(questionIDtxt.getText().toString());
 			System.out.println(questionIDtxt.getText().toString());
