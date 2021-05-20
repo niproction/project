@@ -77,4 +77,12 @@ public class initTables {
             System.out.println(e.getMessage());
         }
 	}
+	/*CREATE TABLE `db_cems`.`timerequests` (
+			  `uid` INT NOT NULL,
+			  `timeupdate` TIME NULL,
+			  `reqtime` DATETIME NULL,
+			  `approval` INT NULL,
+			  `approvaltime` DATETIME NULL,
+			  PRIMARY KEY (`uid`));*/
+
 }
