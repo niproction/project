@@ -60,19 +60,20 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 						if (roleType.equals("student")) {
 							System.out.println("detected student user");
 							Student pass_user = new Student(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-									rs.getString(5), rs.getString(6));
+									rs.getString(5), rs.getString(6),rs.getString(9));
 							parameter.add(pass_user);
 						} else if (roleType.equals("teacher")) {
 							System.out.println("detected teacher user");
 							Teacher pass_user = new Teacher(rs.getString(1),rs.getString(2), rs.getString(3), rs.getString(4),
-									rs.getString(5), rs.getString(6));
+									rs.getString(5), rs.getString(6),rs.getString(9));
+							System.out.println(rs.getString(7)+"ffffffffffffffff");
 							parameter.add(pass_user);
 							
 
 						} else if (roleType.equals("principle")) {
 							System.out.println("detected principal user");
 							Principal pass_user = new Principal(rs.getString(1),rs.getString(2), rs.getString(3), rs.getString(4),
-									rs.getString(5), rs.getString(6));
+									rs.getString(5), rs.getString(6),rs.getString(9));
 							parameter.add(pass_user);
 						} else {
 							System.out.println("detected Problem");
@@ -93,7 +94,35 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			} else
 				System.out.println("not instance of");
 
-		} else if (dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION) {
+		}  else if (dataPacket.GET_Request() == DataPacket.Request.GET_FIELD_NAME) {
+			User user=((User)dataPacket.GET_Data_parameters().get(0));
+			Statement stmt;
+			try {
+				stmt = con.createStatement();
+				System.out.println(user.getfid());
+				ResultSet rs = stmt.executeQuery("SELECT * from field WHERE (fid='" + user.getfid() + "') ");
+				
+				if (rs.next()) {
+
+					System.out.println("found field name");
+					System.out.println(rs.getString(2));
+
+					ArrayList<Object> parameter = new ArrayList<Object>();
+					// Object pass_user=null;
+					parameter.add(rs.getString(2));
+					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_FIELD_NAME,
+							parameter, "", true);
+				}
+				else
+					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_FIELD_NAME, null,
+							"", true);
+			} catch (Exception e) {
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_FIELD_NAME, null,
+						"", true);
+			}
+			
+		}
+		else if (dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION) {
 			System.out.println("get questionnnnn");
 			String questionID = (String) dataPacket.GET_Data_parameters().get(0);
 			User user=(User)dataPacket.GET_Data_parameters().get(1);

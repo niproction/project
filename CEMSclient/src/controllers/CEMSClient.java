@@ -67,6 +67,11 @@ public class CEMSClient extends AbstractClient
 			if(dataPacket.GET_Data_parameters() != null)
 				App_client.Question=(Question)dataPacket.GET_Data_parameters().get(0);
 		}
+		else if(dataPacket.GET_Request() == DataPacket.Request.GET_FIELD_NAME) {
+			if(dataPacket.GET_Data_parameters()!=null)
+				App_client.fieldName=(String)dataPacket.GET_Data_parameters().get(0);
+			System.out.println("got field name "+App_client.fieldName);
+		}
     //if(msg instanceof DataPacket)
     //  clientUI.display(((DataPacket)msg).toString());
 		System.out.println("login msg2");

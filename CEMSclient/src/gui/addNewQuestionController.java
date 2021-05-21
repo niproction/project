@@ -53,10 +53,14 @@ public class addNewQuestionController {
 		private Button clearBtn;
 		@FXML
 		private Label answerErrorLbl;
-		@FXML
-		private ChoiceBox<String> fieldBox;
+		//@FXML
+		//private ChoiceBox<String> fieldBox;
 		@FXML
 		private Label seccessLabel;
+		@FXML
+		private Label fieldLabel;
+		
+		String fieldName;
 		
 		Question question;
 	@FXML // This method is called by the FXMLLoader when initialization is complete
@@ -66,8 +70,17 @@ public class addNewQuestionController {
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		answerErrorLbl.setVisible(false);
 		seccessLabel.setVisible(false);
-		fieldBox.setValue("Mathematics");
-		fieldBox.setItems(field);
+		ArrayList<Object> parameters=new ArrayList<>();
+		parameters.add(App_client.user);
+		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_FIELD_NAME, parameters, null, true);
+		App_client.chat.accept(dataPacket);
+		if(App_client.fieldName!=null) {
+			fieldName=App_client.fieldName;
+			App_client.fieldName=null;
+			fieldLabel.setText(fieldName);
+		}
+		//fieldBox.setValue("Mathematics");
+		//fieldBox.setItems(field);
 		question=new Question();
     }
 	public void handleOnAction(MouseEvent event) {
@@ -109,7 +122,7 @@ public class addNewQuestionController {
 			return;
 		}
 				
-		question.setId(getFieldNum(fieldBox.getValue()));
+		question.setId(App_client.user.getfid());
 		question.setInfo(questionInfotxt.getText());
 		question.setOption1(option1txt.getText().toString());
 		question.setOption2(option2txt.getText().toString());

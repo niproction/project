@@ -340,6 +340,7 @@ public class serverGUI {
     	initTables db = new initTables(App_server.mysqlCon.getCon());
     	db.createUsers();
     	db.createQuestions();
+    	db.createField();
     	button_create_tables.setDisable(true);
     }
 }

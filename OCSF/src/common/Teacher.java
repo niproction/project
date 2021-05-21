@@ -8,8 +8,8 @@ public class Teacher extends User implements Serializable {
 	private Exam[] exams;
 	
 	
-	public Teacher(String uid, String username, String password, String email, String firstName, String lastName) {
-		super(uid,username,password,email,firstName,lastName);
+	public Teacher(String uid, String username, String password, String email, String firstName, String lastName,String fid) {
+		super(uid,username,password,email,firstName,lastName,fid);
 		
 	}
 	
