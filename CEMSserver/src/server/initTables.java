@@ -87,10 +87,28 @@ public class initTables {
 			System.out.println(e.getMessage());
 
 		}
-		/*
-		 * CREATE TABLE `db_cems`.`timerequests` ( `uid` INT NOT NULL, `timeupdate` TIME
-		 * NULL, `reqtime` DATETIME NULL, `approval` INT NULL, `approvaltime` DATETIME
-		 * NULL, PRIMARY KEY (`uid`));
-		 */
+
+		
+	}
+	public void createCourses() {
+		String sql = "CREATE TABLE IF NOT EXISTS courses (\n" + " cid varchar(5) NOT NULL,\n"
+				+ "	courseName varchar(25) NOT NULL,\n" +"fid varchar(25) NOT NULL,\n" +" PRIMARY KEY (cid));";
+
+		try {
+			Statement stmt = con.createStatement();
+			// create a new table
+			stmt.execute(sql);
+
+			stmt = con.createStatement();
+			int rs = stmt.executeUpdate(
+					"INSERT INTO courses (cid, courseName,fid) VALUES ('01', 'Algebra','01')");
+			rs = stmt.executeUpdate(
+					"INSERT INTO courses (cid, courseName,fid) VALUES ('02', 'physica1','02')");
+			rs = stmt.executeUpdate(
+					"INSERT INTO courses (cid, courseName,fid) VALUES ('03', 'art1','03')");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+
+		}
 	}
 }

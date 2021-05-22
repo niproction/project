@@ -228,8 +228,36 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				e.printStackTrace();
 			}
 		}
+		else if(dataPacket.GET_Request()==DataPacket.Request.GET_COURSES)
+		{
+			Responce_dataPacket=getCourses(dataPacket);
+		}
 
 		return Responce_dataPacket;
+	}
+
+	private DataPacket getCourses(DataPacket dataPacket) {
+		Statement statement;
+		User user=((User)dataPacket.GET_Data_parameters().get(0));
+		try {
+			statement=con.createStatement();
+			System.out.println("before query,"+user.getfid());
+			ResultSet rs = statement.executeQuery("SELECT courseName from courses WHERE (fid='" + user.getfid() + "') ");
+			if (rs.next()) {
+
+				System.out.println("found course name:"+rs.getString(1));
+				ArrayList<Object> parameter = new ArrayList<Object>();
+				parameter.add(rs.getString(1));
+				return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_COURSES,
+						parameter, "", true);
+			}
+			else
+				return  new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_COURSES, null,
+						"", true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
