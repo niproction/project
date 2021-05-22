@@ -3,17 +3,19 @@ package common;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Exam implements Serializable {
 	private int examID;
-	private Question[] question;
+	private ArrayList<Question> questions;
 	private Date date;
 	private Date time;
 
-	public Exam(Question[] questions) {
-		this.question = questions;
+	public void addQuestion(Question question)
+	{
+		questions.add(question);
 	}
 
 	private void set_time(String time) {

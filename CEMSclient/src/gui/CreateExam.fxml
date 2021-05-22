@@ -22,7 +22,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ChoiceBox layoutX="512.0" layoutY="31.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="courses" layoutX="512.0" layoutY="31.0" prefWidth="150.0" />
                   <Text layoutX="28.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Field:" textAlignment="CENTER" wrappingWidth="117.0">
                      <font>
                         <Font size="18.0" />
@@ -37,13 +37,13 @@
                      <font>
                         <Font size="18.0" />
                      </font></Text>
-                  <ChoiceBox layoutX="180.0" layoutY="30.0" prefHeight="25.0" prefWidth="412.0" />
+                  <ChoiceBox fx:id="questions" layoutX="180.0" layoutY="30.0" prefHeight="25.0" prefWidth="412.0" />
                   <Text layoutX="635.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="points:" wrappingWidth="47.13671875">
                      <font>
                         <Font size="14.0" />
                      </font></Text>
-                  <TextField layoutX="682.0" layoutY="30.0" prefHeight="25.0" prefWidth="41.0" />
-                  <Button layoutX="324.0" layoutY="313.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Add Question">
+                  <TextField fx:id="pointsForQuestion" layoutX="682.0" layoutY="30.0" prefHeight="25.0" prefWidth="41.0" />
+                  <Button fx:id="addQuestionBtn" layoutX="324.0" layoutY="313.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Add Question">
                      <font>
                         <Font size="14.0" />
                      </font></Button>
@@ -54,7 +54,7 @@
                            <font>
                               <Font size="14.0" />
                            </font></Text>
-                        <Button layoutX="671.0" layoutY="62.0" mnemonicParsing="false" text="SUBMIT">
+                        <Button fx:id="submitBtn" layoutX="671.0" layoutY="62.0" mnemonicParsing="false" text="SUBMIT">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -63,13 +63,13 @@
                         <Label fx:id="totalPointsLabel" layoutX="506.0" layoutY="68.0" text="Label" />
                      </children>
                   </AnchorPane>
-                  <TextArea layoutX="178.0" layoutY="78.0" prefHeight="81.0" prefWidth="412.0" />
+                  <TextArea fx:id="teacherComments" layoutX="178.0" layoutY="78.0" prefHeight="81.0" prefWidth="412.0" />
                   <Text layoutX="68.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comments for teacher:" wrappingWidth="92.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextArea layoutX="178.0" layoutY="192.0" prefHeight="81.0" prefWidth="412.0" />
+                  <TextArea fx:id="studentComments" layoutX="178.0" layoutY="192.0" prefHeight="81.0" prefWidth="412.0" />
                   <Text layoutX="68.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comments for students:" wrappingWidth="92.0">
                      <font>
                         <Font size="14.0" />

@@ -13,6 +13,7 @@ public class Question implements Serializable {
 	private String option4;
 	private String answer;
 	private String autor;
+	
 	public String getAutor() {
 		return autor;
 	}

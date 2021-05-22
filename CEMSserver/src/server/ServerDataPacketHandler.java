@@ -232,32 +232,50 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		{
 			Responce_dataPacket=getCourses(dataPacket);
 		}
+		else if(dataPacket.GET_Request()==DataPacket.Request.GET_QUESTION_BY_FIELD_ID)
+		{
+			Responce_dataPacket=getQuestionsByFieldID(dataPacket);
+		}
 
 		return Responce_dataPacket;
 	}
 
-	private DataPacket getCourses(DataPacket dataPacket) {
+	private DataPacket getQuestionsByFieldID(DataPacket dataPacket) {
 		Statement statement;
+		ArrayList<Object> parameter = new ArrayList<Object>();
 		User user=((User)dataPacket.GET_Data_parameters().get(0));
 		try {
 			statement=con.createStatement();
-			System.out.println("before query,"+user.getfid());
-			ResultSet rs = statement.executeQuery("SELECT courseName from courses WHERE (fid='" + user.getfid() + "') ");
-			if (rs.next()) {
-
-				System.out.println("found course name:"+rs.getString(1));
-				ArrayList<Object> parameter = new ArrayList<Object>();
+			ResultSet rs = statement.executeQuery("SELECT question from questions WHERE qid like '" + user.getfid() + "%'");
+			while (rs.next()) {
+				System.out.println("found question:"+rs.getString(1));
 				parameter.add(rs.getString(1));
-				return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_COURSES,
-						parameter, "", true);
 			}
-			else
-				return  new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_COURSES, null,
-						"", true);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
+		return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION_BY_FIELD_ID,
+				parameter, "", true);
+	}
+
+	private DataPacket getCourses(DataPacket dataPacket) {
+		Statement statement;
+		ArrayList<Object> parameter = new ArrayList<Object>();
+		User user=((User)dataPacket.GET_Data_parameters().get(0));
+		try {
+			statement=con.createStatement();
+			ResultSet rs = statement.executeQuery("SELECT courseName from courses WHERE (fid='" + user.getfid() + "') ");
+			while (rs.next()) {
+				System.out.println("found course name:"+rs.getString(1));
+				parameter.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_COURSES,
+				parameter, "", true);
 	}
 
 }

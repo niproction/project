@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.ArrayList;
+
 import client.App_client;
 import common.DataPacket;
 import common.IncomingDataPacketHandler;
@@ -7,104 +9,73 @@ import javafx.stage.Stage;
 import common.Student;
 import common.Teacher;
 import common.Principal;
+import common.Question;
 
 public class ClientDataPacketHandler implements IncomingDataPacketHandler {
-    private DataPacket Responce_dataPacket;
+	private DataPacket Responce_dataPacket;
 
-    public ClientDataPacketHandler(){}
-    public ClientDataPacketHandler(Stage primaryStage, Object controller)
-    {
-        //this.controller = controller;
-        //this.primaryStage = primaryStage;
-        //if(primaryStage == null)
-        //    System.out.println("prob");
-    }
+	public ClientDataPacketHandler() {
+	}
 
-    @Override
-    public DataPacket CheckRequestExecuteCreateResponce(Object msg) {
-        if(msg instanceof DataPacket)
-        {
-            System.out.println("recived DataPacket");
-            return  ParsingDataPacket((DataPacket)msg);
-            //return GET_responce_DataPacket();
-        }
-        else
-            System.out.println("not DataPacket");
-        return null;
-    }
+	public ClientDataPacketHandler(Stage primaryStage, Object controller) {
+		// this.controller = controller;
+		// this.primaryStage = primaryStage;
+		// if(primaryStage == null)
+		// System.out.println("prob");
+	}
 
-    
-    @Override
-    public DataPacket ParsingDataPacket(DataPacket dataPacket) {
-        Responce_dataPacket = null;
+	@Override
+	public DataPacket CheckRequestExecuteCreateResponce(Object msg) {
+		if (msg instanceof DataPacket) {
+			System.out.println("recived DataPacket");
+			return ParsingDataPacket((DataPacket) msg);
+			// return GET_responce_DataPacket();
+		} else
+			System.out.println("not DataPacket");
+		return null;
+	}
 
-        if( dataPacket.GET_Request() == DataPacket.Request.LOGIN)
-        {
-            if(dataPacket.GET_result_boolean())
-            {
-                System.out.println("user corrent");
-                if(dataPacket.GET_Data_parameters().get(0) instanceof Student)
-                {
-                	App_client.user = (Student)(dataPacket.GET_Data_parameters().get(0));
-                	System.out.println("user setted to student");
-                }
-                else if(dataPacket.GET_Data_parameters().get(0) instanceof Teacher)
-                {
-                	App_client.user = (Teacher)(dataPacket.GET_Data_parameters().get(0));
-                	System.out.println("user setted to teacher");
-                }
-                else if(dataPacket.GET_Data_parameters().get(0) instanceof Principal)
-                {
-                	App_client.user = (Principal)(dataPacket.GET_Data_parameters().get(0));
-                	System.out.println("user setted to principle");
-                }else {}
-                
-            }
-            else
-                System.out.println("incorrect user");
+	@Override
+	public DataPacket ParsingDataPacket(DataPacket dataPacket) {
+		Responce_dataPacket = null;
 
-            return Responce_dataPacket;
-        }
-        return Responce_dataPacket;
-    }
+		if (dataPacket.GET_Request() == DataPacket.Request.LOGIN) {
+			if (dataPacket.GET_result_boolean()) {
+				System.out.println("user corrent");
+				if (dataPacket.GET_Data_parameters().get(0) instanceof Student) {
+					App_client.user = (Student) (dataPacket.GET_Data_parameters().get(0));
+					System.out.println("user setted to student");
+				} else if (dataPacket.GET_Data_parameters().get(0) instanceof Teacher) {
+					App_client.user = (Teacher) (dataPacket.GET_Data_parameters().get(0));
+					System.out.println("user setted to teacher");
+				} else if (dataPacket.GET_Data_parameters().get(0) instanceof Principal) {
+					App_client.user = (Principal) (dataPacket.GET_Data_parameters().get(0));
+					System.out.println("user setted to principle");
+				} 
 
-    public void ParsingDataPacket111(DataPacket dataPacket) {
-        Responce_dataPacket = null;
+			} else
+				System.out.println("incorrect user");
+		}
 
-        if( dataPacket.GET_Request() == DataPacket.Request.LOGIN)
-        {
-            if(dataPacket.GET_result_boolean())
-            {
-                System.out.println("user corrent");
-                if(dataPacket.GET_Data_parameters().get(0) instanceof Student)
-                {
-                	App_client.user = (Student)(dataPacket.GET_Data_parameters().get(0));
-                }
-                else if(dataPacket.GET_Data_parameters().get(0) instanceof Teacher)
-                {
-                	App_client.user = (Teacher)(dataPacket.GET_Data_parameters().get(0));
-                }
-                else if(dataPacket.GET_Data_parameters().get(0) instanceof Principal)
-                {
-                	App_client.user = (Principal)(dataPacket.GET_Data_parameters().get(0));
-                }else {}
-                
-                //App_client.user = (User)(dataPacket.GET_Data_parameters().get(0));
+		else if (dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION) {
+			System.out.println("login insert to get question");
+			// System.out.println(dataPacket.GET_Data_parameters().get(0));
+			if (dataPacket.GET_Data_parameters() != null)
+				App_client.Question = (Question) dataPacket.GET_Data_parameters().get(0);
+		} else if (dataPacket.GET_Request() == DataPacket.Request.GET_FIELD_NAME) {
+			if (dataPacket.GET_Data_parameters() != null)
+				App_client.fieldName = (String) dataPacket.GET_Data_parameters().get(0);
+			System.out.println("got field name " + App_client.fieldName);
+		} else if (dataPacket.GET_Request() == DataPacket.Request.GET_COURSES) {
+			examControl.coursesNames=(ArrayList<String>) dataPacket.GET_Data_parameters().clone();
+		}
+		else if (dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
+			examControl.quetions=(ArrayList<String>) dataPacket.GET_Data_parameters().clone();
+		}
+		return Responce_dataPacket;
+	}
 
-                
-                //SceenController sceen = new SceenController(primaryStage, FxmlSceen.HOME, Lon);
-			    //sceen.LoadSceen();
-                //loginController.GET_controller().LoadNextSceen();
-            }
-            else
-                System.out.println("incorrect user");
-
-            Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN, null, "hi there", false);
-        }
-    }
-
-    public DataPacket GET_responce_DataPacket()
-    {
-        return Responce_dataPacket;
-    }
+	public DataPacket GET_responce_DataPacket() {
+		return Responce_dataPacket;
+	}
 }
