@@ -111,4 +111,19 @@ public class initTables {
 
 		}
 	}
+	public void createExams() {
+		String sql="CREATE TABLE IF NOT EXISTS exams (\n" + " eid varchar(6) NOT NULL,\n"
+				+ "	questions SET() NOT NULL,\n" +"teacherComments varchar(100)  NULL,\n" +""
+						+ "	pointsPerQuestion SET() NOT NULL,\n" +
+				"studentComments varchar(100)  NULL,\n"+" PRIMARY KEY (eid));";
+		try {
+			Statement stmt = con.createStatement();
+			// create a new table
+			stmt.execute(sql);
+			stmt=con.createStatement();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
 }
