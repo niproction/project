@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import common.DataPacket;
+import common.Exam;
 import common.IncomingDataPacketHandler;
 import common.Principal;
 import common.Question;
@@ -230,12 +231,12 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		}
 		else if(dataPacket.GET_Request()==DataPacket.Request.GET_EXAM)
 		{
-			String examID=(String) dataPacket.GET_Data_parameters().get(0);
+			String password=(String) dataPacket.GET_Data_parameters().get(0);
 			Statement stmt;
 			try {
 				stmt = con.createStatement();
 
-				ResultSet rs = stmt.executeQuery("SELECT * from questionsinexams WHERE (qid='" + examID + "')");
+				ResultSet rs = stmt.executeQuery("SELECT * from exams WHERE (password='" + password + "')");
 						
 				if (rs.next()) {
 
@@ -243,16 +244,14 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 					ArrayList<Object> parameter = new ArrayList<Object>();
 					// Object pass_user=null;
-					Question question = new Question();
-					question.setId(rs.getString(1));
-					question.setInfo(rs.getString(2));
-					question.setOption1(rs.getString(3));
-					question.setOption2(rs.getString(4));
-					question.setOption3(rs.getString(5));
-					question.setOption4(rs.getString(6));
-					question.setAnswer(rs.getString(7));
-					question.setAutor(rs.getString(8));
-					parameter.add(question);
+					Exam exam=new Exam();
+					exam.setExamID(rs.getString(1));
+					exam.setDuration(rs.getString(2));
+					exam.setTeacherComments(rs.getString(3));
+					exam.setStudentsComments(rs.getString(4));
+					exam.setPassword(rs.getString(5));
+					exam.setAuthor(rs.getString(6));
+					parameter.add(exam);
 					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION,
 							parameter, "", true);
 				}
