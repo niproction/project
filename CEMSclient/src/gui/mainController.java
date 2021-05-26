@@ -283,5 +283,13 @@ public class mainController {
 	void button_logout_exited(MouseEvent event) {
 
 	}
+	@FXML
+    void button_information(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.INFO_PAGE);
+		page_box.setCenter(page);
+		// make animation and than load page			
+		SceneController sceen = new SceneController(PageProperties.Page.INFO_PAGE, ap);
+		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+    }
 
 }

@@ -228,6 +228,42 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				e.printStackTrace();
 			}
 		}
+		else if(dataPacket.GET_Request()==DataPacket.Request.GET_EXAM)
+		{
+			String examID=(String) dataPacket.GET_Data_parameters().get(0);
+			Statement stmt;
+			try {
+				stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("SELECT * from questionsinexams WHERE (qid='" + examID + "')");
+						
+				if (rs.next()) {
+
+					System.out.println("found exam");
+
+					ArrayList<Object> parameter = new ArrayList<Object>();
+					// Object pass_user=null;
+					Question question = new Question();
+					question.setId(rs.getString(1));
+					question.setInfo(rs.getString(2));
+					question.setOption1(rs.getString(3));
+					question.setOption2(rs.getString(4));
+					question.setOption3(rs.getString(5));
+					question.setOption4(rs.getString(6));
+					question.setAnswer(rs.getString(7));
+					question.setAutor(rs.getString(8));
+					parameter.add(question);
+					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION,
+							parameter, "", true);
+				}
+				else
+					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION, null,
+							"", true);
+			} catch (Exception e) {
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION, null,
+						"", true);
+			}
+		}
 		else if(dataPacket.GET_Request()==DataPacket.Request.GET_COURSES)
 		{
 			Responce_dataPacket=getCourses(dataPacket);

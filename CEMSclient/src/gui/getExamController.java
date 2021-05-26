@@ -47,7 +47,7 @@ public class getExamController {
 		System.out.println("tring to send");
 		App_client.chat.accept(dataPacket);
 		
-		if(examControl.getExam()==null) {
+		if(examControl.getExam()!=null) {
 			SceneController sceen = new SceneController(PageProperties.Page.TAKE_EXAM, ap);
 			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 		}

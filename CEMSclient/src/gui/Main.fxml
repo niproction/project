@@ -48,7 +48,7 @@
                             <MenuItem fx:id="homePage" mnemonicParsing="false" text="Home page" />
                             <MenuItem fx:id="displayStatisticalReport" mnemonicParsing="false" onAction="#buttton_statistical_report" text="Display Statistical Report" />
                             <MenuItem fx:id="checkRequest" mnemonicParsing="false" onAction="#button_statisticalreportby" text="Check Requests" />
-                              <MenuItem fx:id="information" mnemonicParsing="false" text="Information" />
+                              <MenuItem fx:id="information" mnemonicParsing="false" onAction="#button_information" text="Information" />
                               <MenuItem fx:id="createExam" mnemonicParsing="false" onAction="#button_create_exam" text="Create Exem" />
                               <MenuItem fx:id="setAxem" mnemonicParsing="false" text="Set Exam" />
                               <MenuItem fx:id="displayStatisticalReportTeacher" mnemonicParsing="false" onAction="#buttton_statistical_report" text="Display Statistical report" />
