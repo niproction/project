@@ -65,13 +65,14 @@ public class infoPageController {
 			TableColumn tc6=new TableColumn("lastName"); 
 			TableColumn tc7=new TableColumn("ID"); 
 			tableOfInfo.getColumns().addAll(tc1,tc2,tc3,tc4,tc5,tc6,tc7);
+		//
 			System.out.println("im here");
 			break;
 		// case
 
 		}
 
-		App_client.chat.accept(dataPacket); // send and wait for response from server
+		//App_client.chat.accept(dataPacket); // send and wait for response from server
 
 	}
 }
