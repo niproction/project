@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import client.App_client;
 import common.DataPacket;
+import common.Exam;
 import common.IncomingDataPacketHandler;
 import javafx.stage.Stage;
 import common.Student;
@@ -56,6 +57,15 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 			} else
 				System.out.println("incorrect user");
+		}
+		else if (dataPacket.GET_Request() == DataPacket.Request.GET_EXAM) {
+			if(dataPacket.GET_Data_parameters()!=null) {
+				Exam exam= (Exam) dataPacket.GET_Data_parameters().get(0);
+				examControl.setExam(exam);
+			}
+			else
+				examControl.setExam(null);
+			
 		}
 
 		else if (dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION) {

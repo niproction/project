@@ -231,6 +231,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		}
 		else if(dataPacket.GET_Request()==DataPacket.Request.GET_EXAM)
 		{
+			System.out.println("entered exams");
 			String password=(String) dataPacket.GET_Data_parameters().get(0);
 			Statement stmt;
 			try {
@@ -252,14 +253,14 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					exam.setPassword(rs.getString(5));
 					exam.setAuthor(rs.getString(6));
 					parameter.add(exam);
-					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION,
+					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_EXAM,
 							parameter, "", true);
 				}
 				else
-					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION, null,
+					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_EXAM, null,
 							"", true);
 			} catch (Exception e) {
-				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_QUESTION, null,
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_EXAM, null,
 						"", true);
 			}
 		}

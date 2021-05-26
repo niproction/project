@@ -117,6 +117,7 @@ public class mainController {
 		SceneController.primaryStage.setMaxHeight(750);
 		SceneController.primaryStage.setWidth(850);
 		SceneController.primaryStage.setHeight(750);
+		App_client.pageContainer=page_box;
 		displayStatisticalReport.setVisible(false);
 		checkRequest.setVisible(false);
 		information.setVisible(false);
@@ -200,7 +201,7 @@ public class mainController {
 	}
 	
 	@FXML
-	void button_take_exam_clicked(ActionEvent event) {
+	public void button_take_exam_clicked(ActionEvent event) {
 		System.out.println("clicked");
 		AnchorPane page = SceneController.getPage(PageProperties.Page.GET_EXAM);
 		// Pane screen = object.Sc();
@@ -263,7 +264,7 @@ public class mainController {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
 		page_box.setCenter(page);
 	}
-
+	
 	@FXML
 	void button_logout_clicked(MouseEvent event) {
 		App_client.user = null;

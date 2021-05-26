@@ -6,17 +6,20 @@ import common.User;
 import controllers.ClientController;
 import controllers.PageProperties;
 import controllers.SceneController;
+import gui.mainController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class App_client extends Application {
 	public static Stage primaryStage=null;
 	public static ClientController chat=null;
-	 
+	 public static BorderPane pageContainer;
 	public static User user=null;
 	public static Question Question=null;
 	public static String fieldName=null;

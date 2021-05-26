@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 public class getExamController {
 	SceneController sceen;
@@ -24,6 +25,7 @@ public class getExamController {
 	private Label errorLabel;
 	@FXML
 	private Button getExamBtn;
+
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() {
 		// assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file
@@ -34,6 +36,7 @@ public class getExamController {
 	}
 	public void handleButtonAction(MouseEvent event) {
 		if(event.getSource()==getExamBtn) {
+			System.out.println("password clicked");
 			errorLabel.setVisible(false);
 			getExam();
 		}
@@ -48,11 +51,14 @@ public class getExamController {
 		App_client.chat.accept(dataPacket);
 		
 		if(examControl.getExam()!=null) {
-			SceneController sceen = new SceneController(PageProperties.Page.TAKE_EXAM, ap);
-			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+			AnchorPane page = SceneController.getPage(PageProperties.Page.TAKE_EXAM);
+			// Pane screen = object.Sc();
+			App_client.pageContainer.setCenter(page);
 		}
-		else
+		else {
+			passwordfld.setText("");
 			errorLabel.setVisible(true);
+		}
 	}
 
 }
