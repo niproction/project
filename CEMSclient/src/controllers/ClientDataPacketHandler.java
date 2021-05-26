@@ -8,6 +8,7 @@ import common.IncomingDataPacketHandler;
 import javafx.stage.Stage;
 import common.Student;
 import common.Teacher;
+import common.User;
 import common.Principal;
 import common.Question;
 
@@ -69,8 +70,11 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		} else if (dataPacket.GET_Request() == DataPacket.Request.GET_COURSES) {
 			examControl.coursesNames=(ArrayList<String>) dataPacket.GET_Data_parameters().clone();
 		}
-		else if (dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
-			examControl.quetions=(ArrayList<String>) dataPacket.GET_Data_parameters().clone();
+		//else if (dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
+			//examControl.quetions=(ArrayList<String>) dataPacket.GET_Data_parameters().clone();
+		//}
+	else if(dataPacket.GET_Request() == DataPacket.Request.GET_INFO_USERS) {
+			UserControl.user= (ArrayList<User>) dataPacket.GET_Data_parameters().clone();
 		}
 		return Responce_dataPacket;
 	}

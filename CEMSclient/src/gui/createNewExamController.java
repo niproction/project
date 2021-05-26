@@ -70,13 +70,13 @@ public class createNewExamController {
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION_BY_FIELD_ID, parameters, null, true);
 		ObservableList<String> questionsList=FXCollections.observableArrayList();
 		App_client.chat.accept(dataPacket);
-		questionsList.addAll(examControl.quetions);
+		//questionsList.addAll(examControl.quetions);
 		questions.setItems(questionsList);
 	}
 	
 	public void handleOnAction(MouseEvent event) {
 		if(event.getSource()==submitBtn) {
-			sumbit();
+		//	sumbit();
 		}
 		else if(event.getSource()==addQuestionBtn) {
 			addQuestionToExam();
@@ -98,8 +98,8 @@ public class createNewExamController {
 			errLabel.setVisible(true);
 			return;
 		}
-		Question tmpQuestion=new Question(questions.getValue(),teacherComments.getText(),studentComments.getText());
-		exam.addQuestion(tmpQuestion);
+		//Question tmpQuestion=new Question(questions.getValue(),teacherComments.getText(),studentComments.getText());
+		//exam.addQuestion(tmpQuestion);
 		
 	}
 //
