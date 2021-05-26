@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="anchor" fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.examHistoryController">
+   <children>
+      <TableView fx:id="TakenExamsTable" layoutX="138.0" layoutY="171.0" prefHeight="405.0" prefWidth="481.0">
+        <columns>
+          <TableColumn fx:id="coursColumn" prefWidth="117.0" text="Course" />
+          <TableColumn fx:id="dateColumn" prefWidth="122.0" text="Exam date" />
+            <TableColumn fx:id="gradeColumn" prefWidth="105.0" text="Grade" />
+            <TableColumn fx:id="viewColumn" prefWidth="135.0" text="View" />
+        </columns>
+      </TableView>
+      <Label layoutX="203.0" layoutY="26.0" prefHeight="53.0" prefWidth="261.0" text="Exams History">
+         <font>
+            <Font name="System Bold Italic" size="36.0" />
+         </font>
+      </Label>
+      <Line endX="840.0" endY="92.0" startX="-1.52587890625E-5" startY="92.0" />
+      <ImageView fitHeight="80.0" fitWidth="114.0" layoutX="691.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="FieldName" layoutX="36.0" layoutY="109.0" text="Field Name:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="fieldLabel" layoutX="138.0" layoutY="109.0" text="field" textFill="#eb0808">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

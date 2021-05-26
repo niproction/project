@@ -235,6 +235,23 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		else if(dataPacket.GET_Request()==DataPacket.Request.GET_QUESTION_BY_FIELD_ID)
 		{
 			Responce_dataPacket=getQuestionsByFieldID(dataPacket);
+		}else if (dataPacket.GET_Request() == DataPacket.Request.GET_INFO_USERS) {
+			try {
+				Statement statement;
+				statement = con.createStatement();
+				ResultSet rs = statement.executeQuery("SELECT * from users");
+				ArrayList<Object> users = new ArrayList<Object>(); // Create an ArrayList object
+				while (rs.next()) {
+					users.add(new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)));
+				}
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_INFO_USERS,users, "", true); // create
+			} 
+			
+			catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
 		}
 
 		return Responce_dataPacket;

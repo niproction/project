@@ -31,6 +31,27 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		GET_EXAM {
+			@Override
+			String GET_Title() {
+				return "get exam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/getExamPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 		
 		Main {
 			@Override
@@ -187,6 +208,28 @@ public class PageProperties {
 			@Override
 			String GET_FxmlFile() {
 				return "../gui/editQuestion.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+			
+		},
+		TAKE_EXAM {
+			@Override
+			String GET_Title() {
+				return "take exam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/takeExamPage.fxml";
 			}
 
 			@Override

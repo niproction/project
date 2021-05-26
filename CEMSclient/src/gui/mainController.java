@@ -199,7 +199,16 @@ public class mainController {
 		}
 	}
 	
-
+	@FXML
+	void button_take_exam_clicked(ActionEvent event) {
+		System.out.println("clicked");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.GET_EXAM);
+		// Pane screen = object.Sc();
+		page_box.setCenter(page);
+		
+		//page_box.setCenter(page);
+		
+	}
 	@FXML
 	void button_add_new_question_clicked(ActionEvent event) {
 		System.out.println("clicked");

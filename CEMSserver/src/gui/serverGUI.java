@@ -342,6 +342,7 @@ public class serverGUI {
     	db.createQuestions();
     	db.createField();
     	db.createCourses();
+
     	button_create_tables.setDisable(true);
     }
 }
