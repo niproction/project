@@ -1,5 +1,7 @@
 package gui;
 
+import java.io.IOException;
+
 /**
  * Sample Skeleton for 'Untitled' Controller Class
  */
@@ -19,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -92,14 +95,16 @@ public class ExtraTimeRequestsController {
 		ExtraTimeTable.setItems(getRequests());
 		ExtraTimeTable.getSortOrder().add(RequestTime);
 	}
-
+	
 	public ObservableList<TableEntry> getRequests() {
 		ObservableList<TableEntry> requests = FXCollections.observableArrayList();
 		LocalDate date = LocalDate.of(1995, 10, 28);
-
+		HBox status = null;
+	
 		for (int i = 0; i < 4; i++) {
-
-			HBox status = null;
+			final Button Y;
+			final Button N;
+			
 			try {
 				// create a HBox
 				status = new HBox();
@@ -112,31 +117,49 @@ public class ExtraTimeRequestsController {
 				// add label to hbox
 				status.getChildren().add(label);
 
-				Button Y = new Button("Y");
-				Button N = new Button("N");
+				
+				
+				
+				 Y = new Button("Y");
+				 N = new Button("N");
+				
 				int j = i;
 				EventHandler<ActionEvent> YHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						System.out.println("Approved" + j);
+						label.setText("Approved!");
+						label.setStyle(("-fx-font-weight: bold"));
+						Y.setDisable(true);
+						N.setDisable(true);
+						Y.setStyle("-fx-background-color: #00FF00");
+						
+					
 					}
 				};
 				EventHandler<ActionEvent> NHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						System.out.println("Denied" + j);
-						// event.consume();
+						label.setText("Denied!");
+						label.setStyle(("-fx-font-weight: bold"));
+						Y.setDisable(true);
+						N.setDisable(true);
+						N.setStyle("-fx-background-color: #FF0000");
+					
+						
 
 					}
 				};
 
 				Y.setOnAction(YHandler);
+				
 				N.setOnAction(NHandler);
 
 				// add buttons to HBox
 				status.getChildren().add(Y);
 				status.getChildren().add(N);
-
+				
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -144,4 +167,6 @@ public class ExtraTimeRequestsController {
 		}
 		return requests;
 	}
+	
+	   
 }
