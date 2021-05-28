@@ -4,21 +4,59 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class initTables {
 	private Connection con;
 	private Statement stmt;
 
-	public initTables(Connection con) {
-		this.con = con;
+	public initTables() {
+		this.con = mysqlConnection.getInstance().getCon();
 	}
 
-	public void createUsers() {
-		String sql = "CREATE TABLE IF NOT EXISTS users (\n" + "	uid int(11) NOT NULL AUTO_INCREMENT,\n"
+	public void tables_reset() {
+		delete_tables();
+		create_tables();
+	}
+
+	public void create_tables() {
+		table_users();
+		table_fiels();
+		table_courses();
+		table_exams();
+		table_questions();
+		table_exam_questions();
+		table_exams_initiated();
+		table_exams_done();
+		table_exam_questions_answer();
+	}
+
+	public void delete_tables() {
+
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("DROP TABLE IF EXISTS users;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS fields;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS courses;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS questions;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS exam_questions;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS exams_initiated;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS exams_done;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS exam_questions_answer;");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.print("problem to delete tables");
+		}
+
+	}
+
+	private void table_users() {
+		String sql = "CREATE TABLE IF NOT EXISTS users (\n" + "	uID int(11) NOT NULL AUTO_INCREMENT,\n"
 				+ "	username varchar(25) NOT NULL,\n" + "	password varchar(25) NOT NULL,\n"
 				+ "	email varchar(25) NOT NULL,\n" + "	firstName varchar(25) NOT NULL,\n"
 				+ "	lastName varchar(25) NOT NULL,\n" + "	ID varchar(25) NOT NULL,\n"
-				+ "	roleType varchar(10) NOT NULL,\n" + " fid varchar(25) NOT NULL,\n" + " PRIMARY KEY (uid));";
+				+ "	roleType varchar(10) NOT NULL,\n" + " fID varchar(25) NOT NULL,\n" + " PRIMARY KEY (uID));";
 
 		try {
 			Statement stmt = con.createStatement();
@@ -27,21 +65,74 @@ public class initTables {
 
 			stmt = con.createStatement();
 			int rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fid) VALUES ('s', '1111', 's@g.com', 'tomer', 'levi', '212352534', 'student','01')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID) VALUES ('s', '1111', 's@g.com', 'tomer', 'levi', '212352534', 'student','01')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fid) VALUES ('t', '1111', 't@g.com', 'Aviv', 'Jibly', '', 'teacher', '02')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID) VALUES ('t', '1111', 't@g.com', 'Aviv', 'Jibly', '', 'teacher', '02')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fid) VALUES ('p', '1111', 'p@g.com', 'Elon', 'Musk', '', 'principle', '03')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID) VALUES ('p', '1111', 'p@g.com', 'Elon', 'Musk', '', 'principle', '03')");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	public void createQuestions() {
-		String sql = "CREATE TABLE IF NOT EXISTS questions (\n" + "	qid VARCHAR(8) NOT NULL,\n"
-				+ "	question text NOT NULL,\n" + "	option1 text NOT NULL,\n" + "	option2 text NOT NULL,\n"
-				+ "	option3 text NOT NULL,\n" + "	option4 text NOT NULL,\n" + "	answer INT NOT NULL,\n"
-				+ " authorID text NOT NULL,\n" + " PRIMARY KEY (qid));";
+	private void table_fiels() {
+		String sql = "CREATE TABLE IF NOT EXISTS fields (\n" + " fID varchar(5) NOT NULL,\n"
+				+ "	fieldName varchar(25) NOT NULL,\n" + " PRIMARY KEY (fID));";
+
+		try {
+			Statement stmt = con.createStatement();
+			// create a new table
+			stmt.execute(sql);
+
+			stmt = con.createStatement();
+			int rs = stmt.executeUpdate("INSERT INTO fields (fID, fieldName) VALUES ('01', 'Mathematics')");
+			rs = stmt.executeUpdate("INSERT INTO fields (fID, fieldName) VALUES ('02', 'Physics')");
+			rs = stmt.executeUpdate("INSERT INTO fields (fID, fieldName) VALUES ('03', 'Art')");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+
+		}
+
+	}
+
+	private void table_courses() {
+		String sql = "CREATE TABLE IF NOT EXISTS courses (\n" + " cID varchar(5) NOT NULL,\n"
+				+ " fID varchar(5) NOT NULL,\n" + "	courseName varchar(25) NOT NULL,\n" + " PRIMARY KEY (cID));";
+
+		try {
+			Statement stmt = con.createStatement();
+			// create a new table
+			stmt.execute(sql);
+
+			stmt = con.createStatement();
+			int rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('01', '01', 'Algebra')");
+			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('02', '02', 'physica1')");
+			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('03', '03', 'art1')");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+
+		}
+	}
+
+	private void table_exams() {
+		String sql = "CREATE TABLE IF NOT EXISTS exams (\n" + " eID varchar(6) NOT NULL,\n"
+				+ " description TEXT NOT NULL,\n" + " duration varchar(6) NOT NULL,\n"
+				+ " teacherComments TEXT  NULL,\n" + "" + " studentComments TEXT  NULL,\n" + " PRIMARY KEY (eID));";
+		try {
+			Statement stmt = con.createStatement();
+			// create a new table
+			stmt.execute(sql);
+			stmt = con.createStatement();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private void table_questions() {
+		String sql = "CREATE TABLE IF NOT EXISTS questions (\n" + "	qID VARCHAR(8) NOT NULL,\n"
+				+ " uID text NOT NULL,\n" + "	question text NOT NULL,\n" + "	option1 text NOT NULL,\n"
+				+ "	option2 text NOT NULL,\n" + "	option3 text NOT NULL,\n" + "	option4 text NOT NULL,\n"
+				+ "	answer INT NOT NULL,\n" + " PRIMARY KEY (qID));";
 
 		try {
 			Statement stmt = con.createStatement();
@@ -50,15 +141,15 @@ public class initTables {
 
 			stmt = con.createStatement();
 
-			String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, authorID) VALUES (?,?,?,?,?,?,?,?)";
+			String myStatement = " INSERT INTO questions (qID, uID, question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
 			statement.setString(1, "02000");
+			statement.setInt(7, 2);
 			statement.setString(2, "Is it true?");
 			statement.setString(3, "Yes");
 			statement.setString(4, "No");
 			statement.setString(5, "I don't know");
 			statement.setString(6, "Maybe");
-			statement.setInt(7, 2);
 			statement.setString(8, "434232");
 			statement.executeUpdate();
 
@@ -67,79 +158,56 @@ public class initTables {
 		}
 	}
 
-	public void createField() {
-		String sql = "CREATE TABLE IF NOT EXISTS field (\n" + "	fid varchar(25) NOT NULL,\n"
-				+ "	fieldName varchar(25) NOT NULL,\n" + " PRIMARY KEY (fid));";
-
+	private void table_exam_questions() {
+		String sql = "CREATE TABLE IF NOT EXISTS exam_questions (\n" + " eID varchar(6) NOT NULL,\n"
+				+ "	qID varchar(5) NOT NULL,\n" + " points varchar(3) NOT NULL);";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
 			stmt.execute(sql);
-
 			stmt = con.createStatement();
-			int rs = stmt.executeUpdate(
-					"INSERT INTO field (fid, fieldName) VALUES ('01', 'Mathematics')");
-			rs = stmt.executeUpdate(
-					"INSERT INTO field (fid, fieldName) VALUES ('02', 'Physics')");
-			rs = stmt.executeUpdate(
-					"INSERT INTO field (fid, fieldName) VALUES ('03', 'Art')");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-
 		}
-
-		
 	}
-	public void createCourses() {
-		String sql = "CREATE TABLE IF NOT EXISTS courses (\n" + " cid varchar(5) NOT NULL,\n"
-				+ "	courseName varchar(25) NOT NULL,\n" +"fid varchar(25) NOT NULL,\n" +" PRIMARY KEY (cid));";
 
+	private void table_exams_initiated() {
+		String sql = "CREATE TABLE IF NOT EXISTS exams_initiated (\n" + " eiID varchar(6) NOT NULL,\n"
+				+ "	eID varchar(5) NOT NULL,\n" + "	uID varchar(5) NOT NULL,\n" + " time varchar(3) NOT NULL);";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
 			stmt.execute(sql);
-
 			stmt = con.createStatement();
-			int rs = stmt.executeUpdate(
-					"INSERT INTO courses (cid, courseName,fid) VALUES ('01', 'Algebra','01')");
-			rs = stmt.executeUpdate(
-					"INSERT INTO courses (cid, courseName,fid) VALUES ('02', 'physica1','02')");
-			rs = stmt.executeUpdate(
-					"INSERT INTO courses (cid, courseName,fid) VALUES ('03', 'art1','03')");
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-
-		}
-	}
-	public void createExams() {
-		String sql="CREATE TABLE IF NOT EXISTS exams (\n" + " eid varchar(6) NOT NULL,\n"
-				+" duration varchar(6) NOT NULL,\n"
-				+ "	questions SET() NOT NULL,\n" +"teacherComments varchar(100)  NULL,\n" +""
-						+ "	pointsPerQuestion SET() NOT NULL,\n" +
-				"studentComments varchar(100)  NULL,\n"+" PRIMARY KEY (eid));";
-		try {
-			Statement stmt = con.createStatement();
-			// create a new table
-			stmt.execute(sql);
-			stmt=con.createStatement();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		
-	}
-	public void questionsinExams() {
-		String sql="CREATE TABLE IF NOT EXISTS questionsinExams (\n" + " eid varchar(6) NOT NULL,\n"
-				+"	ID varchar(5) NOT NULL,\n"
-				+ "	qid varchar(5) NOT NULL,\n" +"pointsPerQuestion varchar(3) NOT NULL\n"+" PRIMARY KEY (ID));";
-		try {
-			Statement stmt = con.createStatement();
-			// create a new table
-			stmt.execute(sql);
-			stmt=con.createStatement();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	
+	private void table_exams_done() {
+		String sql = "CREATE TABLE IF NOT EXISTS exams_done (\n" + " edID varchar(6) NOT NULL,\n"
+				+ " eiID varchar(6) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(6) NOT NULL,\n"
+				+ " startTime varchar(6) NOT NULL,\n" + " endTime varchar(6) NOT NULL);";
+		try {
+			Statement stmt = con.createStatement();
+			// create a new table
+			stmt.execute(sql);
+			stmt = con.createStatement();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private void table_exam_questions_answer() {
+		String sql = "CREATE TABLE IF NOT EXISTS exam_questions_answer (\n" + " edID varchar(6) NOT NULL,\n"
+				+ " qID varchar(6) NOT NULL,\n" + " answer varchar(6) NOT NULL);";
+		try {
+			Statement stmt = con.createStatement();
+			// create a new table
+			stmt.execute(sql);
+			stmt = con.createStatement();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 }

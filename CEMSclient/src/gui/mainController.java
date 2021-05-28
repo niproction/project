@@ -49,75 +49,59 @@ public class mainController {
 
 	@FXML
 	private AnchorPane box_left_of_menu;
-	
-	
+
 	@FXML
 	private AnchorPane menu_left_box;
-	
+
 	@FXML
 	private Pane menu_box;
-	
-	
+
 	@FXML
 	private Pane box_left;
 	@FXML
 	private Pane box_right;
-	
+
 	@FXML
-    private Pane bar_left_box;
+	private Pane bar_left_box;
 
-    @FXML
-    private Pane bar_right_box;
-    
-    
-    
-    
-    
-    
-    
-    
-    @FXML
-    private MenuButton main_menu;
-    
-    @FXML
-    private MenuItem displayStatisticalReport;
-    @FXML
-    private MenuItem checkRequest;
-    @FXML
-    private MenuItem information;
-    @FXML
-    private MenuItem createExam;
-    @FXML
-    private MenuItem setAxem;
-    @FXML
-    private MenuItem displayStatisticalReportTeacher;
-    @FXML
-    private MenuItem createQuestion;
-    @FXML
-    private MenuItem editQuestion;
-    @FXML
-    private MenuItem takeExam;
-    @FXML
-    private MenuItem historyOfExams;
-   
-    
-    
-    
-    
-    
+	@FXML
+	private Pane bar_right_box;
 
+	@FXML
+	private MenuButton main_menu;
+
+	@FXML
+	private MenuItem displayStatisticalReport;
+	@FXML
+	private MenuItem checkRequest;
+	@FXML
+	private MenuItem information;
+	@FXML
+	private MenuItem createExam;
+	@FXML
+	private MenuItem setAxem;
+	@FXML
+	private MenuItem displayStatisticalReportTeacher;
+	@FXML
+	private MenuItem createQuestion;
+	@FXML
+	private MenuItem editQuestion;
+	@FXML
+	private MenuItem takeExam;
+	@FXML
+	private MenuItem historyOfExams;
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
-		//set sizes
+		// set sizes
 		SceneController.primaryStage.setMinWidth(850);
 		SceneController.primaryStage.setMinHeight(750);
-		
+
 		SceneController.primaryStage.setMaxWidth(850);
 		SceneController.primaryStage.setMaxHeight(750);
 		SceneController.primaryStage.setWidth(850);
 		SceneController.primaryStage.setHeight(750);
-		App_client.pageContainer=page_box;
+		App_client.pageContainer = page_box;
 		displayStatisticalReport.setVisible(false);
 		checkRequest.setVisible(false);
 		information.setVisible(false);
@@ -144,11 +128,11 @@ public class mainController {
 						System.out.printf("Old: (%.1f, %.1f); new: (%.1f, %.1f)%n", previousStageSize.getX(),
 								previousStageSize.getY(), stageSize.getX(), stageSize.getY());
 						previousStageSize = stageSize;
-						//box_left.setMinSize((stageSize.getX() - 800) / 4, 100);
-						//box_right.setMinSize((stageSize.getX() - 800) / 2, 100);
-						//bar_left_box.setMinSize((stageSize.getX() - 800) / 4, 100);
-						//box_left_of_menu.setMinSize((stageSize.getX() - 800) / 4, 100);
-						//bar_right_box.setMinSize((stageSize.getX() - 800) / 2, 100);
+						// box_left.setMinSize((stageSize.getX() - 800) / 4, 100);
+						// box_right.setMinSize((stageSize.getX() - 800) / 2, 100);
+						// bar_left_box.setMinSize((stageSize.getX() - 800) / 4, 100);
+						// box_left_of_menu.setMinSize((stageSize.getX() - 800) / 4, 100);
+						// bar_right_box.setMinSize((stageSize.getX() - 800) / 2, 100);
 						stageSize = null;
 					});
 
@@ -165,13 +149,14 @@ public class mainController {
 			SceneController.primaryStage.setTitle("Cems: Student - home page");
 			takeExam.setVisible(true);
 			historyOfExams.setVisible(true);
-			label_bar_welcome.setText("Welcome back, " + App_client.user.getFirstName()+" "+App_client.user.getLastName());
+			label_bar_welcome
+					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
 			label_bar_roletype.setText("(Student)");
-			
-			//load Student home page
+
+			// load Student home page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
 			page_box.setCenter(page);
-			
+
 		} else if (App_client.user instanceof Teacher) {
 			SceneController.primaryStage.setTitle("Cems: Teacher - home page");
 			createExam.setVisible(true);
@@ -179,77 +164,81 @@ public class mainController {
 			displayStatisticalReportTeacher.setVisible(true);
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
-			label_bar_welcome.setText("Welcome back, " + App_client.user.getFirstName()+" "+App_client.user.getLastName());
+			label_bar_welcome
+					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
 			label_bar_roletype.setText("(Teacher)");
-			
-			//load Teacher home page
+
+			// load Teacher home page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
 			page_box.setCenter(page);
-			
+
 		} else if (App_client.user instanceof Principal) {
 			SceneController.primaryStage.setTitle("Cems: Principal - home page");
 			displayStatisticalReport.setVisible(true);
 			checkRequest.setVisible(true);
 			information.setVisible(true);
-			label_bar_welcome.setText("Welcome back, " + App_client.user.getFirstName()+" "+App_client.user.getLastName());
+			label_bar_welcome
+					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
 			label_bar_roletype.setText("(Principal)");
-			
-			//load Principal home page
+
+			// load Principal home page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
 			page_box.setCenter(page);
 		}
 	}
-	
+
 	@FXML
 	public void button_take_exam_clicked(ActionEvent event) {
 		System.out.println("clicked");
 		AnchorPane page = SceneController.getPage(PageProperties.Page.GET_EXAM);
 		// Pane screen = object.Sc();
 		page_box.setCenter(page);
-		
-		//page_box.setCenter(page);
-		
+
+		// page_box.setCenter(page);
+
 	}
+
 	@FXML
 	void button_add_new_question_clicked(ActionEvent event) {
 		System.out.println("clicked");
 		AnchorPane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
 		// Pane screen = object.Sc();
 		page_box.setCenter(page);
-		
-		//page_box.setCenter(page);
-		
+
+		// page_box.setCenter(page);
+
 	}
+
 	@FXML
 	void button_edit_question_clicked(ActionEvent event) {
 		System.out.println("clicked");
 		AnchorPane page = SceneController.getPage(PageProperties.Page.EDIT_QUESTION);
 		// Pane screen = object.Sc();
 		page_box.setCenter(page);
-		
-		//page_box.setCenter(page);
+
+		// page_box.setCenter(page);
 	}
-		
-	
+
 	@FXML
 	void buttton_statistical_report(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.STATISTICAL_REPORTS);
 		// Pane screen = object.Sc();
 		page_box.setCenter(page);
-		
+
 	}
-	
 
 	@FXML
 	void button_menu_clicked(MouseEvent event) {
 		System.out.println("clicked");
-		//AnchorPane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
+		// AnchorPane page =
+		// SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
 		// Pane screen = object.Sc();
-		//page_box.setCenter(page);
-		//System.out.println(page_box.getCenter());
-		//SceneController.primaryStage.setMinWidth(800);
-		//SceneController.primaryStage.setMinHeight(700);
+		// page_box.setCenter(page);
+		// System.out.println(page_box.getCenter());
+		// SceneController.primaryStage.setMinWidth(800);
+		// SceneController.primaryStage.setMinHeight(700);
 	}
+
 	@FXML
 	void button_statisticalreportby(ActionEvent event) {
 		System.out.println("clicked");
@@ -257,14 +246,14 @@ public class mainController {
 		page_box.setCenter(page);
 
 	}
-	
+
 	@FXML
 	void button_create_exam(ActionEvent event) {
 		System.out.println("clicked_createExam");
 		AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
 		page_box.setCenter(page);
 	}
-	
+
 	@FXML
 	void button_logout_clicked(MouseEvent event) {
 		App_client.user = null;
@@ -272,7 +261,7 @@ public class mainController {
 		// make animation and than load page
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
-		
+
 	}
 
 	@FXML
@@ -284,11 +273,18 @@ public class mainController {
 	void button_logout_exited(MouseEvent event) {
 
 	}
+
 	@FXML
-    void button_information(ActionEvent event) {
+	void button_information(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.INFO_PAGE);
 		page_box.setCenter(page);
 
-    }
+	}
+
+	@FXML
+	void button_extra_time_requests(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.EXTRA_TIME_REQUESTS);
+		page_box.setCenter(page);
+	}
 
 }

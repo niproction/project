@@ -1,7 +1,7 @@
 127.0.0.1
 root
-Bianka123
+15041994r
 db_cems
 3306
 5555
-no
+yes

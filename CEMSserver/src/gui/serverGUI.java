@@ -113,7 +113,7 @@ public class serverGUI {
             temp = br.readLine();
             Is_auto_scroll_logs = temp==null?false:temp.equals("yes")?true:false;
             checkbox_autoscroll.setSelected(Is_auto_scroll_logs);
-            System.out.println(Is_auto_scroll_logs);
+            //System.out.println(Is_auto_scroll_logs);
             
             br.close();
 
@@ -155,14 +155,17 @@ public class serverGUI {
 
         save_information_to_file();
 
-        App_server.mysqlCon = new mysqlConnection(input_host.getText(), input_username.getText(), input_password.getText(), input_db_name.getText(), input_mysql_port.getText());
-        App_server.mysqlCon.connectToDB();
-        getInput_logs().setText(getInput_logs().getText()+App_server.mysqlCon.getMessage());
         
-        if(App_server.mysqlCon.GET_connectionState())
+        mysqlConnection mysql = mysqlConnection.getInstance();
+        mysql.connectToDB(input_host.getText(), input_username.getText(), input_password.getText(), input_db_name.getText(), input_mysql_port.getText());
+        
+        
+        getInput_logs().setText(getInput_logs().getText()+mysql.getMessage());
+        
+        if(mysql.getIsConnected())
         {
-            App_server.mysqlCon.disconnetFromDB();
-            getInput_logs().setText(getInput_logs().getText()+App_server.mysqlCon.getMessage());
+        	mysql.disconnetFromDB();
+            getInput_logs().setText(getInput_logs().getText()+mysql.getMessage());
         }
         
         //scroll logs function
@@ -284,10 +287,10 @@ public class serverGUI {
     void start_server_button(MouseEvent event) {
         // constructor to send the information into the server controller and start the db connnection in the constructer
 
-        App_server.mysqlCon = new mysqlConnection(input_host.getText(), input_username.getText(), input_password.getText(), input_db_name.getText(), input_mysql_port.getText());
-        App_server.mysqlCon.connectToDB();
+        mysqlConnection mysqlCon = mysqlConnection.getInstance();
+        mysqlCon.connectToDB(input_host.getText(), input_username.getText(), input_password.getText(), input_db_name.getText(), input_mysql_port.getText());
 
-        if(App_server.mysqlCon.GET_connectionState())
+        if(mysqlCon.getIsConnected())
         {
             App_server.server = new CEMSServer(Integer.parseInt(input_server_port.getText()), this);
             App_server.server.Start();
@@ -305,9 +308,12 @@ public class serverGUI {
                 
                 button_create_tables.setVisible(true);
                 button_create_tables.setDisable(false);
+                initTables db = new initTables();
+                db.tables_reset();// delete to reset the tables
+
             }
             else{
-                App_server.mysqlCon.disconnetFromDB();
+            	mysqlCon.disconnetFromDB();
             }
         }
 
@@ -319,8 +325,7 @@ public class serverGUI {
     void stop_server_button(MouseEvent event) {
         App_server.server.Close();
         App_server.server = null;
-        App_server.mysqlCon.disconnetFromDB();
-        App_server.mysqlCon = null;
+        mysqlConnection.getInstance().setCon(null);
 
         //scroll logs function
         logs_scroll();
@@ -337,11 +342,8 @@ public class serverGUI {
     
     @FXML
     void build_tables_button(MouseEvent event) {
-    	initTables db = new initTables(App_server.mysqlCon.getCon());
-    	db.createUsers();
-    	db.createQuestions();
-    	db.createField();
-    	db.createCourses();
+    	initTables db = new initTables();
+    	db.tables_reset();// delete to reset the tables
 
     	button_create_tables.setDisable(true);
     }

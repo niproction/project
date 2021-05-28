@@ -335,6 +335,28 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 			
+		},
+		EXTRA_TIME_REQUESTS {
+			@Override
+			String GET_Title() {
+				return "AddQuestion page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/ExtraTimeRequests.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+			
 		}
 	
 			

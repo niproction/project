@@ -6,13 +6,7 @@ import common.User;
 import controllers.ClientController;
 import controllers.PageProperties;
 import controllers.SceneController;
-import gui.mainController;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Point2D;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 

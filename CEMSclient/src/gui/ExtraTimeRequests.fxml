@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ExtraTimeRequestsController">
+   <children>
+      <TableView fx:id="ExtraTimeTable" layoutX="80.0" layoutY="66.0" prefHeight="339.0" prefWidth="640.0">
+        <columns>
+          <TableColumn fx:id="TeacherName" prefWidth="90.0" text="TeacherName" />
+          <TableColumn fx:id="Field" prefWidth="60.0" text="Field" />
+            <TableColumn fx:id="Course" prefWidth="75.0" text="Course" />
+            <TableColumn fx:id="ExamId" prefWidth="75.0" text="ExamId" />
+            <TableColumn fx:id="RequestTime" prefWidth="120.0" text="RequestTimestamp" />
+            <TableColumn fx:id="ExtraTime" prefWidth="75.0" text="ExtraTime" />
+            <TableColumn fx:id="Status" prefWidth="144.0" text="Status" />
+        </columns>
+      </TableView>
+      <Text layoutX="80.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Extra time requests" textAlignment="CENTER" underline="true" wrappingWidth="640.0">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

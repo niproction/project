@@ -1,4 +1,5 @@
 package server;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,7 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class mysqlConnection {
-	private Connection conn;
+	private static mysqlConnection mysqlcon;
+	private Connection con = null;
+
 	private String message;
 
 	private String host;
@@ -19,74 +22,77 @@ public class mysqlConnection {
 
 	private static boolean IsConnected;
 
+	public mysqlConnection() {
+		
+	}
 
-	public mysqlConnection(String host, String username, String password, String DB_name, String mysql_port)
-	{
+	public static mysqlConnection getInstance() {
+		if(mysqlcon == null)
+			mysqlcon = new mysqlConnection();
+		return mysqlcon;
+	}
+	
+	public void connectToDB(String host, String username, String password, String DB_name, String mysql_port) {
 		this.host = host;
 		this.username = username;
 		this.password = password;
 		this.DB_name = DB_name;
 		this.mysql_port = mysql_port;
-	}
-
-	public String getMessage()
-	{
-		return message;
-	}
-	
-	public boolean GET_connectionState()
-	{
-		return IsConnected;
-	}
-
-	public void connectToDB() {
-		message="";
+		
+		message = "";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-			message+="Driver definition succeed\n";
+			message += "Driver definition succeed\n";
 			IsConnected = true;
 		} catch (Exception ex) {
 			/* handle the error */
-			message+="Driver definition failed\n";
+			message += "Driver definition failed\n";
 			IsConnected = false;
 		}
 
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://"+host+":"+mysql_port+"/"+DB_name+"?serverTimezone=IST", username, password);
-			message +="SQL connection succeed\n";
+			con = DriverManager.getConnection(
+					"jdbc:mysql://" + host + ":" + mysql_port + "/" + DB_name + "?serverTimezone=IST&useSSL=false",
+					username, password);
+			message += "SQL connection succeed\n";
 			IsConnected = true;
 		} catch (SQLException ex) {/* handle any errors */
-			message += "SQLException: " + ex.getMessage()+"\n";
-			message+="SQLState: " + ex.getSQLState()+"\n";
-			message+="VendorError: " + ex.getErrorCode()+"\n";
+			message += "SQLException: " + ex.getMessage() + "\n";
+			message += "SQLState: " + ex.getSQLState() + "\n";
+			message += "VendorError: " + ex.getErrorCode() + "\n";
 			IsConnected = false;
 		}
-		//return message;
 	}
 
-	public void disconnetFromDB()
-	{
-		message="";
-		try {
-			// Do stuff
+	public void disconnetFromDB() {
+		message = "";
 
-		} //catch (SQLException ex) {
-			// Exception handling stuff
-			
-		//}
-		 finally {
-			if (conn != null) {
-				try {
-					conn.close();
-					conn = null;
-					message+="Disconnected secssesfully from MySQL\n";
-				} catch (SQLException e) { /* Ignored */}
+		if (con != null) {
+			try {
+				System.out.println("disconnetiong from db");
+				con.close();
+				System.out.println("disconnected");
+				con = null;
+				message += "Disconnected secssesfully from MySQL\n";
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("problem disconnecting from db");
 			}
 		}
 	}
+
 	public Connection getCon() {
-		return conn;
+		return con;
 	}
+
+	public void setCon(Connection con) {
+		this.con = con;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
 	public Boolean getIsConnected() {
 		return IsConnected;
 	}

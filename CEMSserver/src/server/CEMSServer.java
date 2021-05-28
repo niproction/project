@@ -83,7 +83,7 @@ public class CEMSServer extends AbstractServer {
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		controller.setInput_logs(controller.getInput_logs().getText()+"Message received from " + client+"\n");
 
-		ServerDataPacketHandler handler = new ServerDataPacketHandler(App_server.mysqlCon.getCon());
+		ServerDataPacketHandler handler = new ServerDataPacketHandler();
 		DataPacket to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
 	
 

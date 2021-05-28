@@ -18,12 +18,6 @@ import common.User;
 
 public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
-	private Connection con;
-
-	public ServerDataPacketHandler(Connection con) {
-		this.con = con;
-	}
-
 	@Override
 	public DataPacket CheckRequestExecuteCreateResponce(Object msg) {
 		if (msg instanceof DataPacket && ((DataPacket) msg).GET_SendTo() == DataPacket.SendTo.SERVER)
@@ -42,7 +36,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					&& dataPacket.GET_Data_parameters().get(1) instanceof String) {
 				Statement stmt;
 				try {
-					stmt = con.createStatement();
+					stmt = mysqlConnection.getInstance().getCon().createStatement();
 
 					ResultSet rs = stmt.executeQuery(
 							"SELECT * from users WHERE (username='" + (String) (dataPacket.GET_Data_parameters().get(0))
@@ -99,7 +93,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			User user=((User)dataPacket.GET_Data_parameters().get(0));
 			Statement stmt;
 			try {
-				stmt = con.createStatement();
+				stmt = mysqlConnection.getInstance().getCon().createStatement();
 				System.out.println(user.getfid());
 				ResultSet rs = stmt.executeQuery("SELECT * from field WHERE (fid='" + user.getfid() + "') ");
 				
@@ -129,7 +123,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			User user=(User)dataPacket.GET_Data_parameters().get(1);
 			Statement stmt;
 			try {
-				stmt = con.createStatement();
+				stmt = mysqlConnection.getInstance().getCon().createStatement();
 
 				ResultSet rs = stmt.executeQuery("SELECT * from questions WHERE (qid='" + questionID + "') "
 						+ "AND (authorID= '"+user.getuid()+"')");
@@ -169,7 +163,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			User user=(User)dataPacket.GET_Data_parameters().get(1);
 			PreparedStatement ps;
 			try {
-				ps = con.prepareStatement(
+				ps = mysqlConnection.getInstance().getCon().prepareStatement(
 						"update questions set qid=?,question=?,option1=?,option2=?,option3=?,option4=?,answer=?,authorID=? where qid =?");
 
 				ps.setString(1, question.getId());
@@ -199,7 +193,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			Question question = (Question) dataPacket.GET_Data_parameters().get(0);
 			User user=(User) dataPacket.GET_Data_parameters().get(1);
 			try {
-				stmt2 = con.createStatement();
+				stmt2 = mysqlConnection.getInstance().getCon().createStatement();
 				String query = "select count(*) from questions where qid like '"+question.getId()+"%'";
 				// Executing the query
 				ResultSet rs2 = stmt2.executeQuery(query);
@@ -208,7 +202,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				int count = rs2.getInt(1);
 				count++;
 				String myStatement = " INSERT INTO questions (qid, question, option1, option2, option3, option4, answer, authorID) VALUES (?,?,?,?,?,?,?,?)";
-				PreparedStatement statement = con.prepareStatement(myStatement);
+				PreparedStatement statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
 				String idCounter=count<10?"00"+count:count<100?"0"+count:""+count;
 				statement.setString(1, question.getId() + idCounter);
 				statement.setString(2, question.getInfo());
@@ -235,7 +229,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			String password=(String) dataPacket.GET_Data_parameters().get(0);
 			Statement stmt;
 			try {
-				stmt = con.createStatement();
+				stmt = mysqlConnection.getInstance().getCon().createStatement();
 
 				ResultSet rs = stmt.executeQuery("SELECT * from exams WHERE (password='" + password + "')");
 						
@@ -274,7 +268,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		}else if (dataPacket.GET_Request() == DataPacket.Request.GET_INFO_USERS) {
 			try {
 				Statement statement;
-				statement = con.createStatement();
+				statement = mysqlConnection.getInstance().getCon().createStatement();
 				ResultSet rs = statement.executeQuery("SELECT * from users");
 				ArrayList<Object> users = new ArrayList<Object>(); // Create an ArrayList object
 				while (rs.next()) {
@@ -298,7 +292,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		ArrayList<Object> parameter = new ArrayList<Object>();
 		User user=((User)dataPacket.GET_Data_parameters().get(0));
 		try {
-			statement=con.createStatement();
+			statement=mysqlConnection.getInstance().getCon().createStatement();
 			ResultSet rs = statement.executeQuery("SELECT question from questions WHERE qid like '" + user.getfid() + "%'");
 			while (rs.next()) {
 				System.out.println("found question:"+rs.getString(1));
@@ -317,7 +311,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		ArrayList<Object> parameter = new ArrayList<Object>();
 		User user=((User)dataPacket.GET_Data_parameters().get(0));
 		try {
-			statement=con.createStatement();
+			statement=mysqlConnection.getInstance().getCon().createStatement();
 			ResultSet rs = statement.executeQuery("SELECT courseName from courses WHERE (fid='" + user.getfid() + "') ");
 			while (rs.next()) {
 				System.out.println("found course name:"+rs.getString(1));
