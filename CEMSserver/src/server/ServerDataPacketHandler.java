@@ -436,22 +436,23 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			// Retrieving the result
 			for (String qID:exam.getMapKey()) 
 			{
-				System.out.println(qID);
+				System.out.println("current question in the exam^^^ "+exam.getPointsForQuestions(qID));
+				System.out.println(qID+"&&& "+exam.getSizeOfMap());
 				String myStatement = " INSERT INTO exam_questions (eID, qID, points) VALUES (?,?,?)";
 				PreparedStatement statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
 				statement.setString(1, exam.getExamID());
 				statement.setString(2, qID);
 				statement.setString(3, exam.getPointsForQuestions(qID));
 				statement.executeUpdate();
-				return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.INSERT_EXAM_QUESTIONS,
-						null, "", true); 
+
 			}
+			return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.INSERT_EXAM_QUESTIONS,
+					null, "", true); 
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
-		return null;
 	}
 
 	private DataPacket insertExam(DataPacket dataPacket) {
