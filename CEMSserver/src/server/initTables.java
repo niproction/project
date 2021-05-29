@@ -117,7 +117,8 @@ public class initTables {
 	private void table_exams() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams (\n" + " eID varchar(6) NOT NULL,\n"
 				+ " description TEXT NOT NULL,\n" + " duration varchar(6) NOT NULL,\n"
-				+ " teacherComments TEXT  NULL,\n" + "" + " studentComments TEXT  NULL,\n" + " PRIMARY KEY (eID));";
+				+ " teacherComments TEXT  NULL,\n" + "" + " studentComments TEXT  NULL,\n" +
+				"password TEXT  NULL, \n"+" PRIMARY KEY (eID));";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table

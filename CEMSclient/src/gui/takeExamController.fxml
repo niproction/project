@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="ap" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="gui.takeExamController">
+   <children>
+      <AnchorPane prefHeight="592.0" prefWidth="758.0">
+         <children>
+            <Label layoutX="352.0" layoutY="75.0" text="Question Number:">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="482.0" layoutY="75.0" text="qn">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="352.0" layoutY="25.0" text="Date:">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="401.0" layoutY="25.0" text="current date">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="571.0" layoutY="25.0" text="Total Time">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="571.0" layoutY="66.0" text="Time Taken">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="duration" layoutX="677.0" layoutY="25.0" text="tt">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="677.0" layoutY="66.0" text="taken">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="questionInfo" layoutX="77.0" layoutY="107.0" text="the question info">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <CheckBox layoutX="57.0" layoutY="193.0" mnemonicParsing="false" text="option1" />
+            <CheckBox layoutX="57.0" layoutY="279.0" mnemonicParsing="false" text="option2" />
+            <CheckBox layoutX="57.0" layoutY="372.0" mnemonicParsing="false" text="option3" />
+            <CheckBox layoutX="57.0" layoutY="469.0" mnemonicParsing="false" text="option4" />
+            <Button fx:id="next" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="264.0" layoutY="534.0" mnemonicParsing="false" onMouseClicked="#handleAction" prefHeight="25.0" prefWidth="71.0" text="Next" />
+            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="633.0" layoutY="534.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Submit" />
+            <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="274.0" layoutY="538.0">
+               <image>
+                  <Image url="@../../../../../Desktop/qems/Next.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="634.0" layoutY="538.0">
+               <image>
+                  <Image url="@../../../../../Desktop/qems/save.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="499.0" layoutY="75.0" text="/">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalQuestion" layoutX="504.0" layoutY="75.0" text="tq">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

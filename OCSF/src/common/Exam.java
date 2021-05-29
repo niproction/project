@@ -14,6 +14,13 @@ public class Exam implements Serializable {
 	private String studentsComments;
 	private String password;
 	private String author;
+	private String description;
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	private ArrayList<Question> questions;
 	public String getExamID() {
 		return examID;
