@@ -40,6 +40,7 @@ public class initTables {
 			stmt.executeUpdate("DROP TABLE IF EXISTS fields;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS courses;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS questions;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS exams;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS exam_questions;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS exams_initiated;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS exams_done;");
@@ -56,7 +57,8 @@ public class initTables {
 				+ "	username varchar(25) NOT NULL,\n" + "	password varchar(25) NOT NULL,\n"
 				+ "	email varchar(25) NOT NULL,\n" + "	firstName varchar(25) NOT NULL,\n"
 				+ "	lastName varchar(25) NOT NULL,\n" + "	ID varchar(25) NOT NULL,\n"
-				+ "	roleType varchar(10) NOT NULL,\n" + " fID varchar(25) NOT NULL,\n" + " PRIMARY KEY (uID));";
+				+ "	roleType varchar(10) NOT NULL,\n" + " fID varchar(25) NOT NULL,\n"
+				+ " isConnected varchar(3) NOT NULL,\n" + " PRIMARY KEY (uID));";
 
 		try {
 			Statement stmt = con.createStatement();
@@ -65,11 +67,11 @@ public class initTables {
 
 			stmt = con.createStatement();
 			int rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID) VALUES ('s', '1111', 's@g.com', 'tomer', 'levi', '212352534', 'student','01')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('s', '1111', 's@g.com', 'tomer', 'levi', '212352534', 'student','01', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID) VALUES ('t', '1111', 't@g.com', 'Aviv', 'Jibly', '', 'teacher', '02')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('t', '1111', 't@g.com', 'Aviv', 'Jibly', '', 'teacher', '02', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID) VALUES ('p', '1111', 'p@g.com', 'Elon', 'Musk', '', 'principle', '03')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('p', '1111', 'p@g.com', 'Elon', 'Musk', '', 'principle', '03', 'NO')");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -115,14 +117,27 @@ public class initTables {
 	}
 
 	private void table_exams() {
-		String sql = "CREATE TABLE IF NOT EXISTS exams (\n" + " eID varchar(6) NOT NULL,\n"
-				+ " description TEXT NOT NULL,\n" + " duration varchar(6) NOT NULL,\n"
-				+ " teacherComments TEXT  NULL,\n" + "" + " studentComments TEXT  NULL,\n" + " PRIMARY KEY (eID));";
+		String sql = "CREATE TABLE IF NOT EXISTS exams (\n" + " eID varchar(10) NOT NULL,\n"
+				 + " duration varchar(6) NOT NULL,\n"+
+				"author varchar(40) NOT NULL,\n"+
+				 " teacherComments TEXT  NULL,\n" + "" + " studentComments TEXT  NULL,\n" + "password TEXT  NULL, \n"+
+				 "PRIMARY KEY (eID));";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
 			stmt.execute(sql);
 			stmt = con.createStatement();
+			
+			String myStatement = " INSERT INTO exams (eID,  duration,author, teacherComments, studentComments, password) VALUES (?,?,?,?,?,?)";
+			PreparedStatement statement = con.prepareStatement(myStatement);
+			statement.setString(1, "02000");
+			statement.setString(2, "02:30");
+			statement.setString(3, "mark berman");
+			statement.setString(4, "hi lo");
+			statement.setString(5, "hola hola");
+			statement.setString(6, "1234");
+			statement.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -159,8 +174,8 @@ public class initTables {
 	}
 
 	private void table_exam_questions() {
-		String sql = "CREATE TABLE IF NOT EXISTS exam_questions (\n" + " eID varchar(6) NOT NULL,\n"
-				+ "	qID varchar(5) NOT NULL,\n" + " points varchar(3) NOT NULL);";
+		String sql = "CREATE TABLE IF NOT EXISTS exam_questions (\n" + " eID varchar(10) NOT NULL,\n"
+				+ "	qID varchar(5) NOT NULL,\n" + " points varchar(4) NOT NULL);";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
@@ -172,8 +187,8 @@ public class initTables {
 	}
 
 	private void table_exams_initiated() {
-		String sql = "CREATE TABLE IF NOT EXISTS exams_initiated (\n" + " eiID varchar(6) NOT NULL,\n"
-				+ "	eID varchar(5) NOT NULL,\n" + "	uID varchar(5) NOT NULL,\n" + " time varchar(3) NOT NULL);";
+		String sql = "CREATE TABLE IF NOT EXISTS exams_initiated (\n" + " eiID varchar(7) NOT NULL,\n"
+				+ "	eID varchar(7) NOT NULL,\n" + "	uID varchar(5) NOT NULL,\n" + " time varchar(3) NOT NULL);";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
@@ -185,8 +200,8 @@ public class initTables {
 	}
 
 	private void table_exams_done() {
-		String sql = "CREATE TABLE IF NOT EXISTS exams_done (\n" + " edID varchar(6) NOT NULL,\n"
-				+ " eiID varchar(6) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(6) NOT NULL,\n"
+		String sql = "CREATE TABLE IF NOT EXISTS exams_done (\n" + " edID varchar(7) NOT NULL,\n"
+				+ " eiID varchar(7) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(6) NOT NULL,\n"
 				+ " startTime varchar(6) NOT NULL,\n" + " endTime varchar(6) NOT NULL);";
 		try {
 			Statement stmt = con.createStatement();
@@ -199,7 +214,7 @@ public class initTables {
 	}
 
 	private void table_exam_questions_answer() {
-		String sql = "CREATE TABLE IF NOT EXISTS exam_questions_answer (\n" + " edID varchar(6) NOT NULL,\n"
+		String sql = "CREATE TABLE IF NOT EXISTS exam_questions_answer (\n" + " edID varchar(7) NOT NULL,\n"
 				+ " qID varchar(6) NOT NULL,\n" + " answer varchar(6) NOT NULL);";
 		try {
 			Statement stmt = con.createStatement();

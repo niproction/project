@@ -7,7 +7,20 @@ import common.Exam;
 
 public  class examControl {
 	public static ArrayList<String> coursesNames;
-	private static Exam exam;
+	public static String selectedCourse;
+	public static ArrayList<String> questions;
+	public static String questionID;
+	public static Exam exam;
+	public static String selectedCourseID;
+	public static String examID;
+	
+	
+	public static String getExamID() {
+		return examID;
+	}
+	public static void setExamID(String examID) {
+		examControl.examID = examID;
+	}
 	public static Exam getExam() {
 		return exam;
 	}

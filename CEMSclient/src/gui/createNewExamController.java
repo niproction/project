@@ -1,11 +1,12 @@
 package gui;
 
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
-import common.Question;
 import controllers.PageProperties;
 import controllers.SceneController;
 import controllers.examControl;
@@ -22,8 +23,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class createNewExamController {
-	Exam exam;
+	Exam exam=new Exam();
 	SceneController sceen;
+	private double totalPoints=0;
 	@FXML // fx:id="ap"
     private AnchorPane ap;
 	@FXML
@@ -47,6 +49,8 @@ public class createNewExamController {
 	@FXML
 	private Label totalPointsLabel;
 	@FXML
+	private TextField duration;
+	@FXML
 	public void initialize() {
 		sceen=new SceneController(PageProperties.Page.CREATE_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
@@ -61,7 +65,6 @@ public class createNewExamController {
 		}
 		errLabel.setVisible(false);
 		totalPointsLabel.setText("0");
-
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSES, parameters, null, true);
 		App_client.chat.accept(dataPacket);
 		ObservableList<String> courseList=FXCollections.observableArrayList();
@@ -70,48 +73,130 @@ public class createNewExamController {
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION_BY_FIELD_ID, parameters, null, true);
 		ObservableList<String> questionsList=FXCollections.observableArrayList();
 		App_client.chat.accept(dataPacket);
-		//questionsList.addAll(examControl.quetions);
+		questionsList.addAll(examControl.questions);
 		questions.setItems(questionsList);
 	}
 	
 	public void handleOnAction(MouseEvent event) {
-		if(event.getSource()==submitBtn) {
-		//	sumbit();
+		 if(event.getSource()==addQuestionBtn) {
+			 addQuestionToExam();
 		}
-		else if(event.getSource()==addQuestionBtn) {
-			addQuestionToExam();
-		}
+		 else if(event.getSource()==submitBtn)
+		 {
+			 sumbit();
+		 }
 		
 	}
-//
-//
+
+
 	private void addQuestionToExam() {
+		System.out.println("add question $$$$$$");
+		ArrayList<Object> parameters=new ArrayList<>();
+		if(checkInvalidInputsForAddQuestion()==true)
+			return;
+		
+		errLabel.setVisible(false);
+		parameters.add(questions.getValue());
+		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION_BY_DESCRIPTION, parameters, null, true);
+		App_client.chat.accept(dataPacket);
+		exam.addQuestionAndPoints(examControl.questionID, pointsForQuestion.getText());
+		totalPoints+=Double.parseDouble(pointsForQuestion.getText());
+		totalPointsLabel.setText(String.valueOf(totalPoints));
+		pointsForQuestion.setText("");
+	}
+
+	private boolean checkInvalidInputsForAddQuestion() {
+		if(courses.getValue()==null)
+		{
+			System.out.println("no course");
+			errLabel.setText("*You must choose course");
+			errLabel.setVisible(true);
+			return true;
+		}
 		if(questions.getValue()==null)//if the user didn't choose any question
 		{
-			errLabel.setText("You must choose question");
+			System.out.println("no question");
+			errLabel.setText("*You must choose question");
 			errLabel.setVisible(true);
-			return;
+			return true;
 		}
-		else if(pointsForQuestion.getText()==null)//if the user didn't insert the amount of points in the text
+		if(pointsForQuestion.getText().equals(""))//if the user didn't insert the amount of points in the text
 		{
-			errLabel.setText("You must insert points for the question");
+			System.out.println("no points");
+			errLabel.setText("*You must insert points for the question");
 			errLabel.setVisible(true);
+			return true;
+		}
+		if(!isNumeric(pointsForQuestion.getText()))//if the user didn't insert the numbers to points
+		{
+			System.out.println("invalid characters");
+			errLabel.setText("*You must enter only number to points! ");
+			errLabel.setVisible(true);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isNumeric(String text) {
+		ParsePosition pos=new ParsePosition(0);
+		NumberFormat.getInstance().parse(text,pos);
+		return text.length()==pos.getIndex();
+	}
+
+
+	private void sumbit() {
+		ArrayList<Object> parameters=new ArrayList<>();
+		if(checkInvalidInputsForSumbit()==true)
+		{
 			return;
 		}
-		//Question tmpQuestion=new Question(questions.getValue(),teacherComments.getText(),studentComments.getText());
-		//exam.addQuestion(tmpQuestion);
-		
+		errLabel.setVisible(false);
+		parameters.add(courses.getValue());
+		System.out.println("beforrrrrr");
+		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
+		App_client.chat.accept(dataPacket);
+		System.out.println("afterrrrrrrr");
+		exam.setAuthor(App_client.user.getFirstName()+" "+App_client.user.getLastName());
+		System.out.println("%%%% " +exam.getAuthor());
+		exam.setExamID(App_client.user.getfid()+examControl.selectedCourseID);
+		exam.setDuration(duration.getText());
+		exam.setStudentsComments(studentComments.getText());
+		exam.setTeacherComments(teacherComments.getText());
+		parameters.add(0, exam);
+		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
+		App_client.chat.accept(dataPacket);
+		exam.setExamID(examControl.examID);
+		System.out.println("hhhhhh%%5  "+exam.getExamID());
+		parameters.add(0, exam);
+		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM_QUESTIONS, parameters, null, true);
+		App_client.chat.accept(dataPacket);
 	}
-//
-//
-//	private void sumbit() {
-//		ArrayList<Object> parameters=new ArrayList<>();
-//		if(exam.getQuestion()==null) {
-//			errLabel.setText("You must insert at least one question to the exam");
-//			errLabel.setVisible(true);
-//			return;
-//		}			
-//	}
+
+	private boolean checkInvalidInputsForSumbit() {
+		if(exam.getSizeOfMap()==0) {
+			errLabel.setText("*Exam is empty");
+			errLabel.setVisible(true);
+			return true;
+		}
+		if(!totalPointsLabel.getText().equals("100.0"))
+		{
+			errLabel.setText("*You must have exaclty 100 in the total points");
+			errLabel.setVisible(true);
+			return true;
+		}
+		if(duration.getText().equals(""))
+		{
+			errLabel.setText("*You must enter duration to the exam");
+			errLabel.setVisible(true);
+			return true;
+		}
+		if(!isNumeric(duration.getText())) {
+			errLabel.setText("*You must enter only number to duration!");
+			errLabel.setVisible(true);
+			return true;
+		}
+		return false;
+	}
 
 	
 }

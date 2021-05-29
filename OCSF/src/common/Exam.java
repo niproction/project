@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
 
 @SuppressWarnings("serial")
 public class Exam implements Serializable {
@@ -15,6 +17,26 @@ public class Exam implements Serializable {
 	private String password;
 	private String author;
 	private ArrayList<Question> questions;
+	private HashMap<String, String> questionToPointsMap=new HashMap<>();
+	
+	public void addQuestionAndPoints(String question,String points)
+	{
+		//questions.add(question);
+		questionToPointsMap.put(question, points);
+	}
+
+
+	public String getPointsForQuestions(String question) {
+		return questionToPointsMap.get(question);
+	}
+	public Set<String> getMapKey(){
+
+		return  questionToPointsMap.keySet();
+	}
+	public int getSizeOfMap()
+	{
+		return questionToPointsMap.size();
+	}
 	public String getExamID() {
 		return examID;
 	}

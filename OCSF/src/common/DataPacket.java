@@ -24,30 +24,30 @@ public class DataPacket implements Serializable {
 
 	public enum Request {
 		LOGIN, SECCSESFULLY_LOGINED, LOGOUT, READ_EXAMS, ADD_NEW_QUESTION,EDIT_QUESTION,GET_QUESTION,
-		GET_FIELD_NAME,GET_COURSES,GET_QUESTION_BY_FIELD_ID,GET_EXAM,GET_INFO_USERS,GET_INFO_COURSES
+		GET_FIELD_NAME,GET_COURSES,GET_QUESTION_BY_FIELD_ID,GET_EXAM,GET_INFO_USERS,GET_INFO_COURSES,GET_QUESTION_BY_DESCRIPTION,INSERT_EXAM,GET_COURSE_ID_BY_COURSE_NAME, INSERT_EXAM_QUESTIONS,GET_TEST_QUESTIONS
 	}
 
 
 	private SendTo sendTo;
-	private Request dataType;
-	// private MySQL_action mySql_action;
+	private Request request;
 	private ArrayList<Object> Data_parameters;
+	private String message;
 	private Boolean result_boolean;
 
 	public DataPacket() {
 		this.sendTo = null;
-		this.dataType = null;
+		this.request = null;
 		this.Data_parameters = null;
 		// this.dataType =null;
 		this.result_boolean = null;
 	}
 
-	public DataPacket(SendTo sendTo, Request dataType, ArrayList<Object> Data_parameters, String ReturnBackMessageType,
+	public DataPacket(SendTo sendTo, Request request, ArrayList<Object> Data_parameters, String message,
 			boolean result_boolean) {
 		this.sendTo = sendTo;
-		this.dataType = dataType;
-		// this.mySql_action = null;
+		this.request = request;
 		this.Data_parameters = Data_parameters;
+		this.message=message;
 		this.result_boolean = result_boolean;
 	}
 	/*
@@ -58,41 +58,44 @@ public class DataPacket implements Serializable {
 	 * result_boolean; }
 	 */
 
-	public SendTo GET_SendTo() {
+	
+	public SendTo getSendTo() {
 		return sendTo;
 	}
 
-	public void SET_SendTo(SendTo sendTo) {
+	public void setSendTo(SendTo sendTo) {
 		this.sendTo = sendTo;
 	}
 
-	public Request GET_Request() {
-		return dataType;
+	public Request getRequest() {
+		return request;
 	}
 
-	public void SET_Request(Request dataType) {
-		this.dataType = dataType;
+	public void setRequest(Request request) {
+		this.request = request;
 	}
 
-	public ArrayList<Object> GET_Data_parameters() {
+	public ArrayList<Object> getData_parameters() {
 		return Data_parameters;
 	}
 
-	public void SET_Data_parameters(ArrayList<Object> Data_parameters) {
-		this.Data_parameters = Data_parameters;
+	public void setData_parameters(ArrayList<Object> data_parameters) {
+		Data_parameters = data_parameters;
+	}
+	
+	public String getMessage() {
+		return message;
 	}
 
-	public Boolean GET_result_boolean() {
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public Boolean getResult_boolean() {
 		return result_boolean;
 	}
 
-	public void SET_result_boolean(Boolean result_boolean) {
+	public void setResult_boolean(Boolean result_boolean) {
 		this.result_boolean = result_boolean;
 	}
-
-	public String toString() {
-		return sendTo.toString() + " " + dataType.toString() + " " + Data_parameters.toString() + " "
-				+ result_boolean.toString();
-	}
-
 }
