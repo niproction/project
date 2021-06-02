@@ -250,7 +250,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/takeExamPage.fxml";
+				return "../gui/takeExamController.fxml";
 			}
 
 			@Override

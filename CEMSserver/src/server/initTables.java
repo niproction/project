@@ -15,10 +15,10 @@ public class initTables {
 		this.con = mysqlConnection.getInstance().getCon();
 	}
 
-	public void tables_reset() {
+	/*public void tables_reset() {
 		delete_tables();
 		create_tables();
-	}
+	}*/
 
 	public void create_tables() {
 		table_users();
@@ -32,7 +32,7 @@ public class initTables {
 		table_exam_questions_answer();
 	}
 
-	public void delete_tables() {
+	/*public void delete_tables() {
 
 		try {
 			Statement stmt = con.createStatement();
@@ -50,6 +50,18 @@ public class initTables {
 			System.out.print("problem to delete tables");
 		}
 
+	}*/
+	public void update_isconnected() {
+		try {
+			PreparedStatement ps = mysqlConnection.getInstance().getCon().prepareStatement(
+					"update users set isConnected=?");
+			ps.setString(1, "NO");
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void table_users() {
