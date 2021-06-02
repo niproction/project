@@ -52,7 +52,7 @@ public class mysqlConnection {
 
 		try {
 			con = DriverManager.getConnection(
-					"jdbc:mysql://" + host + ":" + mysql_port + "/" + DB_name + "?serverTimezone=IST&useSSL=false",
+					"jdbc:mysql://" + host + ":" + mysql_port + "/" + DB_name + "?serverTimezone=IST&allowPublicKeyRetrieval=true&useSSL=false",
 					username, password);
 			message += "SQL connection succeed\n";
 			IsConnected = true;
