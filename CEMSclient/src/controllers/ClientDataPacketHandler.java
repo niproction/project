@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import common.Student;
 import common.Teacher;
 import common.User;
+import common.examInitiated;
 import common.Principal;
 import common.Question;
 
@@ -61,17 +62,31 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				ClientController.storedDataPacket = dataPacket;
 			}
 		}
-		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
+		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 			if(dataPacket.getData_parameters()!=null) {
-				Exam exam= (Exam) dataPacket.getData_parameters().get(0);
-				examControl.setExam(exam);
+				String seccess=(String)dataPacket.getData_parameters().get(0);
+				App_client.seccess=seccess;
 			}
 			else
-				examControl.setExam(null);
+				App_client.seccess=null;
+			
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
+			if(dataPacket.getData_parameters()!=null) {
+				System.out.println("qqqqq");
+				examInitiated exam= (examInitiated) dataPacket.getData_parameters().get(0);
+				Exam exam2=(Exam) dataPacket.getData_parameters().get(1);
+				examInitiatedControl.setExamInitiated(exam);
+				examControl.setExam(exam2);
+			}
+			else
+				examInitiatedControl.setExamInitiated(null);
 			
 		}
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEST_QUESTIONS) {
+			System.out.println("get test questions");
 			if(dataPacket.getData_parameters()!=null) {
+				System.out.println("insert get test questions");
 				Exam exam=(Exam)dataPacket.getData_parameters().get(0);
 				examControl.setExam(exam);
 			}

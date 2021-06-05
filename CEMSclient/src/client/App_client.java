@@ -17,6 +17,7 @@ public class App_client extends Application {
 	public static User user=null;
 	public static Question Question=null;
 	public static String fieldName=null;
+	public static String seccess=null;
 	//public static user user=null;
 	//public static user user=null;
 

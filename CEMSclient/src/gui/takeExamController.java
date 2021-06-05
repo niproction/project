@@ -7,20 +7,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.Timer;
 
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
 import common.Question;
+import common.examInitiated;
 import controllers.PageProperties;
 import controllers.SceneController;
 import controllers.examControl;
-import javafx.event.ActionEvent;
+import controllers.examInitiatedControl;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -29,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import java.awt.event.ActionEvent;
 
 public class takeExamController {
 	SceneController sceen;
@@ -74,16 +78,43 @@ public class takeExamController {
 	@FXML
 	private ImageView submotImageView;
 	private Exam exam;
-
+	private examInitiated examInitiated;
 	private int min, sec, index;
 	private String startTime, endTime;
-	private int timeLeft;
-
+	private int timeLeft, counter;
+	private Timer tm;
 	@FXML
 	void initialize() {
 		System.out.println("take exam page loaded");
 		sceen = new SceneController(PageProperties.Page.TAKE_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
+		examInitiated=examInitiatedControl.getExamInitiated();
+		examInitiatedControl.setExamInitiated(null);
+		int dur = Integer.parseInt(examInitiated.getTime());
+		minPass.setText("0");
+		tm = new Timer(1000, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				counter++;
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						if (min == dur) {
+							submit();
+						}
+						if (counter == 60) {
+							counter = 0;
+							min++;
+							minPass.setText(String.valueOf(min));
+						}
+						secPass.setText(String.valueOf(counter));
+					}
+				});
+
+			}
+		});
+		tm.start();
 		testSubmited.setVisible(false);
 		back.setVisible(false);
 		backImageView.setVisible(false);
@@ -94,28 +125,18 @@ public class takeExamController {
 		startTime = dtf.format(now).substring(11, 19);
 		System.out.println(dateLabel.getText() + "---" + startTime);
 		// System.out.println(date+" "+startTime);
-		duration.setText(examControl.getExam().getDuration());
+		duration.setText(examInitiated.getTime());
 		ArrayList<Object> parameters = new ArrayList<>();
-		parameters.add(examControl.getExam());
+		parameters.add(examInitiated);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_TEST_QUESTIONS,
 				parameters, null, true);
 		System.out.println("trying to send exam");
 
 		App_client.chat.accept(dataPacket);
 		if (examControl.getExam() != null) {
+			System.out.println("exam is not null");
 			exam = examControl.getExam();
 			examControl.setExam(null);
-			//////////////////////////////////////////////////////////////////////////////////////
-			/*
-			 * int testTime=Integer.parseInt(examControl.getExam().getDuration()); TimerTask
-			 * timerTask=new TimerTask() {
-			 * 
-			 * @Override public void run() { System.out.println("2");
-			 * 
-			 * } };
-			 * 
-			 * Timer timer=new Timer(); timer.schedule(timerTask, 0, 1000);
-			 */
 
 			testQuestions = exam.getQuestions();
 			answers = new String[testQuestions.size()];
@@ -212,6 +233,7 @@ public class takeExamController {
 	}
 
 	public void submit() {
+		ArrayList<Object> parameters=new ArrayList<>();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		endTime = dtf.format(now).substring(11, 19);
@@ -222,12 +244,25 @@ public class takeExamController {
 		option3.setVisible(false);
 		option4.setVisible(false);
 		next.setVisible(false);
+		nextImageView.setVisible(false);
 		back.setVisible(false);
 		backImageView.setVisible(false);
 		submitBtn.setVisible(false);
 		submotImageView.setVisible(false);
 		testSubmited.setVisible(true);
 		System.out.println(answerList);
+		tm.stop();
+		parameters.add(examInitiated);
+		parameters.add(App_client.user);
+		parameters.add(duration.getText());
+		parameters.add(startTime);
+		parameters.add(endTime);
+		parameters.add(testQuestions);
+		parameters.add(answerList);
+	
+		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.ADD_DONE_EXAM, parameters,
+				null, true);
+		App_client.chat.accept(dataPacket);
 	}
 
 }

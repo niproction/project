@@ -15,10 +15,10 @@ public class initTables {
 		this.con = mysqlConnection.getInstance().getCon();
 	}
 
-	/*public void tables_reset() {
+	public void tables_reset() {
 		delete_tables();
 		create_tables();
-	}*/
+	}
 
 	public void create_tables() {
 		table_users();
@@ -30,9 +30,10 @@ public class initTables {
 		table_exams_initiated();
 		table_exams_done();
 		table_exam_questions_answer();
+		table_extra_time_request();
 	}
 
-	/*public void delete_tables() {
+	public void delete_tables() {
 
 		try {
 			Statement stmt = con.createStatement();
@@ -50,7 +51,7 @@ public class initTables {
 			System.out.print("problem to delete tables");
 		}
 
-	}*/
+	}
 	public void update_isconnected() {
 		try {
 			PreparedStatement ps = mysqlConnection.getInstance().getCon().prepareStatement(
@@ -126,6 +127,24 @@ public class initTables {
 			System.out.println(e.getMessage());
 
 		}
+	}
+	private void table_extra_time_request() {
+		String sql="CREATE TABLE `db_cems`.`extra_time_requests` (\r\n"
+				+ "  `uID` INT NOT NULL,\r\n"
+				+ "  `eiID` VARCHAR(5) NULL,\r\n"
+				+ "  `comment` TEXT NULL,\r\n"
+				+ "  `extraTime` TIME NULL,\r\n"
+				+ "  `isApproved` VARCHAR(7) NULL,\r\n"
+				+ "  PRIMARY KEY (`uID`));";
+		try {
+			Statement stmt = con.createStatement();
+			// create a new table
+			stmt.execute(sql);
+			stmt = con.createStatement();
+		}
+			catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 	}
 
 	private void table_exams() {

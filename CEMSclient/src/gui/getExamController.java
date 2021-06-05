@@ -7,6 +7,7 @@ import common.DataPacket;
 import controllers.PageProperties;
 import controllers.SceneController;
 import controllers.examControl;
+import controllers.examInitiatedControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -50,7 +51,8 @@ public class getExamController {
 		System.out.println("tring to send");
 		App_client.chat.accept(dataPacket);
 		
-		if(examControl.getExam()!=null) {
+		if(examInitiatedControl.getExamInitiated()!=null) {
+			System.out.println("ddddddddddd");
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TAKE_EXAM);
 			// Pane screen = object.Sc();
 			App_client.pageContainer.setCenter(page);
