@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
+import common.Field;
 import common.IncomingDataPacketHandler;
-import javafx.stage.Stage;
+import common.Principal;
+import common.Question;
 import common.Student;
 import common.Teacher;
 import common.User;
-import common.Principal;
-import common.Question;
+import common.courses;
+import javafx.stage.Stage;
 
 public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 	private DataPacket Responce_dataPacket;
@@ -97,11 +99,30 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			examControl.questions = (ArrayList<String>) dataPacket.getData_parameters().clone();
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
 			examControl.questionID = (String) dataPacket.getData_parameters().get(0);
+			///////////////////////////////////////////////////MAX////////////////////////////////////////
+
+			
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {
 			UserControl.user = (ArrayList<User>) dataPacket.getData_parameters().clone();
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
-			examControl.selectedCourseID = (String) dataPacket.getData_parameters().get(0);
+			
+		} else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_COURSE) {
+			CourseControl.courses = (ArrayList<courses>) dataPacket.getData_parameters().clone();			
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_FIELD) {
+			FieldControl.fields = (ArrayList<Field>) dataPacket.getData_parameters().clone();			
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_EXAM) {
+			examControl.exams = (ArrayList<Exam>) dataPacket.getData_parameters().clone();			
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_QUESTIONS) {
+			QuestionControl.questions = (ArrayList<Question>) dataPacket.getData_parameters().clone();			
+		}
+
+		
+		
+		///////////////////////////////////////////////////MAX////////////////////////////////////////M
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
+			examControl.selectedCourseID = (String) dataPacket.getData_parameters().get(0);}
 		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
 			examControl.examID = (String) dataPacket.getData_parameters().get(0);
 		}

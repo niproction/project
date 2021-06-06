@@ -4,6 +4,19 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Question implements Serializable {
+	public Question(String id,String authorID, String info, String option1, String option2, String option3, String option4,
+			String answer ) {
+		super();
+		this.id = id;
+		this.authorID = authorID;
+		this.info = info;
+		this.option1 = option1;
+		this.option2 = option2;
+		this.option3 = option3;
+		this.option4 = option4;
+		this.answer = answer;
+	}
+
 	private static int counter=0;
 	private String id;
 	private String info;
@@ -12,13 +25,14 @@ public class Question implements Serializable {
 	private String option3;
 	private String option4;
 	private String answer;
-	private String autor;
+	private String authorID;
+	 
 	
-	public String getAutor() {
-		return autor;
+	public String getAuthorID() {
+		return authorID;
 	}
-	public void setAutor(String autor) {
-		this.autor = autor;
+	public void setAuthorID(String authorID) {
+		this.authorID = authorID;
 	}
 	public Question() {
 		counter++;

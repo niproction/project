@@ -13,7 +13,7 @@ public  class examControl {
 	public static Exam exam;
 	public static String selectedCourseID;
 	public static String examID;
-	
+	public static ArrayList<Exam> exams;
 	
 	public static String getExamID() {
 		return examID;

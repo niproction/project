@@ -80,8 +80,7 @@ public class TableEntry{
 		this.col8=col8;
 		this.col9=col9;
 	}
-	
-	
+		
 	public Object getCol1() {
 		return col1;
 	}

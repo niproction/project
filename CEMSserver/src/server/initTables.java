@@ -118,8 +118,10 @@ public class initTables {
 
 	private void table_exams() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams (\n" + " eID varchar(10) NOT NULL,\n"
+				+"authorID int(10) NOT NULL,\n"
+				+ " description TEXT  NULL,\n" 
 				 + " duration varchar(6) NOT NULL,\n"+
-				"author varchar(40) NOT NULL,\n"+
+				
 				 " teacherComments TEXT  NULL,\n" + "" + " studentComments TEXT  NULL,\n" + "password TEXT  NULL, \n"+
 				 "PRIMARY KEY (eID));";
 		try {
@@ -128,15 +130,43 @@ public class initTables {
 			stmt.execute(sql);
 			stmt = con.createStatement();
 			
-			String myStatement = " INSERT INTO exams (eID,  duration,author, teacherComments, studentComments, password) VALUES (?,?,?,?,?,?)";
+			String myStatement = " INSERT INTO exams (eID,authorID,description,  duration, teacherComments, studentComments, password) VALUES (?,?,?,?,?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
-			statement.setString(1, "02000");
-			statement.setString(2, "02:30");
-			statement.setString(3, "mark berman");
-			statement.setString(4, "hi lo");
-			statement.setString(5, "hola hola");
-			statement.setString(6, "1234");
+			statement.setString(1, "020010");
+			statement.setInt(2, 2);
+			statement.setString(3, "this is a math exam end of semester");
+			statement.setString(4, "02:30");
+			statement.setString(5, "hi lo");
+			statement.setString(6, "hola hola");
+			statement.setString(7, "1234");
 			statement.executeUpdate();
+			PreparedStatement statement1 = con.prepareStatement(myStatement);
+			statement1.setString(1, "020011");
+			statement1.setInt(2, 2);
+			statement1.setString(3, "this is a test of this shit ");
+			statement1.setString(4, "hi");
+			statement1.setString(5, "hi lo");
+			statement1.setString(6, "hola hola");
+			statement1.setString(7, "byebye");
+			statement1.executeUpdate();
+			PreparedStatement statement2 = con.prepareStatement(myStatement);
+			statement2.setString(1, "020012");
+			statement2.setInt(2, 2);
+			statement2.setString(3, "this is a test of this shit ");
+			statement2.setString(4, "hi");
+			statement2.setString(5, "hi lo");
+			statement2.setString(6, "hola hola");
+			statement2.setString(7, "byebye");
+			statement2.executeUpdate();
+			PreparedStatement statement3 = con.prepareStatement(myStatement);
+			statement3.setString(1, "020013");
+			statement3.setInt(2, 2);
+			statement3.setString(3, "this is a test of this shit ");
+			statement3.setString(4, "hi");
+			statement3.setString(5, "hi lo");
+			statement3.setString(6, "hola hola");
+			statement3.setString(7, "byebye");
+			statement3.executeUpdate();
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -158,16 +188,35 @@ public class initTables {
 
 			String myStatement = " INSERT INTO questions (qID, uID, question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
-			statement.setString(1, "02000");
-			statement.setInt(7, 2);
-			statement.setString(2, "Is it true?");
-			statement.setString(3, "Yes");
-			statement.setString(4, "No");
-			statement.setString(5, "I don't know");
-			statement.setString(6, "Maybe");
-			statement.setString(8, "434232");
+			statement.setString(1, "02001");
+			statement.setInt(2, 2);
+			statement.setString(3, "Is it true?");
+			statement.setString(4, "Yes");
+			statement.setString(5, "No");
+			statement.setString(6, "I don't know");
+			statement.setString(7, "Maybe");
+			statement.setString(8, "4");
 			statement.executeUpdate();
-
+			PreparedStatement statement1 = con.prepareStatement(myStatement);
+			statement1.setString(1, "02002");
+			statement1.setInt(2, 2);
+			statement1.setString(3, "daniel is gever?");
+			statement1.setString(4, "no");
+			statement1.setString(5, "yes");
+			statement1.setString(6, "pipi");
+			statement1.setString(7, "khdg");
+			statement1.setString(8, "2");
+			statement1.executeUpdate();
+			PreparedStatement statement2 = con.prepareStatement(myStatement);
+			statement2.setString(1, "02003");
+			statement2.setInt(2, 2);
+			statement2.setString(3, "daniel is gever?");
+			statement2.setString(4, "no");
+			statement2.setString(5, "yes");
+			statement2.setString(6, "pipi");
+			statement2.setString(7, "khdg");
+			statement2.setString(8, "2");
+			statement2.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -181,6 +230,37 @@ public class initTables {
 			// create a new table
 			stmt.execute(sql);
 			stmt = con.createStatement();
+			String myStatement = " INSERT INTO exam_questions (eID, qID, points) VALUES (?,?,?)";
+			PreparedStatement statement = con.prepareStatement(myStatement);
+			statement.setString(1, "020010");
+			statement.setString(2, "02001");
+			statement.setString(3, "50");
+			statement.executeUpdate();
+			PreparedStatement statement1 = con.prepareStatement(myStatement);
+			statement1.setString(1, "020010");
+			statement1.setString(2, "02002");
+			statement1.setString(3, "50");
+			statement1.executeUpdate();
+			PreparedStatement statement2 = con.prepareStatement(myStatement);
+			statement2.setString(1, "020011");
+			statement2.setString(2, "02002");
+			statement2.setString(3, "50");
+			statement2.executeUpdate();
+			PreparedStatement statement3 = con.prepareStatement(myStatement);
+			statement3.setString(1, "020011");
+			statement3.setString(2, "02003");
+			statement3.setString(3, "20");
+			statement3.executeUpdate();
+			PreparedStatement statement4 = con.prepareStatement(myStatement);
+			statement4.setString(1, "020011");
+			statement4.setString(2, "02001");
+			statement4.setString(3, "30");
+			statement4.executeUpdate();
+
+			
+
+
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}

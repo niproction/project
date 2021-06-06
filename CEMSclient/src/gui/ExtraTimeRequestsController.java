@@ -81,6 +81,8 @@ public class ExtraTimeRequestsController {
 		assert ExtraTime != null : "fx:id=\"ExtraTime\" was not injected: check your FXML file 'Untitled'.";
 		assert Status != null : "fx:id=\"Status\" was not injected: check your FXML file 'Untitled'.";
 
+		
+		
 		TeacherName.setCellValueFactory(new PropertyValueFactory("col1"));
 		Field.setCellValueFactory(new PropertyValueFactory("col2"));
 		Course.setCellValueFactory(new PropertyValueFactory("col3"));

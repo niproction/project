@@ -1,9 +1,21 @@
 package common;
 
-public class courses {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class courses implements Serializable {
 	public String courseID;
-	public String courseName;
 	public String fieldID;
+	public String courseName;
+
+	
+	public courses(String courseID,  String fieldID,String courseName) {
+		super();
+		this.courseID = courseID;
+		this.fieldID = fieldID;
+		this.courseName = courseName;
+
+	}
 	public String getCourseID() {
 		return courseID;
 	}

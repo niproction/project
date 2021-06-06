@@ -26,13 +26,16 @@ public class User implements Serializable {
 		return fid;
 	}
 	public void setfid(String fid) {
+		
 		this.fid=fid;
 	}
 	public String getuid() {
+		
 		return uid;
 	}
-	public void setUid(String uid) {
-		this.uid=uid;
+	public void setUid(int uid) {
+		String s=String.valueOf(uid);
+		this.uid=s;
 	}
 	public String getUsername() {
 		return username;
