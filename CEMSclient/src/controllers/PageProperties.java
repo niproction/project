@@ -285,6 +285,27 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		START_EXAM {
+			@Override
+			String GET_Title() {
+				return "Login page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/StartExam.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 			
 			
 		

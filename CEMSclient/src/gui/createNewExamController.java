@@ -23,7 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class createNewExamController {
-	Exam exam=new Exam();
+	Exam exam=new Exam(null,(Integer) null,null,null,null,null,null,null);
 	SceneController sceen;
 	private double totalPoints=0;
 	@FXML // fx:id="ap"
@@ -156,8 +156,8 @@ public class createNewExamController {
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
 		App_client.chat.accept(dataPacket);
 		System.out.println("afterrrrrrrr");
-		exam.setAuthor(App_client.user.getFirstName()+" "+App_client.user.getLastName());
-		System.out.println("%%%% " +exam.getAuthor());
+		//exam.setAuthorID(App_client.user.getFirstName()+" "+App_client.user.getLastName());
+		//System.out.println("%%%% " +exam.getAuthor());
 		exam.setExamID(App_client.user.getfid()+examControl.selectedCourseID);
 		exam.setDuration(duration.getText());
 		exam.setStudentsComments(studentComments.getText());

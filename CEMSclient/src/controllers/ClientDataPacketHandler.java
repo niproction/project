@@ -106,6 +106,16 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			examControl.examID = (String) dataPacket.getData_parameters().get(0);
 		}
 		
+		
+		// rostik
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAMS_BY_TEACHER) {
+			System.out.println("dannnnny");
+			examControl.exams = (ArrayList<Exam>) dataPacket.getData_parameters().clone();
+		}
+		
+		
+		
+		
 		return Responce_dataPacket;
 	}
 

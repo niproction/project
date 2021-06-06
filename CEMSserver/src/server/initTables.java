@@ -118,8 +118,10 @@ public class initTables {
 
 	private void table_exams() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams (\n" + " eID varchar(10) NOT NULL,\n"
+				+"authorID int(10) NOT NULL,\n"
+				+ " description TEXT  NULL,\n" 
 				 + " duration varchar(6) NOT NULL,\n"+
-				"author varchar(40) NOT NULL,\n"+
+				
 				 " teacherComments TEXT  NULL,\n" + "" + " studentComments TEXT  NULL,\n" + "password TEXT  NULL, \n"+
 				 "PRIMARY KEY (eID));";
 		try {
@@ -128,14 +130,15 @@ public class initTables {
 			stmt.execute(sql);
 			stmt = con.createStatement();
 			
-			String myStatement = " INSERT INTO exams (eID,  duration,author, teacherComments, studentComments, password) VALUES (?,?,?,?,?,?)";
+			String myStatement = " INSERT INTO exams (eID,authorID,description,  duration, teacherComments, studentComments, password) VALUES (?,?,?,?,?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
 			statement.setString(1, "02000");
-			statement.setString(2, "02:30");
-			statement.setString(3, "mark berman");
-			statement.setString(4, "hi lo");
-			statement.setString(5, "hola hola");
-			statement.setString(6, "1234");
+			statement.setInt(2, 2);
+			statement.setString(3, "this is a math exam end of semester");
+			statement.setString(4, "02:30");
+			statement.setString(5, "hi lo");
+			statement.setString(6, "hola hola");
+			statement.setString(7, "1234");
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {

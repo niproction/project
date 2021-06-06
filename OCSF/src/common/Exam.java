@@ -10,14 +10,29 @@ import java.util.Set;
 
 @SuppressWarnings("serial")
 public class Exam implements Serializable {
+	
 	private String examID;
+	private int authorID;
+	private String description;
 	private String duration;
 	private String teacherComments;
 	private String studentsComments;
-	private String password;
-	private String author;
+	
 	private ArrayList<Question> questions;
 	private HashMap<String, String> questionToPointsMap=new HashMap<>();
+	
+	
+	
+	public Exam(String examID,int authorID, String description, String duration, String teacherComments, String studentsComments, String lastName,String fid) {
+		this.examID=examID;
+		this.authorID = authorID;
+		this.description = description;
+		this.duration = duration;
+		this.teacherComments = teacherComments;
+		this.studentsComments = studentsComments;	
+		//this.fid=fid;
+	}
+	
 	
 	public void addQuestionAndPoints(String question,String points)
 	{
@@ -43,6 +58,15 @@ public class Exam implements Serializable {
 	public void setExamID(String examID) {
 		this.examID = examID;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	public String getDuration() {
 		return duration;
 	}
@@ -61,18 +85,17 @@ public class Exam implements Serializable {
 	public void setStudentsComments(String studentsComments) {
 		this.studentsComments = studentsComments;
 	}
-	public String getPassword() {
-		return password;
+	
+	public int getAuthorID() {
+		return authorID;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+
+
+	public void setAuthorID(int authorID) {
+		this.authorID = authorID;
 	}
-	public String getAuthor() {
-		return author;
-	}
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+	
+	
 	public ArrayList<Question> getQuestions() {
 		return questions;
 	}
@@ -81,5 +104,8 @@ public class Exam implements Serializable {
 	}
 	
 
-	
+	@Override
+    public String toString() {
+        return "ID:"+examID.toString()+" | "+description;
+    }
 }

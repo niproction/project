@@ -31,6 +31,7 @@ public class App_client extends Application {
 		//SceneController.primaryStage.setMaxWidth(800);
 		//SceneController.primaryStage.setMaxHeight(700);
 	}
+	
 
 	@Override
 	public void stop(){

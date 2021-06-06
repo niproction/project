@@ -79,6 +79,8 @@ public class mainController {
 	@FXML
 	private MenuItem createExam;
 	@FXML
+	private MenuItem startExam;
+	@FXML
 	private MenuItem setAxem;
 	@FXML
 	private MenuItem displayStatisticalReportTeacher;
@@ -106,6 +108,7 @@ public class mainController {
 		checkRequest.setVisible(false);
 		information.setVisible(false);
 		createExam.setVisible(false);
+		startExam.setVisible(false);
 		setAxem.setVisible(false);
 		displayStatisticalReportTeacher.setVisible(false);
 		createQuestion.setVisible(false);
@@ -160,10 +163,12 @@ public class mainController {
 		} else if (App_client.user instanceof Teacher) {
 			SceneController.primaryStage.setTitle("Cems: Teacher - home page");
 			createExam.setVisible(true);
+			startExam.setVisible(true);
 			setAxem.setVisible(true);
 			displayStatisticalReportTeacher.setVisible(true);
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
+			
 			label_bar_welcome
 					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
 			label_bar_roletype.setText("(Teacher)");
@@ -254,6 +259,44 @@ public class mainController {
 		page_box.setCenter(page);
 	}
 
+	
+
+	@FXML
+	void button_start_exam(ActionEvent event) {
+		System.out.println("clicked_startExam");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.START_EXAM);
+		page_box.setCenter(page);
+
+	}
+	
+	
+	@FXML
+	void button_information(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.INFO_PAGE);
+		page_box.setCenter(page);
+		System.out.println("clickeeeed");
+
+	}
+
+	@FXML
+	void button_extra_time_requests(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.EXTRA_TIME_REQUESTS);
+		page_box.setCenter(page);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@FXML
 	void button_logout_clicked(MouseEvent event) {
 		App_client.user = null;
@@ -263,7 +306,6 @@ public class mainController {
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 
 	}
-
 	@FXML
 	void button_logout_entered(MouseEvent event) {
 
@@ -274,17 +316,6 @@ public class mainController {
 
 	}
 
-	@FXML
-	void button_information(ActionEvent event) {
-		AnchorPane page = SceneController.getPage(PageProperties.Page.INFO_PAGE);
-		page_box.setCenter(page);
 
-	}
-
-	@FXML
-	void button_extra_time_requests(ActionEvent event) {
-		AnchorPane page = SceneController.getPage(PageProperties.Page.EXTRA_TIME_REQUESTS);
-		page_box.setCenter(page);
-	}
 
 }

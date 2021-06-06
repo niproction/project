@@ -43,5 +43,6 @@
       <Label fx:id="lblErrors" alignment="CENTER" layoutX="104.0" layoutY="289.0" prefHeight="17.0" prefWidth="192.0" />
       <Accordion />
       <Label fx:id="errorLable" alignment="CENTER" layoutX="104.0" layoutY="289.0" prefHeight="17.0" prefWidth="192.0" text="Wrong Username/Password" textFill="#f80b0b" />
+      <Label fx:id="timerrr" layoutX="58.0" layoutY="41.0" text="Label" />
    </children>
 </AnchorPane>
