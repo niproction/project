@@ -90,7 +90,6 @@ public class createNewExamController {
 
 
 	private void addQuestionToExam() {
-		System.out.println("add question $$$$$$");
 		ArrayList<Object> parameters=new ArrayList<>();
 		if(checkInvalidInputsForAddQuestion()==true)
 			return;
@@ -137,7 +136,7 @@ public class createNewExamController {
 		return false;
 	}
 
-	private boolean isNumeric(String text) {
+	protected boolean isNumeric(String text) {
 		ParsePosition pos=new ParsePosition(0);
 		NumberFormat.getInstance().parse(text,pos);
 		return text.length()==pos.getIndex();
@@ -152,12 +151,9 @@ public class createNewExamController {
 		}
 		errLabel.setVisible(false);
 		parameters.add(courses.getValue());
-		System.out.println("beforrrrrr");
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
 		App_client.chat.accept(dataPacket);
-		System.out.println("afterrrrrrrr");
-		exam.setAuthor(App_client.user.getFirstName()+" "+App_client.user.getLastName());
-		System.out.println("%%%% " +exam.getAuthor());
+		exam.setAuthor(App_client.user.getuid());
 		exam.setExamID(App_client.user.getfid()+examControl.selectedCourseID);
 		exam.setDuration(duration.getText());
 		exam.setStudentsComments(studentComments.getText());
@@ -166,10 +162,11 @@ public class createNewExamController {
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
 		App_client.chat.accept(dataPacket);
 		exam.setExamID(examControl.examID);
-		System.out.println("hhhhhh%%5  "+exam.getExamID());
 		parameters.add(0, exam);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM_QUESTIONS, parameters, null, true);
 		App_client.chat.accept(dataPacket);
+		errLabel.setText("exam submited");
+		errLabel.setVisible(true);
 	}
 
 	private boolean checkInvalidInputsForSumbit() {

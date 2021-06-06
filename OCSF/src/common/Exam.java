@@ -15,7 +15,7 @@ public class Exam implements Serializable {
 	private String teacherComments;
 	private String studentsComments;
 	private String password;
-	private String author;
+	private String authorID;
 	private ArrayList<Question> questions;
 	private HashMap<String, String> questionToPointsMap=new HashMap<>();
 	
@@ -67,11 +67,11 @@ public class Exam implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getAuthor() {
-		return author;
+	public String getAuthorID() {
+		return authorID;
 	}
 	public void setAuthor(String author) {
-		this.author = author;
+		this.authorID = author;
 	}
 	public ArrayList<Question> getQuestions() {
 		return questions;

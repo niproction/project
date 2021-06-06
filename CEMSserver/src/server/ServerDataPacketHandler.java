@@ -1,5 +1,8 @@
 package server;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +12,7 @@ import java.util.ArrayList;
 import common.DataPacket;
 import common.Exam;
 import common.IncomingDataPacketHandler;
+import common.MyFile;
 import common.Principal;
 import common.Question;
 import common.Student;
@@ -398,6 +402,15 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		{
 			Responce_dataPacket=getCourseID(dataPacket);
 		}
+		
+		else if(dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME)
+		{
+			Responce_dataPacket=getCourseID(dataPacket);
+		}
+		else if(dataPacket.getRequest() == DataPacket.Request.INSERT_Manuel_EXAM_FILE)
+		{
+			Responce_dataPacket=insertManuelExamFile(dataPacket);
+		}
 		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM)
 		{
 			Responce_dataPacket=insertExam(dataPacket);
@@ -454,7 +467,25 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			return null;
 		}
 	}
-
+	private DataPacket insertManuelExamFile(DataPacket dataPacket)
+	{
+		
+		int fileSize = ((MyFile) dataPacket.getData_parameters().get(0)).getSize();
+		File newFile=new File("manuel_exams/"+(String) dataPacket.getData_parameters().get(1));
+		System.out.println(dataPacket.getData_parameters().get(1));
+		System.out.println("feesfsf   "+newFile.getName());
+		try {
+			FileOutputStream fos = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			bos.write(((MyFile) dataPacket.getData_parameters().get(0)).getMybytearray(), 0, ((MyFile) dataPacket.getData_parameters().get(0)).getSize());
+			bos.flush();
+			fos.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.INSERT_Manuel_EXAM_FILE,
+				null, "", true); 
+	}
 	private DataPacket insertExam(DataPacket dataPacket) {
 		Statement stmt;
 		Exam exam = (Exam) dataPacket.getData_parameters().get(0);
@@ -475,7 +506,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				String idCounter=count<10?"0"+count:count<100?"00"+count:""+count;
 				statement.setString(1, exam.getExamID() + idCounter);
 				statement.setString(2, exam.getDuration());
-				statement.setString(3, exam.getAuthor());
+				statement.setString(3, exam.getAuthorID());
 				statement.setString(4, exam.getTeacherComments());
 				statement.setString(5, exam.getStudentsComments());
 				statement.executeUpdate();

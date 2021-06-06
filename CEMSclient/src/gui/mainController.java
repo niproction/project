@@ -250,7 +250,7 @@ public class mainController {
 	@FXML
 	void button_create_exam(ActionEvent event) {
 		System.out.println("clicked_createExam");
-		AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
+		AnchorPane page = SceneController.getPage(PageProperties.Page.CHOSSE_EXAM_TYPE);
 		page_box.setCenter(page);
 	}
 

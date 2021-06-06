@@ -357,8 +357,49 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 			
+		},
+	CHOSSE_EXAM_TYPE{
+		@Override
+		String GET_Title() {
+			return "ChooseExamType page";
 		}
-	
+
+		@Override
+		String GET_FxmlFile() {
+			return "../gui/chooseExamType.fxml";
+		}
+
+		@Override
+		Animation GET_ON_Scene_Load_Animation() {
+			return Animation.FADE_IN;
+		}
+
+		@Override
+		Animation GET_ON_Scene_Unload_Animation() {
+			return Animation.FADE_OUT;
+		}
+	},
+		Create_MANUEL_EXAM{
+			@Override
+			String GET_Title() {
+				return "manuelExam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/manuelExamPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		}
 			
 		;
 
