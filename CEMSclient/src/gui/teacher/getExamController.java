@@ -6,8 +6,9 @@ import client.App_client;
 import common.DataPacket;
 import control.PageProperties;
 import control.SceneController;
+import control.UserControl;
 import control.ExamControl;
-import control.examInitiatedControl;
+import control.ExamInitiatedControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,12 +47,12 @@ public class getExamController {
 	public void getExam() {
 		ArrayList<Object> parameters=new ArrayList<>();
 		parameters.add(passwordfld.getText().toString());
-		parameters.add(App_client.user);
+		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAM, parameters, null, true);
 		System.out.println("tring to send");
 		App_client.chat.accept(dataPacket);
 		
-		if(examInitiatedControl.getExamInitiated()!=null) {
+		if(ExamInitiatedControl.getExamInitiated()!=null) {
 			System.out.println("ddddddddddd");
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TAKE_EXAM);
 			// Pane screen = object.Sc();

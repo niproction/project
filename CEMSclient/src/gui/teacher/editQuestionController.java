@@ -7,6 +7,7 @@ import common.DataPacket;
 import common.Question;
 import control.PageProperties;
 import control.SceneController;
+import control.UserControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -118,7 +119,7 @@ public class editQuestionController {
 			ArrayList<Object> parameters = new ArrayList<>();
 			parameters.add(questionIDtxt.getText().toString());
 			System.out.println(questionIDtxt.getText().toString());
-			parameters.add(App_client.user);
+			parameters.add(UserControl.ConnectedUser);
 			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION,
 					parameters, null, true);
 			System.out.println("trying to get the question");
@@ -169,7 +170,7 @@ public class editQuestionController {
 			return;
 		}
 
-		question.setId(questionIDtxt.getText().toString());
+		question.setqID(questionIDtxt.getText().toString());
 		question.setInfo(questionInfotxt.getText());
 		question.setOption1(option1txt.getText().toString());
 		question.setOption2(option2txt.getText().toString());
@@ -177,7 +178,7 @@ public class editQuestionController {
 		question.setOption4(option4txt.getText().toString());
 		// already have the answer
 		parameters.add(question);
-		parameters.add(App_client.user);
+		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.EDIT_QUESTION, parameters,
 				null, true);
 		System.out.println("try create new question");

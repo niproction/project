@@ -55,6 +55,7 @@ public class App_client extends Application {
 		System.out.println("stopped");
 		System.exit(0);
 	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

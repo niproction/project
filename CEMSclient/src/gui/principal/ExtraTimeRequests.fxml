@@ -8,15 +8,16 @@
 
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.principal.ExtraTimeRequestsController">
    <children>
-      <TableView fx:id="ExtraTimeTable" layoutX="80.0" layoutY="66.0" prefHeight="339.0" prefWidth="640.0">
+      <TableView fx:id="ExtraTimeTable" layoutX="15.0" layoutY="57.0" prefHeight="339.0" prefWidth="769.0">
         <columns>
-          <TableColumn fx:id="TeacherName" prefWidth="90.0" text="TeacherName" />
-          <TableColumn fx:id="Field" prefWidth="60.0" text="Field" />
-            <TableColumn fx:id="Course" prefWidth="75.0" text="Course" />
-            <TableColumn fx:id="ExamId" prefWidth="75.0" text="ExamId" />
-            <TableColumn fx:id="RequestTime" prefWidth="120.0" text="RequestTimestamp" />
-            <TableColumn fx:id="ExtraTime" prefWidth="75.0" text="ExtraTime" />
-            <TableColumn fx:id="Status" prefWidth="144.0" text="Status" />
+          <TableColumn fx:id="TeacherName" prefWidth="84.66669464111328" text="TeacherName" />
+          <TableColumn fx:id="Field" prefWidth="76.66668701171875" text="Field" />
+            <TableColumn fx:id="Course" prefWidth="73.33331298828125" text="Course" />
+            <TableColumn fx:id="ExamId" prefWidth="77.33331298828125" text="ExamId" />
+            <TableColumn fx:id="RequestTime" prefWidth="152.66668701171875" text="RequestTimestamp" />
+            <TableColumn fx:id="ExtraTime" prefWidth="75.3333740234375" text="ExtraTime" />
+            <TableColumn fx:id="Comment" prefWidth="106.66668701171875" text="Comment" />
+            <TableColumn fx:id="Status" prefWidth="125.99993896484375" text="Status" />
         </columns>
       </TableView>
       <Text layoutX="80.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Extra time requests" textAlignment="CENTER" underline="true" wrappingWidth="640.0">

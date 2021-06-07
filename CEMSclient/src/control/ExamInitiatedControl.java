@@ -2,7 +2,7 @@ package control;
 
 import common.examInitiated;
 
-public class examInitiatedControl {
+public class ExamInitiatedControl {
 	private static examInitiated examInitiated;
 
 	public static examInitiated getExamInitiated() {
@@ -10,8 +10,6 @@ public class examInitiatedControl {
 	}
 
 	public static void setExamInitiated(examInitiated examInitiated) {
-		examInitiatedControl.examInitiated = examInitiated;
+		ExamInitiatedControl.examInitiated = examInitiated;
 	}
-	
-
 }

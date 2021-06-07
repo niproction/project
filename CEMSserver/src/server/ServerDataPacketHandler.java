@@ -1,13 +1,16 @@
 package server;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import common.DataPacket;
 import common.Exam;
+import common.ExtraTimeRequest;
 import common.Field;
 import common.IncomingDataPacketHandler;
 import common.Principal;
@@ -34,20 +37,10 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 	public DataPacket ParsingDataPacket(DataPacket dataPacket) {
 		DataPacket Responce_dataPacket = null;
 
-		
-		
-		
-		
-		
 		/////////////////////////////////////////////
 		// general requests
 		////////////////////////////////////////////////
-		
-		
-		
-		
-		
-		
+
 		if (dataPacket.getRequest() == DataPacket.Request.LOGIN) {
 			if (dataPacket.getData_parameters().get(0) instanceof String
 					&& dataPacket.getData_parameters().get(1) instanceof String) {
@@ -127,15 +120,15 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.LOGOUT) {
-		
-			System.out.println("dsadasdas "+((User) dataPacket.getData_parameters().get(0)).getuID());
+
+			System.out.println("dsadasdas " + ((User) dataPacket.getData_parameters().get(0)).getuID());
 			try {
 				PreparedStatement ps = mysqlConnection.getInstance().getCon()
 						.prepareStatement("UPDATE users SET isConnected=? WHERE uID=?");
 
 				ps.setString(1, "NO");
-				ps.setString(2, String.valueOf(  ((User) dataPacket.getData_parameters().get(0)).getuID() ) );
-				
+				ps.setString(2, String.valueOf(((User) dataPacket.getData_parameters().get(0)).getuID()));
+
 				int success = ps.executeUpdate();
 
 				System.out.println("user logout");
@@ -147,27 +140,70 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			}
 		}
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		/////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+		/////////////////////////////////
+		// Teacher requests
+		///////////////////////////////////////////////
+
+		////// rostik
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAMS_BY_TEACHER) {
+			User user = (User) dataPacket.getData_parameters().get(0);
+			int userID = user.getuID();
+			System.out.println("the user id is:" + userID);
+			ArrayList<Object> ExamsByTeacher = new ArrayList<>();
+			Statement stmt;
+			try {
+				stmt = mysqlConnection.getInstance().getCon().createStatement();
+
+				ResultSet rs = stmt.executeQuery("SELECT * FROM exams WHERE authorID='" + userID + "';");
+
+				while (rs.next()) {
+					System.out.println(rs.getString(1));
+					ExamsByTeacher.add(new Exam(rs.getString(1), 0, rs.getString(3), null, null, null, null));
+				}
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_EXAMS_BY_TEACHER,
+						ExamsByTeacher, null, true);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				// Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
+				// DataPacket.Request.GET_EXAMS_BY_TEACHER, null, null, false);
+			}
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.START_EXAM) {
+			Exam exam = (Exam) dataPacket.getData_parameters().get(0);
+			// int userID = user.getuID();
+			// System.out.println("the user id is:" + userID);
+			/// ArrayList<Object> ExamsByTeacher = new ArrayList<>();
+			Statement stmt;
+			try {
+				String myStatement = " INSERT INTO exams_initiated (eID, uID, time, password, initiatedDate, isFinished) VALUES (?,?,?,?,?,?)";
+				PreparedStatement statement;
+
+				statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
+				statement.setString(1, exam.getExamID());
+				statement.setInt(2, ((User) dataPacket.getData_parameters().get(1)).getuID());
+				statement.setString(3, (String)dataPacket.getData_parameters().get(2));
+				statement.setString(4, (String)dataPacket.getData_parameters().get(3));
+				statement.setString(5, (String)dataPacket.getData_parameters().get(4));
+				statement.setString(6, (String)dataPacket.getData_parameters().get(5));
+
+
+				statement.executeUpdate();
+				
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.START_EXAM,
+						null, null, true);
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				// Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
+				// DataPacket.Request.GET_EXAMS_BY_TEACHER, null, null, false);
+			}
+		}
+
 		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 
 			String eiID = ((examInitiated) dataPacket.getData_parameters().get(0)).getEiID();
@@ -449,18 +485,24 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				ResultSet rs = stmt.executeQuery(
 						"SELECT  questions.qID, questions.authorID, questions.question, questions.option1,"
 								+ " questions.option2, questions.option3,"
-								+ " questions.option4, questions.answer \"\r\n"
-								+ "				+ \"FROM exams INNER JOIN exam_questions ON exams.eID=exam_questions.eID"
-								+ " INNER JOIN questions ON exam_questions.qID=questions.qID WHERE exams.eID='" + examID
-								+ "';");
+								+ " questions.option4, questions.answer FROM exams INNER JOIN exam_questions ON exams.eID=exam_questions.eID"
+								+ " INNER JOIN questions ON exam_questions.qID=questions.qID WHERE exams.eID='" + examID+"';");
 
 				while (rs.next()) {
 
 					System.out.println("found exammmmmmm");
-					Question question = new Question(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4),
-							rs.getString(5), rs.getString(6), rs.getString(8), rs.getString(8));
+					Question question = new Question();
+					question.setqID(rs.getString(1));
+					//question.setAuthorID(rs.getString(2));
+					question.setInfo(rs.getString(2));
+					question.setOption1(rs.getString(3));
+					question.setOption2(rs.getString(4));
+					question.setOption3(rs.getString(5));
+					question.setOption4(rs.getString(6));
+					question.setAnswer(rs.getString(7));
+					
 					questionsfortest.add(question);
-					System.out.println(question.getqID() + "aaaaaaaaa");
+					//System.out.println(question.getId() + "aaaaaaaaa");
 				}
 
 				exam2.setQuestions(questionsfortest);
@@ -496,11 +538,10 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				statement = mysqlConnection.getInstance().getCon().createStatement();
 				ResultSet rs = statement.executeQuery("SELECT * from users");
 				ArrayList<Object> users = new ArrayList<Object>(); // Create an ArrayList object
-				
-				
+
 				while (rs.next()) {
-					users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-							rs.getString(5), rs.getString(6), rs.getString(7)));
+					users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+							rs.getString(6), rs.getString(7)));
 				}
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_INFO_USERS, users,
 						"", true); // create
@@ -510,13 +551,25 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				e.printStackTrace();
 				return null;
 			}
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
+		}
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			Responce_dataPacket = getCourseID(dataPacket);
-		} else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
+		}
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
 			Responce_dataPacket = insertExam(dataPacket);
-		} else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM_QUESTIONS) {
+		}
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM_QUESTIONS) {
 			Responce_dataPacket = insertExamQuestion(dataPacket);
 		}
+		
+		
+		
+		
+		
+		
 
 		//////////////////
 		// principal requests
@@ -529,8 +582,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				ResultSet rs = statement.executeQuery("SELECT * from users");
 				ArrayList<Object> users = new ArrayList<Object>(); // Create an ArrayList object
 				while (rs.next())
-					users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-							rs.getString(5), rs.getString(6), rs.getString(7)));
+					users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+							rs.getString(6), rs.getString(7)));
 
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_INFO_USERS, users,
 						"", true); // create
@@ -634,10 +687,126 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				return null;
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		// daniel
+		///////////////////
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXTRA_TIME_REQUESTS) {
+			ArrayList<Object> parameters = new ArrayList<Object>();
+			Statement stmt;
+
+			try {
+				stmt = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT * from extra_time_requests WHERE isApproved='waiting' ;");
+
+				while (rs.next()) {
+
+					System.out.println("found extra time request");
+					// System.out.println(rs.getString(2));
+
+					// Object pass_user=null;
+					Statement stmt2 = mysqlConnection.getInstance().getCon().createStatement();
+					ResultSet rs2 = stmt2
+							.executeQuery("SELECT firstName, lastName from users WHERE uID='" + rs.getInt(1) + "'; ");
+					String full_name = null;
+					Statement stmt3 = mysqlConnection.getInstance().getCon().createStatement();
+					ResultSet rs3 = stmt3.executeQuery("SELECT fID from users WHERE uID='" + rs.getInt(1) + "'; ");
+
+					String field = null;
+					while (rs2.next()) {
+						full_name = rs2.getString(1) + " " + rs2.getString(2);
+					}
+					while (rs3.next()) {
+						field = rs3.getString(1);
+
+					}
+					Statement stmt4 = mysqlConnection.getInstance().getCon().createStatement();
+					ResultSet rs4 = stmt4.executeQuery("SELECT fieldName  from fields WHERE fID='" + field + "'; ");
+					while (rs4.next()) {
+
+						field = rs4.getString(1);
+					}
+
+					Statement stmt5=mysqlConnection.getInstance().getCon().createStatement();
+					ResultSet rs5 = stmt5.executeQuery("SELECT eID  from exams_initiated WHERE eiID='" + rs.getString(2)+ "'; ");
+					String eID = null;
+					String cID = null;
+					while (rs5.next()) {
+
+					eID = rs5.getString(1);
+					System.out.println(eID);
+					cID=eID.substring(2,4);
+					System.out.println(cID);
+					}
+					Statement stmt6=mysqlConnection.getInstance().getCon().createStatement();
+					ResultSet rs6 = stmt6.executeQuery("SELECT courseName  from courses WHERE cID='" + cID+ "'; ");
+					String courseName = null;
+					while (rs6.next()) {
+
+						courseName = rs6.getString(1);
+				
+					}
+					System.out.println(courseName);
+					ExtraTimeRequest request = new ExtraTimeRequest(full_name, rs.getString(2), rs.getString(3), rs.getTime(4),
+							rs.getString(5),courseName,eID,field);
+				//	System.out.println(request.toString());
+
+					parameters.add(request);
+
+					//System.out.println(request.toString());
+				}
+
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
+						DataPacket.Request.GET_EXTRA_TIME_REQUESTS, parameters, "", true);
+
+			} catch (Exception e) {
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
+						DataPacket.Request.GET_EXTRA_TIME_REQUESTS, null, "", true);
+			}
+		}
+		
+		// daniel
+		///////////////////
+		else if(dataPacket.getRequest() == DataPacket.Request.EXTRA_TIME_DECISION) {
+		
+			Statement stmt;
+			try {
+				stmt = mysqlConnection.getInstance().getCon().createStatement();
+				System.out.println(((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getIsApproved());
+			int success=	 stmt.executeUpdate("UPDATE extra_time_requests SET isApproved = '"+((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getIsApproved()+"' WHERE eiID='"+((ExtraTimeRequest)dataPacket.getData_parameters().get(0)).getEiID()+ "';");
+			System.out.println(success+"\n");
+				 Responce_dataPacket=new DataPacket(DataPacket.SendTo.CLIENT,
+							DataPacket.Request.EXTRA_TIME_DECISION, null, "", true);;
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 ///////////////////////////////////////////////////MAX////////////////////////////////////////M
 
 		return Responce_dataPacket;
 	}
+
+	///////////////////////////////////////////////////
 
 	private DataPacket getCourseID(DataPacket dataPacket) {
 		Statement statement;

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="380.0" maxWidth="400.0" minHeight="380.0" minWidth="400.0" prefHeight="380.0" prefWidth="400.0" styleClass="bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.loginController">
+<AnchorPane fx:id="ap" maxHeight="380.0" maxWidth="400.0" minHeight="380.0" minWidth="400.0" prefHeight="380.0" prefWidth="400.0" styleClass="bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <children>
       <ImageView fitHeight="102.0" fitWidth="159.0" layoutX="151.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -24,14 +24,14 @@
             <Font name="System Italic" size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="txtUserName" layoutX="104.0" layoutY="159.0" prefHeight="25.0" prefWidth="192.0" promptText="username">
+      <TextField fx:id="txtUserName" layoutX="104.0" layoutY="159.0" onKeyPressed="#check_enter_pressed" prefHeight="25.0" prefWidth="192.0" promptText="username">
          <effect>
             <Reflection bottomOpacity="0.1" fraction="0.5" />
          </effect>
          <font>
             <Font size="15.0" />
          </font></TextField>
-      <PasswordField fx:id="txtPassword" layoutX="104.0" layoutY="220.0" prefHeight="25.0" prefWidth="192.0" promptText="password">
+      <PasswordField fx:id="txtPassword" layoutX="104.0" layoutY="220.0" onKeyPressed="#check_enter_pressed" prefHeight="25.0" prefWidth="192.0" promptText="password">
          <effect>
             <Reflection bottomOpacity="0.1" fraction="0.5" />
          </effect>

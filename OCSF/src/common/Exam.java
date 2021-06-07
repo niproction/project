@@ -27,18 +27,18 @@ public class Exam implements Serializable {
 	public Exam(){
 		
 	}
-	
-	public Exam(String examID, int authorID, String description, String duration, String teacherComments,
-			String studentsComments,ArrayList<Question> questions) {
-		super();
-		this.examID = examID;
+
+	public Exam(String examID,int authorID, String description, String duration, String teacherComments, String studentsComments,ArrayList<Question> questions) {
+		this.examID=examID;
 		this.authorID = authorID;
 		this.description = description;
 		this.duration = duration;
 		this.teacherComments = teacherComments;
 		this.studentsComments = studentsComments;
-		this.questions=questions;
+		this.questions = questions;
+		//this.fid=fid;
 	}
+	
 
 
 	public String getPointsForQuestions(String question) {
@@ -105,5 +105,8 @@ public class Exam implements Serializable {
 	}
 	
 
-	
+	@Override
+    public String toString() {
+        return "ID:"+examID.toString()+" | "+description;
+    }
 }

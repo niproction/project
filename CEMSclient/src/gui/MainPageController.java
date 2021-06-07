@@ -27,7 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-public class mainController {
+public class MainPageController {
 
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
@@ -116,7 +116,7 @@ public class mainController {
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
 		// animate page on load
-		SceneController sceen = new SceneController(PageProperties.Page.Main, ap);
+		SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 
 		ChangeListener<Number> listener = new ChangeListener<Number>() {
@@ -157,7 +157,7 @@ public class mainController {
 			label_bar_roletype.setText("(Student)");
 
 			// load Student home page
-			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
+			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Student);
 			page_box.setCenter(page);
 
 		} else if (UserControl.ConnectedUser instanceof Teacher) {
@@ -172,7 +172,7 @@ public class mainController {
 			label_bar_roletype.setText("(Teacher)");
 
 			// load Teacher home page
-			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
+			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Teacher);
 			page_box.setCenter(page);
 
 		} else if (UserControl.ConnectedUser instanceof Principal) {
@@ -185,10 +185,17 @@ public class mainController {
 			label_bar_roletype.setText("(Principal)");
 
 			// load Principal home page
-			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
+			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Principal);
 			page_box.setCenter(page);
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	@FXML
 	public void button_take_exam_clicked(ActionEvent event) {
@@ -251,12 +258,55 @@ public class mainController {
 	}
 
 	@FXML
+	void button_information(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.INFO_PAGE);
+		page_box.setCenter(page);
+
+	}
+
+	@FXML
+	void button_extra_time_requests(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.EXTRA_TIME_REQUESTS);
+		page_box.setCenter(page);
+	}
+	
+	
+	
+	@FXML
 	void button_create_exam(ActionEvent event) {
 		System.out.println("clicked_createExam");
 		AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
 		page_box.setCenter(page);
 	}
 
+	
+	
+	@FXML
+	void button_start_exam(ActionEvent event) {
+		System.out.println("clicked_startExam");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.START_EXAM);
+		page_box.setCenter(page);
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@FXML
 	void button_logout_clicked(MouseEvent event) {
 		System.out.println("clicked to logout");
@@ -282,18 +332,4 @@ public class mainController {
 	void button_logout_exited(MouseEvent event) {
 
 	}
-
-	@FXML
-	void button_information(ActionEvent event) {
-		AnchorPane page = SceneController.getPage(PageProperties.Page.INFO_PAGE);
-		page_box.setCenter(page);
-
-	}
-
-	@FXML
-	void button_extra_time_requests(ActionEvent event) {
-		AnchorPane page = SceneController.getPage(PageProperties.Page.EXTRA_TIME_REQUESTS);
-		page_box.setCenter(page);
-	}
-
 }

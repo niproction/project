@@ -30,7 +30,7 @@ public class initTables {
 		table_exams_initiated();
 		table_exams_done();
 		table_exam_questions_answer();
-		table_extra_time_request();
+		table_extra_time_requests();
 	}
 
 	public void delete_tables() {
@@ -46,6 +46,7 @@ public class initTables {
 			stmt.executeUpdate("DROP TABLE IF EXISTS exams_initiated;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS exams_done;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS exam_questions_answer;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS extra_time_requests;");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.print("problem to delete tables");
@@ -128,24 +129,7 @@ public class initTables {
 
 		}
 	}
-	private void table_extra_time_request() {
-		String sql="CREATE TABLE `db_cems`.`extra_time_requests` (\r\n"
-				+ "  `uID` INT NOT NULL,\r\n"
-				+ "  `eiID` VARCHAR(5) NULL,\r\n"
-				+ "  `comment` TEXT NULL,\r\n"
-				+ "  `extraTime` TIME NULL,\r\n"
-				+ "  `isApproved` VARCHAR(7) NULL,\r\n"
-				+ "  PRIMARY KEY (`uID`));";
-		try {
-			Statement stmt = con.createStatement();
-			// create a new table
-			stmt.execute(sql);
-			stmt = con.createStatement();
-		}
-			catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-	}
+	
 	//max edited
 
 	private void table_exams() {
@@ -293,14 +277,17 @@ public class initTables {
 			statement4.setString(2, "02001");
 			statement4.setString(3, "30");
 			statement4.executeUpdate();
+			
+			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
 	private void table_exams_initiated() {
-		String sql = "CREATE TABLE IF NOT EXISTS exams_initiated (\n" + " eiID varchar(7) NOT NULL,\n"
-				+ "	eID varchar(7) NOT NULL,\n" + "	uID varchar(5) NOT NULL,\n" + " time varchar(3) NOT NULL);";
+		String sql = "CREATE TABLE IF NOT EXISTS exams_initiated (\n" + " eiID int(10) NOT NULL AUTO_INCREMENT,\n"
+				+ "	eID varchar(7) NOT NULL,\n" + "	uID int(10) NOT NULL,\n" + " time Time NOT NULL,"
+				+ " password varchar(6) NOT NULL,"+ " initiatedDate DATETIME NULL,"+ " isFinished VARCHAR(10) NULL,"+ " PRIMARY KEY (eiID));";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
@@ -337,4 +324,47 @@ public class initTables {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	
+	
+	private void table_extra_time_requests() {
+		String sql = "CREATE TABLE IF NOT EXISTS extra_time_requests (\n" + " uID int NOT NULL,\n"
+				+ " eiID int(10) NOT NULL,\n"+ " comment TEXT NOT NULL,\n" + " extraTime Time NOT NULL,\n"+ " isApproved varchar(7) NOT NULL);";
+		try {
+			Statement stmt = con.createStatement();
+			// create a new table
+			stmt.execute(sql);
+			//stmt = con.createStatement();
+			
+			String myStatement = " INSERT INTO extra_time_requests (uID, eiID, comment,extraTime, isApproved) VALUES (?,?,?,?,?)";
+			PreparedStatement statement = con.prepareStatement(myStatement);
+			statement.setInt(1, 2);
+			statement.setInt(2, 1);
+			statement.setString(3, "piskaaaa");
+			statement.setString(4, "02:30:00");
+			statement.setString(5, "waiting");
+			statement.executeUpdate();
+			
+			PreparedStatement statement1 = con.prepareStatement(myStatement);
+			statement1.setInt(1, 2);
+			statement1.setInt(2, 2);
+			statement1.setString(3, "pisdsfsdfkaaaa");
+			statement1.setString(4, "01:30:00");
+			statement1.setString(5, "waiting");
+			statement1.executeUpdate();
+			
+			PreparedStatement statement2 = con.prepareStatement(myStatement);
+			statement2.setInt(1, 2);
+			statement2.setInt(2, 3);
+			statement2.setString(3, "543534534");
+			statement2.setString(4, "02:00:00");
+			statement2.setString(5, "waiting");
+			statement2.executeUpdate();
+
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 }

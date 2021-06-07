@@ -6,6 +6,7 @@ import client.App_client;
 import common.Course;
 import common.DataPacket;
 import common.Exam;
+import common.ExtraTimeRequest;
 import common.Field;
 import common.IncomingDataPacketHandler;
 import javafx.stage.Stage;
@@ -71,6 +72,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			System.out.println("User Logoutted");
 			UserControl.ConnectedUser = null;
 		}
+		
+		
+		
 		////////////////////////////////////////////
 		// Students requests
 		////////////////////////////////////////////
@@ -78,7 +82,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 			if (dataPacket.getData_parameters() != null) {
 				String seccess = (String) dataPacket.getData_parameters().get(0);
-				App_client.seccess = seccess;
+				App_client.seccess = seccess; // message setter
 			} else
 				App_client.seccess = null;
 
@@ -87,12 +91,15 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				System.out.println("qqqqq");
 				examInitiated exam = (examInitiated) dataPacket.getData_parameters().get(0);
 				Exam exam2 = (Exam) dataPacket.getData_parameters().get(1);
-				examInitiatedControl.setExamInitiated(exam);
+				ExamInitiatedControl.setExamInitiated(exam);
 				ExamControl.setExam(exam2);
 			} else
-				examInitiatedControl.setExamInitiated(null);
+				ExamInitiatedControl.setExamInitiated(null);
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_TEST_QUESTIONS) {
+		}
+		
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEST_QUESTIONS) {
 			System.out.println("get test questions");
 			if (dataPacket.getData_parameters() != null) {
 				System.out.println("insert get test questions");
@@ -110,26 +117,48 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			if (dataPacket.getData_parameters() != null)
 				App_client.Question = (Question) dataPacket.getData_parameters().get(0);
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
+		}
+		
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
 			if (dataPacket.getData_parameters() != null)
 				App_client.fieldName = (String) dataPacket.getData_parameters().get(0);
 			System.out.println("got field name " + App_client.fieldName);
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSES) {
+		}
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSES) {
 			ExamControl.coursesNames = (ArrayList<String>) dataPacket.getData_parameters().clone();
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
+		}
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
 			ExamControl.questions = (ArrayList<String>) dataPacket.getData_parameters().clone();
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
+		}
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
 			ExamControl.questionID = (String) dataPacket.getData_parameters().get(0);
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {
+		}
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {
 			UserControl.user = (ArrayList<User>) dataPacket.getData_parameters().clone();
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
+		}
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			ExamControl.selectedCourseID = (String) dataPacket.getData_parameters().get(0);
 		}
+		
+		
 
+		
+		
+		// rostik
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAMS_BY_TEACHER) {
+			System.out.println("dannnnny");
+			ExamControl.exams = (ArrayList<Exam>) dataPacket.getData_parameters().clone();
+		}
 		
 		
 		//////////////////////////////
@@ -163,9 +192,23 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			ExamControl.examID = (String) dataPacket.getData_parameters().get(0);
 		}
 
-		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
-			ExamControl.examID = (String) dataPacket.getData_parameters().get(0);
+		
+		
+
+		///
+		// daniel
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXTRA_TIME_REQUESTS) {
+			PrincipalControl.requests=(ArrayList<ExtraTimeRequest>)dataPacket.getData_parameters().clone();
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.EXTRA_TIME_DECISION) {
+			
+		}
+		
+		
+		
+		
+		
+		
 
 		return Responce_dataPacket;
 	}

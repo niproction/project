@@ -6,9 +6,7 @@ package gui.principal;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.ResourceBundle;
-
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
@@ -65,7 +63,6 @@ public class infoPageController {
 	}
 
 	// this method is called when the user chooses what info he want to watch
-	@SuppressWarnings("unchecked")
 	@FXML
 	void OnChoose(ActionEvent event) {
 		ObservableList<TableEntry> data = FXCollections.observableArrayList();

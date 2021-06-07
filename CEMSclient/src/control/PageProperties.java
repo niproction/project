@@ -18,7 +18,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/login.fxml";
+				return "../gui/Login.fxml";
 			}
 
 			@Override
@@ -31,6 +31,31 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		MAIN_PAGE {
+			@Override
+			String GET_Title() {
+				return "get exam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/MainPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+		
+		
+		
+		
 		GET_EXAM {
 			@Override
 			String GET_Title() {
@@ -75,27 +100,10 @@ public class PageProperties {
 			}
 		},
 		
-		TEMP {
-			@Override
-			String GET_Title() {
-				return "Login page";
-			}
-
-			@Override
-			String GET_FxmlFile() {
-				return "../gui/temp.fxml";
-			}
-
-			@Override
-			Animation GET_ON_Scene_Load_Animation() {
-				return Animation.FADE_IN;
-			}
-
-			@Override
-			Animation GET_ON_Scene_Unload_Animation() {
-				return Animation.FADE_OUT;
-			}
-		},
+		
+		
+		
+		
 		STATISTICAL_REPORTS_BY {
 			@Override
 			String GET_Title() {
@@ -130,7 +138,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/StudentHomePage.fxml";
+				return "../gui/student/StudentHomePage.fxml";
 			}
 
 			@Override
@@ -264,7 +272,27 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-			
+		START_EXAM {
+			@Override
+			String GET_Title() {
+				return "Login page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/teacher/StartExam.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 			
 		
 		
@@ -279,7 +307,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui.principal/PrincipalHomePage.fxml";
+				return "../gui/principal/PrincipalHomePage.fxml";
 			}
 
 			@Override

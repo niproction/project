@@ -21,8 +21,9 @@ import common.Question;
 import common.examInitiated;
 import control.PageProperties;
 import control.SceneController;
+import control.UserControl;
 import control.ExamControl;
-import control.examInitiatedControl;
+import control.ExamInitiatedControl;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -80,18 +81,27 @@ public class takeExamController {
 	private Exam exam;
 	private examInitiated examInitiated;
 	private int min, sec, index;
-	private String startTime, endTime;
+	private String endTime;
 	private int timeLeft, counter;
 	private Timer tm;
+	/////////////////////////////////////////////////////////////////////
+	private Timer skiped_time;
+	private String startTime;
+	private Timer initiated_time;
+	private Timer exam_left_time;
+	private int exam_duration;
+	private int extra_time;
+	private Timer exam_timer;
 	@FXML
 	void initialize() {
 		System.out.println("take exam page loaded");
 		sceen = new SceneController(PageProperties.Page.TAKE_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
-		examInitiated=examInitiatedControl.getExamInitiated();
-		examInitiatedControl.setExamInitiated(null);
-		int dur = Integer.parseInt(examInitiated.getTime());
+		examInitiated=ExamInitiatedControl.getExamInitiated();
+		ExamInitiatedControl.setExamInitiated(null);
+		exam_duration = Integer.parseInt(examInitiated.getTime());
 		minPass.setText("0");
+		secPass.setText("0");
 		tm = new Timer(1000, new ActionListener() {
 
 			@Override
@@ -100,7 +110,7 @@ public class takeExamController {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						if (min == dur) {
+						if (min == exam_duration) {
 							submit();
 						}
 						if (counter == 60) {
@@ -253,7 +263,7 @@ public class takeExamController {
 		System.out.println(answerList);
 		tm.stop();
 		parameters.add(examInitiated);
-		parameters.add(App_client.user);
+		parameters.add(UserControl.ConnectedUser);
 		parameters.add(duration.getText());
 		parameters.add(startTime);
 		parameters.add(endTime);

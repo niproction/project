@@ -9,6 +9,7 @@ import common.DataPacket;
 import common.Exam;
 import control.PageProperties;
 import control.SceneController;
+import control.UserControl;
 import control.ExamControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,7 +56,7 @@ public class createNewExamController {
 		sceen=new SceneController(PageProperties.Page.CREATE_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		ArrayList<Object> parameters=new ArrayList<>();
-		parameters.add(App_client.user);
+		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_FIELD_NAME, parameters, null, true);
 		App_client.chat.accept(dataPacket);
 		if(App_client.fieldName!=null) {
@@ -156,9 +157,9 @@ public class createNewExamController {
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
 		App_client.chat.accept(dataPacket);
 		System.out.println("afterrrrrrrr");
-		exam.setAuthor(App_client.user.getFirstName()+" "+App_client.user.getLastName());
-		System.out.println("%%%% " +exam.getAuthor());
-		exam.setExamID(App_client.user.getfid()+ExamControl.selectedCourseID);
+		exam.setAuthorID(UserControl.ConnectedUser.getuID());
+		System.out.println("%%%% " +exam.getAuthorID());
+		exam.setExamID(UserControl.ConnectedUser.getfid()+ExamControl.selectedCourseID);
 		exam.setDuration(duration.getText());
 		exam.setStudentsComments(studentComments.getText());
 		exam.setTeacherComments(teacherComments.getText());
