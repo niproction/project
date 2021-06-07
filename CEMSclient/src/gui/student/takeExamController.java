@@ -1,4 +1,4 @@
-package gui;
+package gui.student;
 
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -19,10 +19,10 @@ import common.DataPacket;
 import common.Exam;
 import common.Question;
 import common.examInitiated;
-import controllers.PageProperties;
-import controllers.SceneController;
-import controllers.examControl;
-import controllers.examInitiatedControl;
+import control.PageProperties;
+import control.SceneController;
+import control.ExamControl;
+import control.examInitiatedControl;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -133,10 +133,10 @@ public class takeExamController {
 		System.out.println("trying to send exam");
 
 		App_client.chat.accept(dataPacket);
-		if (examControl.getExam() != null) {
+		if (ExamControl.getExam() != null) {
 			System.out.println("exam is not null");
-			exam = examControl.getExam();
-			examControl.setExam(null);
+			exam = ExamControl.getExam();
+			ExamControl.setExam(null);
 
 			testQuestions = exam.getQuestions();
 			answers = new String[testQuestions.size()];

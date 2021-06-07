@@ -7,8 +7,8 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import controllers.PageProperties;
-import controllers.SceneController;
+import control.PageProperties;
+import control.SceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;

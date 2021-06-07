@@ -4,36 +4,61 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Question implements Serializable {
-	private static int counter=0;
-	private String id;
+	private static int counter = 0;
+	private String qID;
+	private int authorID;
 	private String info;
 	private String option1;
 	private String option2;
 	private String option3;
 	private String option4;
 	private String answer;
-	private String autor;
 	
-	public String getAutor() {
-		return autor;
+
+	public Question(String qID, int authorID, String info, String option1, String option2, String option3,
+			String option4, String answer) {
+		this.qID = qID;
+		this.authorID = authorID;
+		this.info = info;
+		this.option1 = option1;
+		this.option2 = option2;
+		this.option3 = option3;
+		this.option4 = option4;
+		this.answer = answer;
 	}
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
+
+
 	public Question() {
 		counter++;
 	}
+	
+	public String getqID() {
+		return qID;
+	}
+
+
+	public void setqID(String qID) {
+		this.qID = qID;
+	}
+
+
+	public int getAuthorID() {
+		return authorID;
+	}
+
+
+	public void setAuthorID(int authorID) {
+		this.authorID = authorID;
+	}
+
+	
+	
+
 	public int getcounter() {
 		return counter;
 	}
-	public String getId() {
-		return id;
-	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	
 	public String getInfo() {
 		return info;
 	}
@@ -81,6 +106,5 @@ public class Question implements Serializable {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
 
 }

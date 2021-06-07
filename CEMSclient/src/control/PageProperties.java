@@ -1,4 +1,4 @@
-package controllers;
+package control;
 
 public class PageProperties {
 	public enum Animation {
@@ -19,27 +19,6 @@ public class PageProperties {
 			@Override
 			String GET_FxmlFile() {
 				return "../gui/login.fxml";
-			}
-
-			@Override
-			Animation GET_ON_Scene_Load_Animation() {
-				return Animation.FADE_IN;
-			}
-
-			@Override
-			Animation GET_ON_Scene_Unload_Animation() {
-				return Animation.FADE_OUT;
-			}
-		},
-		INFO_PAGE {
-			@Override
-			String GET_Title() {
-				return "get info page";
-			}
-
-			@Override
-			String GET_FxmlFile() {
-				return "../gui/infoPage.fxml";
 			}
 
 			@Override
@@ -181,7 +160,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/TeacherHomePage.fxml";
+				return "../gui/teacher/TeacherHomePage.fxml";
 			}
 
 			@Override
@@ -206,7 +185,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/AddnewQuestion.fxml";
+				return "../gui/teacher/AddnewQuestion.fxml";
 			}
 
 			@Override
@@ -228,7 +207,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/editQuestion.fxml";
+				return "../gui/teacher/editQuestion.fxml";
 			}
 
 			@Override
@@ -250,7 +229,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/takeExamController.fxml";
+				return "../gui/teacher/takeExamController.fxml";
 			}
 
 			@Override
@@ -272,7 +251,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/CreateExam.fxml";
+				return "../gui/teacher/CreateExam.fxml";
 			}
 
 			@Override
@@ -300,7 +279,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/PrincipalHomePage.fxml";
+				return "../gui.principal/PrincipalHomePage.fxml";
 			}
 
 			@Override
@@ -322,7 +301,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/statisticalReport.fxml";
+				return "../gui/principal/statisticalReport.fxml";
 			}
 
 			@Override
@@ -344,7 +323,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/ExtraTimeRequests.fxml";
+				return "../gui/principal/ExtraTimeRequests.fxml";
 			}
 
 			@Override
@@ -357,6 +336,27 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 			
+		},
+		INFO_PAGE {
+			@Override
+			String GET_Title() {
+				return "get info page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/principal/InfoPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
 		}
 	
 			

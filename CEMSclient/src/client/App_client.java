@@ -1,11 +1,15 @@
 package client;	
 
 	
+import java.util.ArrayList;
+
+import common.DataPacket;
 import common.Question;
 import common.User;
-import controllers.ClientController;
-import controllers.PageProperties;
-import controllers.SceneController;
+import control.ClientController;
+import control.PageProperties;
+import control.SceneController;
+import control.UserControl;
 import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -13,14 +17,14 @@ import javafx.stage.Stage;
 public class App_client extends Application {
 	public static Stage primaryStage=null;
 	public static ClientController chat=null;
-	 public static BorderPane pageContainer;
-	public static User user=null;
+	public static BorderPane pageContainer;	
+	
 	public static Question Question=null;
 	public static String fieldName=null;
 	public static String seccess=null;
-	//public static user user=null;
-	//public static user user=null;
+	
 
+	
 	@Override
 	public void start(Stage primaryStage) {
 		SceneController.primaryStage = primaryStage;
@@ -35,6 +39,18 @@ public class App_client extends Application {
 
 	@Override
 	public void stop(){
+		// check if the user is still logged in..
+		if(UserControl.ConnectedUser != null)
+		{
+			System.out.println("Try to logout send logout DataPacket");
+			ArrayList<Object> parameter = new ArrayList<>();
+			parameter.add(UserControl.ConnectedUser);
+			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGOUT, parameter, null, true);
+			App_client.chat.accept(dataPacket);// send and wait for response from server
+			// will recive message from server and set user to null
+		}
+
+		
 		chat.GET_client().connectionClosed();//quit();
 		System.out.println("stopped");
 		System.exit(0);

@@ -8,13 +8,14 @@ import java.util.ArrayList;
 
 import common.DataPacket;
 import common.Exam;
+import common.Field;
 import common.IncomingDataPacketHandler;
 import common.Principal;
 import common.Question;
 import common.Student;
 import common.Teacher;
 import common.User;
-import common.courses;
+import common.Course;
 import common.examInitiated;
 
 public class ServerDataPacketHandler implements IncomingDataPacketHandler {
@@ -33,6 +34,20 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 	public DataPacket ParsingDataPacket(DataPacket dataPacket) {
 		DataPacket Responce_dataPacket = null;
 
+		
+		
+		
+		
+		
+		/////////////////////////////////////////////
+		// general requests
+		////////////////////////////////////////////////
+		
+		
+		
+		
+		
+		
 		if (dataPacket.getRequest() == DataPacket.Request.LOGIN) {
 			if (dataPacket.getData_parameters().get(0) instanceof String
 					&& dataPacket.getData_parameters().get(1) instanceof String) {
@@ -66,18 +81,18 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 						if (roleType.equals("student")) {
 							System.out.println("detected student user");
-							Student pass_user = new Student(rs.getString(1), rs.getString(2), rs.getString(3),
+							Student pass_user = new Student(rs.getInt(1), rs.getString(2), rs.getString(3),
 									rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
 							parameter.add(pass_user);
 						} else if (roleType.equals("teacher")) {
 							System.out.println("detected teacher user");
-							Teacher pass_user = new Teacher(rs.getString(1), rs.getString(2), rs.getString(3),
+							Teacher pass_user = new Teacher(rs.getInt(1), rs.getString(2), rs.getString(3),
 									rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
 							System.out.println(rs.getString(7) + "ffffffffffffffff");
 							parameter.add(pass_user);
 						} else if (roleType.equals("principle")) {
 							System.out.println("detected principal user");
-							Principal pass_user = new Principal(rs.getString(1), rs.getString(2), rs.getString(3),
+							Principal pass_user = new Principal(rs.getInt(1), rs.getString(2), rs.getString(3),
 									rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
 							parameter.add(pass_user);
 						} else {
@@ -109,10 +124,54 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			} else
 				System.out.println("not instance of");
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
-			
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.LOGOUT) {
+		
+			System.out.println("dsadasdas "+((User) dataPacket.getData_parameters().get(0)).getuID());
+			try {
+				PreparedStatement ps = mysqlConnection.getInstance().getCon()
+						.prepareStatement("UPDATE users SET isConnected=? WHERE uID=?");
+
+				ps.setString(1, "NO");
+				ps.setString(2, String.valueOf(  ((User) dataPacket.getData_parameters().get(0)).getuID() ) );
+				
+				int success = ps.executeUpdate();
+
+				System.out.println("user logout");
+
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGOUT, null, "",
+						true); // create DataPacket user information is inccorect...
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
+
 			String eiID = ((examInitiated) dataPacket.getData_parameters().get(0)).getEiID();
-			String uID = ((User) dataPacket.getData_parameters().get(1)).getuid();
+			int uID = ((User) dataPacket.getData_parameters().get(1)).getuID();
 			String duration = (String) dataPacket.getData_parameters().get(2);
 			String startTime = (String) dataPacket.getData_parameters().get(3);
 			String endTime = (String) dataPacket.getData_parameters().get(4);
@@ -126,17 +185,17 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				try {
 					stmt = mysqlConnection.getInstance().getCon().createStatement();
 					ResultSet rs = stmt.executeQuery(
-							"SELECT answer from questions WHERE (qID='" + testQuestions.get(i).getId() + "') ");
+							"SELECT answer from questions WHERE (qID='" + testQuestions.get(i).getqID() + "') ");
 					if (rs.next()) {
 
 						System.out.println("found question name");
 						if (rs.getString(1).equals(answers.get(i))) {
 							stmt2 = mysqlConnection.getInstance().getCon().createStatement();
 							ResultSet rs2 = stmt2.executeQuery("SELECT points from exam_questions WHERE (qID='"
-									+ testQuestions.get(i).getId() + "') ");
+									+ testQuestions.get(i).getqID() + "') ");
 							if (rs2.next()) {
 								grade = Integer.parseInt(rs2.getString(1));
-								System.out.println(grade+"--"+testQuestions.get(i).getId());
+								System.out.println(grade + "--" + testQuestions.get(i).getqID());
 							}
 
 						}
@@ -151,7 +210,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			try {
 				statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
 				statement.setString(1, eiID);
-				statement.setString(2, uID);
+				statement.setInt(2, uID);
 				statement.setString(3, duration);
 				statement.setString(4, startTime);
 				statement.setString(5, endTime);
@@ -172,9 +231,9 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				PreparedStatement statement2;
 				try {
 					statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
-					String edIDString=edID+"";
+					String edIDString = edID + "";
 					statement.setString(1, edIDString);
-					statement.setString(2, testQuestions.get(i).getId());
+					statement.setString(2, testQuestions.get(i).getqID());
 					statement.setString(3, answers.get(i));
 
 					statement.executeUpdate();
@@ -223,7 +282,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				stmt = mysqlConnection.getInstance().getCon().createStatement();
 
 				ResultSet rs = stmt.executeQuery("SELECT * from questions WHERE (qID='" + questionID + "') "
-						+ "AND (uID= '" + user.getuid() + "')");
+						+ "AND (uID= '" + user.getuID() + "')");
 				System.out.println(questionID + "< looking for in in DB");
 				if (rs.next()) {
 
@@ -233,8 +292,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					ArrayList<Object> parameter = new ArrayList<Object>();
 					// Object pass_user=null;
 					Question question = new Question();
-					question.setId(rs.getString(1));
-					question.setAutor(rs.getString(2));
+					question.setqID(rs.getString(1));
+					question.setAuthorID(rs.getInt(2));
 					question.setInfo(rs.getString(3));
 					question.setOption1(rs.getString(4));
 					question.setOption2(rs.getString(5));
@@ -263,17 +322,17 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			PreparedStatement ps;
 			try {
 				ps = mysqlConnection.getInstance().getCon().prepareStatement(
-						"update questions set qID=?,uID=?,question=?,option1=?,option2=?,option3=?,option4=?,answer=? where qID =?");
+						"UPDATE questions SET qID=?,uID=?,question=?,option1=?,option2=?,option3=?,option4=?,answer=? where qID =?");
 
-				ps.setString(1, question.getId());
-				ps.setString(2, user.getuid());
+				ps.setString(1, question.getqID());
+				ps.setInt(2, user.getuID());
 				ps.setString(3, question.getInfo());
 				ps.setString(4, question.getOption1());
 				ps.setString(5, question.getOption2());
 				ps.setString(6, question.getOption3());
 				ps.setString(7, question.getOption4());
 				ps.setString(8, question.getAnswer());
-				ps.setString(9, question.getId());
+				ps.setString(9, question.getqID());
 				int success = ps.executeUpdate();
 				parameters.add(question);
 				if (success == 1)
@@ -295,7 +354,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			User user = (User) dataPacket.getData_parameters().get(1);
 			try {
 				stmt2 = mysqlConnection.getInstance().getCon().createStatement();
-				String query = "select count(*) from questions where qID like '" + question.getId() + "%'";
+				String query = "select count(*) from questions where qID like '" + question.getqID() + "%'";
 				// Executing the query
 				ResultSet rs2 = stmt2.executeQuery(query);
 				// Retrieving the result
@@ -305,8 +364,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				String myStatement = " INSERT INTO questions (qid, uID, question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?,?,?)";
 				PreparedStatement statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
 				String idCounter = count < 10 ? "00" + count : count < 100 ? "0" + count : "" + count;
-				statement.setString(1, question.getId() + idCounter);
-				statement.setString(2, user.getuid());
+				statement.setString(1, question.getqID() + idCounter);
+				statement.setInt(2, user.getuID());
 				statement.setString(3, question.getInfo());
 				statement.setString(4, question.getOption1());
 				statement.setString(5, question.getOption2());
@@ -342,8 +401,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					ArrayList<Object> parameter = new ArrayList<Object>();
 					// Object pass_user=null;
 					Exam exam = new Exam();
-					
-					examInitiated examInitiated=new examInitiated();
+
+					examInitiated examInitiated = new examInitiated();
 					examInitiated.setEiID(rs.getString(1));
 					examInitiated.seteID(rs.getString(2));
 					examInitiated.setuID(rs.getString(3));
@@ -352,16 +411,17 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					parameter.add(examInitiated);
 					Statement stmt2 = mysqlConnection.getInstance().getCon().createStatement();
 
-					ResultSet rs2 = stmt2.executeQuery("SELECT * from exams WHERE eID='" + examInitiated.geteID() + "'");
+					ResultSet rs2 = stmt2
+							.executeQuery("SELECT * from exams WHERE eID='" + examInitiated.geteID() + "'");
 
 					if (rs2.next()) {
 						System.out.println("sss");
 						exam.setExamID(rs2.getString(1));
-						exam.setDuration(rs2.getString(2));
-						exam.setAuthor(rs2.getString(3));
-						exam.setTeacherComments(rs2.getString(4));
-						exam.setStudentsComments(rs2.getString(5));
-						exam.setPassword(rs2.getString(6));
+						exam.setAuthorID(rs2.getInt(2));
+						exam.setDescription(rs2.getString(3));
+						exam.setDuration(rs2.getString(4));
+						exam.setTeacherComments(rs2.getString(5));
+						exam.setStudentsComments(rs2.getString(6));
 						parameter.add(exam);
 					}
 					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_EXAM,
@@ -376,49 +436,45 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEST_QUESTIONS) {
-			Exam exam2=new Exam();
+			Exam exam2 = new Exam();
 			examInitiated exam = (examInitiated) dataPacket.getData_parameters().get(0);
 			String examID = exam.geteID();
 			System.out.println("the test id is:" + examID);
 			ArrayList<Question> questionsfortest = new ArrayList<Question>();
 			Statement stmt;
+
 			try {
 				stmt = mysqlConnection.getInstance().getCon().createStatement();
 
-				ResultSet rs = stmt.executeQuery("SELECT  questions.qID, questions.question, questions.option1,"
-						+ " questions.option2, questions.option3,"
-						+ " questions.option4, questions.answer, questions.uID \"\r\n"
-						+ "				+ \"FROM exams INNER JOIN exam_questions ON exams.eID=exam_questions.eID"
-						+ " INNER JOIN questions ON exam_questions.qID=questions.qID WHERE exams.eID='" + examID
-						+ "';");
+				ResultSet rs = stmt.executeQuery(
+						"SELECT  questions.qID, questions.authorID, questions.question, questions.option1,"
+								+ " questions.option2, questions.option3,"
+								+ " questions.option4, questions.answer \"\r\n"
+								+ "				+ \"FROM exams INNER JOIN exam_questions ON exams.eID=exam_questions.eID"
+								+ " INNER JOIN questions ON exam_questions.qID=questions.qID WHERE exams.eID='" + examID
+								+ "';");
 
 				while (rs.next()) {
 
 					System.out.println("found exammmmmmm");
-					Question question = new Question();
-					question.setId(rs.getString(1));
-					question.setInfo(rs.getString(2));
-					question.setOption1(rs.getString(3));
-					question.setOption2(rs.getString(4));
-					question.setOption3(rs.getString(5));
-					question.setOption4(rs.getString(6));
-					question.setAnswer(rs.getString(7));
-					question.setAutor(rs.getString(8));
+					Question question = new Question(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4),
+							rs.getString(5), rs.getString(6), rs.getString(8), rs.getString(8));
 					questionsfortest.add(question);
-					System.out.println(question.getId() + "aaaaaaaaa");
+					System.out.println(question.getqID() + "aaaaaaaaa");
 				}
+
+				exam2.setQuestions(questionsfortest);
+				ArrayList<Object> parameter = new ArrayList<Object>();
+				parameter.add(exam);
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_TEST_QUESTIONS,
+						parameter, "", true);
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_TEST_QUESTIONS,
-						null, "", true);
+				// Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
+				// DataPacket.Request.GET_TEST_QUESTIONS,
+				// null, "", true);
 			}
-			exam2.setQuestions(questionsfortest);
-			ArrayList<Object> parameter = new ArrayList<Object>();
-			parameter.add(exam);
-			Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_TEST_QUESTIONS,
-					parameter, "", true);
-
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSES) {
@@ -427,17 +483,23 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
 			Responce_dataPacket = getQuestionsByFieldID(dataPacket);
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
 			System.out.println("before method getQuestionDescription");
 			Responce_dataPacket = getQuestionIdByDescription(dataPacket);
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {
 			try {
 				Statement statement;
 				statement = mysqlConnection.getInstance().getCon().createStatement();
 				ResultSet rs = statement.executeQuery("SELECT * from users");
 				ArrayList<Object> users = new ArrayList<Object>(); // Create an ArrayList object
+				
+				
 				while (rs.next()) {
-					users.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+					users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
 							rs.getString(5), rs.getString(6), rs.getString(7)));
 				}
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_INFO_USERS, users,
@@ -448,7 +510,6 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				e.printStackTrace();
 				return null;
 			}
-
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			Responce_dataPacket = getCourseID(dataPacket);
 		} else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
@@ -456,6 +517,124 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		} else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM_QUESTIONS) {
 			Responce_dataPacket = insertExamQuestion(dataPacket);
 		}
+
+		//////////////////
+		// principal requests
+		/////////////////////////////////////////// MAX////////////////////////////////////////M
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {// INFO PRINCIPEL
+			try {
+				Statement statement;
+				statement = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs = statement.executeQuery("SELECT * from users");
+				ArrayList<Object> users = new ArrayList<Object>(); // Create an ArrayList object
+				while (rs.next())
+					users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+							rs.getString(5), rs.getString(6), rs.getString(7)));
+
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_INFO_USERS, users,
+						"", true); // create
+			}
+
+			catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_COURSE) {// INFO PRINCIPEL
+			try {
+				Statement statement;
+				statement = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs = statement.executeQuery("SELECT * from courses");
+				ArrayList<Object> coursesList = new ArrayList<Object>(); // Create an ArrayList object
+				while (rs.next())
+					coursesList.add(new Course(rs.getString(1), rs.getString(2), rs.getString(3)));
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_INFO_COURSE,
+						coursesList, "", true); // create
+			}
+
+			catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_FIELD) {// INFO PRINCIPEL
+			try {
+				Statement statement;
+				statement = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs = statement.executeQuery("SELECT * from fields");
+				ArrayList<Object> filedList = new ArrayList<Object>(); // Create an ArrayList object
+				while (rs.next())
+					filedList.add(new Field(rs.getString(1), rs.getString(2)));
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_INFO_FIELD,
+						filedList, "", true); // create
+			}
+
+			catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_EXAM) {// INFO PRINCIPEL
+			try {
+				Statement statement;
+				statement = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs = statement.executeQuery("SELECT * from exams");
+				ArrayList<Object> examList = new ArrayList<Object>(); // Create an ArrayList object
+				while (rs.next()) {
+					Statement statement1;
+					statement1 = mysqlConnection.getInstance().getCon().createStatement();
+					ResultSet rsQ = statement1.executeQuery(
+							"SELECT  exam_questions.eID,exam_questions.qID,questions.question,questions.option1,questions.option2,questions.option3,questions.option4,questions.answer, exam_questions.points FROM exam_questions INNER JOIN questions ON exam_questions.qID=questions.qID WHERE exam_questions.eID='"
+									+ rs.getString(1) + "';");
+					ArrayList<Question> questionsList = new ArrayList<Question>();
+
+					while (rsQ.next()) {
+						questionsList
+								.add(new Question(rsQ.getString(1), rsQ.getInt(2), rsQ.getString(3), rsQ.getString(4),
+										rsQ.getString(5), rsQ.getString(6), rsQ.getString(7), rsQ.getString(8)));
+					}
+					examList.add(new Exam(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4),
+							rs.getString(5), rs.getString(6), questionsList));
+
+				}
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_INFO_EXAM,
+						examList, "", true); // create
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_QUESTIONS) {// INFO PRINCIPEL
+
+			ArrayList<Object> questionsList = new ArrayList<Object>(); // Create an ArrayList object
+			Statement statement;
+			System.out.println("sasas1");
+
+			try {
+				System.out.println("sasas2");
+				statement = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs = statement.executeQuery("SELECT * from questions");
+				System.out.println("sasas3");
+				while (rs.next()) {
+					questionsList.add(new Question(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4),
+							rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
+				}
+
+				System.out.println("sasas4");
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_INFO_QUESTIONS,
+						questionsList, "", true); // create
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+///////////////////////////////////////////////////MAX////////////////////////////////////////M
 
 		return Responce_dataPacket;
 	}
@@ -518,12 +697,12 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				int count = rs.getInt(1);
 				System.out.println(count);
 				count++;
-				String myStatement = " INSERT INTO exams (eID, duration, author, teacherComments, studentComments) VALUES (?,?,?,?,?)";
+				String myStatement = " INSERT INTO exams (eID,authorID, duration, teacherComments, studentComments) VALUES (?,?,?,?,?)";
 				PreparedStatement statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
 				String idCounter = count < 10 ? "0" + count : count < 100 ? "00" + count : "" + count;
 				statement.setString(1, exam.getExamID() + idCounter);
-				statement.setString(2, exam.getDuration());
-				statement.setString(3, exam.getAuthor());
+				statement.setInt(2, exam.getAuthorID());
+				statement.setString(3, exam.getDuration());
 				statement.setString(4, exam.getTeacherComments());
 				statement.setString(5, exam.getStudentsComments());
 				statement.executeUpdate();

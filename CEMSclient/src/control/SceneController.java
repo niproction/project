@@ -1,12 +1,12 @@
-package controllers;
+package control;
 
 import java.io.IOException;
 import java.net.URL;
 
 import javax.swing.text.View;
 
-import controllers.PageProperties.Animation;
-import controllers.PageProperties.Page;
+import control.PageProperties.Animation;
+import control.PageProperties.Page;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

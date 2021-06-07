@@ -1,4 +1,4 @@
-package gui;
+package gui.teacher;
 
 import java.text.NumberFormat;
 import java.text.ParsePosition;
@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
-import controllers.PageProperties;
-import controllers.SceneController;
-import controllers.examControl;
+import control.PageProperties;
+import control.SceneController;
+import control.ExamControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -68,12 +68,12 @@ public class createNewExamController {
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSES, parameters, null, true);
 		App_client.chat.accept(dataPacket);
 		ObservableList<String> courseList=FXCollections.observableArrayList();
-		courseList.addAll(examControl.coursesNames);
+		courseList.addAll(ExamControl.coursesNames);
 		courses.setItems(courseList);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION_BY_FIELD_ID, parameters, null, true);
 		ObservableList<String> questionsList=FXCollections.observableArrayList();
 		App_client.chat.accept(dataPacket);
-		questionsList.addAll(examControl.questions);
+		questionsList.addAll(ExamControl.questions);
 		questions.setItems(questionsList);
 	}
 	
@@ -99,7 +99,7 @@ public class createNewExamController {
 		parameters.add(questions.getValue());
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION_BY_DESCRIPTION, parameters, null, true);
 		App_client.chat.accept(dataPacket);
-		exam.addQuestionAndPoints(examControl.questionID, pointsForQuestion.getText());
+		exam.addQuestionAndPoints(ExamControl.questionID, pointsForQuestion.getText());
 		totalPoints+=Double.parseDouble(pointsForQuestion.getText());
 		totalPointsLabel.setText(String.valueOf(totalPoints));
 		pointsForQuestion.setText("");
@@ -158,14 +158,14 @@ public class createNewExamController {
 		System.out.println("afterrrrrrrr");
 		exam.setAuthor(App_client.user.getFirstName()+" "+App_client.user.getLastName());
 		System.out.println("%%%% " +exam.getAuthor());
-		exam.setExamID(App_client.user.getfid()+examControl.selectedCourseID);
+		exam.setExamID(App_client.user.getfid()+ExamControl.selectedCourseID);
 		exam.setDuration(duration.getText());
 		exam.setStudentsComments(studentComments.getText());
 		exam.setTeacherComments(teacherComments.getText());
 		parameters.add(0, exam);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
 		App_client.chat.accept(dataPacket);
-		exam.setExamID(examControl.examID);
+		exam.setExamID(ExamControl.examID);
 		System.out.println("hhhhhh%%5  "+exam.getExamID());
 		parameters.add(0, exam);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM_QUESTIONS, parameters, null, true);

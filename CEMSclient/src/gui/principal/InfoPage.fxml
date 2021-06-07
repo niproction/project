@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.infoPageController">
+<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.principal.infoPageController">
    <children>
       <TableView fx:id="tableOfInfo" layoutX="21.0" layoutY="170.0" prefHeight="399.0" prefWidth="789.0" />
       <ImageView fitHeight="80.0" fitWidth="114.0" layoutX="737.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">

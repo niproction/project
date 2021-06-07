@@ -7,8 +7,8 @@ public class Principal extends User implements Serializable {
 	private Exam[] exams;
 	
 	
-	public Principal(String uid, String username, String password, String email, String firstName, String lastName,String fid) {
-		super(uid,username,password,email,firstName,lastName,fid);
+	public Principal(int uID, String username, String password, String email, String firstName, String lastName,String fid) {
+		super(uID,username,password,email,firstName,lastName,fid);
 		
 	}
 	

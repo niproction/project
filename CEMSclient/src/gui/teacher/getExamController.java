@@ -1,13 +1,13 @@
-package gui;
+package gui.teacher;
 
 import java.util.ArrayList;
 
 import client.App_client;
 import common.DataPacket;
-import controllers.PageProperties;
-import controllers.SceneController;
-import controllers.examControl;
-import controllers.examInitiatedControl;
+import control.PageProperties;
+import control.SceneController;
+import control.ExamControl;
+import control.examInitiatedControl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

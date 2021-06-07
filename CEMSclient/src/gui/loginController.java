@@ -6,8 +6,9 @@ import java.util.ResourceBundle;
 
 import client.App_client;
 import common.DataPacket;
-import controllers.PageProperties;
-import controllers.SceneController;
+import control.PageProperties;
+import control.SceneController;
+import control.UserControl;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -76,7 +77,7 @@ public class loginController implements Initializable {
 
 
 
-		if(App_client.user != null)
+		if(UserControl.ConnectedUser != null)
 		{
 			System.out.println("Sdasdasdasda");
 			

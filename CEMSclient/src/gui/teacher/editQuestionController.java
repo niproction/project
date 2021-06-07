@@ -1,12 +1,12 @@
-package gui;
+package gui.teacher;
 
 import java.util.ArrayList;
 
 import client.App_client;
 import common.DataPacket;
 import common.Question;
-import controllers.PageProperties;
-import controllers.SceneController;
+import control.PageProperties;
+import control.SceneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

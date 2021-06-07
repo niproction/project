@@ -4,8 +4,6 @@ package server;
 // license found at www.lloseng.com 
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import common.DataPacket;
 import gui.serverGUI;
 import ocsf.server.AbstractServer;

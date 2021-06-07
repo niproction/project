@@ -1,14 +1,17 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import client.App_client;
+import common.DataPacket;
 import common.Principal;
 import common.Student;
 import common.Teacher;
-import controllers.PageProperties;
-import controllers.SceneController;
+import control.PageProperties;
+import control.SceneController;
+import control.UserControl;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -145,19 +148,19 @@ public class mainController {
 		SceneController.primaryStage.widthProperty().addListener(listener);
 		SceneController.primaryStage.heightProperty().addListener(listener);
 
-		if (App_client.user instanceof Student) {
+		if (UserControl.ConnectedUser instanceof Student) {
 			SceneController.primaryStage.setTitle("Cems: Student - home page");
 			takeExam.setVisible(true);
 			historyOfExams.setVisible(true);
 			label_bar_welcome
-					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
+					.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " " + UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Student)");
 
 			// load Student home page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
 			page_box.setCenter(page);
 
-		} else if (App_client.user instanceof Teacher) {
+		} else if (UserControl.ConnectedUser instanceof Teacher) {
 			SceneController.primaryStage.setTitle("Cems: Teacher - home page");
 			createExam.setVisible(true);
 			setAxem.setVisible(true);
@@ -165,20 +168,20 @@ public class mainController {
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
 			label_bar_welcome
-					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
+					.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " " + UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Teacher)");
 
 			// load Teacher home page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
 			page_box.setCenter(page);
 
-		} else if (App_client.user instanceof Principal) {
+		} else if (UserControl.ConnectedUser instanceof Principal) {
 			SceneController.primaryStage.setTitle("Cems: Principal - home page");
 			displayStatisticalReport.setVisible(true);
 			checkRequest.setVisible(true);
 			information.setVisible(true);
 			label_bar_welcome
-					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
+					.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " " + UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Principal)");
 
 			// load Principal home page
@@ -256,7 +259,13 @@ public class mainController {
 
 	@FXML
 	void button_logout_clicked(MouseEvent event) {
-		App_client.user = null;
+		System.out.println("clicked to logout");
+		ArrayList<Object> parameter = new ArrayList<>();
+		parameter.add(UserControl.ConnectedUser);
+		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGOUT, parameter, null, true);
+		App_client.chat.accept(dataPacket);// send and wait for response from server
+		// will recive message from server and set user to null
+
 
 		// make animation and than load page
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);

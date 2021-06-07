@@ -1,4 +1,4 @@
-package gui;
+package gui.principal;
 
 /**
  * Sample Skeleton for 'Untitled' Controller Class
@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import gui.TableEntry;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;

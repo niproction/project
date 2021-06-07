@@ -5,7 +5,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class User implements Serializable {
 	
-	private String uid;
+	private int uID;
 	private String username;
 	private String password;
 	private String email;
@@ -13,8 +13,8 @@ public class User implements Serializable {
 	private String lastName;
 	private String fid;
 	
-	public User(String uid, String username, String password, String email, String firstName, String lastName,String fid) {
-		this.uid=uid;
+	public User(int uID, String username, String password, String email, String firstName, String lastName,String fid) {
+		this.uID=uID;
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -22,18 +22,25 @@ public class User implements Serializable {
 		this.lastName = lastName;
 		this.fid=fid;
 	}
+	
+	public int getuID() {
+		return uID;
+	}
+
+	public void setuID(int uID) {
+		this.uID = uID;
+	}
+
+
 	public String getfid() {
 		return fid;
 	}
 	public void setfid(String fid) {
 		this.fid=fid;
 	}
-	public String getuid() {
-		return uid;
-	}
-	public void setUid(String uid) {
-		this.uid=uid;
-	}
+	
+
+	
 	public String getUsername() {
 		return username;
 	}
