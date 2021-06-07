@@ -47,6 +47,8 @@ public class initTables {
 			stmt.executeUpdate("DROP TABLE IF EXISTS exams_done;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS exam_questions_answer;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS extra_time_requests;");
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.print("problem to delete tables");
@@ -195,7 +197,7 @@ public class initTables {
 
 	private void table_questions() {
 		String sql = "CREATE TABLE IF NOT EXISTS questions (\n" + "	qID VARCHAR(8) NOT NULL,\n"
-				+ " uID text NOT NULL,\n" + "	question text NOT NULL,\n" + "	option1 text NOT NULL,\n"
+				+ " authorID text NOT NULL,\n" + "	question text NOT NULL,\n" + "	option1 text NOT NULL,\n"
 				+ "	option2 text NOT NULL,\n" + "	option3 text NOT NULL,\n" + "	option4 text NOT NULL,\n"
 				+ "	answer INT NOT NULL,\n" + " PRIMARY KEY (qID));";
 
@@ -206,7 +208,7 @@ public class initTables {
 
 			stmt = con.createStatement();
 
-			String myStatement = " INSERT INTO questions (qID, uID, question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?,?,?)";
+			String myStatement = " INSERT INTO questions (qID, authorID, question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
 			statement.setString(1, "02001");
 			statement.setInt(2, 2);

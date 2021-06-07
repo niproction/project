@@ -119,6 +119,9 @@ public class MainPageController {
 		SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 
+		
+		
+		
 		ChangeListener<Number> listener = new ChangeListener<Number>() {
 			private Point2D stageSize = null;
 			private Point2D previousStageSize = new Point2D(SceneController.primaryStage.getWidth(),

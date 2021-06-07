@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import common.Exam;
 
 
-public  class ExamControl {
+public class ExamControl {
 	public static ArrayList<String> coursesNames;
 	public static String selectedCourse;
+	
 	public static ArrayList<String> questions;
 	public static String questionID;
 	public static Exam exam;

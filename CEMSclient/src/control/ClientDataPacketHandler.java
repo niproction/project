@@ -105,11 +105,17 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				System.out.println("insert get test questions");
 				Exam exam = (Exam) dataPacket.getData_parameters().get(0);
 				ExamControl.setExam(exam);
+				System.out.println("setted");
 			} else {
 				System.out.println("problemmmm");
 				ExamControl.setExam(null);
 			}
 		}
+		
+		
+		
+		
+		
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION) {
 			System.out.println("login insert to get question");

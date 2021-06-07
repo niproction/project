@@ -35,7 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import java.awt.event.ActionEvent;
 
-public class takeExamController {
+public class TakeExamController {
 	SceneController sceen;
 	@FXML // fx:id="ap"
 	private AnchorPane ap;
@@ -99,10 +99,12 @@ public class takeExamController {
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		examInitiated=ExamInitiatedControl.getExamInitiated();
 		ExamInitiatedControl.setExamInitiated(null);
-		exam_duration = Integer.parseInt(examInitiated.getTime());
+		
+		//exam_duration = Integer.parseInt(examInitiated.getTime());
+		
 		minPass.setText("0");
 		secPass.setText("0");
-		tm = new Timer(1000, new ActionListener() {
+		/*tm = new Timer(1000, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -124,7 +126,7 @@ public class takeExamController {
 
 			}
 		});
-		tm.start();
+		tm.start()*/
 		testSubmited.setVisible(false);
 		back.setVisible(false);
 		backImageView.setVisible(false);
@@ -138,11 +140,15 @@ public class takeExamController {
 		duration.setText(examInitiated.getTime());
 		ArrayList<Object> parameters = new ArrayList<>();
 		parameters.add(examInitiated);
+		
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_TEST_QUESTIONS,
 				parameters, null, true);
 		System.out.println("trying to send exam");
 
 		App_client.chat.accept(dataPacket);
+		
+		
+		
 		if (ExamControl.getExam() != null) {
 			System.out.println("exam is not null");
 			exam = ExamControl.getExam();
@@ -150,7 +156,7 @@ public class takeExamController {
 
 			testQuestions = exam.getQuestions();
 			answers = new String[testQuestions.size()];
-
+			System.out.println("size :" +testQuestions.size());
 			questionInfo.setText(testQuestions.get(0).getInfo());
 			option1.setText(testQuestions.get(0).getOption1());
 			option2.setText(testQuestions.get(0).getOption2());

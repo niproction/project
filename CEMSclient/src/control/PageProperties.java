@@ -56,27 +56,7 @@ public class PageProperties {
 		
 		
 		
-		GET_EXAM {
-			@Override
-			String GET_Title() {
-				return "get exam page";
-			}
-
-			@Override
-			String GET_FxmlFile() {
-				return "../gui/getExamPage.fxml";
-			}
-
-			@Override
-			Animation GET_ON_Scene_Load_Animation() {
-				return Animation.FADE_IN;
-			}
-
-			@Override
-			Animation GET_ON_Scene_Unload_Animation() {
-				return Animation.FADE_OUT;
-			}
-		},
+		
 		
 		Main {
 			@Override
@@ -151,8 +131,49 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
-		
+		GET_EXAM {
+			@Override
+			String GET_Title() {
+				return "get exam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/student/GetExamPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+		TAKE_EXAM {
+			@Override
+			String GET_Title() {
+				return "take exam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/student/TakeExamPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+			
+		},
 		
 		
 		
@@ -229,28 +250,7 @@ public class PageProperties {
 			}
 			
 		},
-		TAKE_EXAM {
-			@Override
-			String GET_Title() {
-				return "take exam page";
-			}
-
-			@Override
-			String GET_FxmlFile() {
-				return "../gui/teacher/takeExamController.fxml";
-			}
-
-			@Override
-			Animation GET_ON_Scene_Load_Animation() {
-				return Animation.FADE_IN;
-			}
-
-			@Override
-			Animation GET_ON_Scene_Unload_Animation() {
-				return Animation.FADE_OUT;
-			}
-			
-		},
+		
 		CREATE_EXAM {
 			@Override
 			String GET_Title() {

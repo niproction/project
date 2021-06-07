@@ -1,4 +1,4 @@
-package gui.teacher;
+package gui.student;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-public class getExamController {
+public class GetExamController {
 	SceneController sceen;
 	@FXML // fx:id="ap"
 	private AnchorPane ap;
@@ -45,17 +45,24 @@ public class getExamController {
 		
 	}
 	public void getExam() {
+		
 		ArrayList<Object> parameters=new ArrayList<>();
 		parameters.add(passwordfld.getText().toString());
 		parameters.add(UserControl.ConnectedUser);
+		
+		
+		
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAM, parameters, null, true);
 		System.out.println("tring to send");
 		App_client.chat.accept(dataPacket);
 		
+		
+		
 		if(ExamInitiatedControl.getExamInitiated()!=null) {
 			System.out.println("ddddddddddd");
+			
+			//load next page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TAKE_EXAM);
-			// Pane screen = object.Sc();
 			App_client.pageContainer.setCenter(page);
 		}
 		else {
