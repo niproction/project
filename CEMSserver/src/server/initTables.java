@@ -219,12 +219,16 @@ public class initTables {
 
 	private void table_exams_initiated() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams_initiated (\n" + " eiID varchar(7) NOT NULL,\n"
-				+ "	eID varchar(7) NOT NULL,\n" + "	uID varchar(5) NOT NULL,\n" + " time varchar(3) NOT NULL);";
+				+ "	eID varchar(7) NOT NULL,\n" + "	uID varchar(5) NOT NULL,\n" + " time varchar(3) NOT NULL"+" initiated_time varchar(10) NOT NULL,\n);";
 		try {
 			Statement stmt = con.createStatement();
+			Statement stmt2 = con.createStatement();
 			// create a new table
 			stmt.execute(sql);
 			stmt = con.createStatement();
+			stmt2 = con.createStatement();
+			int rs = stmt2.executeUpdate("INSERT INTO exams_initiated (eiID, eID, uID, time, password) VALUES ('1', '02000', '2', '60', '1234')");
+			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}

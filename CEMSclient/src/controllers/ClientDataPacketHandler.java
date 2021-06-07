@@ -88,6 +88,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			if(dataPacket.getData_parameters()!=null) {
 				System.out.println("insert get test questions");
 				Exam exam=(Exam)dataPacket.getData_parameters().get(0);
+				System.out.println(exam.getExamID()+"4444");
 				examControl.setExam(exam);
 			}
 			else {

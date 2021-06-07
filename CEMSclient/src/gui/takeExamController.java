@@ -80,9 +80,17 @@ public class takeExamController {
 	private Exam exam;
 	private examInitiated examInitiated;
 	private int min, sec, index;
-	private String startTime, endTime;
+	private String endTime;
 	private int timeLeft, counter;
 	private Timer tm;
+	/////////////////////////////////////////////////////////////////////
+	private Timer skiped_time;
+	private String startTime;
+	private Timer initiated_time;
+	private Timer exam_left_time;
+	private int exam_duration;
+	private int extra_time;
+	private Timer exam_timer;
 	@FXML
 	void initialize() {
 		System.out.println("take exam page loaded");
@@ -90,8 +98,9 @@ public class takeExamController {
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		examInitiated=examInitiatedControl.getExamInitiated();
 		examInitiatedControl.setExamInitiated(null);
-		int dur = Integer.parseInt(examInitiated.getTime());
+		exam_duration = Integer.parseInt(examInitiated.getTime());
 		minPass.setText("0");
+		secPass.setText("0");
 		tm = new Timer(1000, new ActionListener() {
 
 			@Override
@@ -100,7 +109,7 @@ public class takeExamController {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						if (min == dur) {
+						if (min == exam_duration) {
 							submit();
 						}
 						if (counter == 60) {

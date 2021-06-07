@@ -110,13 +110,14 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				System.out.println("not instance of");
 
 		} else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
-			
+			examInitiated examInitiated=(examInitiated) dataPacket.getData_parameters().get(0);
 			String eiID = ((examInitiated) dataPacket.getData_parameters().get(0)).getEiID();
 			String uID = ((User) dataPacket.getData_parameters().get(1)).getuid();
 			String duration = (String) dataPacket.getData_parameters().get(2);
 			String startTime = (String) dataPacket.getData_parameters().get(3);
 			String endTime = (String) dataPacket.getData_parameters().get(4);
 			String isAprroved = "WAITING";
+			int edID=0;
 			ArrayList<Question> testQuestions = (ArrayList<Question>) dataPacket.getData_parameters().get(5);
 			ArrayList<String> answers = (ArrayList<String>) dataPacket.getData_parameters().get(6);
 			int grade = 0;
@@ -126,16 +127,17 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				try {
 					stmt = mysqlConnection.getInstance().getCon().createStatement();
 					ResultSet rs = stmt.executeQuery(
-							"SELECT answer from questions WHERE (qID='" + testQuestions.get(i).getId() + "') ");
+							"SELECT answer from questions WHERE (qID='" + testQuestions.get(i).getId() + "')");
 					if (rs.next()) {
 
 						System.out.println("found question name");
 						if (rs.getString(1).equals(answers.get(i))) {
+							System.out.println("correct answer");
 							stmt2 = mysqlConnection.getInstance().getCon().createStatement();
 							ResultSet rs2 = stmt2.executeQuery("SELECT points from exam_questions WHERE (qID='"
-									+ testQuestions.get(i).getId() + "') ");
+									+ testQuestions.get(i).getId() + "' ) AND eID= '"+examInitiated.geteID()+"';");
 							if (rs2.next()) {
-								grade = Integer.parseInt(rs2.getString(1));
+								grade += Integer.parseInt(rs2.getString(1));
 								System.out.println(grade+"--"+testQuestions.get(i).getId());
 							}
 
@@ -150,13 +152,14 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			PreparedStatement statement;
 			try {
 				statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
+				
 				statement.setString(1, eiID);
 				statement.setString(2, uID);
 				statement.setString(3, duration);
 				statement.setString(4, startTime);
 				statement.setString(5, endTime);
 				statement.setString(6, isAprroved);
-				statement.setString(7, grade + "");
+				statement.setString(7, grade+"");
 
 				statement.executeUpdate();
 				ArrayList<Object> parameter = new ArrayList<Object>();
@@ -167,24 +170,40 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
+			Statement stmt;
+			try {
+				stmt = mysqlConnection.getInstance().getCon().createStatement();
+
+				ResultSet rs = stmt.executeQuery("SELECT edID FROM exams_done ORDER BY edID DESC limit 1;");
+				if(rs.next()) {
+					edID=rs.getInt(1);
+					System.out.println(edID+"---------");
+				}
+			}catch (Exception e) {
+				System.out.println("problem getting edID");
+				e.printStackTrace();
+			}
+		
+			
 			for (int i = 0; i < testQuestions.size(); i++) {
 				String myStatement2 = " INSERT INTO exam_questions_answer (edID, qID, answer) VALUES (?,?,?)";
 				PreparedStatement statement2;
 				try {
-					statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
-					String edIDString=edID+"";
-					statement.setString(1, edIDString);
-					statement.setString(2, testQuestions.get(i).getId());
-					statement.setString(3, answers.get(i));
+					statement2 = mysqlConnection.getInstance().getCon().prepareStatement(myStatement2);
+					
+					statement2.setInt(1, edID);
+					statement2.setString(2, testQuestions.get(i).getId());
+					statement2.setString(3, answers.get(i));
 
-					statement.executeUpdate();
+					statement2.executeUpdate();
 					System.out.println("succeseded insert exam-quesiton-answer");
 
 				} catch (Exception e) {
 					System.out.println("problemmmm666666");
 				}
 			}
-			edID++;
+			
 
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
 			User user = ((User) dataPacket.getData_parameters().get(0));
@@ -406,18 +425,24 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					question.setAutor(rs.getString(8));
 					questionsfortest.add(question);
 					System.out.println(question.getId() + "aaaaaaaaa");
+					
 				}
+				exam2.setQuestions(questionsfortest);
+				ArrayList<Object> parameter=new ArrayList<Object>();
+				parameter.add(exam2);
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_TEST_QUESTIONS,
+						parameter, "", true);
 
 			} catch (Exception e) {
 				e.printStackTrace();
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_TEST_QUESTIONS,
 						null, "", true);
 			}
-			exam2.setQuestions(questionsfortest);
+			/*exam2.setQuestions(questionsfortest);
 			ArrayList<Object> parameter = new ArrayList<Object>();
 			parameter.add(exam);
 			Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_TEST_QUESTIONS,
-					parameter, "", true);
+					parameter, "", true);*/
 
 		}
 
