@@ -109,7 +109,7 @@ public class ExtraTimeRequestsController {
 
 	public ObservableList<TableEntry> getRequests() {
 		ObservableList<TableEntry> requests = FXCollections.observableArrayList();
-		//LocalDate date = LocalDate.of(1995, 10, 28);
+		
 
 		
 

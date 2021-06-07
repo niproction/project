@@ -56,6 +56,7 @@
                               <MenuItem fx:id="editQuestion" mnemonicParsing="false" onAction="#button_edit_question_clicked" text="Edit question" />
                               <MenuItem fx:id="takeExam" mnemonicParsing="false" onAction="#button_take_exam_clicked" text="Take exam" />
                               <MenuItem fx:id="historyOfExams" mnemonicParsing="false" text="View history of exams" />
+                              <MenuItem fx:id="ManageOngoingExams" mnemonicParsing="false" onAction="#manage_ongoing_exam" text="Manage ongoing exams" />
                           </items>
                         </MenuButton>
                      </children>

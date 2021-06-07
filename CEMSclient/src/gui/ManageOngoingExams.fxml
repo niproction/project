@@ -9,38 +9,40 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ManageOngoingExamsControl">
    <children>
-      <AnchorPane layoutX="-27.0" layoutY="-69.0" prefHeight="640.0" prefWidth="800.0">
-         <children>
-            <Text layoutX="265.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage ongoing exams" textAlignment="JUSTIFY" underline="true" wrappingWidth="269.69329833984375">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <ImageView fitHeight="51.0" fitWidth="85.0" layoutX="357.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="51.0" fitWidth="56.0" layoutX="301.0" layoutY="376.0">
-               <image>
-                  <Image url="@../../../../../Desktop/wrong_table_no_navigator_formula-512.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="418.0" layoutY="230.0" text="[TIME]" />
-            <Text layoutX="357.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time left:" />
-            <ImageView fitHeight="51.0" fitWidth="56.0" layoutX="301.0" layoutY="206.0">
-               <image>
-                  <Image url="@../../../../../Desktop/clock+icon-1320184285066248430.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="63.0" fitWidth="64.0" layoutX="297.0" layoutY="289.0">
-               <image>
-                  <Image url="@../../../../../Desktop/1200px-Noun_Project_question_mark_icon_1101884_cc.svg.png" />
-               </image>
-            </ImageView>
-            <Text layoutX="357.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request extra time:" />
-            <TextField layoutX="460.0" layoutY="308.0" />
-            <Button layoutX="356.0" layoutY="389.0" mnemonicParsing="false" styleClass="beta" stylesheets="@../../../../../Desktop/button.css" text="Terminate exam" />
-         </children>
-      </AnchorPane>
+      <Text layoutX="231.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage ongoing exams" textAlignment="JUSTIFY" underline="true" wrappingWidth="269.69329833984375">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="51.0" fitWidth="85.0" layoutX="367.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="51.0" fitWidth="56.0" layoutX="311.0" layoutY="386.0">
+         <image>
+            <Image url="@../../../../../Desktop/wrong_table_no_navigator_formula-512.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="Timer" layoutX="428.0" layoutY="240.0" text="[TIME]" />
+      <Text layoutX="367.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time left:" />
+      <ImageView fitHeight="51.0" fitWidth="56.0" layoutX="311.0" layoutY="216.0">
+         <image>
+            <Image url="@../../../../../Desktop/clock+icon-1320184285066248430.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="63.0" fitWidth="64.0" layoutX="307.0" layoutY="299.0">
+         <image>
+            <Image url="@../../../../../Desktop/1200px-Noun_Project_question_mark_icon_1101884_cc.svg.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="367.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request extra time:" />
+      <TextField fx:id="extra_time_request" layoutX="470.0" layoutY="318.0" />
+      <Button fx:id="terminate_exam" layoutX="366.0" layoutY="399.0" mnemonicParsing="false" styleClass="beta" stylesheets="@../../../../../Desktop/button.css" text="Terminate exam" />
+      <ImageView fitHeight="51.0" fitWidth="64.0" layoutX="307.0" layoutY="129.0">
+         <image>
+            <Image url="@../../../../../Desktop/a2e0bf4f409bc2e9836f79954313832a.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="360.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ongoing exam:" />
+      <TextField fx:id="examField" editable="false" layoutX="441.0" layoutY="141.0" />
    </children>
 </AnchorPane>

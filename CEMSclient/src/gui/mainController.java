@@ -90,7 +90,8 @@ public class mainController {
 	private MenuItem takeExam;
 	@FXML
 	private MenuItem historyOfExams;
-
+	@FXML
+	private MenuItem ManageOngoingExams;
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
@@ -113,6 +114,8 @@ public class mainController {
 		editQuestion.setVisible(false);
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
+		
+	ManageOngoingExams.setVisible(false);
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.Main, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
@@ -165,6 +168,7 @@ public class mainController {
 			displayStatisticalReportTeacher.setVisible(true);
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
+			ManageOngoingExams.setVisible(true);
 			label_bar_welcome
 					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
 			label_bar_roletype.setText("(Teacher)");
@@ -278,6 +282,13 @@ public class mainController {
 	@FXML
 	void button_information(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.INFO_PAGE);
+		page_box.setCenter(page);
+
+	}
+	
+	@FXML
+	void manage_ongoing_exam(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_ONGOING_EXAM);
 		page_box.setCenter(page);
 
 	}

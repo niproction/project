@@ -264,6 +264,31 @@ public class PageProperties {
 			}
 			
 		},
+		
+		
+		MANAGE_ONGOING_EXAM{
+			@Override
+			String GET_Title() {
+				return "Manage ongoing exam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/ManageOngoingExams.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+		
+		
 		CREATE_EXAM {
 			@Override
 			String GET_Title() {
@@ -284,7 +309,10 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
+			
+			
 		},
+		
 			
 			
 		
@@ -317,7 +345,7 @@ public class PageProperties {
 		STATISTICAL_REPORTS {
 			@Override
 			String GET_Title() {
-				return "AddQuestion page";
+				return "Statistical reports page";
 			}
 
 			@Override
@@ -339,7 +367,7 @@ public class PageProperties {
 		EXTRA_TIME_REQUESTS {
 			@Override
 			String GET_Title() {
-				return "AddQuestion page";
+				return "Extra time request page";
 			}
 
 			@Override
@@ -357,7 +385,9 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 			
-		}
+		},
+		
+		
 	
 			
 		;
