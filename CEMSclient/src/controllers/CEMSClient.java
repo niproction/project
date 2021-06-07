@@ -66,7 +66,7 @@ public class CEMSClient extends AbstractClient {
 //		}
 		// if(msg instanceof DataPacket)
 		// clientUI.display(((DataPacket)msg).toString());
-		System.out.println("login msg1");
+		//System.out.println("login msg1");
 		DataPacket dataPacket = (DataPacket) msg;
 		ClientDataPacketHandler handler = new ClientDataPacketHandler();
 		DataPacket to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);

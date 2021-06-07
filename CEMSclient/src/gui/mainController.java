@@ -91,6 +91,7 @@ public class mainController {
 	@FXML
 	private MenuItem historyOfExams;
 
+
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
 		// set sizes

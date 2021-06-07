@@ -310,7 +310,7 @@ public class serverGUI {
                 button_create_tables.setDisable(false);
                 initTables db = new initTables();
                 db.update_isconnected();
-               // db.tables_reset();// delete to reset the tables
+               db.tables_reset();// delete to reset the tables
 
             }
             else{

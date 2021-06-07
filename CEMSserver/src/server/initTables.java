@@ -15,10 +15,10 @@ public class initTables {
 		this.con = mysqlConnection.getInstance().getCon();
 	}
 
-	/*public void tables_reset() {
+	public void tables_reset() {
 		delete_tables();
 		create_tables();
-	}*/
+	}
 
 	public void create_tables() {
 		table_users();
@@ -32,7 +32,7 @@ public class initTables {
 		table_exam_questions_answer();
 	}
 
-	/*public void delete_tables() {
+	public void delete_tables() {
 
 		try {
 			Statement stmt = con.createStatement();
@@ -50,7 +50,8 @@ public class initTables {
 			System.out.print("problem to delete tables");
 		}
 
-	}*/
+	}
+	
 	public void update_isconnected() {
 		try {
 			PreparedStatement ps = mysqlConnection.getInstance().getCon().prepareStatement(
@@ -200,7 +201,7 @@ public class initTables {
 
 	private void table_exams_initiated() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams_initiated (\n" + " eiID varchar(7) NOT NULL,\n"
-				+ "	eID varchar(7) NOT NULL,\n" + "	uID varchar(5) NOT NULL,\n" + " time varchar(3) NOT NULL);";
+				+ "	eID varchar(7) NOT NULL,\n" + "	uID varchar(5) NOT NULL,\n" + " time TIME NOT NULL);";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table

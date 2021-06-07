@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
+import common.ExtraTimeRequest;
 import common.IncomingDataPacketHandler;
 import javafx.stage.Stage;
 import common.Student;
@@ -105,6 +106,21 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
 			examControl.examID = (String) dataPacket.getData_parameters().get(0);
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXTRA_TIME_REQUESTS) {
+			PrincipalControl.requests=(ArrayList<ExtraTimeRequest>)dataPacket.getData_parameters().clone();
+		}
+			else if (dataPacket.getRequest() == DataPacket.Request.EXTRA_TIME_DECISION) {
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		return Responce_dataPacket;
 	}
