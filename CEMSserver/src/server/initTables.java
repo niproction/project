@@ -288,7 +288,7 @@ public class initTables {
 
 	private void table_exams_initiated() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams_initiated (\n" + " eiID int(10) NOT NULL AUTO_INCREMENT,\n"
-				+ "	eID varchar(7) NOT NULL,\n" + "	uID int(10) NOT NULL,\n" + " time Time NOT NULL,"
+				+ "	eID varchar(7) NOT NULL,\n" + "	uID int(10) NOT NULL,\n" + " time Time NULL,"
 				+ " password varchar(6) NOT NULL,"+ " initiatedDate DATETIME NULL,"+ " isFinished VARCHAR(10) NULL,"+ " PRIMARY KEY (eiID));";
 		try {
 			Statement stmt = con.createStatement();

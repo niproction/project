@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import common.DataPacket;
@@ -257,6 +258,13 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				ArrayList<Object> parameter = new ArrayList<Object>();
 				parameter.add(exam2);
 				
+				// calculate the time left for the exam
+				Time timeleft=null;
+				
+				parameter.add(timeleft);
+				
+				
+				
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_TEST_QUESTIONS,
 						parameter, "", true);
 				
@@ -313,23 +321,23 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 		else if (dataPacket.getRequest() == DataPacket.Request.START_EXAM) {
 			Exam exam = (Exam) dataPacket.getData_parameters().get(0);
-			// int userID = user.getuID();
-			// System.out.println("the user id is:" + userID);
-			/// ArrayList<Object> ExamsByTeacher = new ArrayList<>();
 			Statement stmt;
+			
+			// set the date and time
+			java.util.Date dt = new java.util.Date();
+			SimpleDateFormat dateandtimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentDatAndTime = dateandtimeFormat.format(dt);
+			
 			try {
-				String myStatement = " INSERT INTO exams_initiated (eID, uID, time, password, initiatedDate, isFinished) VALUES (?,?,?,?,?,?)";
-				PreparedStatement statement;
-
-				statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
-				statement.setString(1, exam.getExamID());
+				
+				String myStatement = " INSERT INTO exams_initiated (eID, uID, password, initiatedDate, isFinished) VALUES (?,?,?,?,?)";
+				PreparedStatement statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
+				
+				statement.setString(1, ((Exam) dataPacket.getData_parameters().get(0)).getExamID());
 				statement.setInt(2, ((User) dataPacket.getData_parameters().get(1)).getuID());
-				statement.setString(3, (String)dataPacket.getData_parameters().get(2));
-				statement.setString(4, (String)dataPacket.getData_parameters().get(3));
-				statement.setString(5, (String)dataPacket.getData_parameters().get(4));
-				statement.setString(6, (String)dataPacket.getData_parameters().get(5));
-
-
+				statement.setString(3, (String)dataPacket.getData_parameters().get(2)); // the password for the exam
+				statement.setString(4, currentDatAndTime);
+				statement.setString(5, "started");
 				statement.executeUpdate();
 				
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.START_EXAM,
