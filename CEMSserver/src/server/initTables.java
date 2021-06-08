@@ -15,10 +15,10 @@ public class initTables {
 		this.con = mysqlConnection.getInstance().getCon();
 	}
 
-	/*public void tables_reset() {
+	public void tables_reset() {
 		delete_tables();
 		create_tables();
-	}*/
+	}
 
 	public void create_tables() {
 		table_users();
@@ -32,7 +32,7 @@ public class initTables {
 		table_exam_questions_answer();
 	}
 
-	/*public void delete_tables() {
+	public void delete_tables() {
 
 		try {
 			Statement stmt = con.createStatement();
@@ -50,7 +50,7 @@ public class initTables {
 			System.out.print("problem to delete tables");
 		}
 
-	}*/
+	}
 	public void update_isconnected() {
 		try {
 			PreparedStatement ps = mysqlConnection.getInstance().getCon().prepareStatement(
@@ -212,9 +212,11 @@ public class initTables {
 	}
 
 	private void table_exams_done() {
+		//Barak:added grade and is approved 
 		String sql = "CREATE TABLE IF NOT EXISTS exams_done (\n" + " edID varchar(7) NOT NULL,\n"
 				+ " eiID varchar(7) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(6) NOT NULL,\n"
-				+ " startTime varchar(6) NOT NULL,\n" + " endTime varchar(6) NOT NULL);";
+				+ " startTime varchar(6) NOT NULL,\n" + " endTime varchar(6) NOT NULL,\n"+"isApproved varchar(6) NULL,\n"
+				+"grade INT NULL);";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table

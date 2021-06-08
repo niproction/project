@@ -126,6 +126,19 @@ public class createNewExamController {
 			errLabel.setVisible(true);
 			return true;
 		}
+		double points=	Double.valueOf(pointsForQuestion.getText());
+		if(points>=100)
+		{
+			errLabel.setText("*You must insert less than 100 in points for the question");
+			errLabel.setVisible(true);
+			return true;
+		}
+		if(totalPoints+points>100)
+		{
+			errLabel.setText("*You exceed the 100 points for the exam");
+			errLabel.setVisible(true);
+			return true;
+		}
 		if(!isNumeric(pointsForQuestion.getText()))//if the user didn't insert the numbers to points
 		{
 			System.out.println("invalid characters");

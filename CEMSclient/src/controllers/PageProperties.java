@@ -165,8 +165,48 @@ public class PageProperties {
 			}
 		},
 		
-		
-		
+		History_Of_Exams_Student{
+			@Override
+			String GET_Title() {
+				return "Student - Grades";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/viewGrades.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+		GET_COPY_OF_EXAM {
+			@Override
+			String GET_Title() {
+				return "get copy of exam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/getCopyOfExam.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 		
 		
 		
