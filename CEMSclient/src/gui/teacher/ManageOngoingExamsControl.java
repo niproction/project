@@ -8,7 +8,7 @@ import client.App_client;
 import common.DataPacket;
 import common.ExtraTimeRequest;
 import common.User;
-import control.ClientController;
+import control.ClientControl;
 import control.ClientDataPacketHandler;
 import control.ManageOngoingExams;
 import control.UserControl;
@@ -112,7 +112,7 @@ public class ManageOngoingExamsControl {
 		// Send request to server to get ongoing exam for the teacher if there is one
 		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_ONGOING_EXAM, parameter,
 				null, true);
-		App_client.chat.accept(data);
+		ClientControl.getInstance().accept(data);
 
 		// If there is an ongoing exam for the teacher
 		if (ManageOngoingExams.isOngoingExams != null && ManageOngoingExams.isOngoingExams == true) {
@@ -141,7 +141,7 @@ public class ManageOngoingExamsControl {
 					// Send request to server to get ongoing exam for the teacher if there is one
 					DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM, parameter,
 							null, true);
-					App_client.chat.accept(data);
+					ClientControl.getInstance().accept(data);
 				}
 			};
 

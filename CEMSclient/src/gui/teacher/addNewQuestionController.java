@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import client.App_client;
 import common.DataPacket;
 import common.Question;
+import control.ClientControl;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -74,7 +75,7 @@ public class addNewQuestionController {
 		ArrayList<Object> parameters=new ArrayList<>();
 		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_FIELD_NAME, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		if(App_client.fieldName!=null) {
 			fieldName=App_client.fieldName;
 			App_client.fieldName=null;
@@ -137,7 +138,7 @@ public class addNewQuestionController {
 		System.out.println("try create new question");
 		seccessLabel.setVisible(true);
 		clear();
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 	}
 	public String getFieldNum(String field) {
 		if(field.equals("Chemistry"))

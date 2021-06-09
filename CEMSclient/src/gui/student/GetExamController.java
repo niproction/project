@@ -8,6 +8,7 @@ import common.examInitiated;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
+import control.ClientControl;
 import control.ExamControl;
 import control.ExamInitiatedControl;
 import javafx.fxml.FXML;
@@ -63,7 +64,7 @@ public class GetExamController {
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAM, parameters, null,
 				true);
 		System.out.println("tring to send");
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		
 		
 		

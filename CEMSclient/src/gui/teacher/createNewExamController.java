@@ -10,6 +10,7 @@ import common.Exam;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
+import control.ClientControl;
 import control.ExamControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,7 +59,7 @@ public class createNewExamController {
 		ArrayList<Object> parameters=new ArrayList<>();
 		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_FIELD_NAME, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		if(App_client.fieldName!=null) {
 			String fieldName=App_client.fieldName;
 			App_client.fieldName=null;
@@ -67,13 +68,13 @@ public class createNewExamController {
 		errLabel.setVisible(false);
 		totalPointsLabel.setText("0");
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSES, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		ObservableList<String> courseList=FXCollections.observableArrayList();
 		courseList.addAll(ExamControl.coursesNames);
 		courses.setItems(courseList);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION_BY_FIELD_ID, parameters, null, true);
 		ObservableList<String> questionsList=FXCollections.observableArrayList();
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		questionsList.addAll(ExamControl.questions);
 		questions.setItems(questionsList);
 	}
@@ -98,7 +99,7 @@ public class createNewExamController {
 		errLabel.setVisible(false);
 		parameters.add(questions.getValue());
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION_BY_DESCRIPTION, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		exam.addQuestionAndPoints(ExamControl.questionID, pointsForQuestion.getText());
 		totalPoints+=Double.parseDouble(pointsForQuestion.getText());
 		totalPointsLabel.setText(String.valueOf(totalPoints));
@@ -166,7 +167,7 @@ public class createNewExamController {
 		errLabel.setVisible(false);
 		parameters.add(courses.getValue());
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		exam.setAuthorID(UserControl.ConnectedUser.getuID());
 		exam.setExamID(UserControl.ConnectedUser.getfid()+ExamControl.selectedCourseID);
 		exam.setDuration(duration.getText());
@@ -174,11 +175,11 @@ public class createNewExamController {
 		exam.setTeacherComments(teacherComments.getText());
 		parameters.add(0, exam);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		exam.setExamID(ExamControl.examID);
 		parameters.add(0, exam);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM_QUESTIONS, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		errLabel.setText("exam submited");
 		errLabel.setVisible(true);
 	}

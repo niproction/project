@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
+import control.ClientControl;
 import control.ExamControl;
 import control.PageProperties;
 import control.SceneController;
@@ -78,7 +79,7 @@ public class StartExamController {
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAMS_BY_TEACHER,
 				parameter, null, true);
 
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 
 		examsList.addAll(ExamControl.exams);
 
@@ -108,7 +109,7 @@ public class StartExamController {
 
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.START_EXAM, parameter, null,
 				true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 
 		for (int i = 0; i < examsList.size(); i++) {
 			if (examsList.get(i).equals(choicebox_exams.getValue()))

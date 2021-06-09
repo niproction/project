@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import client.App_client;
 import common.DataPacket;
+import control.ClientControl;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -84,7 +85,7 @@ public class ViewGradeController {
 		System.out.println("fafjahkfjfna "+UserControl.ConnectedUser.getuID());
 		ObservableList<TableEntry> data = FXCollections.observableArrayList();
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_STUDENT_GRADES, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		parameters.clear();
 		for (int i = 0; i < ViewGradesControl.examsID.size(); i++) {
 			String courseID=ViewGradesControl.getExamID(i).substring(2, 4);
@@ -94,7 +95,7 @@ public class ViewGradeController {
 		
 		
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_NAME_BY_COURSE_ID, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		
 		 
 		for (int i = 0; i < ViewGradesControl.examsID.size(); i++) {

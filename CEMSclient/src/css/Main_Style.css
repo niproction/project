@@ -16,6 +16,22 @@
 	-fx-background-repeat: stretch;   
 	-fx-background-repeat: repeat ;   
 }
+
+
+
+.button-settings-login{
+	-fx-background-color:transparent;
+	-fx-background-image: url("../img/icon-settings.png");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 32 32;
+}
+
+.button-settings-login:hover {
+	-fx-background-color:transparent;
+    -fx-background-image: url("../img/icon-settings.png");
+	-fx-background-repeat: stretch;   
+	-fx-background-size: 32 32;
+}
 .button-menu{
 	-fx-background-color:transparent;
 	-fx-background-image: url("../img/menu-icon.png");

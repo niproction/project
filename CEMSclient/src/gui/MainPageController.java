@@ -9,6 +9,7 @@ import common.DataPacket;
 import common.Principal;
 import common.Student;
 import common.Teacher;
+import control.ClientControl;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -329,7 +330,7 @@ public class MainPageController {
 		parameter.add(UserControl.ConnectedUser);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGOUT, parameter, null,
 				true);
-		App_client.chat.accept(dataPacket);// send and wait for response from server
+		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 		// will recive message from server and set user to null
 
 		// make animation and than load page

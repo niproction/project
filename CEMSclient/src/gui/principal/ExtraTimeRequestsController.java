@@ -8,9 +8,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import client.App_client;
 import common.DataPacket;
 import common.ExtraTimeRequest;
+import control.ClientControl;
 import control.PrincipalControl;
 import gui.TableEntry;
 import javafx.collections.FXCollections;
@@ -86,7 +86,7 @@ public class ExtraTimeRequestsController {
 		assert Status != null : "fx:id=\"Status\" was not injected: check your FXML file 'Untitled'.";
 
 		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER,DataPacket.Request.GET_EXTRA_TIME_REQUESTS , null, null, true);
-		App_client.chat.accept(data);
+		ClientControl.getInstance().accept(data);
 		
 		TeacherName.setCellValueFactory(new PropertyValueFactory("col1"));
 		Field.setCellValueFactory(new PropertyValueFactory("col2"));
@@ -141,7 +141,7 @@ public class ExtraTimeRequestsController {
 							ArrayList<Object> parameter = new ArrayList<Object>();
 							parameter.add(respond);
 							DataPacket datapacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.EXTRA_TIME_DECISION, parameter, null, true);
-							App_client.chat.accept(datapacket);
+							ClientControl.getInstance().accept(datapacket);
 							
 						}
 					};
@@ -157,7 +157,7 @@ public class ExtraTimeRequestsController {
 						ArrayList<Object> parameter = new ArrayList<Object>();
 						parameter.add(respond);
 						DataPacket datapacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.EXTRA_TIME_DECISION, parameter, null, true);
-						App_client.chat.accept(datapacket);
+						ClientControl.getInstance().accept(datapacket);
 						}
 					};
 					Y.setOnAction(YHandler);

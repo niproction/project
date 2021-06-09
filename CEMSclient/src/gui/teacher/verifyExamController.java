@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import client.App_client;
 import common.DataPacket;
 import common.ExamDone;
+import control.ClientControl;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -63,7 +64,7 @@ public class verifyExamController {
 		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_FOR_VERIFY,
 				parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		if( examDoneControl.getExamDoneLIst()!=null) {
 			System.out.println("workkkkkkkk");
 			examDoneList=examDoneControl.getExamDoneLIst();
@@ -110,7 +111,7 @@ public class verifyExamController {
 							ArrayList<Object> parameter = new ArrayList<Object>();
 							parameter.add(edID);
 							DataPacket datapacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.APPROVED_GRADE, parameter, null, true);
-							App_client.chat.accept(datapacket);
+							ClientControl.getInstance().accept(datapacket);
 							
 						}
 					};
@@ -126,7 +127,7 @@ public class verifyExamController {
 						ArrayList<Object> parameter = new ArrayList<Object>();
 						parameter.add(edID);
 						DataPacket datapacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.DISAPPROVED_GRADE, parameter, null, true);
-						App_client.chat.accept(datapacket);
+						ClientControl.getInstance().accept(datapacket);
 						}
 					};
 					Y.setOnAction(YHandler);

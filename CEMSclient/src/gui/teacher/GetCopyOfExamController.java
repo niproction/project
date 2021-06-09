@@ -8,6 +8,7 @@ import common.DataPacket;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
+import control.ClientControl;
 import control.GetCopyOfExamControl;
 import control.ViewGradesControl;
 import gui.TableEntry;
@@ -59,7 +60,7 @@ public class GetCopyOfExamController {
 			parameters.add(1, ViewGradesControl.getExamsInitID(i));
 			dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COPY_OF_EXAM,
 					parameters, null, true);
-			App_client.chat.accept(dataPacket);
+			ClientControl.getInstance().accept(dataPacket);
 		}
 //		if(dataPacket==null)
 //		{

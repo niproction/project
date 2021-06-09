@@ -19,6 +19,7 @@ import control.PageProperties;
 import control.PageProperties.Page;
 import control.SceneController;
 import control.UserControl;
+import control.ClientControl;
 import control.ExamControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,13 +63,13 @@ public class CreateNewWordExamController extends createNewExamController {
 		ArrayList<Object> parameters=new ArrayList<>();
 		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_FIELD_NAME, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		if(App_client.fieldName!=null) {
 			fieldNameLabel.setText(App_client.fieldName);
 			App_client.fieldName=null;
 		}
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSES, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		ObservableList<String> courseList=FXCollections.observableArrayList();
 		courseList.addAll(ExamControl.coursesNames);
 		courses.setItems(courseList);
@@ -96,13 +97,13 @@ public class CreateNewWordExamController extends createNewExamController {
 		errLabel.setVisible(false);
 		parameters.add(courses.getValue());
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		exam.setAuthorID(UserControl.ConnectedUser.getuID());
 		exam.setExamID(UserControl.ConnectedUser.getfid()+ExamControl.selectedCourseID);
 		exam.setDuration(duration.getText());
 		parameters.add(0, exam);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		exam.setExamID(ExamControl.examID);
 		 MyFile msg= new MyFile(examFile.getName());		 
 		 String LocalfilePath=examFile.getPath();	
@@ -119,7 +120,7 @@ public class CreateNewWordExamController extends createNewExamController {
 			     parameters.add(0, msg);
 			     parameters.add(1, exam.getExamID()+".docx");
 			      dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_Manuel_EXAM_FILE, parameters, null, true);
-			      App_client.chat.accept(dataPacket);
+			      ClientControl.getInstance().accept(dataPacket);
 			    }
 			catch (Exception e) {
 				System.out.println("Error send (Files)msg) to Server");

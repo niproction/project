@@ -16,6 +16,7 @@ import common.Field;
 import common.Question;
 import common.User;
 import common.Course;
+import control.ClientControl;
 import control.CourseControl;
 import control.FieldControl;
 import control.PageProperties;
@@ -113,7 +114,7 @@ public class infoPageController {
 		buildColumns(tc, columnsNames);
 
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_INFO_USERS, null, null, true);
-		App_client.chat.accept(dataPacket);// send and wait for response from server
+		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 		for (User tmpUser : UserControl.user) {
 			data.add(new TableEntry(tmpUser.getuID(), tmpUser.getUsername(), tmpUser.getPassword(), tmpUser.getEmail(),
 					tmpUser.getFirstName(), tmpUser.getLastName(), tmpUser.getfid()));
@@ -132,7 +133,7 @@ public class infoPageController {
 		buildColumns(tc, columnsNames);
 
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_INFO_COURSE, null, null, true);
-		App_client.chat.accept(dataPacket);// send and wait for response from server
+		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 
 		for (Course tmpCourse : CourseControl.courses)
 			data.add(new TableEntry(tmpCourse.getCourseID(), tmpCourse.getFieldID(), tmpCourse.getCourseName()));
@@ -148,7 +149,7 @@ public class infoPageController {
 		}
 		buildColumns(tc, columnsNames);
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_INFO_FIELD, null, null, true);
-		App_client.chat.accept(dataPacket);// send and wait for response from server
+		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 
 		for (Field tmpField : FieldControl.fields)
 			data.add(new TableEntry(tmpField.getFiledId(), tmpField.getFiledName()));
@@ -168,7 +169,7 @@ public class infoPageController {
 		// new Button("Show Questions");
 
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_INFO_EXAM, null, null, true);
-		App_client.chat.accept(dataPacket);// send and wait for response from server
+		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 
 		for (Exam tmpExam : ExamControl.exams) {
 			openQuestionsButtonList.add(new Button("Show Questions"));
@@ -211,7 +212,7 @@ public class infoPageController {
 		backButton.setVisible(false);
 
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_INFO_QUESTIONS, null, null, true);
-		App_client.chat.accept(dataPacket);// send and wait for response from server
+		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 		String[] columnsNamesArray = { "question id", "author ID", "question", "option 1", "option 2", "option 3",
 				"option 4", "the answer number is" };
 

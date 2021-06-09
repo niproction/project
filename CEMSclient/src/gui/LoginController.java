@@ -1,11 +1,16 @@
 package gui;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import client.App_client;
 import common.DataPacket;
+import control.ClientControl;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -34,6 +39,9 @@ public class LoginController implements Initializable {
 	@FXML
 	private Label errorLable;
 
+	@FXML
+	private Button button_settings;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// set sizes
@@ -60,8 +68,7 @@ public class LoginController implements Initializable {
 
 	@FXML
 	void check_enter_pressed(KeyEvent event) {
-		if(event.getCode().toString().equals("ENTER"))
-		{
+		if (event.getCode().toString().equals("ENTER")) {
 			System.out.println(event.getCode());
 			logIn();
 		}
@@ -69,34 +76,90 @@ public class LoginController implements Initializable {
 
 	private void logIn() {
 		errorLable.setVisible(false);
-		String username_email = txtUserName.getText().toString();
-		String password = txtPassword.getText().toString();
-		ArrayList<Object> parameters = new ArrayList<Object>();
-		parameters.add(username_email);
-		parameters.add(password);
 
-		System.out.println("user/email: " + parameters.get(0) + " pass:" + parameters.get(1));
+		// ClientController
+		if (ClientControl.getInstance().isConnected()) {
 
-		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGIN, parameters, null,
-				true);
-		System.out.println("tring to send");
+			String username_email = txtUserName.getText().toString();
+			String password = txtPassword.getText().toString();
+			ArrayList<Object> parameters = new ArrayList<Object>();
+			parameters.add(username_email);
+			parameters.add(password);
 
-		App_client.chat.accept(dataPacket); // send and wait for response from server
+			System.out.println("user/email: " + parameters.get(0) + " pass:" + parameters.get(1));
 
-		if (UserControl.ConnectedUser != null) {
-			System.out.println("Sdasdasdasda");
+			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGIN, parameters, null,
+					true);
+			System.out.println("tring to send");
 
-			// make animation and than load next page
-			SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
-			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+			ClientControl.getInstance().accept(dataPacket); // send and wait for response from server
 
-			SceneController.primaryStage.setMinWidth(840);
-			SceneController.primaryStage.setMinHeight(700);
-		} else {
-			errorLable.setVisible(true);
-		}
-		System.out.println("Sdasddsda");
+			if (UserControl.ConnectedUser != null) {
+				System.out.println("Sdasdasdasda");
 
+				// make animation and than load next page
+				SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
+				sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+
+				SceneController.primaryStage.setMinWidth(840);
+				SceneController.primaryStage.setMinHeight(700);
+			} else {
+				errorLable.setVisible(true);
+			}
+			System.out.println("Sdasddsda");
+		} else
+			System.out.println("dont connected...");
 		// App_client.chat.GET_client().quit();
+	}
+
+	@FXML
+	void button_settings_clicked(MouseEvent event) {
+		// make animation and than load next page
+		SceneController sceen = new SceneController(PageProperties.Page.SETTINGS_LOGIN_PAGE, ap);
+		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+	}
+
+	private void load_info() {
+		// lead all information stored in save file
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("clientinfo.txt"));
+			// reads from file and loads it to the inputs
+			String temp = br.readLine();
+			ClientControl.host = temp == null ? "" : temp;
+			temp = br.readLine();
+			
+			ClientControl.port = isRepresentPortNumber(temp) ? 5555 : Integer.parseInt(temp);
+
+			br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+
+		}
+	}
+
+	public static boolean isRepresentPortNumber(String str) {
+		if (str == null) {
+			return false;
+		}
+		int length = str.length();
+
+		if (length == 0) {
+			return false;
+		}
+
+		if (str.charAt(0) == '-') {
+			return false;
+		}
+		for (int i = 0; i < length; i++) {
+			char c = str.charAt(i);
+			if (c < '0' || c > '9') {
+				return false;
+			}
+		}
+		return true;
 	}
 }

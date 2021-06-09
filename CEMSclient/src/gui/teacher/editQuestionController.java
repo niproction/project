@@ -6,6 +6,7 @@ import client.App_client;
 import common.DataPacket;
 import common.Exam;
 import common.Question;
+import control.ClientControl;
 import control.PageProperties;
 import control.QuestionControl;
 import control.SceneController;
@@ -85,7 +86,7 @@ public class editQuestionController {
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION,
 				parameters, null, true);
 		System.out.println("trying to get the question");
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		if( QuestionControl.getQuestions()!=null) {
 			System.out.println("got all the questions");
 			questionList=QuestionControl.getQuestions();
@@ -186,7 +187,7 @@ public class editQuestionController {
 		System.out.println("try create new question");
 		seccessLabel.setVisible(true);
 		clear();
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 
 	}
 	

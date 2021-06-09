@@ -24,6 +24,7 @@ import common.examInitiated;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
+import control.ClientControl;
 import control.ExamControl;
 import control.ExamInitiatedControl;
 import javafx.application.Platform;
@@ -150,7 +151,7 @@ public class TakeExamController {
 
 		System.out.println("trying to send exam");
 
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 		// will recive the time left for the exam
 
 		String serverCurrentTime = ExamControl.ServerTime;
@@ -415,7 +416,7 @@ public class TakeExamController {
 
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.ADD_DONE_EXAM, parameters,
 				null, true);
-		App_client.chat.accept(dataPacket);
+		ClientControl.getInstance().accept(dataPacket);
 	}
 
 }

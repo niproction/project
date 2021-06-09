@@ -67,7 +67,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 			} else {
 				System.out.println("incorrect user");
-				ClientController.storedDataPacket = dataPacket;
+				//ClientControl.storedDataPacket = dataPacket;
 			}
 		}
 

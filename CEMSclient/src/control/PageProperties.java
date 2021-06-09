@@ -9,7 +9,27 @@ public class PageProperties {
 
 		// General screens
 		/////////////////////////////////////////////////////////////////////////////////
+		SETTINGS_LOGIN_PAGE {
+			@Override
+			String GET_Title() {
+				return "Login page";
+			}
 
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/Login.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 		LOGIN {
 			@Override
 			String GET_Title() {
