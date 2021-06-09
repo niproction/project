@@ -164,7 +164,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
+		////////////////////////////barak student start
 		History_Of_Exams_Student{
 			@Override
 			String GET_Title() {
@@ -206,7 +206,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-		},
+		},////////////////////////////////////////end barak
 		
 		
 		
@@ -398,6 +398,10 @@ public class PageProperties {
 			}
 			
 		},
+		
+		
+		
+		///////////////////////////////////teacher barak start
 	CHOSSE_EXAM_TYPE{
 		@Override
 		String GET_Title() {
@@ -439,7 +443,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-		}
+		}///////////////////////////////end teacher barak
 			
 		;
 

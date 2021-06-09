@@ -334,13 +334,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			Responce_dataPacket = getCourses(dataPacket);
 		}
 
-		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
-			Responce_dataPacket = getQuestionsByFieldID(dataPacket);
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
-			Responce_dataPacket = getQuestionIdByDescription(dataPacket);
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
-			Responce_dataPacket = getStudentGradeAndExamID(dataPacket);
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {
+		 else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {
 			try {
 				Statement statement;
 				statement = mysqlConnection.getInstance().getCon().createStatement();
@@ -359,27 +353,46 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				return null;
 			}
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
+		}
+		
+		///////////start barak
+		 else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
+				Responce_dataPacket = getQuestionsByFieldID(dataPacket);
+				
+			} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
+				Responce_dataPacket = getQuestionIdByDescription(dataPacket);
+				
+			} else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
+				Responce_dataPacket = getStudentGradeAndExamID(dataPacket);
+			}
+		
+		 else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			Responce_dataPacket = getCourseID(dataPacket);
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			Responce_dataPacket = getCourseID(dataPacket);
+			
 		} else if (dataPacket.getRequest() == DataPacket.Request.INSERT_Manuel_EXAM_FILE) {
 			Responce_dataPacket = insertManuelExamFile(dataPacket);
+			
 		} else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
 			Responce_dataPacket = insertExam(dataPacket);
+			
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_NAME_BY_COURSE_ID) {
 			Responce_dataPacket = getCourseNameByCourseID(dataPacket);
+			
 		} else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM_QUESTIONS) {
 			Responce_dataPacket = insertExamQuestion(dataPacket);
+			
+			
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COPY_OF_EXAM) {
 			Responce_dataPacket = getCopyOfExam(dataPacket);
-		}
+		}/////////////end barak
 
 		return Responce_dataPacket;
 	}
-
+//////////////////////start barak
 	private DataPacket getCopyOfExam(DataPacket dataPacket) {
 		Statement statement;
 		ArrayList<String> questionsID = new ArrayList<>();
@@ -550,7 +563,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		}
 		return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_STUDENT_GRADES, parameter, "", true);
 	}
-
+//////////////end barak 
 	private DataPacket getCourseID(DataPacket dataPacket) {
 		Statement statement;
 		ArrayList<Object> parameter = new ArrayList<Object>();

@@ -85,37 +85,47 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
 			if (dataPacket.getData_parameters() != null)
 				App_client.fieldName = (String) dataPacket.getData_parameters().get(0);
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSES) {
-			examControl.coursesNames = (ArrayList<String>) dataPacket.getData_parameters().clone();
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
-			examControl.questions = (ArrayList<String>) dataPacket.getData_parameters().clone();
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
-			examControl.questionID = (String) dataPacket.getData_parameters().get(0);
+
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {
 			UserControl.user = (ArrayList<User>) dataPacket.getData_parameters().clone();
+
+			/////////////////////////////// start barak
+		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSES) {
+			examControl.coursesNames = (ArrayList<String>) dataPacket.getData_parameters().clone();
+
+		} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
+			examControl.questions = (ArrayList<String>) dataPacket.getData_parameters().clone();
+
+		} else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
+			examControl.questionID = (String) dataPacket.getData_parameters().get(0);
+
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			examControl.selectedCourseID = (String) dataPacket.getData_parameters().get(0);
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
 			for (int i = 0; i < dataPacket.getData_parameters().size(); i += 3) {
 				viewGradesControl.addExamsID((String) dataPacket.getData_parameters().get(i));// examID in order to get
 																								// the course name
 				viewGradesControl.addGrade((String) dataPacket.getData_parameters().get(i + 1));// Grade
 				viewGradesControl.addExamsInitID((String) dataPacket.getData_parameters().get(i + 2));// examInitID
 			}
+
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_NAME_BY_COURSE_ID) {
 			for (int i = 0; i < dataPacket.getData_parameters().size(); i++) {
 				viewGradesControl.addCourseName((String) dataPacket.getData_parameters().get(i));
 			}
+
 		} else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
 			examControl.examID = (String) dataPacket.getData_parameters().get(0);
 		}
-		else if(dataPacket.getRequest() == DataPacket.Request.GET_COPY_OF_EXAM)
-		{
-			getCopyOfExamControl.questionsDescription=(ArrayList<String>) dataPacket.getData_parameters().get(0);
-			getCopyOfExamControl.studentAnswersDescription=(ArrayList<String>) dataPacket.getData_parameters().get(1);
-			getCopyOfExamControl.correctAnswersDescription=(ArrayList<String>) dataPacket.getData_parameters().get(2);
-			getCopyOfExamControl.pointsForQuestion=(ArrayList<String>) dataPacket.getData_parameters().get(3);
-		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_COPY_OF_EXAM) {
+			getCopyOfExamControl.questionsDescription = (ArrayList<String>) dataPacket.getData_parameters().get(0);
+			getCopyOfExamControl.studentAnswersDescription = (ArrayList<String>) dataPacket.getData_parameters().get(1);
+			getCopyOfExamControl.correctAnswersDescription = (ArrayList<String>) dataPacket.getData_parameters().get(2);
+			getCopyOfExamControl.pointsForQuestion = (ArrayList<String>) dataPacket.getData_parameters().get(3);
+		} /////////////////////// end barak
 
 		return Responce_dataPacket;
 	}

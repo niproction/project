@@ -12,10 +12,12 @@ import controllers.viewGradesControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class getCopyOfExamController {
@@ -37,6 +39,8 @@ public class getCopyOfExamController {
 	private Label gradeLabel;
 	@FXML
 	private Label examLabel;
+	@FXML
+	private Button prevPageBtn;
 
 	@FXML
 	public void initialize() {
@@ -47,13 +51,18 @@ public class getCopyOfExamController {
 		ColCorrectAnswer.setCellValueFactory(new PropertyValueFactory("col3"));
 		ColPoints.setCellValueFactory(new PropertyValueFactory("col4"));
 		ArrayList<Object> parameters = new ArrayList<>();
+		DataPacket dataPacket;
 		parameters.add(App_client.user.getuid());
 		for (int i = 0; i < viewGradesControl.getSize(); i++) {
 			parameters.add(1, viewGradesControl.getExamsInitID(i));
-			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COPY_OF_EXAM,
+			dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COPY_OF_EXAM,
 					parameters, null, true);
 			App_client.chat.accept(dataPacket);
 		}
+//		if(dataPacket==null)
+//		{
+//			
+//		}
 		insertDataToTable();
 
 	}
@@ -70,5 +79,12 @@ public class getCopyOfExamController {
 		getCopyOfExamControl.studentAnswersDescription.clear();
 		getCopyOfExamControl.pointsForQuestion.clear();
 		getCopyOfExamControl.questionsDescription.clear();
+	}
+	
+	public void handleOnAction(MouseEvent event) {
+		if(event.getSource()==prevPageBtn)
+		{
+			
+		}
 	}
 }
