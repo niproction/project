@@ -137,7 +137,7 @@ public class ExtraTimeRequestsController {
 							status.getChildren().remove(2);
 							status.getChildren().remove(1);
 							
-							ExtraTimeRequest respond=new ExtraTimeRequest(null, entry.getEiID(), null, null, "yes", null, null, entry.getEiID());	
+							ExtraTimeRequest respond=new ExtraTimeRequest(0, entry.getEiID(), null, entry.getExtraTime(), "yes", null, null, null);	
 							ArrayList<Object> parameter = new ArrayList<Object>();
 							parameter.add(respond);
 							DataPacket datapacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.EXTRA_TIME_DECISION, parameter, null, true);
@@ -153,7 +153,7 @@ public class ExtraTimeRequestsController {
 						label.setStyle(("-fx-text-fill: red;-fx-font-weight: bold"));
 						status.getChildren().remove(2);
 						status.getChildren().remove(1);
-						ExtraTimeRequest respond=new ExtraTimeRequest(null, entry.getEiID(), null, null, "no", null, null,null);	
+						ExtraTimeRequest respond=new ExtraTimeRequest(0, entry.getEiID(), null, entry.getExtraTime(), "no", null, null,null);	
 						ArrayList<Object> parameter = new ArrayList<Object>();
 						parameter.add(respond);
 						DataPacket datapacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.EXTRA_TIME_DECISION, parameter, null, true);

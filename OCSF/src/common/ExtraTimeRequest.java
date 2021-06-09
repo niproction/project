@@ -5,10 +5,10 @@ import java.sql.Time;
 
 @SuppressWarnings("serial")
 public class ExtraTimeRequest implements Serializable {
-	private String uID;
-	private String eiID;
+	private int uID;
+	private int eiID;
 	private String comment;
-	private Time extraTime;
+	private String extraTime;
 	private String isApproved;
 	private String courseName;
 	private String eID;
@@ -17,7 +17,7 @@ public class ExtraTimeRequest implements Serializable {
 
 	
 	
-	public ExtraTimeRequest(String uID, String eiID, String comment, Time extraTime, String isApproved,
+	public ExtraTimeRequest(int uID, int eiID, String comment, String extraTime, String isApproved,
 			String courseName, String eID, String fieldName) {
 		super();
 		this.uID = uID;
@@ -29,16 +29,16 @@ public class ExtraTimeRequest implements Serializable {
 		this.eID = eID;
 		this.fieldName=fieldName;
 	}
-	public String getuID() {
+	public int getuID() {
 		return uID;
 	}
-	public void setuID(String uID) {
+	public void setuID(int uID) {
 		this.uID = uID;
 	}
-	public String getEiID() {
+	public int getEiID() {
 		return eiID;
 	}
-	public void setEiID(String eiID) {
+	public void setEiID(int eiID) {
 		this.eiID = eiID;
 	}
 	public String getComment() {
@@ -47,10 +47,10 @@ public class ExtraTimeRequest implements Serializable {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public Time getExtraTime() {
+	public String getExtraTime() {
 		return extraTime;
 	}
-	public void setExtraTime(Time extraTime) {
+	public void setExtraTime(String extraTime) {
 		this.extraTime = extraTime;
 	}
 	public String getIsApproved() {

@@ -74,6 +74,7 @@ public class CEMSServer extends AbstractServer {
 			e.printStackTrace();
 		}
 	}
+	
 
 
 
@@ -82,15 +83,17 @@ public class CEMSServer extends AbstractServer {
 		controller.setInput_logs(controller.getInput_logs().getText()+"Message received from " + client+"\n");
 
 		ServerDataPacketHandler handler = new ServerDataPacketHandler();
-		DataPacket to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
+		DataPacket[] to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
 	
 
 		// if the return DataPacket is not null means we need to return an update message to the client
-		if(to_be_returend_DataPacket != null)
+		if(to_be_returend_DataPacket[0] != null)
 		{
 			System.out.println("tring send response to client");
 			try {
-				client.sendToClient(to_be_returend_DataPacket);
+				client.sendToClient(to_be_returend_DataPacket[0]);
+				
+				
 				System.out.println("Sending response to client");
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -99,6 +102,22 @@ public class CEMSServer extends AbstractServer {
 		else
 		{
 			System.out.println("not generated response DataPacket");
+		}
+		
+		// message to all clientssss
+		if(to_be_returend_DataPacket[1] != null)
+		{
+			System.out.println("tring send response to all clients");
+			try {
+				Thread.sleep(100);
+				sendToAllClients(to_be_returend_DataPacket[1]); // send to all clients
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		else
+		{
+			
 		}
 	}
 

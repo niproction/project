@@ -60,6 +60,9 @@ public class GetExamController {
 		
 		if(ExamInitiatedControl.getExamInitiated()!=null) {
 			System.out.println("ddddddddddd");
+			UserControl.isDoingExam = true; // stated exam
+			UserControl.whatInitiatedExamID = ExamInitiatedControl.getExamInitiated().getEiID(); // se the eiID
+			
 			
 			//load next page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TAKE_EXAM);

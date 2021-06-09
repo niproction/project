@@ -16,6 +16,9 @@ public class ExamControl {
 	public static String examID;
 	public static ArrayList<Exam> exams;
 	
+	public static String ServerTime;
+	
+	
 	public static String getExamID() {
 		return examID;
 	}

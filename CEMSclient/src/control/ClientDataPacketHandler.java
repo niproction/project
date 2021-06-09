@@ -14,6 +14,7 @@ import common.Student;
 import common.Teacher;
 import common.User;
 import common.examInitiated;
+import gui.teacher.editQuestionController;
 import common.Principal;
 import common.Question;
 
@@ -31,18 +32,18 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 	}
 
 	@Override
-	public DataPacket CheckRequestExecuteCreateResponce(Object msg) {
+	public DataPacket[] CheckRequestExecuteCreateResponce(Object msg) {
 		if (msg instanceof DataPacket) {
 			System.out.println("recived DataPacket");
 			return ParsingDataPacket((DataPacket) msg);
 			// return GET_responce_DataPacket();
 		} else
 			System.out.println("not DataPacket");
-		return null;
+		return new DataPacket[] {null,null};
 	}
 
 	@Override
-	public DataPacket ParsingDataPacket(DataPacket dataPacket) {
+	public DataPacket[] ParsingDataPacket(DataPacket dataPacket) {
 		Responce_dataPacket = null;
 
 		////////////////////////////////////////////////////////////////////////////
@@ -86,7 +87,8 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			} else
 				App_client.seccess = null;
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
 			if (dataPacket.getData_parameters() != null) {
 				System.out.println("qqqqq");
 				examInitiated exam = (examInitiated) dataPacket.getData_parameters().get(0);
@@ -105,6 +107,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				System.out.println("insert get test questions");
 				Exam exam = (Exam) dataPacket.getData_parameters().get(0);
 				ExamControl.setExam(exam);
+				
+				ExamControl.ServerTime = (String) dataPacket.getData_parameters().get(1); // the server current time..
+				
 				System.out.println("setted");
 			} else {
 				System.out.println("problemmmm");
@@ -113,7 +118,22 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 		
 		
-		
+		else if (dataPacket.getRequest() == DataPacket.Request.ADD_EXTRA_TIME_TO_EXAM) {
+			// need to check for student state..
+			System.out.println("Check if the client in exam state");
+			if(UserControl.isDoingExam && UserControl.whatInitiatedExamID == ((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getEiID())
+			{
+				System.out.println("Storring the ei ID and time to be added");
+				ExamInitiatedControl.ExtraTime = ((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getExtraTime();
+				System.out.println(" testtt "+((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getExtraTime());
+				ExamInitiatedControl.isExtraTimeRecived = true;
+				
+				
+			}
+			else
+				System.out.println("this client skipped in exam?"+UserControl.isDoingExam);
+			System.out.println("end of Check if the client in exam state");
+		}
 		
 		
 
@@ -216,7 +236,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		
 		
 
-		return Responce_dataPacket;
+		return new DataPacket[] {Responce_dataPacket, null};
 	}
 
 	public DataPacket GET_responce_DataPacket() {

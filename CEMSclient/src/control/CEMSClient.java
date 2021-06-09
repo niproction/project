@@ -49,35 +49,19 @@ public class CEMSClient extends AbstractClient {
 	 */
 	public void handleMessageFromServer(Object msg) {
 		// awaitResponse = false; // reset to false untill the responce will come back
-//	  System.out.println("login msg1");
-//	  DataPacket dataPacket=(DataPacket) msg;
-//		ClientDataPacketHandler handler = new ClientDataPacketHandler();
-//		DataPacket to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
-//		if(dataPacket.GET_Request() == DataPacket.Request.GET_QUESTION) {
-//			System.out.println("login insert to get question");
-//			//System.out.println(dataPacket.GET_Data_parameters().get(0));
-//			if(dataPacket.GET_Data_parameters() != null)
-//				App_client.Question=(Question)dataPacket.GET_Data_parameters().get(0);
-//		}
-//		else if(dataPacket.GET_Request() == DataPacket.Request.GET_FIELD_NAME) {
-//			if(dataPacket.GET_Data_parameters()!=null)
-//				App_client.fieldName=(String)dataPacket.GET_Data_parameters().get(0);
-//			System.out.println("got field name "+App_client.fieldName);
-//		}
-		// if(msg instanceof DataPacket)
-		// clientUI.display(((DataPacket)msg).toString());
-		System.out.println("login msg1");
+
+		System.out.println("Recived data from server");
 		DataPacket dataPacket = (DataPacket) msg;
 		ClientDataPacketHandler handler = new ClientDataPacketHandler();
-		DataPacket to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
-		System.out.println("login msg2");
+		DataPacket[] to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
+		System.out.println("after parsing");
 
 		awaitResponse = false;
 
 		// if there is message to resspond
-		if (to_be_returend_DataPacket != null) {
+		if (to_be_returend_DataPacket[0] != null) {
 			try {
-				sendToServer(to_be_returend_DataPacket);
+				sendToServer(to_be_returend_DataPacket[0]);
 			} catch (IOException e) {
 				System.out.println("Could not send message to server.  Terminating client.");
 				clientUI.display("Could not send message to server.  Terminating client.");

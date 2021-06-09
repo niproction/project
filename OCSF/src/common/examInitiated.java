@@ -4,15 +4,18 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class examInitiated implements Serializable {
-	private String eiID;
+	private int eiID;
 	private String eID;
 	private String uID;
-	private String time;
 	private String password;
-	public String getEiID() {
+	private String initiatedDate;
+	
+	
+	
+	public int getEiID() {
 		return eiID;
 	}
-	public void setEiID(String eiID) {
+	public void setEiID(int eiID) {
 		this.eiID = eiID;
 	}
 	public String geteID() {
@@ -27,17 +30,17 @@ public class examInitiated implements Serializable {
 	public void setuID(String uID) {
 		this.uID = uID;
 	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
+	
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	public String getInitiatedDate() {
+		return initiatedDate;
+	}
+	public void setInitiatedDate(String initiatedDate) {
+		this.initiatedDate = initiatedDate;
+	}
 }

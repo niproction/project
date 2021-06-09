@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -9,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.principal.infoPageController">
+<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.principal.infoPageController">
    <children>
-      <TableView fx:id="tableOfInfo" layoutX="21.0" layoutY="170.0" prefHeight="399.0" prefWidth="789.0" />
+      <TableView fx:id="tableOfInfo" layoutX="21.0" layoutY="170.0" onSort="#goBackToExamTable" prefHeight="399.0" prefWidth="789.0" />
       <ImageView fitHeight="80.0" fitWidth="114.0" layoutX="737.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/logo.png" />
@@ -25,5 +26,6 @@
       <Line endX="834.0" endY="120.0" layoutX="-1.0" layoutY="-14.0" startX="6.2928924560546875" startY="119.99998474121094" />
       <ComboBox fx:id="comboBox" layoutX="188.0" layoutY="124.0" onAction="#OnChoose" prefWidth="150.0" />
       <Text layoutX="21.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select type of information:" />
+      <Button fx:id="backButton" layoutX="374.0" layoutY="124.0" mnemonicParsing="false" onAction="#goBackToExamTable" text="Back" />
    </children>
 </AnchorPane>

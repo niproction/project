@@ -139,9 +139,9 @@ public class initTables {
 				+ " eID varchar(10) NOT NULL,\n"
 				+"authorID int(10) NOT NULL,\n"
 				+ " description TEXT  NULL,\n" 
-				+ " duration varchar(6) NOT NULL,\n"
+				+ " duration Time NOT NULL,\n"
 				+ " teacherComments TEXT  NULL,\n" 
-				 + " studentComments TEXT  NULL,\n" 
+				+ " studentComments TEXT  NULL,\n" 
 				+ "password TEXT  NULL, \n"+
 				 "PRIMARY KEY (eID));";
 		
@@ -151,42 +151,38 @@ public class initTables {
 			stmt.execute(sql);
 			stmt = con.createStatement();
 			
-			String myStatement = " INSERT INTO exams (eID,authorID,description,  duration, teacherComments, studentComments, password) VALUES (?,?,?,?,?,?,?)";
+			String myStatement = " INSERT INTO exams (eID,authorID,description,  duration, teacherComments, studentComments) VALUES (?,?,?,?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
 			statement.setString(1, "020010");
 			statement.setInt(2, 2);
 			statement.setString(3, "this is a math exam end of semester");
-			statement.setString(4, "02:30");
+			statement.setString(4, "02:30:00");
 			statement.setString(5, "hi lo");
 			statement.setString(6, "hola hola");
-			statement.setString(7, "1234");
 			statement.executeUpdate();
 			PreparedStatement statement1 = con.prepareStatement(myStatement);
 			statement1.setString(1, "020011");
 			statement1.setInt(2, 2);
 			statement1.setString(3, "this is a test of this shit ");
-			statement1.setString(4, "hi");
+			statement1.setString(4, "02:32:00");
 			statement1.setString(5, "hi lo");
 			statement1.setString(6, "hola hola");
-			statement1.setString(7, "byebye");
 			statement1.executeUpdate();
 			PreparedStatement statement2 = con.prepareStatement(myStatement);
 			statement2.setString(1, "020012");
 			statement2.setInt(2, 2);
 			statement2.setString(3, "this is a test of this shit ");
-			statement2.setString(4, "hi");
+			statement2.setString(4, "03:21:00");
 			statement2.setString(5, "hi lo");
 			statement2.setString(6, "hola hola");
-			statement2.setString(7, "byebye");
 			statement2.executeUpdate();
 			PreparedStatement statement3 = con.prepareStatement(myStatement);
 			statement3.setString(1, "020013");
 			statement3.setInt(2, 2);
 			statement3.setString(3, "this is a test of this shit ");
-			statement3.setString(4, "hi");
+			statement3.setString(4, "02:10:00");
 			statement3.setString(5, "hi lo");
 			statement3.setString(6, "hola hola");
-			statement3.setString(7, "byebye");
 			statement3.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -288,7 +284,7 @@ public class initTables {
 
 	private void table_exams_initiated() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams_initiated (\n" + " eiID int(10) NOT NULL AUTO_INCREMENT,\n"
-				+ "	eID varchar(7) NOT NULL,\n" + "	uID int(10) NOT NULL,\n" + " time Time NULL,"
+				+ "	eID varchar(7) NOT NULL,\n" + "	uID int(10) NOT NULL,\n"
 				+ " password varchar(6) NOT NULL,"+ " initiatedDate DATETIME NULL,"+ " isFinished VARCHAR(10) NULL,"+ " PRIMARY KEY (eiID));";
 		try {
 			Statement stmt = con.createStatement();
@@ -301,9 +297,9 @@ public class initTables {
 	}
 
 	private void table_exams_done() {
-		String sql = "CREATE TABLE IF NOT EXISTS exams_done (\n" + " edID varchar(7) NOT NULL,\n"
-				+ " eiID varchar(7) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(6) NOT NULL,\n"
-				+ " startTime varchar(6) NOT NULL,\n" + " endTime varchar(6) NOT NULL);";
+		String sql = "CREATE TABLE IF NOT EXISTS exams_done (edID int(10) NOT NULL AUTO_INCREMENT,\n"
+				+ " eiID varchar(7) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(15) NOT NULL,\n"
+				+ " startTime varchar(15) NOT NULL,\n" + " endTime varchar(15) NOT NULL,  isApproved varchar(7) NOT NULL, grade int(3) NULL, PRIMARY KEY (edID));";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
@@ -343,7 +339,7 @@ public class initTables {
 			statement.setInt(1, 2);
 			statement.setInt(2, 1);
 			statement.setString(3, "piskaaaa");
-			statement.setString(4, "02:30:00");
+			statement.setString(4, "00:30:00");
 			statement.setString(5, "waiting");
 			statement.executeUpdate();
 			
