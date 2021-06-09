@@ -96,6 +96,11 @@ public class MainPageController {
 	@FXML
 	private MenuItem verifyExam;
 
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+	@FXML
+	private MenuItem ManageOngoingExams;
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
 		// set sizes
@@ -118,13 +123,15 @@ public class MainPageController {
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
 		verifyExam.setVisible(false);
+
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+		ManageOngoingExams.setVisible(false);
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 
-		
-		
-		
 		ChangeListener<Number> listener = new ChangeListener<Number>() {
 			private Point2D stageSize = null;
 			private Point2D previousStageSize = new Point2D(SceneController.primaryStage.getWidth(),
@@ -158,8 +165,8 @@ public class MainPageController {
 			SceneController.primaryStage.setTitle("Cems: Student - home page");
 			takeExam.setVisible(true);
 			historyOfExams.setVisible(true);
-			label_bar_welcome
-					.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " " + UserControl.ConnectedUser.getLastName());
+			label_bar_welcome.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " "
+					+ UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Student)");
 
 			// load Student home page
@@ -174,8 +181,11 @@ public class MainPageController {
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
 			verifyExam.setVisible(true);
-			label_bar_welcome
-					.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " " + UserControl.ConnectedUser.getLastName());
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+			ManageOngoingExams.setVisible(true);
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+			label_bar_welcome.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " "
+					+ UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Teacher)");
 
 			// load Teacher home page
@@ -187,8 +197,8 @@ public class MainPageController {
 			displayStatisticalReport.setVisible(true);
 			checkRequest.setVisible(true);
 			information.setVisible(true);
-			label_bar_welcome
-					.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " " + UserControl.ConnectedUser.getLastName());
+			label_bar_welcome.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " "
+					+ UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Principal)");
 
 			// load Principal home page
@@ -196,13 +206,22 @@ public class MainPageController {
 			page_box.setCenter(page);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	// teacher
+	@FXML
+	void button_create_exam(ActionEvent event) {
+		System.out.println("clicked_createExam");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.CHOSSE_EXAM_TYPE);
+		page_box.setCenter(page);
+	}
+
+	// student
+	@FXML
+	void button_history_of_exams_student_clicked(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.History_Of_Exams_Student);
+		page_box.setCenter(page);
+
+	}
 
 	@FXML
 	public void button_take_exam_clicked(ActionEvent event) {
@@ -235,6 +254,7 @@ public class MainPageController {
 
 		// page_box.setCenter(page);
 	}
+
 	@FXML
 	public void button_verify_exam_clicked(ActionEvent event) {
 		System.out.println("clicked");
@@ -242,6 +262,7 @@ public class MainPageController {
 		// Pane screen = object.Sc();
 		page_box.setCenter(page);
 	}
+
 	@FXML
 	void buttton_statistical_report(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.STATISTICAL_REPORTS);
@@ -282,18 +303,7 @@ public class MainPageController {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.EXTRA_TIME_REQUESTS);
 		page_box.setCenter(page);
 	}
-	
-	
-	
-	@FXML
-	void button_create_exam(ActionEvent event) {
-		System.out.println("clicked_createExam");
-		AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
-		page_box.setCenter(page);
-	}
 
-	
-	
 	@FXML
 	void button_start_exam(ActionEvent event) {
 		System.out.println("clicked_startExam");
@@ -301,23 +311,15 @@ public class MainPageController {
 		page_box.setCenter(page);
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+	@FXML
+	void manage_ongoing_exam(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_ONGOING_EXAM);
+		page_box.setCenter(page);
+	}
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+
 	
 	
 	@FXML
@@ -325,10 +327,10 @@ public class MainPageController {
 		System.out.println("clicked to logout");
 		ArrayList<Object> parameter = new ArrayList<>();
 		parameter.add(UserControl.ConnectedUser);
-		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGOUT, parameter, null, true);
+		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGOUT, parameter, null,
+				true);
 		App_client.chat.accept(dataPacket);// send and wait for response from server
 		// will recive message from server and set user to null
-
 
 		// make animation and than load page
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);

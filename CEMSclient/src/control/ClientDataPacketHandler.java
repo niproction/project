@@ -69,7 +69,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				System.out.println("incorrect user");
 				ClientController.storedDataPacket = dataPacket;
 			}
-		} else if (dataPacket.getRequest() == DataPacket.Request.LOGOUT) {
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.LOGOUT) {
 			System.out.println("User Logoutted");
 			UserControl.ConnectedUser = null;
 		}
@@ -85,17 +87,19 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			} else
 				App_client.seccess = null;
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
 			if (dataPacket.getResult_boolean()) {
-				
+
 				System.out.println("qqqqq");
 				examInitiated exam = (examInitiated) dataPacket.getData_parameters().get(0);
 				Exam exam2 = (Exam) dataPacket.getData_parameters().get(1);
 				ExamInitiatedControl.setExamInitiated(exam);
 				ExamControl.setExam(exam2);
-				
+
 				UserControl.isDoingExam = true; // stated exam
-				
+
 			} else {
 				System.out.println("no exam");
 				ExamInitiatedControl.setExamInitiated(null);
@@ -151,20 +155,32 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 			}
 		}
-		else if (dataPacket.getRequest() == DataPacket.Request.DISAPPROVED_GRADE) {
-			String msg=(String)dataPacket.getData_parameters().get(0);
-			System.out.println(msg);
-		}
-		else if (dataPacket.getRequest() == DataPacket.Request.APPROVED_GRADE) {
-			String msg=(String)dataPacket.getData_parameters().get(0);
-			System.out.println(msg);
-		}
-		else if (dataPacket.getRequest() == DataPacket.Request.GET_FOR_VERIFY) {
-			if(dataPacket.getData_parameters()!=null) {
-				System.out.println("got the exam done");
-				examDoneControl.setExamDoneLIst((ArrayList<ExamDone>)dataPacket.getData_parameters().get(0));
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
+			for (int i = 0; i < dataPacket.getData_parameters().size(); i += 3) {
+				ViewGradesControl.addExamsID((String) dataPacket.getData_parameters().get(i));// examID in order to get
+																								// the course name
+				ViewGradesControl.addGrade((Integer) dataPacket.getData_parameters().get(i + 1));// Grade
+				ViewGradesControl.addExamsInitID((Integer) dataPacket.getData_parameters().get(i + 2));// examInitID
 			}
-			
+
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.DISAPPROVED_GRADE) {
+			String msg = (String) dataPacket.getData_parameters().get(0);
+			System.out.println(msg);
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.APPROVED_GRADE) {
+			String msg = (String) dataPacket.getData_parameters().get(0);
+			System.out.println(msg);
+		}
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_FOR_VERIFY) {
+			if (dataPacket.getData_parameters() != null) {
+				System.out.println("got the exam done");
+				examDoneControl.setExamDoneLIst((ArrayList<ExamDone>) dataPacket.getData_parameters().get(0));
+			}
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSES) {
@@ -190,11 +206,37 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			ExamControl.selectedCourseID = (String) dataPacket.getData_parameters().get(0);
 		}
 
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_COPY_OF_EXAM) {
+			GetCopyOfExamControl.questionsDescription = (ArrayList<String>) dataPacket.getData_parameters().get(0);
+			GetCopyOfExamControl.studentAnswersDescription = (ArrayList<String>) dataPacket.getData_parameters().get(1);
+			GetCopyOfExamControl.correctAnswersDescription = (ArrayList<String>) dataPacket.getData_parameters().get(2);
+			GetCopyOfExamControl.pointsForQuestion = (ArrayList<String>) dataPacket.getData_parameters().get(3);
+		}
+
+		///////////////////////////////////////////////////////////
+		/// teacher requests
+		///////////////////////////////////////
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_NAME_BY_COURSE_ID) {
+			for (int i = 0; i < dataPacket.getData_parameters().size(); i++) {
+				System.out.println("ahfkhfa    "+(String) dataPacket.getData_parameters().get(i));
+				ViewGradesControl.addCourseName((String) dataPacket.getData_parameters().get(i));
+			}
+		}
+
 		// rostik
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAMS_BY_TEACHER) {
 			System.out.println("dannnnny");
 			ExamControl.exams = (ArrayList<Exam>) dataPacket.getData_parameters().clone();
 		}
+
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_ONGOING_EXAM) {
+			ManageOngoingExams.isOngoingExams = dataPacket.getResult_boolean();
+			ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
+		} else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
+			ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
+		}
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 
 		//////////////////////////////
 		// Principal requests

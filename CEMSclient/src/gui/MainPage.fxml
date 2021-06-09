@@ -56,8 +56,9 @@
                               <MenuItem fx:id="createQuestion" mnemonicParsing="false" onAction="#button_add_new_question_clicked" text="Create question" />
                               <MenuItem fx:id="editQuestion" mnemonicParsing="false" onAction="#button_edit_question_clicked" text="Edit question" />
                               <MenuItem fx:id="takeExam" mnemonicParsing="false" onAction="#button_take_exam_clicked" text="Take exam" />
-                              <MenuItem fx:id="historyOfExams" mnemonicParsing="false" text="View history of exams" />
+                              <MenuItem fx:id="historyOfExams" mnemonicParsing="false" onAction="#button_history_of_exams_student_clicked" text="View history of exams" />
                               <MenuItem fx:id="verifyExam" mnemonicParsing="false" onAction="#button_verify_exam_clicked" text="Verify Exan" />
+                              <MenuItem fx:id="ManageOngoingExams" mnemonicParsing="false" onAction="#manage_ongoing_exam" text="Manage ongoing exams" />
                           </items>
                         </MenuButton>
                      </children>

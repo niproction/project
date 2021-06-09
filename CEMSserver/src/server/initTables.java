@@ -153,7 +153,7 @@ public class initTables {
 			
 			String myStatement = " INSERT INTO exams (eID,authorID,description,  duration, teacherComments, studentComments) VALUES (?,?,?,?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
-			statement.setString(1, "020010");
+			statement.setString(1, "020110");
 			statement.setInt(2, 2);
 			statement.setString(3, "this is a math exam end of semester");
 			statement.setString(4, "02:30:00");
@@ -161,7 +161,7 @@ public class initTables {
 			statement.setString(6, "hola hola");
 			statement.executeUpdate();
 			PreparedStatement statement1 = con.prepareStatement(myStatement);
-			statement1.setString(1, "020011");
+			statement1.setString(1, "020111");
 			statement1.setInt(2, 2);
 			statement1.setString(3, "this is a test of this shit ");
 			statement1.setString(4, "02:32:00");
@@ -169,7 +169,7 @@ public class initTables {
 			statement1.setString(6, "hola hola");
 			statement1.executeUpdate();
 			PreparedStatement statement2 = con.prepareStatement(myStatement);
-			statement2.setString(1, "020012");
+			statement2.setString(1, "020112");
 			statement2.setInt(2, 2);
 			statement2.setString(3, "this is a test of this shit ");
 			statement2.setString(4, "03:21:00");
@@ -177,7 +177,7 @@ public class initTables {
 			statement2.setString(6, "hola hola");
 			statement2.executeUpdate();
 			PreparedStatement statement3 = con.prepareStatement(myStatement);
-			statement3.setString(1, "020013");
+			statement3.setString(1, "020113");
 			statement3.setInt(2, 2);
 			statement3.setString(3, "this is a test of this shit ");
 			statement3.setString(4, "02:10:00");
@@ -251,27 +251,27 @@ public class initTables {
 			stmt = con.createStatement();
 			String myStatement = " INSERT INTO exam_questions (eID, qID, points) VALUES (?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
-			statement.setString(1, "020010");
+			statement.setString(1, "020110");
 			statement.setString(2, "02001");
 			statement.setString(3, "50");
 			statement.executeUpdate();
 			PreparedStatement statement1 = con.prepareStatement(myStatement);
-			statement1.setString(1, "020010");
+			statement1.setString(1, "020110");
 			statement1.setString(2, "02002");
 			statement1.setString(3, "50");
 			statement1.executeUpdate();
 			PreparedStatement statement2 = con.prepareStatement(myStatement);
-			statement2.setString(1, "020011");
+			statement2.setString(1, "020111");
 			statement2.setString(2, "02002");
 			statement2.setString(3, "50");
 			statement2.executeUpdate();
 			PreparedStatement statement3 = con.prepareStatement(myStatement);
-			statement3.setString(1, "020011");
+			statement3.setString(1, "020111");
 			statement3.setString(2, "02003");
 			statement3.setString(3, "20");
 			statement3.executeUpdate();
 			PreparedStatement statement4 = con.prepareStatement(myStatement);
-			statement4.setString(1, "020011");
+			statement4.setString(1, "020111");
 			statement4.setString(2, "02001");
 			statement4.setString(3, "30");
 			statement4.executeUpdate();

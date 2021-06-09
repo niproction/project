@@ -6,10 +6,10 @@ public class PageProperties {
 	}
 
 	public enum Page {
-		
+
 		// General screens
 		/////////////////////////////////////////////////////////////////////////////////
-		
+
 		LOGIN {
 			@Override
 			String GET_Title() {
@@ -52,12 +52,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
-		
-		
-		
-		
-		
+
 		Main {
 			@Override
 			String GET_Title() {
@@ -79,11 +74,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
-		
-		
-		
-		
+
 		STATISTICAL_REPORTS_BY {
 			@Override
 			String GET_Title() {
@@ -104,12 +95,12 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
-		
-		//Student pages comes here
+
+		// Student pages comes here
 		///////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		HomePage_Student {
 			@Override
 			String GET_Title() {
@@ -172,15 +163,55 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
-		
-		
-		
-		
-		//Teacher pages comes here
+////////////////////////////barak student start
+		History_Of_Exams_Student {
+			@Override
+			String GET_Title() {
+				return "Student - Grades";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/student/ViewGrades.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+		GET_COPY_OF_EXAM {
+			@Override
+			String GET_Title() {
+				return "get copy of exam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/student/GetCopyOfExam.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		}, //////////////////////////////////////// end barak
+
+		// Teacher pages comes here
 		////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		HomePage_Teacher {
 			@Override
 			String GET_Title() {
@@ -223,10 +254,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
-		
-		
-		
+
 		ADD_NEW_QUESTION {
 			@Override
 			String GET_Title() {
@@ -247,7 +275,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
 		EDIT_QUESTION {
 			@Override
@@ -269,9 +297,9 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
-		
+
 		CREATE_EXAM {
 			@Override
 			String GET_Title() {
@@ -314,12 +342,79 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-			
-		
-		
-		//Principal pages comes here
+
+		/////////////////////////////////// teacher barak start
+		CHOSSE_EXAM_TYPE {
+			@Override
+			String GET_Title() {
+				return "ChooseExamType page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/teacher/ChooseExamType.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+		Create_MANUEL_EXAM {
+			@Override
+			String GET_Title() {
+				return "manuelExam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/teacher/ManuelExamPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+		/////////////////////////////// end teacher barak
+
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+		MANAGE_ONGOING_EXAM {
+			@Override
+			String GET_Title() {
+				return "Manage ongoing exam page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/teacher/ManageOngoingExams.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+
+		// Principal pages comes here
 		///////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		HomePage_Principal {
 			@Override
 			String GET_Title() {
@@ -341,7 +436,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
+
 		STATISTICAL_REPORTS {
 			@Override
 			String GET_Title() {
@@ -362,7 +457,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
 		EXTRA_TIME_REQUESTS {
 			@Override
@@ -384,7 +479,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
 		INFO_PAGE {
 			@Override
@@ -407,13 +502,9 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		}
-	
-			
+
 		;
 
-		
-		
-		
 		abstract String GET_Title();
 
 		abstract String GET_FxmlFile();

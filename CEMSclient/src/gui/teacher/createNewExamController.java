@@ -91,7 +91,6 @@ public class createNewExamController {
 
 
 	private void addQuestionToExam() {
-		System.out.println("add question $$$$$$");
 		ArrayList<Object> parameters=new ArrayList<>();
 		if(checkInvalidInputsForAddQuestion()==true)
 			return;
@@ -128,6 +127,19 @@ public class createNewExamController {
 			errLabel.setVisible(true);
 			return true;
 		}
+		double points=	Double.valueOf(pointsForQuestion.getText());
+		if(points>=100)
+		{
+			errLabel.setText("*You must insert less than 100 in points for the question");
+			errLabel.setVisible(true);
+			return true;
+		}
+		if(totalPoints+points>100)
+		{
+			errLabel.setText("*You exceed the 100 points for the exam");
+			errLabel.setVisible(true);
+			return true;
+		}
 		if(!isNumeric(pointsForQuestion.getText()))//if the user didn't insert the numbers to points
 		{
 			System.out.println("invalid characters");
@@ -138,7 +150,7 @@ public class createNewExamController {
 		return false;
 	}
 
-	private boolean isNumeric(String text) {
+	protected boolean isNumeric(String text) {
 		ParsePosition pos=new ParsePosition(0);
 		NumberFormat.getInstance().parse(text,pos);
 		return text.length()==pos.getIndex();
@@ -153,12 +165,9 @@ public class createNewExamController {
 		}
 		errLabel.setVisible(false);
 		parameters.add(courses.getValue());
-		System.out.println("beforrrrrr");
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
 		App_client.chat.accept(dataPacket);
-		System.out.println("afterrrrrrrr");
 		exam.setAuthorID(UserControl.ConnectedUser.getuID());
-		System.out.println("%%%% " +exam.getAuthorID());
 		exam.setExamID(UserControl.ConnectedUser.getfid()+ExamControl.selectedCourseID);
 		exam.setDuration(duration.getText());
 		exam.setStudentsComments(studentComments.getText());
@@ -167,10 +176,11 @@ public class createNewExamController {
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
 		App_client.chat.accept(dataPacket);
 		exam.setExamID(ExamControl.examID);
-		System.out.println("hhhhhh%%5  "+exam.getExamID());
 		parameters.add(0, exam);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM_QUESTIONS, parameters, null, true);
 		App_client.chat.accept(dataPacket);
+		errLabel.setText("exam submited");
+		errLabel.setVisible(true);
 	}
 
 	private boolean checkInvalidInputsForSumbit() {
