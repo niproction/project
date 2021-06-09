@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import client.App_client;
 import common.DataPacket;
+import common.examInitiated;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -28,6 +29,7 @@ public class GetExamController {
 	@FXML
 	private Button getExamBtn;
 
+
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() {
 		// assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file
@@ -35,40 +37,54 @@ public class GetExamController {
 		sceen = new SceneController(PageProperties.Page.GET_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		errorLabel.setVisible(false);
+		
 	}
+
 	public void handleButtonAction(MouseEvent event) {
-		if(event.getSource()==getExamBtn) {
+		if (event.getSource() == getExamBtn) {
 			System.out.println("password clicked");
 			errorLabel.setVisible(false);
 			getExam();
 		}
-		
+
 	}
+
 	public void getExam() {
-		
-		ArrayList<Object> parameters=new ArrayList<>();
+
+		ArrayList<Object> parameters = new ArrayList<>();
 		parameters.add(passwordfld.getText().toString());
 		parameters.add(UserControl.ConnectedUser);
+
 		
 		
 		
-		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAM, parameters, null, true);
+		
+		
+		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAM, parameters, null,
+				true);
 		System.out.println("tring to send");
 		App_client.chat.accept(dataPacket);
 		
 		
 		
-		if(ExamInitiatedControl.getExamInitiated()!=null) {
+		
+		
+		
+
+		if (ExamInitiatedControl.getExamInitiated() != null) {
 			System.out.println("ddddddddddd");
-			UserControl.isDoingExam = true; // stated exam
+			
 			UserControl.whatInitiatedExamID = ExamInitiatedControl.getExamInitiated().getEiID(); // se the eiID
 			
 			
-			//load next page
-			AnchorPane page = SceneController.getPage(PageProperties.Page.TAKE_EXAM);
-			App_client.pageContainer.setCenter(page);
-		}
-		else {
+			if (UserControl.isDoingExam) {
+				// load next page
+				AnchorPane page = SceneController.getPage(PageProperties.Page.TAKE_EXAM);
+				App_client.pageContainer.setCenter(page);
+			}
+			else
+				errorLabel.setText(UserControl.getCanOpenExam());
+		} else {
 			passwordfld.setText("");
 			errorLabel.setVisible(true);
 		}

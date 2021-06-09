@@ -93,6 +93,8 @@ public class MainPageController {
 	private MenuItem takeExam;
 	@FXML
 	private MenuItem historyOfExams;
+	@FXML
+	private MenuItem verifyExam;
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
@@ -115,6 +117,7 @@ public class MainPageController {
 		editQuestion.setVisible(false);
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
+		verifyExam.setVisible(false);
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
@@ -170,6 +173,7 @@ public class MainPageController {
 			displayStatisticalReportTeacher.setVisible(true);
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
+			verifyExam.setVisible(true);
 			label_bar_welcome
 					.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " " + UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Teacher)");
@@ -231,7 +235,13 @@ public class MainPageController {
 
 		// page_box.setCenter(page);
 	}
-
+	@FXML
+	public void button_verify_exam_clicked(ActionEvent event) {
+		System.out.println("clicked");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.VERIFY_EXAM);
+		// Pane screen = object.Sc();
+		page_box.setCenter(page);
+	}
 	@FXML
 	void buttton_statistical_report(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.STATISTICAL_REPORTS);

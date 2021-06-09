@@ -6,12 +6,14 @@ import common.Question;
 
 public class QuestionControl {
 	
-	public static ArrayList<Question> questions;
-	
-	
-	
-	public QuestionControl() {
-		// TODO Auto-generated constructor stub
+	private static ArrayList<Question> questions=new ArrayList<Question>();
+
+	public static ArrayList<Question> getQuestions() {
+		return QuestionControl.questions;
+	}
+
+	public static void setQuestions(ArrayList<Question> questions) {
+		QuestionControl.questions=questions;
 	}
 
 }

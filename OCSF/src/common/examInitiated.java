@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class examInitiated implements Serializable {
 	private int eiID;
 	private String eID;
-	private String uID;
+	private int uID;
 	private String password;
 	private String initiatedDate;
 	
@@ -24,10 +24,10 @@ public class examInitiated implements Serializable {
 	public void seteID(String eID) {
 		this.eID = eID;
 	}
-	public String getuID() {
+	public int getuID() {
 		return uID;
 	}
-	public void setuID(String uID) {
+	public void setuID(int uID) {
 		this.uID = uID;
 	}
 	

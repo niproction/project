@@ -220,7 +220,7 @@ public class infoPageController {
 		}
 		buildColumns(tc, columnsNames);
 
-		for (Question tmpQuestion : QuestionControl.questions) {
+		for (Question tmpQuestion : QuestionControl.getQuestions()) {
 			data.add(new TableEntry(tmpQuestion.getqID(), tmpQuestion.getAuthorID(), tmpQuestion.getInfo(),
 					tmpQuestion.getOption1(), tmpQuestion.getOption2(), tmpQuestion.getOption3(),
 					tmpQuestion.getOption4(), tmpQuestion.getAnswer()));

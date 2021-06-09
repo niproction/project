@@ -202,6 +202,27 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		VERIFY_EXAM {
+			@Override
+			String GET_Title() {
+				return "teacher - verify page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/teacher/verifyExamPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 		
 		
 		

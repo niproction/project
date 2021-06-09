@@ -1,4 +1,4 @@
-package gui.teacher;
+ package gui.teacher;
 
 import java.util.ArrayList;
 
@@ -95,6 +95,7 @@ public class addNewQuestionController {
 			save();
 		}
 		if(event.getSource()==clearBtn) {
+			seccessLabel.setVisible(false);
 			clear();
 		}
 		
@@ -129,8 +130,6 @@ public class addNewQuestionController {
 		question.setOption2(option2txt.getText().toString());
 		question.setOption3(option3txt.getText().toString());
 		question.setOption4(option4txt.getText().toString());
-		
-		
 		//already have the answer
 		parameters.add(question);
 		parameters.add(UserControl.ConnectedUser);

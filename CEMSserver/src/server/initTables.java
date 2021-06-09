@@ -299,7 +299,7 @@ public class initTables {
 	private void table_exams_done() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams_done (edID int(10) NOT NULL AUTO_INCREMENT,\n"
 				+ " eiID varchar(7) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(15) NOT NULL,\n"
-				+ " startTime varchar(15) NOT NULL,\n" + " endTime varchar(15) NOT NULL,  isApproved varchar(7) NOT NULL, grade int(3) NULL, PRIMARY KEY (edID));";
+				+ " startTime varchar(15) NOT NULL,\n" + " endTime varchar(15) NOT NULL,  isApproved varchar(11) NOT NULL, grade int(3) NULL, PRIMARY KEY (edID));";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
