@@ -13,7 +13,7 @@ public  class examControl {
 	public static Exam exam;
 	public static String selectedCourseID;
 	public static String examID;
-	
+	public static ArrayList<Exam> examsList;
 	
 	public static String getExamID() {
 		return examID;
@@ -26,6 +26,12 @@ public  class examControl {
 	}
 	public static void setExam(Exam exam) {
 		examControl.exam = exam;
+	}
+	public static void setExamslist(ArrayList<Exam> examsList) {
+		examControl.examsList=examsList;
+	}
+	public static ArrayList<Exam> getExamslist() {
+		return examControl.examsList;
 	}
 	
 	

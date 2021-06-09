@@ -67,10 +67,10 @@ public class Exam implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getAuthor() {
+	public String getAuthorID() {
 		return author;
 	}
-	public void setAuthor(String author) {
+	public void setAuthorID(String author) {
 		this.author = author;
 	}
 	public ArrayList<Question> getQuestions() {

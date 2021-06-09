@@ -90,6 +90,10 @@ public class mainController {
 	private MenuItem takeExam;
 	@FXML
 	private MenuItem historyOfExams;
+	@FXML
+	private MenuItem editExam;
+	@FXML
+	private MenuItem verifyItem;
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
@@ -112,6 +116,8 @@ public class mainController {
 		editQuestion.setVisible(false);
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
+		editExam.setVisible(false);
+		verifyItem.setVisible(false);
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.Main, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
@@ -164,6 +170,8 @@ public class mainController {
 			displayStatisticalReportTeacher.setVisible(true);
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
+			editExam.setVisible(true);
+			verifyItem.setVisible(true);
 			label_bar_welcome
 					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
 			label_bar_roletype.setText("(Teacher)");
@@ -186,6 +194,12 @@ public class mainController {
 			page_box.setCenter(page);
 		}
 	}
+	@FXML
+	public void button_edit_exam_clicked(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.EDIT_EXAM);
+		// Pane screen = object.Sc();
+		page_box.setCenter(page);
+	}
 
 	@FXML
 	public void button_take_exam_clicked(ActionEvent event) {
@@ -197,7 +211,17 @@ public class mainController {
 		// page_box.setCenter(page);
 
 	}
+	@FXML
+	public void button_verify_exam_clicked(ActionEvent event) {
+		System.out.println("clicked");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.VERIFY_EXAM);
+		// Pane screen = object.Sc();
+		page_box.setCenter(page);
 
+		// page_box.setCenter(page);
+
+	}
+	
 	@FXML
 	void button_add_new_question_clicked(ActionEvent event) {
 		System.out.println("clicked");

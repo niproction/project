@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
+import common.ExamDone;
 import common.IncomingDataPacketHandler;
 import javafx.stage.Stage;
 import common.Student;
@@ -61,6 +62,20 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				System.out.println("incorrect user");
 				ClientController.storedDataPacket = dataPacket;
 			}
+		}else if (dataPacket.getRequest() == DataPacket.Request.DISAPPROVED_GRADE) {
+			String msg=(String)dataPacket.getData_parameters().get(0);
+			System.out.println(msg);
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.APPROVED_GRADE) {
+			String msg=(String)dataPacket.getData_parameters().get(0);
+			System.out.println(msg);
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_FOR_VERIFY) {
+			if(dataPacket.getData_parameters()!=null) {
+				System.out.println("got the exam done");
+				examDoneControl.setExamDoneLIst((ArrayList<ExamDone>)dataPacket.getData_parameters().get(0));
+			}
+			
 		}
 		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 			if(dataPacket.getData_parameters()!=null) {
@@ -70,6 +85,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			else
 				App_client.seccess=null;
 			
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.EDIT_EXAM) {
+			examControl.setExamslist((ArrayList<Exam>)dataPacket.getData_parameters().get(0));
 		}
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
 			if(dataPacket.getData_parameters()!=null) {
@@ -102,7 +120,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			System.out.println("login insert to get question");
 			// System.out.println(dataPacket.getData_parameters().get(0));
 			if (dataPacket.getData_parameters() != null)
-				App_client.Question = (Question) dataPacket.getData_parameters().get(0);
+				questionControl.setQuestions((ArrayList<Question>)dataPacket.getData_parameters().get(0));
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
 			if (dataPacket.getData_parameters() != null)
 				App_client.fieldName = (String) dataPacket.getData_parameters().get(0);

@@ -1,4 +1,4 @@
-package gui;
+ package gui;
 
 import java.util.ArrayList;
 
@@ -94,6 +94,7 @@ public class addNewQuestionController {
 			save();
 		}
 		if(event.getSource()==clearBtn) {
+			seccessLabel.setVisible(false);
 			clear();
 		}
 		
