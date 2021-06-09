@@ -90,8 +90,11 @@ public class mainController {
 	private MenuItem takeExam;
 	@FXML
 	private MenuItem historyOfExams;
+	
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 	@FXML
 	private MenuItem ManageOngoingExams;
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
@@ -115,7 +118,10 @@ public class mainController {
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
 		
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 	ManageOngoingExams.setVisible(false);
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+	
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.Main, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
@@ -168,7 +174,9 @@ public class mainController {
 			displayStatisticalReportTeacher.setVisible(true);
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 			ManageOngoingExams.setVisible(true);
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 			label_bar_welcome
 					.setText("Welcome back, " + App_client.user.getFirstName() + " " + App_client.user.getLastName());
 			label_bar_roletype.setText("(Teacher)");
@@ -286,12 +294,13 @@ public class mainController {
 
 	}
 	
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 	@FXML
 	void manage_ongoing_exam(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_ONGOING_EXAM);
 		page_box.setCenter(page);
-
 	}
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 
 	@FXML
 	void button_extra_time_requests(ActionEvent event) {

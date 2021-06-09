@@ -1,5 +1,6 @@
 package server;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -399,33 +400,34 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 						field = rs4.getString(1);
 					}
 
-					Statement stmt5=mysqlConnection.getInstance().getCon().createStatement();
-					ResultSet rs5 = stmt5.executeQuery("SELECT eID  from exams_initiated WHERE eiID='" + rs.getString(2)+ "'; ");
+					Statement stmt5 = mysqlConnection.getInstance().getCon().createStatement();
+					ResultSet rs5 = stmt5
+							.executeQuery("SELECT eID  from exams_initiated WHERE eiID='" + rs.getString(2) + "'; ");
 					String eID = null;
 					String cID = null;
 					while (rs5.next()) {
 
-					eID = rs5.getString(1);
-					System.out.println(eID);
-					cID=eID.substring(2,4);
-					System.out.println(cID);
+						eID = rs5.getString(1);
+						System.out.println(eID);
+						cID = eID.substring(2, 4);
+						System.out.println(cID);
 					}
-					Statement stmt6=mysqlConnection.getInstance().getCon().createStatement();
-					ResultSet rs6 = stmt6.executeQuery("SELECT courseName  from courses WHERE cID='" + cID+ "'; ");
+					Statement stmt6 = mysqlConnection.getInstance().getCon().createStatement();
+					ResultSet rs6 = stmt6.executeQuery("SELECT courseName  from courses WHERE cID='" + cID + "'; ");
 					String courseName = null;
 					while (rs6.next()) {
 
 						courseName = rs6.getString(1);
-				
+
 					}
 					System.out.println(courseName);
-					ExtraTimeRequest request = new ExtraTimeRequest(full_name, rs.getString(2), rs.getString(3), rs.getTime(4),
-							rs.getString(5),courseName,eID,field);
-				//	System.out.println(request.toString());
+					ExtraTimeRequest request = new ExtraTimeRequest(full_name, rs.getString(2), rs.getString(3),
+							rs.getTime(4), rs.getString(5), courseName, eID, field);
+					// System.out.println(request.toString());
 
 					parameters.add(request);
 
-					//System.out.println(request.toString());
+					// System.out.println(request.toString());
 				}
 
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
@@ -435,23 +437,105 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
 						DataPacket.Request.GET_EXTRA_TIME_REQUESTS, null, "", true);
 			}
-		}
-		else if(dataPacket.getRequest() == DataPacket.Request.EXTRA_TIME_DECISION) {
-		
+		} else if (dataPacket.getRequest() == DataPacket.Request.EXTRA_TIME_DECISION) {
+
 			Statement stmt;
 			try {
 				stmt = mysqlConnection.getInstance().getCon().createStatement();
 				System.out.println(((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getIsApproved());
-			int success=	 stmt.executeUpdate("UPDATE extra_time_requests SET isApproved = '"+((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getIsApproved()+"' WHERE eiID='"+((ExtraTimeRequest)dataPacket.getData_parameters().get(0)).getEiID()+ "';");
-			System.out.println(success+"\n");
-				 Responce_dataPacket=new DataPacket(DataPacket.SendTo.CLIENT,
-							DataPacket.Request.EXTRA_TIME_DECISION, null, "", true);;
-				} catch (SQLException e) {
-					e.printStackTrace();
-					return null;
-				}
+				int success = stmt.executeUpdate("UPDATE extra_time_requests SET isApproved = '"
+						+ ((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getIsApproved() + "' WHERE eiID='"
+						+ ((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getEiID() + "';");
+				System.out.println(success + "\n");
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.EXTRA_TIME_DECISION,
+						null, "", true);
+				;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
 		}
+
+		
+		///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_ONGOING_EXAM) {
+			ArrayList<Object> parameters = new ArrayList<Object>();
+			String uid = dataPacket.getMessage();
+			Statement stmt;
+			String fID,cID = null,fieldName = null,courseName = null,full_name = null;
+			try {
+				stmt = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT * from exams_initiated WHERE uID='" + uid + "' ;");
+				
+				if (rs.next()) {
+					System.out.println("FOUND ONGOING EXAM\n");
+					parameters.add(rs.getString(1)+",");
+				
+				fID=(rs.getString(2).substring(0,2));
+				cID=(rs.getString(2).substring(2,4));
+				System.out.println(fID + cID);
+				Statement stmt2 = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs2 = stmt2.executeQuery("SELECT fieldName  from fields WHERE fID='" + fID + "'; ");
+				if (rs2.next()) {
+					fieldName = rs2.getString(1);
+				}
+				System.out.println(fieldName);
+				parameters.add(fieldName+",");
+				
+				
+				Statement stmt3 = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs3 = stmt3.executeQuery("SELECT courseName  from courses WHERE cID='" + cID + "'; ");
+				if (rs3.next()) {
+					courseName = rs3.getString(1);
+				}
+				System.out.println(courseName);
+				parameters.add(courseName+",");
+				Statement stmt4 = mysqlConnection.getInstance().getCon().createStatement();
+				ResultSet rs4 = stmt4.executeQuery("SELECT firstName, lastName from users WHERE uID='" + rs.getString(3) + "'; ");
+				if (rs4.next()) {
+					full_name = rs4.getString(1) + " " + rs4.getString(2);
+				}
+				System.out.println(full_name);
+				parameters.add(full_name+",");
+				System.out.println(rs.getString(4));
+				parameters.add("Time: "+rs.getString(4));
+
+				System.out.println(parameters);
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_ONGOING_EXAM,
+						parameters, "yes exams", true);
+				}
+				else {
+					parameters.add("");
+					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_ONGOING_EXAM,
+							parameters, "no exams", false);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+	else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
+		Statement stmt;
+		
+		ArrayList<Object> parameters = new ArrayList<Object>();
+		String uid = dataPacket.getMessage();
+		parameters.add("");
+		try {
+			stmt = mysqlConnection.getInstance().getCon().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+	stmt.executeUpdate("DELETE  from exams_initiated WHERE uid='" + uid + "' ;");
+				
+			Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.TERMINATE_EXAM,parameters, "", true);
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	
+	}
+		///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+		
+
 		return Responce_dataPacket;
 	}
 
@@ -460,6 +544,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		ArrayList<Object> parameter = new ArrayList<Object>();
 		String courseName = (String) dataPacket.getData_parameters().get(0);
 		try {
+
 			statement = mysqlConnection.getInstance().getCon().createStatement();
 			ResultSet rs = statement.executeQuery("SELECT cID from courses WHERE (courseName='" + courseName + "') ");
 			if (rs.next()) {

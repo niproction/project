@@ -1,8 +1,5 @@
 package gui;
 
-/**
- * Sample Skeleton for 'Untitled' Controller Class
- */
 
 import java.net.URL;
 import java.sql.Date;
@@ -76,6 +73,9 @@ public class ExtraTimeRequestsController {
 	@FXML // fx:id="Status"
 	private TableColumn<TableEntry, ?> Status; // Value injected by FXMLLoader
 
+	/**
+	 * Initialize the page.
+	 */
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 
 	void initialize() {
@@ -107,6 +107,11 @@ public class ExtraTimeRequestsController {
 		ExtraTimeTable.getSortOrder().add(RequestTime);
 	}
 
+	/**
+	 * Gets the requests list to create a table.
+	 *
+	 * @return the requests to show the table.
+	 */
 	public ObservableList<TableEntry> getRequests() {
 		ObservableList<TableEntry> requests = FXCollections.observableArrayList();
 		
@@ -118,7 +123,7 @@ public class ExtraTimeRequestsController {
 			for (ExtraTimeRequest entry : PrincipalControl.requests) {
 				System.out.println(entry.getEiID());
 				// create a HBox
-				final HBox status =  new HBox();;
+				final HBox status =  new HBox();
 				try {
 					
 					

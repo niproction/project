@@ -106,12 +106,23 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
 			examControl.examID = (String) dataPacket.getData_parameters().get(0);
 		}
+		
+		
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXTRA_TIME_REQUESTS) {
 			PrincipalControl.requests=(ArrayList<ExtraTimeRequest>)dataPacket.getData_parameters().clone();
 		}
 			else if (dataPacket.getRequest() == DataPacket.Request.EXTRA_TIME_DECISION) {
-			
 		}
+		
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+			else if (dataPacket.getRequest() == DataPacket.Request.GET_ONGOING_EXAM) {	
+		ManageOngoingExams.isOngoingExams=dataPacket.getResult_boolean();
+				ManageOngoingExams.OngoingExam=(ArrayList<String>) dataPacket.getData_parameters().clone();
+				}
+			else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {	
+				ManageOngoingExams.OngoingExam=(ArrayList<String>) dataPacket.getData_parameters().clone();
+		}
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 		
 		
 		
