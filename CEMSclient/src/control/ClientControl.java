@@ -17,13 +17,10 @@ import common.DataPacket;
  */
 public class ClientControl implements ChatIF {
 	final public static int DEFAULT_PORT = 5555;
-	public static String host = null;
+	public static String host = "localhost";
 	public static int port = 5555;
 	public static boolean isConnected = false;
 	
-	
-	
-
 	private static CEMSClient client = null;
 
 	public static boolean awaitResponse;
@@ -36,6 +33,7 @@ public class ClientControl implements ChatIF {
 	private ClientControl() {
 		try {
 			client = new CEMSClient(host, port, this);
+			isConnected = true;
 		} catch (IOException exception) {
 			System.out.println("Error: Can't setup connection!" + " Terminating client.");
 			// System.exit(1);
@@ -48,6 +46,17 @@ public class ClientControl implements ChatIF {
 		if (clientChat == null)
 			clientChat = new ClientControl();
 		return clientChat;
+	}
+	
+	// metod to destroy the connection and the instance
+	public static void destroyInstance() {
+		if (clientChat != null)
+		{
+			if(client != null)
+				client.connectionClosed();// quit();
+			clientChat = null;
+			System.out.println("Disconnected from server");
+		}
 	}
 	
 	public static boolean isConnected() {

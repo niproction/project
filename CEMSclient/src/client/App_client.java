@@ -60,7 +60,12 @@ public class App_client extends Application {
 			// will recive message from server and set user to null
 		}
 
-		ClientControl.getInstance().GET_client().connectionClosed();// quit();
+		
+		// free the connetion with the server and release the instance
+		ClientControl.getInstance().destroyInstance();
+		
+		
+		
 		System.out.println("stopped");
 		System.exit(0);
 	}

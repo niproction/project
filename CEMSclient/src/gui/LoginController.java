@@ -53,6 +53,8 @@ public class LoginController implements Initializable {
 		errorLable.setVisible(false);
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
+		
+		load_info(); // load host and ports from saved file
 
 	}
 
@@ -127,9 +129,9 @@ public class LoginController implements Initializable {
 			String temp = br.readLine();
 			ClientControl.host = temp == null ? "" : temp;
 			temp = br.readLine();
-			
-			ClientControl.port = isRepresentPortNumber(temp) ? 5555 : Integer.parseInt(temp);
-
+			System.out.println(ClientControl.host);
+			ClientControl.port = isRepresentPortNumber(temp) ? 5555 : Integer.parseInt(temp)<9999?Integer.parseInt(temp):5555;
+			System.out.println(ClientControl.port);
 			br.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

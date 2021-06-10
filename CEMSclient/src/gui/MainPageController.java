@@ -333,10 +333,13 @@ public class MainPageController {
 		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 		// will recive message from server and set user to null
 
+		
+		// break the connection with the server
+		ClientControl.getInstance().destroyInstance();
+		
 		// make animation and than load page
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
-
 	}
 
 	@FXML
