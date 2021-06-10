@@ -67,7 +67,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 			} else {
 				System.out.println("incorrect user");
-				//ClientControl.storedDataPacket = dataPacket;
+				// ClientControl.storedDataPacket = dataPacket;
 			}
 		}
 
@@ -147,13 +147,14 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			// System.out.println(dataPacket.getData_parameters().get(0));
 			if (dataPacket.getData_parameters() != null)
 				QuestionControl.setQuestions((ArrayList<Question>) dataPacket.getData_parameters().get(0));
+		}
 
-			else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
-				if (dataPacket.getData_parameters() != null)
-					App_client.fieldName = (String) dataPacket.getData_parameters().get(0);
-				System.out.println("got field name " + App_client.fieldName);
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
+			 if (dataPacket.getData_parameters() != null) {
+			System.out.println("$$$$$$$$$$$$got field name " + (String) dataPacket.getData_parameters().get(0));
+			App_client.fieldName = (String) dataPacket.getData_parameters().get(0);
+			 }
 
-			}
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
@@ -163,7 +164,6 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				ViewGradesControl.addGrade((Integer) dataPacket.getData_parameters().get(i + 1));// Grade
 				ViewGradesControl.addExamsInitID((Integer) dataPacket.getData_parameters().get(i + 2));// examInitID
 			}
-
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.DISAPPROVED_GRADE) {
@@ -218,7 +218,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		///////////////////////////////////////
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_NAME_BY_COURSE_ID) {
 			for (int i = 0; i < dataPacket.getData_parameters().size(); i++) {
-				System.out.println("ahfkhfa    "+(String) dataPacket.getData_parameters().get(i));
+				System.out.println("ahfkhfa    " + (String) dataPacket.getData_parameters().get(i));
 				ViewGradesControl.addCourseName((String) dataPacket.getData_parameters().get(i));
 			}
 		}

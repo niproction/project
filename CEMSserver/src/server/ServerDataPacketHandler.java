@@ -494,6 +494,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			edID++;
 
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
+			System.out.println("insideee serverrrrr");
 			User user = ((User) dataPacket.getData_parameters().get(0));
 			Statement stmt;
 			try {
@@ -502,10 +503,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				ResultSet rs = stmt.executeQuery("SELECT * from fields WHERE (fID='" + user.getfid() + "') ");
 
 				if (rs.next()) {
-
 					System.out.println("found field name");
 					System.out.println(rs.getString(2));
-
 					ArrayList<Object> parameter = new ArrayList<Object>();
 					// Object pass_user=null;
 					parameter.add(rs.getString(2));

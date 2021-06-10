@@ -19,7 +19,6 @@ public class GetExamType {
 
 	@FXML
 	public void initialize() {
-
 		sceen = new SceneController(PageProperties.Page.CHOSSE_EXAM_TYPE, ap);
 		sceen.AnimateElement(SceneController.ANIMATE_ON.LOAD);
 	}
