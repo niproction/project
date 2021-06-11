@@ -4,11 +4,10 @@
 package control;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import client.App_client;
 import common.ChatIF;
 import common.DataPacket;
-import common.Question;
 import ocsf.client.AbstractClient;
 
 public class CEMSClient extends AbstractClient {
@@ -51,17 +50,16 @@ public class CEMSClient extends AbstractClient {
 		// awaitResponse = false; // reset to false untill the responce will come back
 
 		System.out.println("Recived data from server");
-		DataPacket dataPacket = (DataPacket) msg;
 		ClientDataPacketHandler handler = new ClientDataPacketHandler();
-		DataPacket[] to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
+		ArrayList<Object> to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
 		System.out.println("after parsing");
 
 		awaitResponse = false;
 
-		// if there is message to resspond
-		if (to_be_returend_DataPacket[0] != null) {
+		// if there is message to respond
+		if ((DataPacket)to_be_returend_DataPacket.get(0) != null) {
 			try {
-				sendToServer(to_be_returend_DataPacket[0]);
+				sendToServer((DataPacket)to_be_returend_DataPacket.get(0));
 			} catch (IOException e) {
 				System.out.println("Could not send message to server.  Terminating client.");
 				clientUI.display("Could not send message to server.  Terminating client.");

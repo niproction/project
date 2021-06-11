@@ -9,58 +9,66 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.ManageOngoingExamsControl">
+<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.ManageOngoingExamsController">
    <children>
-      <Text layoutX="231.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage ongoing exams" textAlignment="JUSTIFY" underline="true" wrappingWidth="277.69329833984375">
+      <Text layoutX="40.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage ongoing exams" underline="true" wrappingWidth="273.3333333333333">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold Italic" size="24.0" />
          </font>
       </Text>
-      <ImageView fx:id="pic4" fitHeight="51.0" fitWidth="56.0" layoutX="18.0" layoutY="450.0">
+      <ImageView fx:id="pic4" fitHeight="51.0" fitWidth="56.0" layoutX="50.0" layoutY="489.0">
          <image>
-            <Image url="@../../../../../Desktop/wrong_table_no_navigator_formula-512.png" />
+            <Image url="@../../img/icon-terminate.jpeg" />
          </image>
       </ImageView>
-      <Text fx:id="text2" layoutX="78.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time left:">
+      <Text fx:id="text2" layoutX="137.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time left:">
          <font>
             <Font name="System Bold" size="11.0" />
          </font></Text>
-      <ImageView fx:id="pic2" fitHeight="51.0" fitWidth="56.0" layoutX="18.0" layoutY="232.0">
+      <ImageView fx:id="pic2" fitHeight="51.0" fitWidth="56.0" layoutX="50.0" layoutY="232.0">
          <image>
-            <Image url="@../../../../../Desktop/clock+icon-1320184285066248430.png" />
+            <Image url="@../../img/icon-clock.jpeg" />
          </image>
       </ImageView>
-      <ImageView fx:id="pic3" fitHeight="63.0" fitWidth="64.0" layoutX="14.0" layoutY="333.0">
+      <ImageView fx:id="pic3" fitHeight="63.0" fitWidth="64.0" layoutX="46.0" layoutY="355.0">
          <image>
-            <Image url="@../../../../../Desktop/1200px-Noun_Project_question_mark_icon_1101884_cc.svg.png" />
+            <Image url="@../../img/icon-request.jpeg" />
          </image>
       </ImageView>
-      <Text fx:id="text3" layoutX="78.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request extra time:">
+      <Button fx:id="terminate_exam" layoutX="159.0" layoutY="502.0" mnemonicParsing="false" styleClass="beta" stylesheets="@../../../../../Desktop/button.css" text="Terminate exam" />
+      <ImageView fx:id="pic1" fitHeight="51.0" fitWidth="64.0" layoutX="46.0" layoutY="141.0">
+         <image>
+            <Image url="@../../img/icon-initiated.jpeg" />
+         </image>
+      </ImageView>
+      <Text fx:id="text1" layoutX="137.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ongoing exam:">
          <font>
             <Font name="System Bold" size="11.0" />
          </font></Text>
-      <TextField fx:id="extra_time_request" layoutX="180.0" layoutY="352.0" prefWidth="64.0" promptText="hh:mm:ss" />
-      <Button fx:id="terminate_exam" layoutX="78.0" layoutY="462.0" mnemonicParsing="false" styleClass="beta" stylesheets="@../../../../../Desktop/button.css" text="Terminate exam" />
-      <ImageView fx:id="pic1" fitHeight="51.0" fitWidth="64.0" layoutX="14.0" layoutY="138.0">
-         <image>
-            <Image url="@../../../../../Desktop/a2e0bf4f409bc2e9836f79954313832a.png" />
-         </image>
-      </ImageView>
-      <Text fx:id="text1" layoutX="78.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ongoing exam:">
-         <font>
-            <Font name="System Bold" size="11.0" />
-         </font></Text>
-      <TextField fx:id="examField" editable="false" layoutX="159.0" layoutY="154.0" prefHeight="25.0" prefWidth="367.0">
-         <font>
-            <Font name="System Bold Italic" size="10.0" />
-         </font></TextField>
-      <Button fx:id="sendBtn" layoutX="480.0" layoutY="351.0" mnemonicParsing="false" text="Send" />
-      <Text fx:id="text4" layoutX="245.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comment:" wrappingWidth="64.0">
-         <font>
-            <Font name="System Bold" size="11.0" />
-         </font>
-      </Text>
-      <TextField fx:id="commentField" layoutX="300.0" layoutY="352.0" prefHeight="25.0" prefWidth="180.0" />
       <Label fx:id="status" layoutX="229.0" layoutY="79.0" prefHeight="32.0" prefWidth="259.0" text="No exams found" textAlignment="CENTER" visible="false" />
+      <Label fx:id="time" layoutX="197.0" layoutY="249.0" prefHeight="17.0" prefWidth="79.0" text="[timer]" />
+      <Label fx:id="label_exam_info" layoutX="237.0" layoutY="158.0" text="[exam information]" />
+      <Label fx:id="label_message" layoutX="140.0" layoutY="380.0" text="[message]" textFill="#0044ff">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="ap_request_extra_time_box" layoutX="117.0" layoutY="308.0" prefHeight="158.0" prefWidth="484.0">
+         <children>
+            <Text fx:id="text3" layoutX="22.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request extra time:">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fx:id="text4" layoutX="22.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comment:" wrappingWidth="64.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <TextField fx:id="extra_time_request" layoutX="151.0" layoutY="40.0" prefWidth="64.0" promptText="hh:mm:ss" />
+            <TextField fx:id="commentField" layoutX="98.0" layoutY="90.0" prefHeight="25.0" prefWidth="259.0" />
+            <Button fx:id="sendBtn" layoutX="374.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#button_send_request_clicked" prefHeight="45.0" prefWidth="79.0" text="Send" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

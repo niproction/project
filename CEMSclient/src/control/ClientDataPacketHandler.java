@@ -9,6 +9,7 @@ import common.Exam;
 import common.ExamDone;
 import common.ExtraTimeRequest;
 import common.Field;
+import common.HistogramInfo;
 import common.IncomingDataPacketHandler;
 import javafx.stage.Stage;
 import common.Student;
@@ -33,18 +34,18 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 	}
 
 	@Override
-	public DataPacket[] CheckRequestExecuteCreateResponce(Object msg) {
+	public ArrayList<Object> CheckRequestExecuteCreateResponce(Object msg) {
 		if (msg instanceof DataPacket) {
 			System.out.println("recived DataPacket");
 			return ParsingDataPacket((DataPacket) msg);
 			// return GET_responce_DataPacket();
 		} else
 			System.out.println("not DataPacket");
-		return new DataPacket[] { null, null };
+		return null;
 	}
 
 	@Override
-	public DataPacket[] ParsingDataPacket(DataPacket dataPacket) {
+	public ArrayList<Object> ParsingDataPacket(DataPacket dataPacket) {
 		Responce_dataPacket = null;
 
 		////////////////////////////////////////////////////////////////////////////
@@ -150,10 +151,10 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
-			 if (dataPacket.getData_parameters() != null) {
-			System.out.println("$$$$$$$$$$$$got field name " + (String) dataPacket.getData_parameters().get(0));
-			App_client.fieldName = (String) dataPacket.getData_parameters().get(0);
-			 }
+			if (dataPacket.getData_parameters() != null) {
+				System.out.println("$$$$$$$$$$$$got field name " + (String) dataPacket.getData_parameters().get(0));
+				App_client.fieldName = (String) dataPacket.getData_parameters().get(0);
+			}
 
 		}
 
@@ -228,12 +229,37 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			System.out.println("dannnnny");
 			ExamControl.exams = (ArrayList<Exam>) dataPacket.getData_parameters().clone();
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.TEACHER_REQUEST_EXTRA_TIME) {
+			System.out.println("request extra time delivered");
+			UserControl.RequestForExtraTimeSent = dataPacket.getResult_boolean();
+		}
 
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_ONGOING_EXAM) {
 			ManageOngoingExams.isOngoingExams = dataPacket.getResult_boolean();
-			ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
-		} else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
+			
+			
+			//ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
+			
+			
+			if (ManageOngoingExams.isOngoingExams) {
+				//System.out.println((String)dataPacket.getData_parameters().get(5));
+				//System.out.println((String)dataPacket.getData_parameters().get(6));
+
+				//ExamControl.examInitiatedTime=ExamInitiatedControl.getExamInitiated().getInitiatedDate().substring(11);
+				//ExamControl.ServerTime= (String)dataPacket.getData_parameters().get(0);
+				ExamInitiatedControl.setExamInitiated((examInitiated) dataPacket.getData_parameters().get(3));
+				ExamControl.exam = (Exam)dataPacket.getData_parameters().get(4);
+				ExamControl.ServerTime = (String)dataPacket.getData_parameters().get(0);
+				
+				if(dataPacket.getData_parameters().size() == 4)
+					ExamControl.extraTimeRequest = (String)dataPacket.getData_parameters().get(4);
+				
+			}
+		}
+
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
 			ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
 		}
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
@@ -279,7 +305,59 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 		}
 
-		return new DataPacket[] { Responce_dataPacket, null };
+		
+		
+		
+		
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_TEACHERS) {
+			if(dataPacket.getData_parameters()!=null) {
+			UserControl.teachers=((ArrayList<User>) dataPacket.getData_parameters().clone()); 
+	
+			}
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_STUDENTS) {
+			UserControl.students = (ArrayList<User>) dataPacket.getData_parameters().clone();
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_COURSES) {
+			CourseControl.courses = (ArrayList<Course>) dataPacket.getData_parameters().clone();
+		}
+	
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEACHER_GRADES) {
+			HistogramControl.examOfTeacher = (ArrayList<HistogramInfo>) dataPacket.getData_parameters().clone();
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES_AND_COURSE) {
+			HistogramControl.examOfStudent = (ArrayList<HistogramInfo>) dataPacket.getData_parameters().clone();
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_GRADES) {
+			HistogramControl.CourseExamGradeList = (ArrayList<HistogramInfo>) dataPacket.getData_parameters().clone();
+			HistogramControl.examOfTeacher=new ArrayList<HistogramInfo>();
+
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		///////////////////////////////////////////////////////////////////////////////
+		// generate the list to return to the dataPackets
+		ArrayList<Object> ToBeReturened = new ArrayList<Object>();
+		ToBeReturened.add(Responce_dataPacket);
+		return ToBeReturened;
 	}
 
 	public DataPacket GET_responce_DataPacket() {

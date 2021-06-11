@@ -28,4 +28,11 @@ public class Teacher extends User implements Serializable {
 	public void SET_exams(Exam[] exams) {
 		this.exams=exams;
 	}
+
+	@Override
+	public String toString() {
+		return "Teacher - "+super.toString();
+	}
+	
+	
 }

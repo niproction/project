@@ -11,7 +11,7 @@ import java.util.Set;
 @SuppressWarnings("serial")
 public class Exam implements Serializable {
 	private String examID;
-	private int authorID;
+	private Integer authorID;
 	private String description;
 	private String duration;
 	private String teacherComments;
@@ -28,7 +28,7 @@ public class Exam implements Serializable {
 		
 	}
 
-	public Exam(String examID,int authorID, String description, String duration, String teacherComments, String studentsComments,ArrayList<Question> questions) {
+	public Exam(String examID,Integer authorID, String description, String duration, String teacherComments, String studentsComments,ArrayList<Question> questions) {
 		this.examID=examID;
 		this.authorID = authorID;
 		this.description = description;

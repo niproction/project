@@ -27,7 +27,6 @@ public class App_client extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		SceneController.primaryStage = primaryStage;
-		//chat = new ClientController("localhost", 5555);
 
 		SceneController sceen = new SceneController(primaryStage, PageProperties.Page.LOGIN);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.LOAD);
@@ -46,7 +45,7 @@ public class App_client extends Application {
 			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGOUT, parameter, null,
 					true);
 			ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
-			// will recive message from server and set user to null
+			// will recive message from server and set user to null in the clientDataPacketHandeler
 		}
 
 		// check if the user is still logged in..
@@ -60,9 +59,9 @@ public class App_client extends Application {
 			// will recive message from server and set user to null
 		}
 
-		
-		// free the connetion with the server and release the instance
-		ClientControl.getInstance().destroyInstance();
+		if(ClientControl.isConnected())
+			// free the connetion with the server and release the instance
+			ClientControl.getInstance().destroyInstance();
 		
 		
 		

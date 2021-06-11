@@ -19,7 +19,7 @@ public class ClientControl implements ChatIF {
 	final public static int DEFAULT_PORT = 5555;
 	public static String host = "localhost";
 	public static int port = 5555;
-	public static boolean isConnected = false;
+	private static boolean isConnected = false;
 	
 	private static CEMSClient client = null;
 

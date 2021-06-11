@@ -8,4 +8,9 @@ public class Student extends User implements Serializable {
 		super(uID,username,password,email,firstName,lastName,fid);
 	}
 
+	@Override
+	public String toString() {
+		return "Student - "+super.toString();
+	}
+
 }

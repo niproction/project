@@ -138,5 +138,8 @@ public class StartExamController {
 
 		label_message.setText("Exam started");
 		button_start.setDisable(true);
+		
+		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_ONGOING_EXAM);
+		App_client.pageContainer.setCenter(page);
 	}
 }

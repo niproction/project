@@ -1,6 +1,11 @@
 package common;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Observable;
+import java.util.Observer;
+
+import ocsf.server.ConnectionToClient;
 
 public class Principal extends User implements Serializable {
 	private Question[] questions;
@@ -26,5 +31,10 @@ public class Principal extends User implements Serializable {
 
 	public void SET_exams(Exam[] exams) {
 		this.exams=exams;
+	}
+
+	@Override
+	public String toString() {
+		return "Principal - "+super.toString();
 	}
 }

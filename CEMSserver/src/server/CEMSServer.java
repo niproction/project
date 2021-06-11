@@ -4,7 +4,13 @@ package server;
 // license found at www.lloseng.com 
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import common.DataPacket;
+import common.Exam;
+import common.Principal;
+import common.Teacher;
+import common.examInitiated;
 import gui.serverGUI;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -12,12 +18,9 @@ import ocsf.server.ConnectionToClient;
 /**
  * This class overrides some of the methods in the abstract superclass in order
  * to give more functionality to the server.
- *
- * @author Dr Timothy C. Lethbridge
- * @author Dr Robert Lagani&egrave;re
- * @author Fran&ccedil;ois B&eacute;langer
- * @author Paul Holden
- * @version July 2000
+ * also groups notify 
+ * @author Rostik kalinski
+ * @version 2021
  */
 public class CEMSServer extends AbstractServer {
 	// Class variables *************************************************
@@ -26,7 +29,42 @@ public class CEMSServer extends AbstractServer {
 	final public static int DEFAULT_PORT = 5555;
 	private static boolean IsConnected = false;
 
+	
 
+	public static ArrayList<Integer> OnGoingExams = new ArrayList<>(); // list of on going exams..
+	public static ArrayList<Group> studentsOfOnGoingExam_Groups = new ArrayList<>(); //the list of Groups of connected students that committing the exam OnGoingExams.get(i)
+			
+	//private static ArrayList<Exam> OnGoingExams; // list of on going exams..
+	public static ArrayList<GroupMember> teachersOfOnGoingExams = new ArrayList<>(); //the list of Groups of connected students that committing the exam OnGoingExams.get(i)
+	
+	public static Group principals= new Group(); //the Group of connected principles
+	
+	public enum WhoToNotify {
+		STUDENTS_DOING_THE_SAME_EXAM,ALL_PRINCIPALS,SPECIFIC_TEACHER
+	}
+	
+	
+	
+	
+	
+	private void desideWhoToNotify(WhoToNotify notify, int groupIndex, DataPacket dataPacket)
+	{
+		if(notify == WhoToNotify.STUDENTS_DOING_THE_SAME_EXAM)
+		{
+			studentsOfOnGoingExam_Groups.get(groupIndex).notifyMembers(dataPacket);  // will notify all the connected user that doing exam right now with dataPacket
+		}
+		else if(notify == WhoToNotify.SPECIFIC_TEACHER)
+		{
+			teachersOfOnGoingExams.get(groupIndex).notify(dataPacket);  // will notify specific teacher with the dataPacket
+		}
+		else if(notify == WhoToNotify.ALL_PRINCIPALS)
+		{
+			principals.notifyMembers(dataPacket); // will notify all the connected principals  with the dataPacket
+		}
+	}
+	
+	
+	
 
 	public CEMSServer(int port, serverGUI controller) {
 		super(port);
@@ -34,17 +72,6 @@ public class CEMSServer extends AbstractServer {
 	}
 
 
-	/*public CEMSServer(serverGUI server_gui, int port, String host,String username,String password,String db_name,String mysql_port) {
-		super(port);
-		this.server_gui = server_gui;
-		con=new mysqlConnection(host, username, password, db_name, mysql_port);
-		String msg = con.connectToDB();
-		server_gui.setInput_logs(server_gui.getInput_logs().getText()+msg);
-		if(con.getIsConnected())
-			server_gui.ServerStartedButtonsDisable();
-	}*/
-
-	
 
 	public void Start() {
 		int port = 0; // Port to listen on
@@ -82,17 +109,16 @@ public class CEMSServer extends AbstractServer {
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		controller.setInput_logs(controller.getInput_logs().getText()+"Message received from " + client+"\n");
 
-		ServerDataPacketHandler handler = new ServerDataPacketHandler();
-		DataPacket[] to_be_returend_DataPacket = handler.CheckRequestExecuteCreateResponce(msg);
+		ServerDataPacketHandler handler = new ServerDataPacketHandler(client);
+		ArrayList<Object> DATA = handler.CheckRequestExecuteCreateResponce(msg);
 	
 
 		// if the return DataPacket is not null means we need to return an update message to the client
-		if(to_be_returend_DataPacket[0] != null)
+		if(DATA.size() == 1 && (DataPacket)DATA.get(0) != null)
 		{
 			System.out.println("tring send response to client");
 			try {
-				client.sendToClient(to_be_returend_DataPacket[0]);
-				
+				client.sendToClient((DataPacket)DATA.get(0));
 				
 				System.out.println("Sending response to client");
 			} catch (IOException e) {
@@ -104,20 +130,24 @@ public class CEMSServer extends AbstractServer {
 			System.out.println("not generated response DataPacket");
 		}
 		
-		// message to all clientssss
-		if(to_be_returend_DataPacket[1] != null)
+		
+		
+		// message to clients that neeeded to be notified after some ection been taken by other client
+		if(DATA.size() == 4 && (WhoToNotify)DATA.get(1) != null && (Integer)DATA.get(2) != null && (DataPacket)DATA.get(3) != null) // check that the data is not null
 		{
 			System.out.println("tring send response to all clients");
 			try {
-				Thread.sleep(100);
-				sendToAllClients(to_be_returend_DataPacket[1]); // send to all clients
+				Thread.sleep(50);
+				//sendToAllClients(to_be_returend_DataPacket[1]); // send to all clients
+				desideWhoToNotify((WhoToNotify)DATA.get(1),(int)DATA.get(2),(DataPacket)DATA.get(3));
 			}catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 		else
 		{
-			
+			// the array is smaller means that there is 
+			System.out.println("No notify to other clients needed");
 		}
 	}
 

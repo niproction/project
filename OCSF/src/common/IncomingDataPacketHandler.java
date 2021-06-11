@@ -1,9 +1,10 @@
 package common;
 
+import java.util.ArrayList;
 
 public interface IncomingDataPacketHandler {
 
-    public DataPacket[] CheckRequestExecuteCreateResponce(Object msg);
+    public ArrayList<Object> CheckRequestExecuteCreateResponce(Object msg);
 
-    public DataPacket[] ParsingDataPacket(DataPacket dataPacket);
+    public ArrayList<Object> ParsingDataPacket(DataPacket dataPacket);
 }
