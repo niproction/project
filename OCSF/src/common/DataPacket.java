@@ -27,12 +27,16 @@ public class DataPacket implements Serializable {
 		
 		READ_EXAMS, ADD_NEW_QUESTION,EDIT_QUESTION,GET_QUESTION,
 		GET_FIELD_NAME,GET_COURSES,GET_QUESTION_BY_FIELD_ID,GET_EXAM,
-		GET_INFO_COURSES,GET_QUESTION_BY_DESCRIPTION,
+		GET_QUESTION_BY_DESCRIPTION,
 		INSERT_EXAM,GET_COURSE_ID_BY_COURSE_NAME, INSERT_EXAM_QUESTIONS,GET_TEST_QUESTIONS,
 		ADD_DONE_EXAM
 		
 		
 		,GET_INFO_COURSE,GET_INFO_USERS,GET_INFO_FIELD,GET_INFO_EXAM,GET_INFO_QUESTIONS
+		,GET_ALL_TEACHERS,GET_ALL_STUDENTS,GET_ALL_COURSES
+		,GET_TEACHER_GRADES	,GET_STUDENT_GRADES, GET_COURSE_GRADES 
+
+
 	}
 
 
@@ -103,7 +107,7 @@ public class DataPacket implements Serializable {
 		return result_boolean;
 	}
 
-	public void setResult_boolean(Boolean result_boolean) {
+	public void setResult_boolean(Boolean result_boolean){
 		this.result_boolean = result_boolean;
 	}
 }

@@ -50,7 +50,10 @@ public class infoPageController {
 
 	@FXML // fx:id="ComboBox"
 	private ComboBox<String> comboBox; // Value injected by FXMLLoader
-
+	
+	@FXML
+    private Button backButton;
+	
 	@FXML
 	private TableView<TableEntry> tableOfInfo;
 
@@ -62,6 +65,7 @@ public class infoPageController {
 		comboBox.getItems().removeAll(comboBox.getItems());
 		comboBox.getItems().addAll("select", "users", "courses", "fields", "exams", "questions");
 		comboBox.getSelectionModel().select("select");
+		backButton.setVisible(false);
 	}
 
 	// this method is called when the user chooses what info he want to watch
@@ -102,6 +106,8 @@ public class infoPageController {
 			DataPacket dataPacket, ArrayList<String> columnsNames) {
 		String[] columnsNamesArray = { "user id", "username", "password", "email", "firstName", "lastName", "ID" };
 		for (String tmp : columnsNamesArray) {
+			backButton.setVisible(false);
+
 			columnsNames.add(tmp);
 		}
 		buildColumns(tc, columnsNames);
@@ -110,17 +116,20 @@ public class infoPageController {
 		App_client.chat.accept(dataPacket);// send and wait for response from server
 		for (User tmpUser : UserControl.user) {
 			data.add(new TableEntry(tmpUser.getuID(), tmpUser.getUsername(), tmpUser.getPassword(), tmpUser.getEmail(),
-					tmpUser.getFirstName(), tmpUser.getLastName(), tmpUser.getfid()));
+					tmpUser.getFirstName(), tmpUser.getLastName(), tmpUser.getfid())); 
 
 		}
 	}
 
 	void generateCourseTable(ArrayList<TableColumn<TableEntry, ?>> tc, ObservableList<TableEntry> data,
 			DataPacket dataPacket, ArrayList<String> columnsNames) {
+		backButton.setVisible(false);
+
 		String[] columnsNamesArray = { "Course Id", "Field Id", "Course Name" };
 		for (String tmp : columnsNamesArray) {
 			columnsNames.add(tmp);
 		}
+		
 		buildColumns(tc, columnsNames);
 
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_INFO_COURSE, null, null, true);
@@ -132,6 +141,8 @@ public class infoPageController {
 
 	void generateFieldTable(ArrayList<TableColumn<TableEntry, ?>> tc, ObservableList<TableEntry> data,
 			DataPacket dataPacket, ArrayList<String> columnsNames) {
+		backButton.setVisible(false);
+
 		String[] columnsNamesArray = { "Field ID", "Field Name" };
 		for (String tmp : columnsNamesArray) {
 			columnsNames.add(tmp);
@@ -146,7 +157,7 @@ public class infoPageController {
 
 	void generateExamTable(ArrayList<TableColumn<TableEntry, ?>> tc, ObservableList<TableEntry> data,
 			DataPacket dataPacket, ArrayList<String> columnsNames) {
-
+		backButton.setVisible(false);
 		String[] columnsNamesArray = { "exam ID", "author ID", "description", "duration", "teacher comment",
 				"student comment", "questions" };
 		for (String tmp : columnsNamesArray) {
@@ -167,30 +178,7 @@ public class infoPageController {
 			EventHandler<ActionEvent> openTheQuestions = new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					final Button backToExamButton = new Button("back");
-
-					backToExamButton.setLayoutX(400);
-					backToExamButton.setLayoutY(124);
-					
-					//goes back to examTable after pressing on "back" button
-					EventHandler<ActionEvent> goBackToExamTable = new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							ObservableList<TableEntry> data2 = FXCollections.observableArrayList();
-
-							ArrayList<String> columnsNames1 = new ArrayList<String>();
-							tableOfInfo.getColumns().clear();
-							ap.getChildren().remove(backToExamButton);
-							DataPacket dataPacket = new DataPacket();
-							ArrayList<TableColumn<TableEntry, ?>> tc2 = new ArrayList<TableColumn<TableEntry, ?>>();
-							generateExamTable(tc2, data2, dataPacket, columnsNames1);
-							tableOfInfo.setItems(data2);
-
-						}
-					};
-
-					backToExamButton.setOnAction(goBackToExamTable);
-					ap.getChildren().add(backToExamButton);
+					backButton.setVisible(true);				
 
 					tableOfInfo.getColumns().clear();
 					ArrayList<TableColumn<TableEntry, ?>> tc1 = new ArrayList<TableColumn<TableEntry, ?>>();
@@ -221,10 +209,13 @@ public class infoPageController {
 
 	void generateQuestionTable(ArrayList<TableColumn<TableEntry, ?>> tc, ObservableList<TableEntry> data,
 			DataPacket dataPacket, ArrayList<String> columnsNames) {
+		backButton.setVisible(false);
+
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_INFO_QUESTIONS, null, null, true);
 		App_client.chat.accept(dataPacket);// send and wait for response from server
 		String[] columnsNamesArray = { "question id", "author ID", "question", "option 1", "option 2", "option 3",
 				"option 4", "the answer number is" };
+
 		for (String tmp : columnsNamesArray) {
 			columnsNames.add(tmp);
 		}
@@ -247,9 +238,22 @@ public class infoPageController {
 			tableOfInfo.getColumns().add(tc.get(i));
 			i++;
 			j++;
-
 		}
 
 	}
+	
+    @FXML
+    void goBackToExamTable(ActionEvent event) {
+    	ObservableList<TableEntry> data2 = FXCollections.observableArrayList();
+		ArrayList<String> columnsNames1 = new ArrayList<String>();
+		tableOfInfo.getColumns().clear();
+		backButton.setVisible(false);
+		DataPacket dataPacket = new DataPacket();
+		ArrayList<TableColumn<TableEntry, ?>> tc2 = new ArrayList<TableColumn<TableEntry, ?>>();
+		generateExamTable(tc2, data2, dataPacket, columnsNames1);
+		tableOfInfo.setItems(data2);
+    }
+
+
 
 }

@@ -12,7 +12,15 @@ public class User implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String fid;
+	private String roleType;
+
 	
+	public String getRoleType() {
+		return roleType;
+	}
+	public void setRoleType(String roleType) {
+		this.roleType = roleType;
+	}
 	public User(int uID, String username, String password, String email, String firstName, String lastName,String fid) {
 		this.uID=uID;
 		this.username = username;
@@ -21,6 +29,16 @@ public class User implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.fid=fid;
+	}
+	public User(int uID, String username, String password, String email, String firstName, String lastName,String fid,String roleType) {
+		this.uID=uID;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.fid=fid;
+		this.roleType=roleType;
 	}
 	
 	public int getuID() {
@@ -81,5 +99,8 @@ public class User implements Serializable {
 		this.lastName = lastName;
 	}
 
-	
+	@Override
+	public String toString() {
+		return firstName+" "+ lastName;
+	}
 }

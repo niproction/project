@@ -37,7 +37,7 @@ public class initTables {
 
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("DROP TABLE IF EXISTS users;");
+			stmt.executeUpdate("DROP TABLE IF EXISTS users;"); 
 			stmt.executeUpdate("DROP TABLE IF EXISTS fields;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS courses;");
 			stmt.executeUpdate("DROP TABLE IF EXISTS questions;");
@@ -253,6 +253,157 @@ public class initTables {
 			statement2.setString(7, "khdg");
 			statement2.setString(8, "2");
 			statement2.executeUpdate();
+			PreparedStatement statement3 = con.prepareStatement(myStatement);
+			statement3.setString(1, "4");
+			statement3.setInt(2, 2);
+			statement3.setString(3, "daniel is gever?");
+			statement3.setString(4, "no");
+			statement3.setString(5, "yes");
+			statement3.setString(6, "pipi");
+			statement3.setString(7, "khdg");
+			statement3.setString(8, "2");
+			statement3.executeUpdate();
+			PreparedStatement statement4= con.prepareStatement(myStatement);
+			statement4.setString(1, "5");
+			statement4.setInt(2, 2);
+			statement4.setString(3, "daniel is gever?");
+			statement4.setString(4, "no");
+			statement4.setString(5, "yes");
+			statement4.setString(6, "pipi");
+			statement4.setString(7, "khdg");
+			statement4.setString(8, "2");
+			statement4.executeUpdate();
+			PreparedStatement statement5= con.prepareStatement(myStatement);
+			statement5.setString(1, "020103");
+			statement5.setInt(2, 2);
+			statement5.setString(3, "daniel is gever?");
+			statement5.setString(4, "no");
+			statement5.setString(5, "yes");
+			statement5.setString(6, "pipi");
+			statement5.setString(7, "khdg");
+			statement5.setString(8, "2");
+			statement5.executeUpdate();
+			PreparedStatement statement6 = con.prepareStatement(myStatement);
+			statement6.setString(1, "021003");
+			statement6.setInt(2, 2);
+			statement6.setString(3, "daniel is gever?");
+			statement6.setString(4, "no");
+			statement6.setString(5, "yes");
+			statement6.setString(6, "pipi");
+			statement6.setString(7, "khdg");
+			statement6.setString(8, "2");
+			statement6.executeUpdate();
+			PreparedStatement statement7 = con.prepareStatement(myStatement);
+			statement7.setString(1, "0200543");
+			statement7.setInt(2, 2);
+			statement7.setString(3, "daniel is gever?");
+			statement7.setString(4, "no");
+			statement7.setString(5, "yes");
+			statement7.setString(6, "pipi");
+			statement7.setString(7, "khdg");
+			statement7.setString(8, "2");
+			statement7.executeUpdate();
+			PreparedStatement statement8 = con.prepareStatement(myStatement);
+			statement8.setString(1, "0204503");
+			statement8.setInt(2, 2);
+			statement8.setString(3, "daniel is gever?");
+			statement8.setString(4, "no");
+			statement8.setString(5, "yes");
+			statement8.setString(6, "pipi");
+			statement8.setString(7, "khdg");
+			statement8.setString(8, "2");
+			statement8.executeUpdate();
+			PreparedStatement statement9 = con.prepareStatement(myStatement);
+			statement9.setString(1, "0200613");
+			statement9.setInt(2, 2);
+			statement9.setString(3, "daniel is gever?");
+			statement9.setString(4, "no");
+			statement9.setString(5, "yes");
+			statement9.setString(6, "pipi");
+			statement9.setString(7, "khdg");
+			statement9.setString(8, "2");
+			statement9.executeUpdate();
+			PreparedStatement statement21 = con.prepareStatement(myStatement);
+			statement21.setString(1, "0208603");
+			statement21.setInt(2, 2);
+			statement21.setString(3, "daniel is gever?");
+			statement21.setString(4, "no");
+			statement21.setString(5, "yes");
+			statement21.setString(6, "pipi");
+			statement21.setString(7, "khdg");
+			statement21.setString(8, "2");
+			statement21.executeUpdate();
+			PreparedStatement statement22 = con.prepareStatement(myStatement);
+			statement22.setString(1, "02458003");
+			statement22.setInt(2, 2);
+			statement22.setString(3, "daniel is gever?");
+			statement22.setString(4, "no");
+			statement22.setString(5, "yes");
+			statement22.setString(6, "pipi");
+			statement22.setString(7, "khdg");
+			statement22.setString(8, "2");
+			statement22.executeUpdate();
+			PreparedStatement statement32 = con.prepareStatement(myStatement);
+			statement32.setString(1, "0200983");
+			statement32.setInt(2, 2);
+			statement32.setString(3, "daniel is gever?");
+			statement32.setString(4, "no");
+			statement32.setString(5, "yes");
+			statement32.setString(6, "pipi");
+			statement32.setString(7, "khdg");
+			statement32.setString(8, "2");
+			statement32.executeUpdate();
+			PreparedStatement statement42 = con.prepareStatement(myStatement);
+			statement42.setString(1, "0462003");
+			statement42.setInt(2, 2);
+			statement42.setString(3, "daniel is gever?");
+			statement42.setString(4, "no");
+			statement42.setString(5, "yes");
+			statement42.setString(6, "pipi");
+			statement42.setString(7, "khdg");
+			statement42.setString(8, "2");
+			statement42.executeUpdate();
+			PreparedStatement statement25 = con.prepareStatement(myStatement);
+			statement25.setString(1, "1002003");
+			statement25.setInt(2, 2);
+			statement25.setString(3, "daniel is gever?");
+			statement25.setString(4, "no");
+			statement25.setString(5, "yes");
+			statement25.setString(6, "pipi");
+			statement25.setString(7, "khdg");
+			statement25.setString(8, "2");
+			statement25.executeUpdate();
+			PreparedStatement statement26 = con.prepareStatement(myStatement);
+			statement26.setString(1, "1102003");
+			statement26.setInt(2, 2);
+			statement26.setString(3, "daniel is gever?");
+			statement26.setString(4, "no");
+			statement26.setString(5, "yes");
+			statement26.setString(6, "pipi");
+			statement26.setString(7, "khdg");
+			statement26.setString(8, "2");
+			statement26.executeUpdate();
+			PreparedStatement statement27 = con.prepareStatement(myStatement);
+			statement27.setString(1, "1302003");
+			statement27.setInt(2, 2);
+			statement27.setString(3, "daniel is gever?");
+			statement27.setString(4, "no");
+			statement27.setString(5, "yes");
+			statement27.setString(6, "pipi");
+			statement27.setString(7, "khdg");
+			statement27.setString(8, "2");
+			statement27.executeUpdate();
+			PreparedStatement statement28 = con.prepareStatement(myStatement);
+			statement28.setString(1, "01552003");
+			statement28.setInt(2, 2);
+			statement28.setString(3, "daniel is gever?");
+			statement28.setString(4, "no");
+			statement28.setString(5, "yes");
+			statement28.setString(6, "pipi");
+			statement28.setString(7, "khdg");
+			statement28.setString(8, "2");
+			statement28.executeUpdate();
+			
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -303,27 +454,144 @@ public class initTables {
 				+ "	eID varchar(7) NOT NULL,\n" + "	uID varchar(5) NOT NULL,\n" + " time varchar(3) NOT NULL);";
 		try {
 			Statement stmt = con.createStatement();
-			// create a new table
 			stmt.execute(sql);
 			stmt = con.createStatement();
+			String myStatement = " INSERT INTO exams_initiated (eiID,eID, uID, time) VALUES (?,?,?,?)";
+			PreparedStatement statement = con.prepareStatement(myStatement);
+			statement.setString(1, "1");
+			statement.setString(2, "020111");
+			statement.setString(3, "2");
+			statement.setString(4, "60");
+			statement.executeUpdate();
+			PreparedStatement statement1 = con.prepareStatement(myStatement);
+			statement1.setString(1, "2");
+			statement1.setString(2, "020212");
+			statement1.setString(3, "2");
+			statement1.setString(4, "60");
+			statement1.executeUpdate();
+			PreparedStatement statement2 = con.prepareStatement(myStatement);
+			statement2.setString(1, "3");
+			statement2.setString(2, "020112");
+			statement2.setString(3, "2");
+			statement2.setString(4, "60");
+			statement2.executeUpdate();
+			PreparedStatement statement3 = con.prepareStatement(myStatement);
+			statement3.setString(1, "4");
+			statement3.setString(2, "020013");
+			statement3.setString(3, "2");
+			statement3.setString(4, "60");
+			statement3.executeUpdate();
+			PreparedStatement statement4 = con.prepareStatement(myStatement);
+			statement4.setString(1, "5");
+			statement4.setString(2, "020011");
+			statement4.setString(3, "2");
+			statement4.setString(4, "60");
+			statement4.executeUpdate();
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
 	private void table_exams_done() {
+		//Barak:added grade and is approved 
 		String sql = "CREATE TABLE IF NOT EXISTS exams_done (\n" + " edID varchar(7) NOT NULL,\n"
 				+ " eiID varchar(7) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(6) NOT NULL,\n"
-				+ " startTime varchar(6) NOT NULL,\n" + " endTime varchar(6) NOT NULL);";
+				+ " startTime varchar(6) NOT NULL,\n" + " endTime varchar(6) NOT NULL,\n"+"isApproved varchar(6) NULL,\n"
+				+"grade INT NULL);";
+		
 		try {
 			Statement stmt = con.createStatement();
-			// create a new table
+			String myStatement = " INSERT INTO exams_done (edID,eiId,uID,duration,startTime,endTime,isApproved,grade)  VALUES (?,?,?,?,?,?,?,?)";			
 			stmt.execute(sql);
 			stmt = con.createStatement();
+			PreparedStatement statement = con.prepareStatement(myStatement);
+			statement.setString(1, "1");
+			statement.setString(2, "1");
+			statement.setString(3, "1");
+			statement.setString(4, "50");
+			statement.setString(5, "50");
+			statement.setString(6, "50");
+			statement.setString(7, "50");
+			statement.setString(8, "100");
+			statement.executeUpdate();
+			PreparedStatement statement1 = con.prepareStatement(myStatement);
+			statement1.setString(1, "2");
+			statement1.setString(2, "1");
+			statement1.setString(3, "4");
+			statement1.setString(4, "50");
+			statement1.setString(5, "50");
+			statement1.setString(6, "50");
+			statement1.setString(7, "50");
+			statement1.setString(8, "70");
+			statement1.executeUpdate();
+			PreparedStatement statement2 = con.prepareStatement(myStatement);
+			statement2.setString(1, "3");
+			statement2.setString(2, "1");
+			statement2.setString(3, "5");
+			statement2.setString(4, "50");
+			statement2.setString(5, "50");
+			statement2.setString(6, "50");
+			statement2.setString(7, "50");
+			statement2.setString(8, "30");
+			statement2.executeUpdate();	
+			PreparedStatement statement3 = con.prepareStatement(myStatement);
+			statement3.setString(1, "4");
+			statement3.setString(2, "2");
+			statement3.setString(3, "1");
+			statement3.setString(4, "50");
+			statement3.setString(5, "50");
+			statement3.setString(6, "50");
+			statement3.setString(7, "50");
+			statement3.setString(8, "95");
+			statement3.executeUpdate();
+			PreparedStatement statement4 = con.prepareStatement(myStatement);
+			statement4.setString(1, "5");
+			statement4.setString(2, "2");
+			statement4.setString(3, "4");
+			statement4.setString(4, "50");
+			statement4.setString(5, "50");
+			statement4.setString(6, "50");
+			statement4.setString(7, "50");
+			statement4.setString(8, "30");
+			statement4.executeUpdate();
+			PreparedStatement statement5 = con.prepareStatement(myStatement);
+			statement5.setString(1, "6");
+			statement5.setString(2, "2");
+			statement5.setString(3, "5");
+			statement5.setString(4, "50");
+			statement5.setString(5, "50");
+			statement5.setString(6, "50");
+			statement5.setString(7, "50");
+			statement5.setString(8, "30");
+			statement5.executeUpdate();	
+			PreparedStatement statement6 = con.prepareStatement(myStatement);
+			statement6.setString(1, "5");
+			statement6.setString(2, "3");
+			statement6.setString(3, "4");
+			statement6.setString(4, "50");
+			statement6.setString(5, "50");
+			statement6.setString(6, "50");
+			statement6.setString(7, "50");
+			statement6.setString(8, "90");
+			statement6.executeUpdate();
+			PreparedStatement statement7 = con.prepareStatement(myStatement);
+			statement7.setString(1, "6");
+			statement7.setString(2, "3");
+			statement7.setString(3, "5");
+			statement7.setString(4, "50");
+			statement7.setString(5, "50");
+			statement7.setString(6, "50");
+			statement7.setString(7, "50");
+			statement7.setString(8, "80");
+			statement7.executeUpdate();			
+	
+	
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		}
 	}
+	}
+
 
 	private void table_exam_questions_answer() {
 		String sql = "CREATE TABLE IF NOT EXISTS exam_questions_answer (\n" + " edID varchar(7) NOT NULL,\n"

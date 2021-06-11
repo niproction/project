@@ -24,7 +24,7 @@ public class CEMSServer extends AbstractServer {
 	private serverGUI controller;
 	//private ArrayList<> connected_users;
 	final public static int DEFAULT_PORT = 5555;
-	private static boolean IsConnected = false;
+	private static boolean IsConnected = false; 
 
 
 
@@ -88,7 +88,7 @@ public class CEMSServer extends AbstractServer {
 		// if the return DataPacket is not null means we need to return an update message to the client
 		if(to_be_returend_DataPacket != null)
 		{
-			System.out.println("tring send response to client");
+			System.out.println("trying send response to client");
 			try {
 				client.sendToClient(to_be_returend_DataPacket);
 				System.out.println("Sending response to client");

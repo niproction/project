@@ -6,10 +6,10 @@ public class PageProperties {
 	}
 
 	public enum Page {
-		
+
 		// General screens
 		/////////////////////////////////////////////////////////////////////////////////
-		
+
 		LOGIN {
 			@Override
 			String GET_Title() {
@@ -52,7 +52,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
+
 		Main {
 			@Override
 			String GET_Title() {
@@ -74,7 +74,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
+
 		TEMP {
 			@Override
 			String GET_Title() {
@@ -116,12 +116,12 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
-		
-		//Student pages comes here
+
+		// Student pages comes here
 		///////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		HomePage_Student {
 			@Override
 			String GET_Title() {
@@ -143,15 +143,10 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
-		
-		
-		
-		
-		
-		//Teacher pages comes here
+
+		// Teacher pages comes here
 		////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		HomePage_Teacher {
 			@Override
 			String GET_Title() {
@@ -173,10 +168,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
-		
-		
-		
+
 		ADD_NEW_QUESTION {
 			@Override
 			String GET_Title() {
@@ -197,7 +189,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
 		EDIT_QUESTION {
 			@Override
@@ -219,7 +211,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
 		TAKE_EXAM {
 			@Override
@@ -241,7 +233,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
 		CREATE_EXAM {
 			@Override
@@ -264,13 +256,10 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-			
-			
-		
-		
-		//Principal pages comes here
+
+		// Principal pages comes here
 		///////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 		HomePage_Principal {
 			@Override
 			String GET_Title() {
@@ -292,7 +281,7 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
-		
+
 		STATISTICAL_REPORTS {
 			@Override
 			String GET_Title() {
@@ -313,7 +302,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
 		EXTRA_TIME_REQUESTS {
 			@Override
@@ -335,7 +324,7 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-			
+
 		},
 		INFO_PAGE {
 			@Override
@@ -357,14 +346,32 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
+
+		},
+		HISTOGRAM {
+			@Override
+			String GET_Title() {
+				return "Histogram";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/principal/Histogram.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
 		}
-	
-			
+
 		;
 
-		
-		
-		
 		abstract String GET_Title();
 
 		abstract String GET_FxmlFile();

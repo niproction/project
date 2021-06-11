@@ -1,16 +1,12 @@
 package gui.student;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
@@ -19,20 +15,18 @@ import common.DataPacket;
 import common.Exam;
 import common.Question;
 import common.examInitiated;
+import control.ExamControl;
 import control.PageProperties;
 import control.SceneController;
-import control.ExamControl;
 import control.examInitiatedControl;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import java.awt.event.ActionEvent;
 
 public class takeExamController {
 	SceneController sceen;

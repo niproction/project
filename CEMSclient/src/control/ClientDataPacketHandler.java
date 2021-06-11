@@ -7,14 +7,15 @@ import common.Course;
 import common.DataPacket;
 import common.Exam;
 import common.Field;
+import common.HistogramInfo;
 import common.IncomingDataPacketHandler;
-import javafx.stage.Stage;
+import common.Principal;
+import common.Question;
 import common.Student;
 import common.Teacher;
 import common.User;
 import common.examInitiated;
-import common.Principal;
-import common.Question;
+import javafx.stage.Stage;
 
 public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 	private DataPacket Responce_dataPacket;
@@ -36,7 +37,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			return ParsingDataPacket((DataPacket) msg);
 			// return GET_responce_DataPacket();
 		} else
-			System.out.println("not DataPacket");
+			System.out.println("not DataPacket"); 
 		return null;
 	}
 
@@ -126,6 +127,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_USERS) {
 			UserControl.user = (ArrayList<User>) dataPacket.getData_parameters().clone();
+			
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			ExamControl.selectedCourseID = (String) dataPacket.getData_parameters().get(0);
 		}
@@ -154,18 +156,39 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_QUESTIONS) {
 			QuestionControl.questions = (ArrayList<Question>) dataPacket.getData_parameters().clone();
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_TEACHERS) {
+			if(dataPacket.getData_parameters()!=null) {
+			UserControl.teachers=((ArrayList<User>) dataPacket.getData_parameters().clone()); 
+	
+			}
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_STUDENTS) {
+			UserControl.students = (ArrayList<User>) dataPacket.getData_parameters().clone();
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_COURSES) {
+			CourseControl.courses = (ArrayList<Course>) dataPacket.getData_parameters().clone();
+		}
 	
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			ExamControl.selectedCourseID = (String) dataPacket.getData_parameters().get(0);
 		}
-		
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEACHER_GRADES) {
+			HistogramControl.examOfTeacher = (ArrayList<HistogramInfo>) dataPacket.getData_parameters().clone();
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
+			HistogramControl.examOfStudent = (ArrayList<HistogramInfo>) dataPacket.getData_parameters().clone();
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_GRADES) {
+			HistogramControl.CourseExamGradeList = (ArrayList<HistogramInfo>) dataPacket.getData_parameters().clone();
+			HistogramControl.examOfTeacher=new ArrayList<HistogramInfo>();
+
+		}
+					
 		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
 			ExamControl.examID = (String) dataPacket.getData_parameters().get(0);
 		}
 
-		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM) {
-			ExamControl.examID = (String) dataPacket.getData_parameters().get(0);
-		}
+		
 
 		return Responce_dataPacket;
 	}

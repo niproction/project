@@ -11,7 +11,7 @@ public class TableEntry{
 	private Object col8;
 	private Object col9;
 	
-	public TableEntry(Object col1, Object col2)
+	public TableEntry(Object col1, Object col2) 
 	{
 		this.col1=col1;
 		this.col2=col2;

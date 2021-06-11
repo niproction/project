@@ -28,13 +28,10 @@ public class App_client extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		SceneController.primaryStage = primaryStage;
-		chat= new ClientController("localhost", 5555);
-	
+		chat= new ClientController("localhost", 5555);	
 		SceneController sceen = new SceneController(primaryStage, PageProperties.Page.LOGIN);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.LOAD);
 		
-		//SceneController.primaryStage.setMaxWidth(800);
-		//SceneController.primaryStage.setMaxHeight(700);
 	}
 
 	@Override
@@ -45,6 +42,8 @@ public class App_client extends Application {
 			System.out.println("Try to logout send logout DataPacket");
 			ArrayList<Object> parameter = new ArrayList<>();
 			parameter.add(UserControl.ConnectedUser);
+									
+			
 			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.LOGOUT, parameter, null, true);
 			App_client.chat.accept(dataPacket);// send and wait for response from server
 			// will recive message from server and set user to null

@@ -8,14 +8,14 @@ public class Course implements Serializable  {
 	public String courseName;
 	public String fieldID;
 
-	public Course(String courseID, String fieldID, String courseName) {
+	public Course(String courseID, String fieldID, String courseName) { 
 		this.courseID = courseID;
 		this.fieldID = fieldID;
 		this.courseName = courseName;
 
 	}
 
-	public String getCourseID() {
+	public String getCourseID() { 
 		return courseID;
 	}
 
