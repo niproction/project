@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="640.0" maxWidth="840.0" minHeight="640.0" minWidth="840.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.editQuestionController">
+<AnchorPane fx:id="ap" maxHeight="640.0" maxWidth="840.0" minHeight="640.0" minWidth="840.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.editQuestionController">
    <children>
       <Label layoutX="105.0" layoutY="21.0" prefHeight="53.0" prefWidth="328.0" text="Edit Question">
          <font>
@@ -101,5 +101,12 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Label layoutX="663.0" layoutY="118.0" text="Enter Question ID:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="questionIDtxt" layoutX="661.0" layoutY="145.0" promptText="Question ID" />
+      <Button fx:id="questionIDBtn" layoutX="661.0" layoutY="184.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" prefHeight="27.0" prefWidth="149.0" text="Get Question" />
    </children>
 </AnchorPane>

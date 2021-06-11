@@ -1,8 +1,11 @@
 package gui;
 
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.swing.Timer;
 
 import client.App_client;
 import common.DataPacket;
@@ -10,6 +13,7 @@ import common.Principal;
 import common.Student;
 import common.Teacher;
 import control.ClientControl;
+import control.ExamInitiatedControl;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -96,7 +100,9 @@ public class MainPageController {
 	private MenuItem historyOfExams;
 	@FXML
 	private MenuItem verifyExam;
-
+	private Timer tm;
+	@FXML
+	private MenuItem manageQuestions;
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 	@FXML
 	private MenuItem ManageOngoingExams;
@@ -124,7 +130,7 @@ public class MainPageController {
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
 		verifyExam.setVisible(false);
-
+		manageQuestions.setVisible(false);
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 		ManageOngoingExams.setVisible(false);
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
@@ -137,7 +143,7 @@ public class MainPageController {
 			private Point2D stageSize = null;
 			private Point2D previousStageSize = new Point2D(SceneController.primaryStage.getWidth(),
 					SceneController.primaryStage.getHeight());
-
+			
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
 				if (stageSize == null) {
@@ -158,10 +164,30 @@ public class MainPageController {
 						SceneController.primaryStage.getHeight());
 			}
 		};
+		/*tm = new Timer(1000, new ActionListener() {
 
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent arg0) {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						if(UserControl.getCanManage()==1) {
+							UserControl.setCanManage(0);
+							/*AnchorPane page = SceneController.getPage(PageProperties.Page.TEMP);
+							App_client.pageContainer.setCenter(page);
+							AnchorPane page = SceneController.getPage(PageProperties.Page.EDIT_QUESTION);
+							page_box.setCenter(page);
+						}
+							
+					}
+				});
+				
+			}
+		});
+		tm.start();*/
 		SceneController.primaryStage.widthProperty().addListener(listener);
 		SceneController.primaryStage.heightProperty().addListener(listener);
-
+		
 		if (UserControl.ConnectedUser instanceof Student) {
 			SceneController.primaryStage.setTitle("Cems: Student - home page");
 			takeExam.setVisible(true);
@@ -182,6 +208,7 @@ public class MainPageController {
 			createQuestion.setVisible(true);
 			editQuestion.setVisible(true);
 			verifyExam.setVisible(true);
+			manageQuestions.setVisible(true);
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 			ManageOngoingExams.setVisible(true);
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
@@ -221,6 +248,16 @@ public class MainPageController {
 	void button_history_of_exams_student_clicked(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.History_Of_Exams_Student);
 		page_box.setCenter(page);
+
+	}
+	@FXML
+	public void button_manage_questions_clicked(ActionEvent event) {
+		System.out.println("clicked");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_QUESTIONS);
+		// Pane screen = object.Sc();
+		page_box.setCenter(page);
+
+		// page_box.setCenter(page);
 
 	}
 

@@ -88,6 +88,15 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				App_client.seccess = null;
 
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEACHER_QUESTIONS) {
+			if(dataPacket.getData_parameters()!=null) {
+				QuestionControl.setQuestions((ArrayList<Question>)dataPacket.getData_parameters().get(0));
+				System.out.println("working 555");
+			}
+			else
+				System.out.println("not working 000");
+			
+		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
 			if (dataPacket.getResult_boolean()) {
@@ -146,7 +155,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			System.out.println("login insert to get question");
 			// System.out.println(dataPacket.getData_parameters().get(0));
 			if (dataPacket.getData_parameters() != null)
-				QuestionControl.setQuestions((ArrayList<Question>) dataPacket.getData_parameters().get(0));
+				QuestionControl.setSpesificQuestion((Question) dataPacket.getData_parameters().get(0));
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {

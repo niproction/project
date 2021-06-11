@@ -48,6 +48,8 @@ public class verifyExamController {
 	@FXML
 	public TableColumn<TableEntry, ?> colStatus;
 	@FXML
+	public TableColumn<TableEntry, ?> colCheating;
+	@FXML
 	public void initialize (){
 		sceen = new SceneController(PageProperties.Page.VERIFY_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
@@ -60,6 +62,7 @@ public class verifyExamController {
 		colGrade.setCellValueFactory(new PropertyValueFactory<>("col5"));
 		colGetCopy.setCellValueFactory(new PropertyValueFactory<>("col6"));
 		colStatus.setCellValueFactory(new PropertyValueFactory<>("col7"));
+		colCheating.setCellValueFactory(new PropertyValueFactory<>("col8"));
 		ArrayList<Object> parameters=new ArrayList<Object>();
 		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_FOR_VERIFY,
@@ -140,7 +143,7 @@ public class verifyExamController {
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
-				requests.add(new TableEntry(entry.getEiID(),entry.getuID() ,entry.getStartTime(),entry.getEndTime(), entry.getGrade(),getCopy,status));
+				requests.add(new TableEntry(entry.getEiID(),entry.getuID() ,entry.getStartTime(),entry.getEndTime(), entry.getGrade(),getCopy,status,entry.getIsCheating()));
 				
 			}
 	

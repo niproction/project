@@ -88,6 +88,10 @@ public class initTables {
 					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('t', '1111', 't@g.com', 'Aviv', 'Jibly', '', 'teacher', '02', 'NO')");
 			rs = stmt.executeUpdate(
 					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('p', '1111', 'p@g.com', 'Elon', 'Musk', '', 'principle', '03', 'NO')");
+			rs = stmt.executeUpdate(
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('s2', '1111', 'a@g.com', 'moshe', 'sss', '212345', 'student', '01','NO')");
+			rs = stmt.executeUpdate(
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('s3', '1111', 'z@g.com', 'haim', 'aaa', '222222', 'student', '03','NO')");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -208,32 +212,32 @@ public class initTables {
 			PreparedStatement statement = con.prepareStatement(myStatement);
 			statement.setString(1, "02001");
 			statement.setInt(2, 2);
-			statement.setString(3, "Is it true?");
-			statement.setString(4, "Yes");
-			statement.setString(5, "No");
-			statement.setString(6, "I don't know");
-			statement.setString(7, "Maybe");
-			statement.setString(8, "4");
+			statement.setString(3, "1+1?");
+			statement.setString(4, "1");
+			statement.setString(5, "2");
+			statement.setString(6, "3");
+			statement.setString(7, "4");
+			statement.setString(8, "2");
 			statement.executeUpdate();
 			PreparedStatement statement1 = con.prepareStatement(myStatement);
 			statement1.setString(1, "02002");
 			statement1.setInt(2, 2);
-			statement1.setString(3, "daniel is gever?");
-			statement1.setString(4, "no");
-			statement1.setString(5, "yes");
-			statement1.setString(6, "pipi");
-			statement1.setString(7, "khdg");
-			statement1.setString(8, "2");
+			statement1.setString(3, "2+2?");
+			statement1.setString(4, "1");
+			statement1.setString(5, "2");
+			statement1.setString(6, "3");
+			statement1.setString(7, "4");
+			statement1.setString(8, "4");
 			statement1.executeUpdate();
 			PreparedStatement statement2 = con.prepareStatement(myStatement);
 			statement2.setString(1, "02003");
 			statement2.setInt(2, 2);
-			statement2.setString(3, "daniel is gever?");
-			statement2.setString(4, "no");
-			statement2.setString(5, "yes");
-			statement2.setString(6, "pipi");
-			statement2.setString(7, "khdg");
-			statement2.setString(8, "2");
+			statement2.setString(3, "1+2?");
+			statement2.setString(4, "1");
+			statement2.setString(5, "2");
+			statement2.setString(6, "3");
+			statement2.setString(7, "4");
+			statement2.setString(8, "3");
 			statement2.executeUpdate();
 
 		} catch (SQLException e) {
@@ -294,32 +298,68 @@ public class initTables {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+		
+		try {
+
+			stmt = con.createStatement();
+			int rs = stmt.executeUpdate("INSERT INTO exams_initiated (eiID, eID,uID,password,initiatedDate,isFinished) VALUES ('1', '020110','2','1111','2021-06-11','started')");
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+
+		}
 	}
 
 	private void table_exams_done() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams_done (edID int(10) NOT NULL AUTO_INCREMENT,\n"
 				+ " eiID varchar(7) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(15) NOT NULL,\n"
-				+ " startTime varchar(15) NOT NULL,\n" + " endTime varchar(15) NOT NULL,  isApproved varchar(11) NOT NULL, grade int(3) NULL, PRIMARY KEY (edID));";
+				+ " startTime varchar(15) NOT NULL,\n" + " endTime varchar(15) NOT NULL,  isApproved varchar(11) NOT NULL, grade int(3) NULL,isCheating varchar(45) NOT NULL, PRIMARY KEY (edID));";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
 			stmt.execute(sql);
 			stmt = con.createStatement();
+			Statement stmt2 = con.createStatement();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+		}
+		try {
+
+			stmt = con.createStatement();
+			int rs = stmt.executeUpdate("INSERT INTO exams_done (edID, eiID, uID, duration,startTime,endTime,isApproved,grade,isCheating) VALUES ('1', '1','1','02:29:19','18:48:10','18:48:33','WAITING','100','NOT CHEATING')");
+			rs = stmt.executeUpdate("INSERT INTO exams_done (edID, eiID, uID, duration,startTime,endTime,isApproved,grade,isCheating) VALUES ('2', '1','4','02:26:51','18:49:27','18:51:01','WAITING','50','CHEATING')");
+			rs = stmt.executeUpdate("INSERT INTO exams_done (edID, eiID, uID, duration,startTime,endTime,isApproved,grade,isCheating) VALUES ('3', '1','5','02:25:30','18:52:12','18:52:22','WAITING','50','CHEATING')");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+
 		}
 	}
 
 	private void table_exam_questions_answer() {
 		String sql = "CREATE TABLE IF NOT EXISTS exam_questions_answer (\n" + " edID varchar(7) NOT NULL,\n"
-				+ " qID varchar(6) NOT NULL,\n" + " answer varchar(6) NOT NULL);";
+				+ " qID varchar(6) NOT NULL,\n" + " answer varchar(6) NOT NULL ,"+"isCorrect varchar(35) NOT NULL)";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
 			stmt.execute(sql);
 			stmt = con.createStatement();
 		} catch (SQLException e) {
+			System.out.println("dddddddd");
 			System.out.println(e.getMessage());
+		}
+		
+		try {
+
+			stmt = con.createStatement();
+			int rs = stmt.executeUpdate("INSERT INTO exam_questions_answer (edID, qID,answer,isCorrect) VALUES ('1', '02001','2','CORRECT')");
+			rs = stmt.executeUpdate("INSERT INTO exam_questions_answer (edID, qID, answer, isCorrect) VALUES ('1', '02002','4', 'CORRECT')");
+			rs = stmt.executeUpdate("INSERT INTO exam_questions_answer (edID, qID, answer, isCorrect) VALUES ('2', '02001','2','CORRECT')");
+			rs = stmt.executeUpdate("INSERT INTO exam_questions_answer (edID, qID, answer,isCorrect) VALUES ('2', '02002','3','INCORRECT')");
+			rs = stmt.executeUpdate("INSERT INTO exam_questions_answer (edID, qID, answer,isCorrect) VALUES ('3', '02001','2','CORRECT')");
+			rs = stmt.executeUpdate("INSERT INTO exam_questions_answer (edID, qID, answer,isCorrect) VALUES ('3', '02002','3','INCORRECT')");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+
 		}
 	}
 	

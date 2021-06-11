@@ -51,6 +51,27 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		TEMP {
+			@Override
+			String GET_Title() {
+				return "Login page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/temp.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 		MAIN_PAGE {
 			@Override
 			String GET_Title() {
@@ -93,6 +114,28 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
+		},
+		MANAGE_QUESTIONS {
+			@Override
+			String GET_Title() {
+				return "manage queetions page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/teacher/manageQuestionPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+
 		},
 
 		STATISTICAL_REPORTS_BY {
