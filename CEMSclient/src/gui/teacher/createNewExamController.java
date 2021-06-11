@@ -46,16 +46,26 @@ public class createNewExamController {
 	private Button addQuestionBtn;
 	@FXML
 	private Button submitBtn;
-	@FXML
-	private TextField pointsForQuestion;
+//	@FXML
+//	private TextField pointsForQuestion;
 	@FXML
 	private Label totalPointsLabel;
 	@FXML
-	private TextField duration;
+	private TextField nameOfExam;
+	@FXML
+	private ChoiceBox<String> minutesChoiceBox;
+	@FXML
+	private ChoiceBox<String> secondsChoiceBox;
+	@FXML
+	private ChoiceBox<String> hourChoiceBox;
+	@FXML
+	private ChoiceBox<String> pointsForQuestion;
 	@FXML
 	public void initialize() {
 		sceen=new SceneController(PageProperties.Page.CREATE_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
+		setupDuration();
+		setupPoints();
 		ArrayList<Object> parameters=new ArrayList<>();
 		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_FIELD_NAME, parameters, null, true);
@@ -79,6 +89,34 @@ public class createNewExamController {
 		questions.setItems(questionsList);
 	}
 	
+	private void setupPoints() {
+		ObservableList<String> pointLsist = FXCollections.observableArrayList();
+		for (int i = 1; i <= 100; i++) {
+			pointLsist.add(Integer.toString(i));
+		}
+		pointsForQuestion.setItems(pointLsist);
+	}
+
+	protected void setupDuration() {
+		ObservableList<String> hourList = FXCollections.observableArrayList();
+		ObservableList<String> minAndSecondList = FXCollections.observableArrayList();
+		
+
+		errLabel.setVisible(false);
+		for (int i = 0; i < 60; i++) {
+			minAndSecondList.add(Integer.toString(i));
+		}
+		for (int i = 0; i < 24; i++) {
+			hourList.add(Integer.toString(i));
+		}
+
+
+		hourChoiceBox.setItems(hourList);
+		minutesChoiceBox.setItems(minAndSecondList);
+		secondsChoiceBox.setItems(minAndSecondList);
+
+	}
+
 	public void handleOnAction(MouseEvent event) {
 		 if(event.getSource()==addQuestionBtn) {
 			 addQuestionToExam();
@@ -94,19 +132,23 @@ public class createNewExamController {
 	private void addQuestionToExam() {
 		ArrayList<Object> parameters=new ArrayList<>();
 		if(checkInvalidInputsForAddQuestion()==true)
+		{
 			return;
-		
+		}
 		errLabel.setVisible(false);
 		parameters.add(questions.getValue());
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION_BY_DESCRIPTION, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
-		exam.addQuestionAndPoints(ExamControl.questionID, pointsForQuestion.getText());
-		totalPoints+=Double.parseDouble(pointsForQuestion.getText());
+		System.out.println(ExamControl.questionID+"      "+pointsForQuestion.getValue());
+		exam.addQuestionAndPoints(ExamControl.questionID, pointsForQuestion.getValue());
+		System.out.println("frommm mapppp   "+exam.getPointsForQuestions(ExamControl.questionID));
+		totalPoints+=Double.parseDouble(pointsForQuestion.getValue());
+		System.out.println("total points:"+totalPoints);
 		totalPointsLabel.setText(String.valueOf(totalPoints));
-		pointsForQuestion.setText("");
 	}
 
 	private boolean checkInvalidInputsForAddQuestion() {
+
 		if(courses.getValue()==null)
 		{
 			System.out.println("no course");
@@ -121,41 +163,33 @@ public class createNewExamController {
 			errLabel.setVisible(true);
 			return true;
 		}
-		if(pointsForQuestion.getText().equals(""))//if the user didn't insert the amount of points in the text
+		if(pointsForQuestion.getValue()==null)//if the user didn't insert the amount of points in the text
 		{
 			System.out.println("no points");
 			errLabel.setText("*You must insert points for the question");
 			errLabel.setVisible(true);
 			return true;
 		}
-		double points=	Double.valueOf(pointsForQuestion.getText());
-		if(points>=100)
-		{
-			errLabel.setText("*You must insert less than 100 in points for the question");
-			errLabel.setVisible(true);
-			return true;
-		}
+		double points=	Double.valueOf(pointsForQuestion.getValue());
+
+
 		if(totalPoints+points>100)
 		{
 			errLabel.setText("*You exceed the 100 points for the exam");
 			errLabel.setVisible(true);
 			return true;
 		}
-		if(!isNumeric(pointsForQuestion.getText()))//if the user didn't insert the numbers to points
+		if(points>100)
 		{
-			System.out.println("invalid characters");
-			errLabel.setText("*You must enter only number to points! ");
+			errLabel.setText("*You must insert less than 100 in points for the question");
 			errLabel.setVisible(true);
 			return true;
 		}
+
+
 		return false;
 	}
 
-	protected boolean isNumeric(String text) {
-		ParsePosition pos=new ParsePosition(0);
-		NumberFormat.getInstance().parse(text,pos);
-		return text.length()==pos.getIndex();
-	}
 
 
 	private void sumbit() {
@@ -168,16 +202,36 @@ public class createNewExamController {
 		parameters.add(courses.getValue());
 		DataPacket dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
+		String duration="";
+		//bulding duration for the exam
+		if(hourChoiceBox.getValue()==null)
+			duration+="00:";
+		else {
+			duration+=hourChoiceBox.getValue()+":";
+		}
+		if(minutesChoiceBox.getValue()==null)
+			duration+="00:";
+		else {
+			duration+=minutesChoiceBox.getValue()+":";
+		}
+		if(secondsChoiceBox.getValue()==null)
+			duration+="00";
+		else {
+			duration+=secondsChoiceBox.getValue();
+		}
 		exam.setAuthorID(UserControl.ConnectedUser.getuID());
 		exam.setExamID(UserControl.ConnectedUser.getfid()+ExamControl.selectedCourseID);
-		exam.setDuration(duration.getText());
+		exam.setDuration(duration);
+		exam.setDescription(nameOfExam.getText());
 		exam.setStudentsComments(studentComments.getText());
 		exam.setTeacherComments(teacherComments.getText());
-		parameters.add(0, exam);
+		parameters.clear();
+		parameters.add(exam);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
 		exam.setExamID(ExamControl.examID);
-		parameters.add(0, exam);
+		parameters.clear();
+		parameters.add(exam);
 		dataPacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM_QUESTIONS, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
 		errLabel.setText("exam submited");
@@ -190,20 +244,28 @@ public class createNewExamController {
 			errLabel.setVisible(true);
 			return true;
 		}
+		if(nameOfExam.getText().equals(""))
+		{
+			System.out.println("empty name of the exam");
+			errLabel.setText("*You must enter name for the exam! ");
+			errLabel.setVisible(true);
+			return true;
+		}
 		if(!totalPointsLabel.getText().equals("100.0"))
 		{
 			errLabel.setText("*You must have exaclty 100 in the total points");
 			errLabel.setVisible(true);
 			return true;
 		}
-		if(duration.getText().equals(""))
-		{
+		if (hourChoiceBox.getValue()==null && minutesChoiceBox.getValue()==null  && secondsChoiceBox.getValue()==null) {
 			errLabel.setText("*You must enter duration to the exam");
 			errLabel.setVisible(true);
 			return true;
 		}
-		if(!isNumeric(duration.getText())) {
-			errLabel.setText("*You must enter only number to duration!");
+
+		if(nameOfExam.getText().equals(""))
+		{
+			errLabel.setText("*You must name for the exam");
 			errLabel.setVisible(true);
 			return true;
 		}

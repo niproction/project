@@ -87,6 +87,11 @@ public class ViewGradeController {
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_STUDENT_GRADES, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
 		parameters.clear();
+//		if(ViewGradesControl.emptyGrades==true)
+//		{
+//			ViewGradesControl.emptyGrades=false;
+//			return;
+//		}
 		for (int i = 0; i < ViewGradesControl.examsID.size(); i++) {
 			String courseID=ViewGradesControl.getExamID(i).substring(2, 4);
 			System.out.println(courseID);
@@ -105,8 +110,8 @@ public class ViewGradeController {
 				@Override
 				public void handle(ActionEvent event) {
 					System.out.println("^^^^ "+ViewGradesControl.getExamsInitID(0));
-//					AnchorPane page = SceneController.getPage(PageProperties.Page.GET_COPY_OF_EXAM);
-//					App_client.pageContainer.setCenter(page);
+					AnchorPane page = SceneController.getPage(PageProperties.Page.GET_COPY_OF_EXAM);
+					App_client.pageContainer.setCenter(page);
 				}
 			};
 			getCopyBtn.setOnAction(copyHandler);

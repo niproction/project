@@ -62,11 +62,13 @@ public class GetCopyOfExamController {
 					parameters, null, true);
 			ClientControl.getInstance().accept(dataPacket);
 		}
-//		if(dataPacket==null)
-//		{
-//			
-//		}
-		insertDataToTable();
+		if(GetCopyOfExamControl.emptyHistory==false)
+		{
+			insertDataToTable();
+		}
+		else {
+			
+		}
 
 	}
 

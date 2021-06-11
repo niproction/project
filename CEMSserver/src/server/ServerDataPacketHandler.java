@@ -1118,9 +1118,12 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				questionsDescription = getQuestiosnDescription(questionsID);
 
 			}
+			else {
+				return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_COPY_OF_EXAM, null, "", true);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_COPY_OF_EXAM, null, "", true);
 		}
 		ArrayList<Object> parameters = new ArrayList<>();
 		parameters.add(questionsDescription);
@@ -1250,11 +1253,17 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			ResultSet rs = statement.executeQuery("SELECT exams_initiated.eID,exams_done.grade,exams_initiated.eiID"
 					+ " from  exams_initiated  INNER JOIN exams_done ON exams_initiated.eiID=exams_done.eiID "
 					+ "WHERE (exams_done.uID='" + userID + "'); ");
-
+			int emptyRs=0;
 			while (rs.next()) {
+				emptyRs=1;
 				parameter.add(rs.getString(1));// eID
 				parameter.add(rs.getInt(2));// grade
 				parameter.add(rs.getInt(3));// eiID
+			}
+			if(emptyRs==0)
+			{
+				return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_STUDENT_GRADES, null, "", true);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1322,14 +1331,15 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				int count = rs.getInt(1);
 				System.out.println(count);
 				count++;
-				String myStatement = " INSERT INTO exams (eID,authorID, duration, teacherComments, studentComments) VALUES (?,?,?,?,?)";
+				String myStatement = " INSERT INTO exams (eID,authorID, description,duration, teacherComments, studentComments) VALUES (?,?,?,?,?,?)";
 				PreparedStatement statement = mysqlConnection.getInstance().getCon().prepareStatement(myStatement);
 				String idCounter = count < 10 ? "0" + count : count < 100 ? "00" + count : "" + count;
 				statement.setString(1, exam.getExamID() + idCounter);
 				statement.setInt(2, exam.getAuthorID());
-				statement.setString(3, exam.getDuration());
-				statement.setString(4, exam.getTeacherComments());
-				statement.setString(5, exam.getStudentsComments());
+				statement.setString(3, exam.getDescription());
+				statement.setString(4, exam.getDuration());
+				statement.setString(5, exam.getTeacherComments());
+				statement.setString(6, exam.getStudentsComments());
 				statement.executeUpdate();
 				ArrayList<Object> parameter = new ArrayList<Object>();
 				parameter.add(exam.getExamID() + idCounter);

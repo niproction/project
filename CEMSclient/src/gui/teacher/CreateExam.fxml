@@ -30,40 +30,79 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="pointsForQuestion" layoutX="732.0" layoutY="360.0" prefHeight="25.0" prefWidth="41.0" />
             <Text layoutX="46.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comments for teacher:" wrappingWidth="138.99999475479126">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
             <TextArea fx:id="teacherComments" layoutX="223.0" layoutY="158.0" prefHeight="81.0" prefWidth="412.0" />
-            <Text layoutX="57.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Field:" textAlignment="CENTER" wrappingWidth="117.0">
+            <Text layoutX="360.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Field:" textAlignment="CENTER" wrappingWidth="117.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Label fx:id="fieldNameLabel" layoutX="185.0" layoutY="97.0" text="Label" />
-            <Text layoutX="317.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Course:" textAlignment="CENTER" wrappingWidth="117.0">
+            <Label fx:id="fieldNameLabel" layoutX="462.0" layoutY="35.0" text="Label" />
+            <Text layoutX="60.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Course:" textAlignment="CENTER" wrappingWidth="117.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <ChoiceBox fx:id="courses" layoutX="434.0" layoutY="89.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="courses" layoutX="177.0" layoutY="89.0" prefWidth="150.0" />
             <Text layoutX="54.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="comments for students:" wrappingWidth="138.99999862909317">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
             <TextArea fx:id="studentComments" layoutX="223.0" layoutY="249.0" prefHeight="81.0" prefWidth="412.0" />
-            <Text layoutX="477.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:" />
-            <TextField fx:id="duration" layoutX="549.0" layoutY="505.0" prefHeight="27.0" prefWidth="49.0" />
-            <Label fx:id="errLabel" layoutX="598.0" layoutY="450.0" text="Label" />
+            <Text layoutX="437.0" layoutY="523.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:" />
+            <Label fx:id="errLabel" layoutX="567.0" layoutY="443.0" text="Label" />
             <Button fx:id="submitBtn" layoutX="713.0" layoutY="518.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="SUBMIT">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
             <ScrollBar layoutX="767.0" layoutY="143.0" orientation="VERTICAL" prefHeight="210.0" prefWidth="17.0" />
+            <Text layoutX="411.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of the exam:" textAlignment="CENTER" wrappingWidth="181.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="nameOfExam" layoutX="597.0" layoutY="89.0" />
+            <ChoiceBox fx:id="hourChoiceBox" layoutX="492.0" layoutY="505.0" prefHeight="27.0" prefWidth="49.0" />
+            <ChoiceBox fx:id="secondsChoiceBox" layoutX="635.0" layoutY="505.0" prefHeight="27.0" prefWidth="49.0" />
+            <ChoiceBox fx:id="minutesChoiceBox" layoutX="568.0" layoutY="505.0" prefHeight="27.0" prefWidth="49.0" />
+            <Text layoutX="227.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sum of points:" wrappingWidth="92.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Label fx:id="totalPointsLabel" layoutX="334.0" layoutY="508.0" text="Label" />
+            <Text layoutX="493.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="H" textAlignment="CENTER" wrappingWidth="47.13672637939453">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="567.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M" textAlignment="CENTER" wrappingWidth="49.34033051133156">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="636.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S" textAlignment="CENTER" wrappingWidth="47.13672637939453">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="541.0" layoutY="523.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="17.00000524520874">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="618.0" layoutY="523.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="17.00000524520874">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="pointsForQuestion" layoutX="724.0" layoutY="360.0" prefHeight="27.0" prefWidth="49.0" />
          </children>
       </AnchorPane>
       <Text layoutX="68.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exam Creation" wrappingWidth="257.083984375">
@@ -71,11 +110,5 @@
             <Font name="System Bold Italic" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="290.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sum of points:" wrappingWidth="92.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Label fx:id="totalPointsLabel" layoutX="397.0" layoutY="522.0" text="Label" />
    </children>
 </AnchorPane>
