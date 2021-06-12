@@ -11,8 +11,15 @@ public class ExamDone implements Serializable {
 	private String startTime;
 	private String endTime;
 	private String grade;
+	private String isCheating;
 	
 	
+	public String getIsCheating() {
+		return isCheating;
+	}
+	public void setIsCheating(String isCheating) {
+		this.isCheating = isCheating;
+	}
 	public String getEdID() {
 		return edID;
 	}

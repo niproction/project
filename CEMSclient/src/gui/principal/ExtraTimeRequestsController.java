@@ -12,6 +12,7 @@ import common.DataPacket;
 import common.ExtraTimeRequest;
 import control.ClientControl;
 import control.PrincipalControl;
+import control.UserControl;
 import gui.TableEntry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -100,7 +101,7 @@ public class ExtraTimeRequestsController {
 		ExtraTimeTable.setItems(getRequests());
 		ExtraTimeTable.getSortOrder().add(RequestTime);
 	}
-
+	ExtraTimeRequest entry=null;
 	public ObservableList<TableEntry> getRequests() {
 		ObservableList<TableEntry> requests = FXCollections.observableArrayList();
 		//LocalDate date = LocalDate.of(1995, 10, 28);
@@ -109,7 +110,10 @@ public class ExtraTimeRequestsController {
 
 		
 			System.out.println("Table rows= "+PrincipalControl.requests.size());
-			for (ExtraTimeRequest entry : PrincipalControl.requests) {
+			
+			for(int i=0;i<PrincipalControl.requests.size();i++) {
+				entry = PrincipalControl.requests.get(i);
+			//for (ExtraTimeRequest entry : PrincipalControl.requests) {
 				System.out.println(entry.getEiID());
 				// create a HBox
 				final HBox status =  new HBox();;
@@ -170,7 +174,7 @@ public class ExtraTimeRequestsController {
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
-				requests.add(new TableEntry(entry.getuID(),entry.getFieldName() ,entry.getCourseName(),entry.geteID(), null,entry.getExtraTime(),entry.getComment(),status,entry.getCourseName()));
+				requests.add(new TableEntry(UserControl.user.get(i).getFirstName() +" "+UserControl.user.get(i).getLastName(),entry.getFieldName() ,entry.getCourseName(),entry.geteID(), null,entry.getExtraTime(),entry.getComment(),status,entry.getCourseName()));
 				
 			}
 			

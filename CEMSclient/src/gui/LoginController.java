@@ -103,9 +103,9 @@ public class LoginController implements Initializable {
 				SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
 				sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 
-				SceneController.primaryStage.setMinWidth(840);
-				SceneController.primaryStage.setMinHeight(700);
+				
 			} else {
+				errorLable.setText(ClientControl.message_recived);
 				errorLable.setVisible(true);
 			}
 			System.out.println("Sdasddsda");

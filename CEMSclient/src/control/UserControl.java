@@ -2,6 +2,7 @@ package control;
 
 import java.util.ArrayList;
 
+import common.ExtraTimeRequest;
 import common.User;
 
 public class UserControl {
@@ -21,6 +22,17 @@ public class UserControl {
 	
 	
 	public static boolean RequestForExtraTimeSent;
+	
+	
+	
+	public static ArrayList<ExtraTimeRequest> requests;
+	public static int ifRequests;
+	public static int HowManyExamsNow;
+
+
+	
+	public static int ongoingExam;
+	
 	
 	public static String getCanOpenExam() {
 		return canOpenExam;

@@ -126,8 +126,6 @@ public class ManageOngoingExamsController {
 		Timer tm;
 		terminate_exam.setText("Terminate exam");
 
-		
-
 		status.autosize();
 		status.setAlignment(Pos.CENTER);
 
@@ -139,24 +137,20 @@ public class ManageOngoingExamsController {
 				true);
 		ClientControl.getInstance().accept(data);
 
-		
-		if(ExamControl.extraTimeRequest.equals("waiting"))
-		{
-			//time.setVisible(false);
+		if (ExamControl.extraTimeRequest.equals("waiting")) {
+			// time.setVisible(false);
 			label_message.setVisible(false);
-		}
-		else if (ExamControl.extraTimeRequest.equals("yes"))
-		{
-			
-		}
-		else if (ExamControl.extraTimeRequest.equals("no"))
-		{
-			time.setVisible(false);
+			label_message.setText("Extra time request waiting principal desition.");
+		} else if (ExamControl.extraTimeRequest.equals("yes")) {
+			label_message.setVisible(true);
+			label_message.setText("Extra time request been approved by principal.");
+		} else if (ExamControl.extraTimeRequest.equals("no")) {
+			// time.setVisible(false);
+			label_message.setVisible(true);
+			label_message.setText("Extra time request been dinaided by principal.");
+		} else
 			label_message.setVisible(false);
-		}
-		
-		
-		
+
 		// If there is an ongoing exam for the teacher
 		if (ManageOngoingExams.isOngoingExams != null && ManageOngoingExams.isOngoingExams == true) {
 			ap_request_extra_time_box.setVisible(true);
@@ -184,10 +178,10 @@ public class ManageOngoingExamsController {
 							}
 
 							timer = timerCountdown(timer);
-							
+
 							time.setText(timer);
-							//if(timer.equals("00:00:00"))
-							//	Thread.
+							// if(timer.equals("00:00:00"))
+							// Thread.
 						}
 					});
 				}
@@ -199,35 +193,30 @@ public class ManageOngoingExamsController {
 			System.out.println(leftTime);
 			String ongoingExam = "";
 
-			// Append strings of ongoing exam info
-			int i = 0;
-			/*
-			 * for (String str : ManageOngoingExams.OngoingExam) { if (i == 5) { break; }
-			 * if(i!=0) ongoingExam = ongoingExam + str + " "; i++; }
-			 */
+			
 
 			// Set text and style for exam info field
-			label_exam_info.setText("exam id : "+ExamControl.exam.getExamID()+ " description : "+ExamControl.exam.getDescription());
+			label_exam_info.setText("exam id : " + ExamControl.exam.getExamID() + " description : "
+					+ ExamControl.exam.getDescription());
 			label_exam_info.setStyle(("-fx-font-weight: bold;-fx-font-size: 12"));
 
 			// Event handler for exam termination
-			EventHandler<ActionEvent> terminateHandler = new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					// Set text and style for exam termination button
-					terminate_exam.setText("EXAM TERMINATED");
-					terminate_exam.setStyle(("-fx-text-fill: red;-fx-font-weight: bold"));
-
-					// UserControl.ConnectedUser.getuid()
-					// Send request to server to get ongoing exam for the teacher if there is one
-					DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM,
-							parameter, null, true);
-					ClientControl.getInstance().accept(data);
-				}
-			};
+			/*
+			 * EventHandler<ActionEvent> terminateHandler = new EventHandler<ActionEvent>()
+			 * {
+			 * 
+			 * @Override public void handle(ActionEvent event) { // Set text and style for
+			 * exam termination button //terminate_exam.setText("EXAM TERMINATED");
+			 * //terminate_exam.setStyle(("-fx-text-fill: red;-fx-font-weight: bold"));
+			 * 
+			 * // UserControl.ConnectedUser.getuid() // Send request to server to get
+			 * ongoing exam for the teacher if there is one DataPacket data = new
+			 * DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM,
+			 * parameter, null, true); ClientControl.getInstance().accept(data); } };
+			 */
 
 			// Set action handler
-			terminate_exam.setOnAction(terminateHandler);
+			// terminate_exam.setOnAction(terminateHandler);
 		}
 
 		// If there is no ongoing exam for the teacher
@@ -256,18 +245,22 @@ public class ManageOngoingExamsController {
 				parameters, null, true);
 		ClientControl.getInstance().accept(data);
 
-		
 		if (UserControl.RequestForExtraTimeSent) {
 			// hide here
 			ap_request_extra_time_box.setVisible(false);
 			label_message.setText("Request sent to principal and waiting for desition");
 			label_message.setVisible(true);
-		}
-		else
-		{
+		} else {
 			label_message.setText("Problem accured while tring to request extra time");
 			label_message.setVisible(true);
 		}
+	}
+
+	@FXML
+	void button_terminate_clicked(MouseEvent event) {
+		ArrayList<Object> parameter = new ArrayList<Object>();
+		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM, parameter, null, true);
+		ClientControl.getInstance().accept(data);
 	}
 
 	/// time2 - time1

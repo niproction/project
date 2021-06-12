@@ -22,6 +22,7 @@
             <TableColumn fx:id="colGrade" prefWidth="58.0" text="Grade" />
             <TableColumn fx:id="colGetCopy" prefWidth="83.0" text="Get Copy" />
             <TableColumn fx:id="colStatus" prefWidth="199.0" text="Status" />
+            <TableColumn fx:id="colCheating" prefWidth="199.0" text="Suspect Cheating" />
         </columns>
       </TableView>
    </children>

@@ -68,7 +68,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 			} else {
 				System.out.println("incorrect user");
-				// ClientControl.storedDataPacket = dataPacket;
+				ClientControl.message_recived = dataPacket.getMessage();
 			}
 		}
 
@@ -80,7 +80,13 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		////////////////////////////////////////////
 		// Students requests
 		////////////////////////////////////////////
-
+		else if (dataPacket.getRequest() == DataPacket.Request.CHECK_FOR_EXAM) {
+			if ((int) dataPacket.getData_parameters().get(0) == 1) {
+				UserControl.ongoingExam = 1;
+			} else {
+				UserControl.ongoingExam = 0;
+			}
+		}
 		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 			if (dataPacket.getData_parameters() != null) {
 				String seccess = (String) dataPacket.getData_parameters().get(0);
@@ -145,7 +151,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION) {
 			System.out.println("login insert to get question");
-			// System.out.println(dataPacket.getData_parameters().get(0));
+
 			if (dataPacket.getData_parameters() != null)
 				QuestionControl.setQuestions((ArrayList<Question>) dataPacket.getData_parameters().get(0));
 		}
@@ -224,52 +230,48 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			}
 		}
 
-		// rostik
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAMS_BY_TEACHER) {
 			System.out.println("dannnnny");
 			ExamControl.exams = (ArrayList<Exam>) dataPacket.getData_parameters().clone();
-		}
-		else if (dataPacket.getRequest() == DataPacket.Request.TEACHER_REQUEST_EXTRA_TIME) {
+		} else if (dataPacket.getRequest() == DataPacket.Request.TEACHER_REQUEST_EXTRA_TIME) {
 			System.out.println("request extra time delivered");
 			UserControl.RequestForExtraTimeSent = dataPacket.getResult_boolean();
 		}
 
-///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEACHER_QUESTIONS) {
+			if (dataPacket.getData_parameters() != null) {
+				QuestionControl.setQuestions((ArrayList<Question>) dataPacket.getData_parameters().get(0));
+				System.out.println("working 555");
+			} else
+				System.out.println("not working 000");
+
+		}
+
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_ONGOING_EXAM) {
 			ManageOngoingExams.isOngoingExams = dataPacket.getResult_boolean();
-			
-			
-			//ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
-			
-			
-			if (ManageOngoingExams.isOngoingExams) {
-				//System.out.println((String)dataPacket.getData_parameters().get(5));
-				//System.out.println((String)dataPacket.getData_parameters().get(6));
 
-				//ExamControl.examInitiatedTime=ExamInitiatedControl.getExamInitiated().getInitiatedDate().substring(11);
-				//ExamControl.ServerTime= (String)dataPacket.getData_parameters().get(0);
+			if (ManageOngoingExams.isOngoingExams) {
+
 				ExamInitiatedControl.setExamInitiated((examInitiated) dataPacket.getData_parameters().get(3));
-				ExamControl.exam = (Exam)dataPacket.getData_parameters().get(4);
-				ExamControl.ServerTime = (String)dataPacket.getData_parameters().get(0);
-				
-				if(dataPacket.getData_parameters().size() == 4)
-					ExamControl.extraTimeRequest = (String)dataPacket.getData_parameters().get(4);
-				
+				ExamControl.exam = (Exam) dataPacket.getData_parameters().get(4);
+				ExamControl.ServerTime = (String) dataPacket.getData_parameters().get(0);
+
+				if (dataPacket.getData_parameters().size() == 6)
+					ExamControl.extraTimeRequest = (String) dataPacket.getData_parameters().get(5);
+
 			}
 		}
 
-		
 		else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
 			ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
 		}
-///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 
 		//////////////////////////////
 		// Principal requests
 		/////////////////////////////////
-
-/////////////////////////////////////////////////// MAX////////////////////////////////////////M
-
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_IF_REQUEST) {
+			UserControl.ifRequests = (int) dataPacket.getData_parameters().get(0);
+		}
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_COURSE) {
 			CourseControl.courses = (ArrayList<Course>) dataPacket.getData_parameters().clone();
 		} else if (dataPacket.getRequest() == DataPacket.Request.CHECK_TOOK_EXAM) {
@@ -297,62 +299,42 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			ExamControl.examID = (String) dataPacket.getData_parameters().get(0);
 		}
 
-		///
-		// daniel
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXTRA_TIME_REQUESTS) {
-			PrincipalControl.requests = (ArrayList<ExtraTimeRequest>) dataPacket.getData_parameters().clone();
-		} else if (dataPacket.getRequest() == DataPacket.Request.EXTRA_TIME_DECISION) {
-
-		}
-
-		
-		
-		
-		
-		
-		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_TEACHERS) {
-			if(dataPacket.getData_parameters()!=null) {
-			UserControl.teachers=((ArrayList<User>) dataPacket.getData_parameters().clone()); 
-	
+			PrincipalControl.requests = new ArrayList<ExtraTimeRequest>();
+			UserControl.user = new ArrayList<User>();
+			for(int i=0;i<dataPacket.getData_parameters().size();i++)
+			{
+				if(i%2==0)
+					PrincipalControl.requests.add( (ExtraTimeRequest) dataPacket.getData_parameters().get(i));
+				else
+					UserControl.user.add((User) dataPacket.getData_parameters().get(i));
 			}
+			//PrincipalControl.requests = (ArrayList<ExtraTimeRequest>) dataPacket.getData_parameters().clone();
+		} else if (dataPacket.getRequest() == DataPacket.Request.EXTRA_TIME_DECISION) {
+			System.out.println("Decision acsepted");
 		}
-		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_STUDENTS) {
+
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_TEACHERS) {
+			if (dataPacket.getData_parameters() != null) {
+				UserControl.teachers = ((ArrayList<User>) dataPacket.getData_parameters().clone());
+
+			}
+		} else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_STUDENTS) {
 			UserControl.students = (ArrayList<User>) dataPacket.getData_parameters().clone();
-		}
-		else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_COURSES) {
+		} else if (dataPacket.getRequest() == DataPacket.Request.GET_ALL_COURSES) {
 			CourseControl.courses = (ArrayList<Course>) dataPacket.getData_parameters().clone();
 		}
-	
-		
+
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEACHER_GRADES) {
 			HistogramControl.examOfTeacher = (ArrayList<HistogramInfo>) dataPacket.getData_parameters().clone();
-		}
-		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES_AND_COURSE) {
+		} else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES_AND_COURSE) {
 			HistogramControl.examOfStudent = (ArrayList<HistogramInfo>) dataPacket.getData_parameters().clone();
-		}
-		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_GRADES) {
+		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_GRADES) {
 			HistogramControl.CourseExamGradeList = (ArrayList<HistogramInfo>) dataPacket.getData_parameters().clone();
-			HistogramControl.examOfTeacher=new ArrayList<HistogramInfo>();
+			HistogramControl.examOfTeacher = new ArrayList<HistogramInfo>();
 
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		///////////////////////////////////////////////////////////////////////////////
 		// generate the list to return to the dataPackets
 		ArrayList<Object> ToBeReturened = new ArrayList<Object>();

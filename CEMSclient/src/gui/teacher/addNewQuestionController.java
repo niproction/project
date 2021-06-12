@@ -94,6 +94,8 @@ public class addNewQuestionController {
 			answerErrorLbl.setVisible(false);
 			seccessLabel.setVisible(false);
 			save();
+			AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_QUESTIONS);
+			App_client.pageContainer.setCenter(page);
 		}
 		if(event.getSource()==clearBtn) {
 			seccessLabel.setVisible(false);

@@ -340,6 +340,28 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		MANAGE_QUESTIONS {
+			@Override
+			String GET_Title() {
+				return "manage queetions page";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/teacher/ManageQuestionPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+
+		},
 
 		/////////////////////////////////// teacher barak start
 		CHOSSE_EXAM_TYPE {

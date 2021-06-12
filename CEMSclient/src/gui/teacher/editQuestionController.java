@@ -30,8 +30,7 @@ public class editQuestionController {
 	// field=FXCollections.observableArrayList("Chemistry","Art","Mathematics","Physics");
 	@FXML // fx:id="ap"
 	private AnchorPane ap;
-	@FXML
-	private Button backHomebtn;
+	
 
 	@FXML
 	private TextArea questionInfotxt;
@@ -69,12 +68,12 @@ public class editQuestionController {
 	private Button questionIDBtn;
 	@FXML
 	private Label questionLabel;
-	private boolean canUpdate = false;  
+	private boolean canUpdate = false;
 	@FXML
-	private ChoiceBox<String> questionsIDBox=new ChoiceBox<>();
-	private ArrayList<Question> questionList;
-	Question question;
- 
+	private ChoiceBox<String> questionsIDBox = new ChoiceBox<>();
+	private Question question;
+	
+
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() {
 		// assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file
@@ -83,60 +82,44 @@ public class editQuestionController {
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		ArrayList<Object> parameters = new ArrayList<>();
 		parameters.add(UserControl.ConnectedUser);
-		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION,
-				parameters, null, true);
+		parameters.add(QuestionControl.getSpesificQuestion());
+		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION, parameters,
+				null, true);
 		System.out.println("trying to get the question");
 		ClientControl.getInstance().accept(dataPacket);
-		if( QuestionControl.getQuestions()!=null) {
-			System.out.println("got all the questions");
-			questionList=QuestionControl.getQuestions();
-			QuestionControl.setQuestions(null);
+		if (QuestionControl.getSpesificQuestion() != null) {
+			System.out.println("got the question");
+			question = QuestionControl.getSpesificQuestion();
+			QuestionControl.setSpesificQuestion(null);
+			System.out.println("got the question--"+question.getqID());
 		}
-		ObservableList<String> questions=FXCollections.observableArrayList();
-		for( Question i:questionList) 
-			questions.add(i.getqID());
-		questionsIDBox.setItems(questions);
-		questionsIDBox.setOnAction((event) -> {
-		    int selectedIndex = questionsIDBox.getSelectionModel().getSelectedIndex();
-		    Object selectedItem = questionsIDBox.getSelectionModel().getSelectedItem();
+		questionInfotxt.setText(question.getInfo());
+		option1txt.setText(question.getOption1());
+		option2txt.setText(question.getOption2());
+		option3txt.setText(question.getOption3());
+		option4txt.setText(question.getOption4());
+		canUpdate = true;
 
-		    System.out.println("Selection made: [" + selectedIndex + "] " + selectedItem);
-		    System.out.println("   ChoiceBox.getValue(): " + questionsIDBox.getValue());
-		    questionInfotxt.setText(questionList.get(selectedIndex).getInfo());
-			option1txt.setText(questionList.get(selectedIndex).getOption1());
-			option2txt.setText(questionList.get(selectedIndex).getOption2());
-			option3txt.setText(questionList.get(selectedIndex).getOption3());
-			option4txt.setText(questionList.get(selectedIndex).getOption4());
-			canUpdate=true;
-			question =questionList.get(selectedIndex);
-		});
-		
 		answerErrorLbl.setVisible(false);
 		seccessLabel.setVisible(false);
 		// fieldBox.setValue("Mathematics");
 		// fieldBox.setItems(field);
-		
+
 	}
 
 	public void handleOnAction(MouseEvent event) {
 		answerErrorLbl.setVisible(false);
 		seccessLabel.setVisible(false);
-		if (event.getSource() == backHomebtn) {
-			// SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
-
-			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
-		}
 		if (event.getSource() == saveBtn) {
 			if (canUpdate) {
 				answerErrorLbl.setVisible(false);
 				seccessLabel.setVisible(false);
 				save();
-				question=null;
-				//App_client.Question=null;
-				canUpdate=false;
-				
-			}
-			else {
+				question = null;
+				// App_client.Question=null;
+				canUpdate = false;
+
+			} else {
 				answerErrorLbl.setText("You must choose question first");
 				answerErrorLbl.setVisible(true);
 				seccessLabel.setVisible(false);
@@ -147,7 +130,6 @@ public class editQuestionController {
 			seccessLabel.setVisible(false);
 			clear();
 		}
-		
 
 	}
 
@@ -173,7 +155,6 @@ public class editQuestionController {
 			return;
 		}
 
-		
 		question.setInfo(questionInfotxt.getText());
 		question.setOption1(option1txt.getText().toString());
 		question.setOption2(option2txt.getText().toString());
@@ -188,9 +169,9 @@ public class editQuestionController {
 		seccessLabel.setVisible(true);
 		clear();
 		ClientControl.getInstance().accept(dataPacket);
-
+		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_QUESTIONS);
+		App_client.pageContainer.setCenter(page);
 	}
-	
 
 	@FXML
 	void set_correct_answer_1(MouseEvent event) {

@@ -1,30 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="anchor" maxHeight="646.0" maxWidth="840.0" minHeight="646.0" minWidth="840.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.student.StudentHomePageController">
    <children>
-      <Text fill="#7e4669" layoutX="288.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student screen" underline="true" wrappingWidth="263.13671875">
+      <Button fx:id="approve" layoutX="447.0" layoutY="258.0" mnemonicParsing="false" onAction="#reqHandles" prefHeight="25.0" prefWidth="155.0" text="take me to requests" visible="false" />
+      <Text fx:id="txtGood" fill="#73255a" layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good" wrappingWidth="100.66666666666652">
          <font>
-            <Font name="System Bold" size="37.0" />
+            <Font name="System Bold Italic" size="35.0" />
          </font>
       </Text>
-      <Button layoutX="340.0" layoutY="235.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="159.0" text="Take exam">
+      <Text fx:id="txtTime" fill="#73255a" layoutX="116.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" wrappingWidth="224.0000101725259">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold Italic" size="35.0" />
          </font>
-      </Button>
-      <TextField layoutX="346.0" layoutY="153.0" prefHeight="46.0" prefWidth="149.0" promptText="Exam Password" />
-      <ImageView fitHeight="110.0" fitWidth="138.0" layoutX="713.0" layoutY="522.0" pickOnBounds="true" preserveRatio="true">
+      </Text>
+      <Label fx:id="timedate" layoutX="14.0" layoutY="5.0" prefHeight="17.0" prefWidth="155.0" textFill="#73255a" />
+      <ImageView fx:id="sunset" fitHeight="78.0" fitWidth="81.0" layoutX="268.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../img/logo.png" />
+            <Image url="@../../img/icon_evening.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="sunrise" fitHeight="78.0" fitWidth="81.0" layoutX="278.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../img/icon_morning.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="moon" fitHeight="78.0" fitWidth="81.0" layoutX="278.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../img/icon_night.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="sun" fitHeight="78.0" fitWidth="81.0" layoutX="278.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../img/icon_afternoon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="curtime" layoutX="122.0" layoutY="5.0" prefHeight="17.0" prefWidth="155.0" textFill="#73255a" />
+      <Text fx:id="txtGood1" fill="#73255a" layoutX="10.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notifications" wrappingWidth="224.00001017252595">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Text>
+      <Line endX="684.0" endY="1.52587890625E-5" layoutX="116.0" layoutY="200.0" startX="-116.0" startY="1.52587890625E-5" />
+      <ImageView fx:id="picBell" fitHeight="51.0" fitWidth="72.0" layoutX="232.0" layoutY="144.0">
+         <image>
+            <Image url="@../../img/notifications_icon.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="ongoingNoti" fill="#73255a" layoutX="14.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have an ongoing exams ">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="takeBtn" layoutX="281.0" layoutY="227.0" mnemonicParsing="false" text="Take me to the exam" />
    </children>
 </AnchorPane>

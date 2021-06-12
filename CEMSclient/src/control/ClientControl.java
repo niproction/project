@@ -24,7 +24,7 @@ public class ClientControl implements ChatIF {
 	private static CEMSClient client = null;
 
 	public static boolean awaitResponse;
-	// public static DataPacket storedDataPacket;
+	public static String message_recived;
 
 	private static ClientControl clientChat = null;
 	// chat = new ClientController("localhost", 5555);
