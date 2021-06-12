@@ -15,6 +15,8 @@ public class HistogramControl {
 	public static ArrayList<HistogramInfo> examOfTeacher;
 	public static ArrayList<HistogramInfo> examOfStudent;
 	public static ArrayList<HistogramInfo> CourseExamGradeList;
+	
+	/** The Avgexam of teacher. */
 	public static ArrayList<HistogramInfo> AvgexamOfTeacher;
 
 	public HistogramControl() {

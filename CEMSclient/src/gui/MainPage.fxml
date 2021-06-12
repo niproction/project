@@ -54,10 +54,9 @@
                               <MenuItem fx:id="startExam" mnemonicParsing="false" onAction="#button_start_exam" text="Start exam" />
                               <MenuItem fx:id="ManageOngoingExams" mnemonicParsing="false" onAction="#manage_ongoing_exam" text="Manage ongoing exams" />
                               <MenuItem fx:id="verifyExam" mnemonicParsing="false" onAction="#button_verify_exam_clicked" text="Verify exam" />
-                              <MenuItem fx:id="displayStatisticalReportTeacher" mnemonicParsing="false" onAction="#buttton_statistical_report" text="Display statistical report" />
+                              <MenuItem fx:id="displayStatisticalReportTeacher" mnemonicParsing="false" onAction="#buttton_statistical_teacher_report" text="Display statistical report" />
                               <MenuItem fx:id="takeExam" mnemonicParsing="false" onAction="#button_take_exam_clicked" text="Take exam" />
                               <MenuItem fx:id="historyOfExams" mnemonicParsing="false" onAction="#button_history_of_exams_student_clicked" text="View history of exams" />
-                   
                           </items>
                         </MenuButton>
                      </children>

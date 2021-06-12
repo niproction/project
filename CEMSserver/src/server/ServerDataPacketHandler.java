@@ -1218,27 +1218,31 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_TEACHER_GRADES) {
 			Statement statement;
 			Statement statement1;
+			Statement statement2;
 
-			ResultSet rs1, rs;
+
+			ResultSet rs1, rs,rs2;
 			@SuppressWarnings("unchecked")
 			ArrayList<User> teacher = (ArrayList<User>) dataPacket.getData_parameters().get(0);
 			try {
 				System.out.println("the userID" + teacher.get(0).getuID());
 				statement = mysqlConnection.getInstance().getCon().createStatement();
 				statement1 = mysqlConnection.getInstance().getCon().createStatement();
-				rs = statement.executeQuery(
-						"SELECT eID,eiID FROM exams_initiated WHERE (uID='" + teacher.get(0).getuID() + "');");
+				rs = statement.executeQuery(						
+				"SELECT exam_initiated.eiID ,exams.eID FROM exams INNER JOIN exam_initiated ON exams.eID=exam_initiated.eID WHERE exams.authorID='" 
+				+ teacher.get(0).getuID() + "');" );
 				System.out.println("data collected sucssefully");
 				ArrayList<Object> params = new ArrayList<Object>();
+				//if()
 
 				while (rs.next()) {
-					System.out.println(rs.getString(2) + "im in whileee");
-					rs1 = statement1.executeQuery(
-							"SELECT grade \n" + " FROM exams_done WHERE (eiID='" + rs.getString(2) + "');");
+					System.out.println(rs.getString(1) + "im in whileee");
+					rs1 = statement1.executeQuery("SELECT grade FROM exams_done WHERE (eiID='" + rs.getString(1) + "');");
+					
 					ArrayList<Double> grades = new ArrayList<Double>();
 					boolean flag = false;
 
-					System.out.println(rs.getString(2) + "im in second whileee");
+					System.out.println(rs.getString(1) + "im in second whileee");
 
 					while (rs1.next()) {
 						flag = true;
@@ -1246,7 +1250,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					}
 
 					if (flag) {
-						params.add(new HistogramInfo(grades, rs.getString(1)));
+						params.add(new HistogramInfo(grades, rs.getString(2)));
 					}
 				}
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_TEACHER_GRADES,

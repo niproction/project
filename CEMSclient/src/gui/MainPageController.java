@@ -174,7 +174,7 @@ public class MainPageController {
 			createExam.setVisible(true);
 
 			displayStatisticalReportTeacher.setVisible(true);
-
+			
 			verifyExam.setVisible(true);
 			manageQuestions.setVisible(true);
 			ManageOngoingExams.setVisible(true);
@@ -281,13 +281,6 @@ public class MainPageController {
 		// SceneController.primaryStage.setMinHeight(700);
 	}
 
-	@FXML
-	void button_statisticalreportby(ActionEvent event) {
-		System.out.println("clicked");
-		//AnchorPane page = SceneController.getPage(PageProperties.Page.STATISTICAL_REPORTS_BY);
-		//page_box.setCenter(page);
-
-	}
 
 	@FXML
 	void button_information(ActionEvent event) {
@@ -301,7 +294,12 @@ public class MainPageController {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.EXTRA_TIME_REQUESTS);
 		page_box.setCenter(page);
 	}
+	@FXML
+	void buttton_statistical_teacher_report(ActionEvent event) {
+		AnchorPane page = SceneController.getPage(PageProperties.Page.HISTOGRAM);
+		page_box.setCenter(page);
 
+	}
 	@FXML
 	void button_start_exam(ActionEvent event) {
 		//System.out.println("clicked_startExam");
