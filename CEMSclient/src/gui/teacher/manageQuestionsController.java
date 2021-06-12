@@ -97,7 +97,7 @@ public class manageQuestionsController {
 
 			// final Button getcopy=new Button();
 			Button editQuestionBtn = new Button("Edit");
-
+			
 			// getcopy.setAlignment(Pos.CENTER);
 			// setAlignment
 			editQuestionBtn.setAlignment(Pos.CENTER);

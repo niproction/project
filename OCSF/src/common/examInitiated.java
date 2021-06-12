@@ -9,9 +9,15 @@ public class examInitiated implements Serializable {
 	private int uID;
 	private String password;
 	private String initiatedDate;
+	private String studentsComments;
 	
 	
-	
+	public String getStudentsComments() {
+		return studentsComments;
+	}
+	public void setStudentsComments(String studentsComments) {
+		this.studentsComments = studentsComments;
+	}
 	public int getEiID() {
 		return eiID;
 	}

@@ -89,12 +89,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 		}
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEACHER_QUESTIONS) {
-			if(dataPacket.getData_parameters()!=null) {
-				QuestionControl.setQuestions((ArrayList<Question>)dataPacket.getData_parameters().get(0));
-				System.out.println("working 555");
-			}
-			else
-				System.out.println("not working 000");
+			get_teacher_questions(dataPacket);
 			
 		}
 
@@ -304,6 +299,15 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		return new DataPacket[] { Responce_dataPacket, null };
+	}
+
+	public void get_teacher_questions(DataPacket dataPacket) {
+		if(dataPacket.getData_parameters()!=null) {
+			QuestionControl.setQuestions((ArrayList<Question>)dataPacket.getData_parameters().get(0));
+			System.out.println("working 555");
+		}
+		else
+			System.out.println("not working 000");
 	}
 
 	public DataPacket GET_responce_DataPacket() {

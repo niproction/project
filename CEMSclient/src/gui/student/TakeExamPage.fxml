@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.student.TakeExamController">
+<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.student.TakeExamController">
    <children>
       <Label layoutX="677.0" layoutY="40.0" text="Questions" underline="true">
          <font>
@@ -43,5 +43,21 @@
       <Label fx:id="label_timer" layoutX="746.0" layoutY="139.0" text="[Timer]" />
       <Label fx:id="label_questions" layoutX="677.0" layoutY="66.0" text="Current / Total" />
       <Label fx:id="label_questions_amunt" layoutX="692.0" layoutY="83.0" text="[amount]" />
+      <Button fx:id="continueExamBtn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="676.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#handleAction" prefHeight="25.0" prefWidth="112.0" text="Continue Exam" />
+      <Button fx:id="getGuidelinesBtn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="676.0" layoutY="181.0" mnemonicParsing="false" onMouseClicked="#handleAction" prefHeight="25.0" prefWidth="112.0" text="Show guide lines" />
+      <Label fx:id="commentsLbl" layoutX="300.0" layoutY="59.0" text="Comments">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="GuidelinesTxt" layoutX="20.0" layoutY="115.0" prefHeight="486.0" prefWidth="642.0">
+         <children>
+            <Label fx:id="commentsTxt" alignment="TOP_LEFT" prefHeight="486.0" prefWidth="642.0" text="rereer">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

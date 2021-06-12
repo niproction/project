@@ -299,7 +299,7 @@ public class initTables {
 			System.out.println(e.getMessage());
 		}
 		
-		try {
+		/*try {
 
 			stmt = con.createStatement();
 			int rs = stmt.executeUpdate("INSERT INTO exams_initiated (eiID, eID,uID,password,initiatedDate,isFinished) VALUES ('1', '020110','2','1111','2021-06-11','started')");
@@ -307,7 +307,7 @@ public class initTables {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 
-		}
+		}*/
 	}
 
 	private void table_exams_done() {
@@ -323,7 +323,7 @@ public class initTables {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		try {
+		/*try {
 
 			stmt = con.createStatement();
 			int rs = stmt.executeUpdate("INSERT INTO exams_done (edID, eiID, uID, duration,startTime,endTime,isApproved,grade,isCheating) VALUES ('1', '1','1','02:29:19','18:48:10','18:48:33','WAITING','100','NOT CHEATING')");
@@ -332,7 +332,7 @@ public class initTables {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 
-		}
+		}*/
 	}
 
 	private void table_exam_questions_answer() {
@@ -348,7 +348,7 @@ public class initTables {
 			System.out.println(e.getMessage());
 		}
 		
-		try {
+		/*try {
 
 			stmt = con.createStatement();
 			int rs = stmt.executeUpdate("INSERT INTO exam_questions_answer (edID, qID,answer,isCorrect) VALUES ('1', '02001','2','CORRECT')");
@@ -360,7 +360,7 @@ public class initTables {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 
-		}
+		}*/
 	}
 	
 	

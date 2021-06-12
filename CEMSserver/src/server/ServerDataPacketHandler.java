@@ -280,6 +280,20 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				}
 
 				exam2.setQuestions(questionsfortest);
+				try {
+					stmt = mysqlConnection.getInstance().getCon().createStatement();
+
+					ResultSet rs2 = stmt.executeQuery(
+							"SELECT studentComments from exams WHERE eID='" + exam.geteID() + "'");
+					System.out.println("select initiated exam");
+
+					if (rs2.next()) {
+						exam2.setStudentsComments(rs2.getString(1));
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("error getting students comments");
+				}
 
 				ArrayList<Object> parameter = new ArrayList<Object>();
 				parameter.add(exam2);

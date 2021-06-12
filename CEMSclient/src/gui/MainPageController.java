@@ -87,13 +87,7 @@ public class MainPageController {
 	@FXML
 	private MenuItem createExam;
 	@FXML
-	private MenuItem setAxem;
-	@FXML
 	private MenuItem displayStatisticalReportTeacher;
-	@FXML
-	private MenuItem createQuestion;
-	@FXML
-	private MenuItem editQuestion;
 	@FXML
 	private MenuItem takeExam;
 	@FXML
@@ -123,10 +117,7 @@ public class MainPageController {
 		checkRequest.setVisible(false);
 		information.setVisible(false);
 		createExam.setVisible(false);
-		setAxem.setVisible(false);
 		displayStatisticalReportTeacher.setVisible(false);
-		createQuestion.setVisible(false);
-		editQuestion.setVisible(false);
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
 		verifyExam.setVisible(false);
@@ -203,10 +194,7 @@ public class MainPageController {
 		} else if (UserControl.ConnectedUser instanceof Teacher) {
 			SceneController.primaryStage.setTitle("Cems: Teacher - home page");
 			createExam.setVisible(true);
-			setAxem.setVisible(true);
 			displayStatisticalReportTeacher.setVisible(true);
-			createQuestion.setVisible(true);
-			editQuestion.setVisible(true);
 			verifyExam.setVisible(true);
 			manageQuestions.setVisible(true);
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
@@ -272,7 +260,7 @@ public class MainPageController {
 
 	}
 
-	@FXML
+	/*@FXML
 	void button_add_new_question_clicked(ActionEvent event) {
 		System.out.println("clicked");
 		AnchorPane page = SceneController.getPage(PageProperties.Page.ADD_NEW_QUESTION);
@@ -281,9 +269,9 @@ public class MainPageController {
 
 		// page_box.setCenter(page);
 
-	}
+	}*/
 
-	@FXML
+	/*@FXML
 	void button_edit_question_clicked(ActionEvent event) {
 		System.out.println("clicked");
 		AnchorPane page = SceneController.getPage(PageProperties.Page.EDIT_QUESTION);
@@ -291,7 +279,7 @@ public class MainPageController {
 		page_box.setCenter(page);
 
 		// page_box.setCenter(page);
-	}
+	}*/
 
 	@FXML
 	public void button_verify_exam_clicked(ActionEvent event) {

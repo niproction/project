@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
+import com.sun.javafx.scene.control.skin.ToggleButtonSkin;
+
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
@@ -32,6 +34,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -83,7 +86,17 @@ public class TakeExamController {
 
 	@FXML // fx:id="label_questions_amunt"
 	private Label label_questions_amunt; // Value injected by FXMLLoader
-
+	//////////////////////////////////////
+	@FXML
+	private Button getGuidelinesBtn;
+	@FXML
+	private AnchorPane GuidelinesTxt;
+	@FXML
+	private Button continueExamBtn;
+	@FXML
+	private Label commentsLbl;
+	@FXML
+	private Label commentsTxt;
 	ArrayList<Question> testQuestions;
 	String answers[];
 	List<String> answerList;
@@ -132,7 +145,9 @@ public class TakeExamController {
 		// animate page on load
 		sceen = new SceneController(PageProperties.Page.TAKE_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
-
+		GuidelinesTxt.setVisible(false);
+		continueExamBtn.setVisible(false);
+		commentsLbl.setVisible(false);
 		System.out.println("take exam page loaded");
 
 		examInitiated = ExamInitiatedControl.getExamInitiated();
@@ -143,12 +158,11 @@ public class TakeExamController {
 		
 		System.out.println(initiated_time);
 		ExamInitiatedControl.setExamInitiated(null);
-
 		ArrayList<Object> parameters = new ArrayList<>();
 		parameters.add(examInitiated);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_TEST_QUESTIONS,
 				parameters, null, true);
-
+		
 		System.out.println("trying to send exam");
 
 		ClientControl.getInstance().accept(dataPacket);
@@ -211,7 +225,7 @@ public class TakeExamController {
 			System.out.println("exam is not null");
 			exam = ExamControl.getExam();
 			ExamControl.setExam(null);
-
+			commentsTxt.setText(exam.getStudentsComments());
 			testQuestions = exam.getQuestions();
 			answers = new String[testQuestions.size()];
 			System.out.println("size :" + testQuestions.size());
@@ -381,6 +395,28 @@ public class TakeExamController {
 			answers[index] = option1.isSelected() ? "1" : option2.isSelected() ? "2" : option3.isSelected() ? "3" : "4";
 			submit();
 		}
+		if(event.getSource()==getGuidelinesBtn) {
+			label_question.setVisible(false);
+			option1.setVisible(false);
+			option2.setVisible(false);
+			option3.setVisible(false);
+			option4.setVisible(false);
+			GuidelinesTxt.setVisible(true);
+			continueExamBtn.setVisible(true);
+			getGuidelinesBtn.setDisable(true);
+			commentsLbl.setVisible(true);
+		}
+		if(event.getSource()==continueExamBtn) {
+			label_question.setVisible(true);
+			option1.setVisible(true);
+			option2.setVisible(true);
+			option3.setVisible(true);
+			option4.setVisible(true);
+			GuidelinesTxt.setVisible(false);
+			continueExamBtn.setVisible(false);
+			getGuidelinesBtn.setDisable(false);
+			commentsLbl.setVisible(false);
+		}
 
 	}
 
@@ -401,7 +437,7 @@ public class TakeExamController {
 		back.setVisible(false);
 		submitBtn.setVisible(false);
 		testSubmited.setVisible(true);
-
+		getGuidelinesBtn.setVisible(false);
 		System.out.println(answerList);
 
 		tm.stop(); // stop the timer

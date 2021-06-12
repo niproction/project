@@ -166,6 +166,10 @@ public class addNewQuestionController {
     	answerErrorLbl.setVisible(false);
     	seccessLabel.setVisible(false);
     	answer1.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
+    	answer2.setStyle("");
+    	answer3.setStyle("");
+    	answer4.setStyle("");
+    	////////////////////////
     	answer2.getStyleClass().add("option");
     	answer3.getStyleClass().add("option");
     	answer4.getStyleClass().add("option");
@@ -179,11 +183,11 @@ public class addNewQuestionController {
     	answerErrorLbl.setVisible(false);
     	seccessLabel.setVisible(false);
     	answer2.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
-    	answer1.getStyleClass().clear();
+    	answer1.setStyle("");
+    	answer3.setStyle("");
+    	answer4.setStyle("");
     	answer1.getStyleClass().add("option");
-    	answer3.getStyleClass().clear();
     	answer3.getStyleClass().add("option");
-    	answer4.getStyleClass().clear();
     	answer4.getStyleClass().add("option");
     	question.setAnswer("2");
 
@@ -194,11 +198,11 @@ public class addNewQuestionController {
     	answerErrorLbl.setVisible(false);
     	seccessLabel.setVisible(false);
     	answer3.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
-    	answer1.getStyleClass().clear();
+    	answer1.setStyle("");
+    	answer2.setStyle("");
+    	answer4.setStyle("");
     	answer1.getStyleClass().add("option");
-    	answer2.getStyleClass().clear();
     	answer2.getStyleClass().add("option");
-    	answer4.getStyleClass().clear();
     	answer4.getStyleClass().add("option");
     	question.setAnswer("3");
     	
@@ -209,11 +213,11 @@ public class addNewQuestionController {
     	answerErrorLbl.setVisible(false);
     	seccessLabel.setVisible(false);
     	answer4.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
-    	answer1.getStyleClass().clear();
+    	answer1.setStyle("");
+    	answer2.setStyle("");
+    	answer3.setStyle("");
     	answer1.getStyleClass().add("option");
-    	answer2.getStyleClass().clear();
     	answer2.getStyleClass().add("option");
-    	answer3.getStyleClass().clear();
     	answer3.getStyleClass().add("option");
     	question.setAnswer("4");
     
