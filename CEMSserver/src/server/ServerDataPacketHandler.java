@@ -63,25 +63,23 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					&& dataPacket.getData_parameters().get(1) instanceof String) {
 				Statement stmt;
 				try {
-					boolean userExists = false, emailExists=false;
+					boolean userExists = false, emailExists = false;
 					stmt = mysqlConnection.getInstance().getCon().createStatement();
-					ResultSet rs_user_check = stmt.executeQuery(
-							"SELECT * from users WHERE username='" + (String) (dataPacket.getData_parameters().get(0))+"'");
-					if(rs_user_check.next())
-						userExists=true;
-						
-					ResultSet rs_email_check = stmt.executeQuery(
-							"SELECT * from users WHERE username='" + (String) (dataPacket.getData_parameters().get(0))+"'");
-					if(rs_email_check.next())
-						emailExists=true;
-						
+					ResultSet rs_user_check = stmt.executeQuery("SELECT * from users WHERE username='"
+							+ (String) (dataPacket.getData_parameters().get(0)) + "'");
+					if (rs_user_check.next())
+						userExists = true;
+
+					ResultSet rs_email_check = stmt.executeQuery("SELECT * from users WHERE username='"
+							+ (String) (dataPacket.getData_parameters().get(0)) + "'");
+					if (rs_email_check.next())
+						emailExists = true;
+
 					ResultSet rs = stmt.executeQuery(
 							"SELECT * from users WHERE (username='" + (String) (dataPacket.getData_parameters().get(0))
 									+ "' OR email='" + (String) (dataPacket.getData_parameters().get(0))
 									+ "') AND password='" + (String) (dataPacket.getData_parameters().get(1)) + "'");
 
-					
-					
 					System.out.println(dataPacket.getData_parameters().get(0) + "< looking for in in DB");
 
 					if (rs.next()) {
@@ -95,63 +93,65 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 							System.out.print("user already connected");
 							Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN,
 									null, "This user is already in the system", false);
-						}
-
-						ArrayList<Object> parameter = new ArrayList<Object>();
-						// Object pass_user=null;
-						String roleType = rs.getString(8);
-
-						if (roleType.equals("student")) {
-							System.out.println("detected student user");
-							Student pass_user = new Student(rs.getInt(1), rs.getString(2), rs.getString(3),
-									rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
-							parameter.add(pass_user);
-
-						} else if (roleType.equals("teacher")) {
-							System.out.println("detected teacher user");
-							Teacher pass_user = new Teacher(rs.getInt(1), rs.getString(2), rs.getString(3),
-									rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
-							System.out.println(rs.getString(7) + "ffffffffffffffff");
-							parameter.add(pass_user);
-
-							// CEMSServer.principals.add(new GroupMember(pass_user, client)); // add teacher
-							// and its cliet information
-
-						} else if (roleType.equals("principle")) {
-							System.out.println("detected principal user");
-							Principal pass_user = new Principal(rs.getInt(1), rs.getString(2), rs.getString(3),
-									rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
-							parameter.add(pass_user);
-
-							CEMSServer.principals.add(new GroupMember(pass_user, client)); // add principle and its
-																							// cliet information
 						} else {
-							System.out.println("detected Problem");
+							ArrayList<Object> parameter = new ArrayList<Object>();
+							// Object pass_user=null;
+							String roleType = rs.getString(8);
+
+							if (roleType.equals("student")) {
+								System.out.println("detected student user");
+								Student pass_user = new Student(rs.getInt(1), rs.getString(2), rs.getString(3),
+										rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
+								parameter.add(pass_user);
+
+							} else if (roleType.equals("teacher")) {
+								System.out.println("detected teacher user");
+								Teacher pass_user = new Teacher(rs.getInt(1), rs.getString(2), rs.getString(3),
+										rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
+								System.out.println(rs.getString(7) + "ffffffffffffffff");
+								parameter.add(pass_user);
+
+								// CEMSServer.principals.add(new GroupMember(pass_user, client)); // add teacher
+								// and its cliet information
+
+							} else if (roleType.equals("principle")) {
+								System.out.println("detected principal user");
+								Principal pass_user = new Principal(rs.getInt(1), rs.getString(2), rs.getString(3),
+										rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
+								parameter.add(pass_user);
+
+								CEMSServer.principals.add(new GroupMember(pass_user, client)); // add principle and its
+																								// cliet information
+							} else {
+								System.out.println("detected Problem");
+							}
+
+							Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN,
+									parameter, "", true); // create DataPacket that contains true to indicate that the
+															// user
+															// information is correct
+
+							// update the isConnected column to YES to indicate that the user is in the
+							// system
+							PreparedStatement ps = mysqlConnection.getInstance().getCon()
+									.prepareStatement("UPDATE users SET isConnected=? WHERE uID=?");
+
+							ps.setString(1, "YES");
+							ps.setString(2, rs.getString(1));
+							int success = ps.executeUpdate();
 						}
-
-						Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN,
-								parameter, "", true); // create DataPacket that contains true to indicate that the user
-														// information is correct
-
-						// update the isConnected column to YES to indicate that the user is in the
-						// system
-						PreparedStatement ps = mysqlConnection.getInstance().getCon()
-								.prepareStatement("UPDATE users SET isConnected=? WHERE uID=?");
-
-						ps.setString(1, "YES");
-						ps.setString(2, rs.getString(1));
-						int success = ps.executeUpdate();
-
 						System.out.println("end search");
 					} else {
-						if(!userExists || !emailExists )
-							Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN, null,
-								"Username/email doesnt exists", false); // create DataPacket user information is inccorect...
+						if (!userExists || !emailExists)
+							Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN,
+									null, "Username/email doesnt exists", false); // create DataPacket user information
+																					// is inccorect...
 						else
-							Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN, null,
-									"Incorrect password", false); // create DataPacket user information is inccorect...
+							Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN,
+									null, "Incorrect password", false); // create DataPacket user information is
+																		// inccorect...
 					}
-						
+
 				} catch (SQLException e) {
 					e.printStackTrace();
 					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.LOGIN, null, "",
@@ -1399,10 +1399,9 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_IF_REQUEST,
 							parameters, "yes", true);
 				}
-			}
-			catch (SQLException e) {
-				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_IF_REQUEST,
-						null, "Error accured", false);
+			} catch (SQLException e) {
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_IF_REQUEST, null,
+						"Error accured", false);
 				e.printStackTrace();
 			}
 		}
@@ -1414,8 +1413,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			ArrayList<Object> parameters = new ArrayList<Object>();
 			Statement stmt;
 			String field = null;
-			//String Full_name=null;
-			
+			// String Full_name=null;
+
 			try {
 				stmt = mysqlConnection.getInstance().getCon().createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * from extra_time_requests WHERE isApproved='waiting' ;");
@@ -1424,13 +1423,12 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 					System.out.println("found extra time request");
 					// System.out.println(rs.getString(2));
-					User user=null;
+					User user = null;
 					// Object pass_user=null;
 					Statement stmt2 = mysqlConnection.getInstance().getCon().createStatement();
 					ResultSet rs2 = stmt2
 							.executeQuery("SELECT firstName, lastName from users WHERE uID='" + rs.getInt(1) + "'; ");
-					if(rs2.next())
-					{
+					if (rs2.next()) {
 						user = new User(rs.getInt(1), null, null, null, rs2.getString(1), rs2.getString(2), null);
 						System.out.println("found user");
 					}
@@ -1522,9 +1520,9 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 					Responce_Specific_Clients_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
 							DataPacket.Request.ADD_EXTRA_TIME_TO_EXAM, parameters, "", true);
-					Identifier =((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getEiID();
-					System.out.println(Identifier+"dsd");
-					whoToNotify= WhoToNotify.STUDENTS_DOING_THE_SAME_EXAM;
+					Identifier = ((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getEiID();
+					System.out.println(Identifier + "dsd");
+					whoToNotify = WhoToNotify.STUDENTS_DOING_THE_SAME_EXAM;
 				}
 
 			} catch (SQLException e) {

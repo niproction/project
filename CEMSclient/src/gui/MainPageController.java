@@ -110,20 +110,19 @@ public class MainPageController {
 		SceneController.primaryStage.setMaxHeight(750);
 		SceneController.primaryStage.setWidth(850);
 		SceneController.primaryStage.setHeight(750);
-		App_client.pageContainer = page_box;
+		App_client.pageContainer = page_box; // set page center container to load inside it other pagess
+		
 		displayStatisticalReport.setVisible(false);
 		checkRequest.setVisible(false);
 		information.setVisible(false);
 		createExam.setVisible(false);
 		displayStatisticalReportTeacher.setVisible(false);
-
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
 		verifyExam.setVisible(false);
-
-///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 		ManageOngoingExams.setVisible(false);
-///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+		
+		
 
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
@@ -305,9 +304,9 @@ public class MainPageController {
 
 	@FXML
 	void button_start_exam(ActionEvent event) {
-		System.out.println("clicked_startExam");
-		AnchorPane page = SceneController.getPage(PageProperties.Page.START_EXAM);
-		page_box.setCenter(page);
+		//System.out.println("clicked_startExam");
+		//AnchorPane page = SceneController.getPage(PageProperties.Page.START_EXAM);
+		//page_box.setCenter(page);
 
 	}
 	@FXML
