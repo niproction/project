@@ -302,9 +302,9 @@ public class MainPageController {
 	}
 	@FXML
 	void button_start_exam(ActionEvent event) {
-		//System.out.println("clicked_startExam");
-		//AnchorPane page = SceneController.getPage(PageProperties.Page.START_EXAM);
-		//page_box.setCenter(page);
+		System.out.println("clicked_startExam");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.START_EXAM);
+		page_box.setCenter(page);
 
 	}
 	@FXML

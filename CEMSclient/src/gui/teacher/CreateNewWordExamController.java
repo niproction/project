@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.colorchooser.ColorChooserComponentFactory;
 import client.App_client;
 import common.DataPacket;
+import common.Exam;
 import control.PageProperties;
 import control.PageProperties.Page;
 import control.SceneController;
@@ -52,15 +53,21 @@ public class CreateNewWordExamController extends createNewExamController {
 	@FXML
 	private Button uploadExamBtn;
 	@FXML
-	private TextField duration;
+	private TextField nameOfExam;
 	@FXML
 	private ScrollBar scrollbar;
-
+	@FXML
+	private ChoiceBox<String> hourChoiceBox;
+	@FXML
+	private ChoiceBox<String> minutesChoiceBox;
+	@FXML
+	private ChoiceBox<String> secondsChoiceBox;
+	private Exam exam;
 	@FXML
 	public void initialize() {
 		sceen = new SceneController(PageProperties.Page.Create_MANUEL_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
-		errLabel.setVisible(false);
+		super.setupDuration();
 		ArrayList<Object> parameters = new ArrayList<>();
 		parameters.add(UserControl.ConnectedUser);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_FIELD_NAME, parameters,
@@ -96,10 +103,26 @@ public class CreateNewWordExamController extends createNewExamController {
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER,
 				DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
-		exam.setAuthorID(UserControl.ConnectedUser.getuID());
-		exam.setExamID(UserControl.ConnectedUser.getfid() + ExamControl.selectedCourseID);
-		exam.setDuration(duration.getText());
-		parameters.add(0, exam);
+		String duration="";
+		//bulding duration for the exam
+		if(hourChoiceBox.getValue()==null)
+			duration+="00:";
+		else {
+			duration+=hourChoiceBox.getValue()+":";
+		}
+		if(minutesChoiceBox.getValue()==null)
+			duration+="00:";
+		else {
+			duration+=minutesChoiceBox.getValue()+":";
+		}
+		if(secondsChoiceBox.getValue()==null)
+			duration+="00";
+		else {
+			duration+=secondsChoiceBox.getValue();
+		}
+		exam=new Exam(UserControl.ConnectedUser.getfid() + ExamControl.selectedCourseID, UserControl.ConnectedUser.getuID(), nameOfExam.getText(), duration);
+		parameters.clear();
+		parameters.add(exam);
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
 		exam.setExamID(ExamControl.examID);
@@ -128,13 +151,29 @@ public class CreateNewWordExamController extends createNewExamController {
 	}
 
 	private boolean checkInvalidInputsForSumbit() {
-		if (duration.getText().equals("")) {
+		if(courses.getValue()==null)
+		{
+			System.out.println("no course");
+			errLabel.setText("*You must choose course");
+			errLabel.setVisible(true);
+			return true;
+		}
+		if (hourChoiceBox.getValue()==null && minutesChoiceBox.getValue()==null  && secondsChoiceBox.getValue()==null) {
 			errLabel.setText("*You must enter duration to the exam");
 			errLabel.setVisible(true);
 			return true;
 		}
-		if (!super.isNumeric(duration.getText())) {
-			errLabel.setText("*You must enter only number to duration!");
+		if(nameOfExam.getText().equals(""))
+		{
+			System.out.println("empty name of the exam");
+			errLabel.setText("*You must enter name for the exam! ");
+			errLabel.setVisible(true);
+			return true;
+		}
+		if(examFile==null)
+		{
+			System.out.println("empty exam");
+			errLabel.setText("*You must upload exam! ");
 			errLabel.setVisible(true);
 			return true;
 		}
@@ -146,5 +185,7 @@ public class CreateNewWordExamController extends createNewExamController {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("choose exam");
 		examFile = fileChooser.showOpenDialog(window);
+		errLabel.setText(examFile.getName() + " uploaded");
+		errLabel.setVisible(true);
 	}
 }

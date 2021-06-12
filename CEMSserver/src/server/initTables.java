@@ -305,26 +305,36 @@ public class initTables {
 	private void table_exams_done() {
 		String sql = "CREATE TABLE IF NOT EXISTS exams_done (edID int(10) NOT NULL AUTO_INCREMENT,\n"
 				+ " eiID varchar(7) NOT NULL,\n" + " uID varchar(6) NOT NULL,\n" + " duration varchar(15) NOT NULL,\n"
-				+ " startTime varchar(15) NOT NULL,\n" + " endTime varchar(15) NOT NULL,  isApproved varchar(11) NOT NULL, grade int(3) NULL, PRIMARY KEY (edID));";
+				+ " startTime varchar(15) NOT NULL,\n" + " endTime varchar(15) NOT NULL,  isApproved varchar(11) NOT NULL, grade int(3) NULL,isCheating varchar(45) NOT NULL, PRIMARY KEY (edID));";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
 			stmt.execute(sql);
 			stmt = con.createStatement();
+			Statement stmt2 = con.createStatement();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+		/*try {
+			stmt = con.createStatement();
+			int rs = stmt.executeUpdate("INSERT INTO exams_done (edID, eiID, uID, duration,startTime,endTime,isApproved,grade,isCheating) VALUES ('1', '1','1','02:29:19','18:48:10','18:48:33','WAITING','100','NOT CHEATING')");
+			rs = stmt.executeUpdate("INSERT INTO exams_done (edID, eiID, uID, duration,startTime,endTime,isApproved,grade,isCheating) VALUES ('2', '1','4','02:26:51','18:49:27','18:51:01','WAITING','50','CHEATING')");
+			rs = stmt.executeUpdate("INSERT INTO exams_done (edID, eiID, uID, duration,startTime,endTime,isApproved,grade,isCheating) VALUES ('3', '1','5','02:25:30','18:52:12','18:52:22','WAITING','50','CHEATING')");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}*/
 	}
 
 	private void table_exam_questions_answer() {
 		String sql = "CREATE TABLE IF NOT EXISTS exam_questions_answer (\n" + " edID varchar(7) NOT NULL,\n"
-				+ " qID varchar(6) NOT NULL,\n" + " answer varchar(6) NULL);";
+				+ " qID varchar(6) NOT NULL,\n" + " answer varchar(6) NOT NULL ,"+"isCorrect varchar(35) NOT NULL)";
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
 			stmt.execute(sql);
 			stmt = con.createStatement();
 		} catch (SQLException e) {
+			System.out.println("dddddddd");
 			System.out.println(e.getMessage());
 		}
 	}

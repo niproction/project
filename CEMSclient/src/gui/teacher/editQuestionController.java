@@ -1,3 +1,4 @@
+  
 package gui.teacher;
 
 import java.util.ArrayList;
@@ -93,6 +94,14 @@ public class editQuestionController {
 			QuestionControl.setSpesificQuestion(null);
 			System.out.println("got the question--"+question.getqID());
 		}
+		if(question.getAnswer().equals("1"))
+				answer1.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
+		else if(question.getAnswer().equals("2"))
+			answer2.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
+		else if(question.getAnswer().equals("3"))
+			answer3.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
+		else
+			answer4.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
 		questionInfotxt.setText(question.getInfo());
 		option1txt.setText(question.getOption1());
 		option2txt.setText(question.getOption2());
@@ -181,6 +190,9 @@ public class editQuestionController {
 		answer2.getStyleClass().add("option");
 		answer3.getStyleClass().add("option");
 		answer4.getStyleClass().add("option");
+		answer2.setStyle("");
+    	answer3.setStyle("");
+    	answer4.setStyle("");
 		question.setAnswer("1");
 	}
 
@@ -189,13 +201,13 @@ public class editQuestionController {
 		answerErrorLbl.setVisible(false);
 		seccessLabel.setVisible(false);
 		answer2.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
-		answer1.getStyleClass().clear();
 		answer1.getStyleClass().add("option");
-		answer3.getStyleClass().clear();
 		answer3.getStyleClass().add("option");
-		answer4.getStyleClass().clear();
 		answer4.getStyleClass().add("option");
-		question.setAnswer("2");
+		answer1.setStyle("");
+    	answer3.setStyle("");
+    	answer4.setStyle("");
+		question.setAnswer("2"); 
 	}
 
 	@FXML
@@ -203,12 +215,12 @@ public class editQuestionController {
 		answerErrorLbl.setVisible(false);
 		seccessLabel.setVisible(false);
 		answer3.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
-		answer1.getStyleClass().clear();
 		answer1.getStyleClass().add("option");
-		answer2.getStyleClass().clear();
 		answer2.getStyleClass().add("option");
-		answer4.getStyleClass().clear();
 		answer4.getStyleClass().add("option");
+		answer1.setStyle("");
+    	answer2.setStyle("");
+    	answer4.setStyle("");
 		question.setAnswer("3");
 	}
 
@@ -217,12 +229,12 @@ public class editQuestionController {
 		answerErrorLbl.setVisible(false);
 		seccessLabel.setVisible(false);
 		answer4.setStyle("-fx-background-color: rgba(91, 218, 35, 1); -fx-background-radius: 10;");
-		answer1.getStyleClass().clear();
 		answer1.getStyleClass().add("option");
-		answer2.getStyleClass().clear();
 		answer2.getStyleClass().add("option");
-		answer3.getStyleClass().clear();
 		answer3.getStyleClass().add("option");
+		answer1.setStyle("");
+    	answer2.setStyle("");
+    	answer3.setStyle("");
 		question.setAnswer("4");
 	}
 

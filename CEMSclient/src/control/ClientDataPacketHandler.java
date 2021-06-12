@@ -165,12 +165,21 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
-			for (int i = 0; i < dataPacket.getData_parameters().size(); i += 3) {
-				ViewGradesControl.addExamsID((String) dataPacket.getData_parameters().get(i));// examID in order to get
-																								// the course name
-				ViewGradesControl.addGrade((Integer) dataPacket.getData_parameters().get(i + 1));// Grade
-				ViewGradesControl.addExamsInitID((Integer) dataPacket.getData_parameters().get(i + 2));// examInitID
+			if (dataPacket.getData_parameters() == null)
+			{
+				ViewGradesControl.emptyGrades = true;
 			}
+
+			else {
+				for (int i = 0; i < dataPacket.getData_parameters().size(); i += 3) {
+					ViewGradesControl.addExamsID((String) dataPacket.getData_parameters().get(i));// examID in order to
+																									// get
+																									// the course name
+					ViewGradesControl.addGrade((Integer) dataPacket.getData_parameters().get(i + 1));// Grade
+					ViewGradesControl.addExamsInitID((Integer) dataPacket.getData_parameters().get(i + 2));// examInitID
+				}
+			}
+
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.DISAPPROVED_GRADE) {
@@ -214,11 +223,30 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COPY_OF_EXAM) {
-			GetCopyOfExamControl.questionsDescription = (ArrayList<String>) dataPacket.getData_parameters().get(0);
-			GetCopyOfExamControl.studentAnswersDescription = (ArrayList<String>) dataPacket.getData_parameters().get(1);
-			GetCopyOfExamControl.correctAnswersDescription = (ArrayList<String>) dataPacket.getData_parameters().get(2);
-			GetCopyOfExamControl.pointsForQuestion = (ArrayList<String>) dataPacket.getData_parameters().get(3);
+			if (dataPacket.getData_parameters() == null) {
+				System.out.println("fasfjasfnkjanjssaffafaf");
+				GetCopyOfExamControl.emptyHistory = true;
+
+			} else {
+				GetCopyOfExamControl.emptyHistory = false;
+				GetCopyOfExamControl.questionsDescription
+						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(0));
+				GetCopyOfExamControl.studentAnswersDescription
+						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(1));
+				GetCopyOfExamControl.correctAnswersDescription
+						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(2));
+				GetCopyOfExamControl.pointsForQuestion
+						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(3));
+			}
 		}
+		else if(dataPacket.getRequest() == DataPacket.Request.Get_Comments)
+		{
+			System.out.println("in the clienttttttt");
+			GetCopyOfExamControl.teacherComm=(String) dataPacket.getData_parameters().get(0);
+			System.out.println(GetCopyOfExamControl.teacherComm);
+			GetCopyOfExamControl.studentComm=(String) dataPacket.getData_parameters().get(1);
+		}
+
 
 		///////////////////////////////////////////////////////////
 		/// teacher requests

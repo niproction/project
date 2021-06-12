@@ -193,7 +193,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/student/GetCopyOfExam.fxml";
+				return "../gui/teacher/GetCopyOfExam.fxml";
 			}
 
 			@Override

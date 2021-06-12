@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.student.ViewGradeController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.student.ViewGradeController">
    <children>
-      <TableView fx:id="tableOfGrades" layoutX="92.0" layoutY="46.0" prefHeight="415.0" prefWidth="657.0">
+      <TableView fx:id="tableOfGrades" layoutX="99.0" layoutY="97.0" prefHeight="415.0" prefWidth="587.0">
         <columns>
           <TableColumn fx:id="tableColCourseName" prefWidth="201.0" text="Course Name" />
           <TableColumn fx:id="tableColExamID" prefWidth="139.0" text="Exam ID" />
@@ -14,5 +16,10 @@
             <TableColumn fx:id="tableColPoints" prefWidth="143.0" text="Copy of exam" />
         </columns>
       </TableView>
+      <Label fx:id="errLabel" layoutX="158.0" layoutY="14.0" text="You didn't take any exam" textFill="#c91111">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
