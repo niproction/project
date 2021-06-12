@@ -82,14 +82,27 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		
 		///DANIEL2///
 		else if (dataPacket.getRequest() == DataPacket.Request.CHECK_FOR_EXAM) {
-			if((int)dataPacket.getData_parameters().get(0)==1){
-				StudentControl.ongoingExam=1;
+			System.out.println("max");
+			if((Boolean)dataPacket.getData_parameters().get(0)==true){
+				StudentControl.ongoingExam=true;
 			}
 			else {
-				StudentControl.ongoingExam=0;
+				StudentControl.ongoingExam=false;
 			}
 			}
 ///DANIEL2///
+		
+		///DANIEL3///
+		else if (dataPacket.getRequest() == DataPacket.Request.CHECK_FOR_GRADES) {
+			if((int)dataPacket.getData_parameters().get(0)!=0){
+				StudentControl.pendingGrades=(int)dataPacket.getData_parameters().get(0);
+			}
+			else {
+				StudentControl.pendingGrades=0;
+			}
+			}
+		
+		
 		
 
 		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
@@ -228,9 +241,25 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		///////////////////////////////////////////////////////////
 		/// teacher requests
 		///////////////////////////////////////
+		
+		
+		////DANIEL3////
+		else if (dataPacket.getRequest() == DataPacket.Request.HOW_MANY_VERIFY) {
+			TeacherControl.verifyAmount = (int) dataPacket.getData_parameters().get(0);
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.ONGOING_TO_MANAGE) {
+			TeacherControl.manage = (boolean) dataPacket.getData_parameters().get(0);
+		}
+		
+		////DANIEL3////
+		
+		
+		
+		
+		
+		
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_NAME_BY_COURSE_ID) {
 			for (int i = 0; i < dataPacket.getData_parameters().size(); i++) {
-				System.out.println("ahfkhfa    " + (String) dataPacket.getData_parameters().get(i));
 				ViewGradesControl.addCourseName((String) dataPacket.getData_parameters().get(i));
 			}
 		}

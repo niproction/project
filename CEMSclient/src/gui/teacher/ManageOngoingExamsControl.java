@@ -190,7 +190,7 @@ time.setText(exam_left_time);
 					terminate_exam.setText("EXAM TERMINATED");
 					terminate_exam.setStyle(("-fx-text-fill: red;-fx-font-weight: bold"));
 
-					// UserControl.ConnectedUser.getuid()
+					
 					// Send request to server to get ongoing exam for the teacher if there is one
 					DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM,
 							parameter, null, true);

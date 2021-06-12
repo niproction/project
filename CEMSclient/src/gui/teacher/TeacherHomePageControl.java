@@ -5,6 +5,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -12,6 +13,9 @@ import java.util.ResourceBundle;
 import client.App_client;
 import common.DataPacket;
 import control.PrincipalControl;
+import control.StudentControl;
+import control.TeacherControl;
+import control.UserControl;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,14 +69,23 @@ public class TeacherHomePageControl {
     @FXML // fx:id="picBell"
     private ImageView picBell; // Value injected by FXMLLoader
 
+    @FXML // fx:id="manageBtn"
+    private Button manageBtn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="ongoingNoti"
+    private Text ongoingNoti; // Value injected by FXMLLoader
+
+    @FXML // fx:id="verifyAmount"
+    private Text verifyAmount; // Value injected by FXMLLoader
+
+    @FXML // fx:id="verifyBtn"
+    private Button verifyBtn; // Value injected by FXMLLoader
+
     @FXML
     void reqHandles(ActionEvent event) {
 
     }
 
-    /**
-     * Initialize the page.
-     */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file 'TeacherHomePage.fxml'.";
@@ -87,8 +100,39 @@ public class TeacherHomePageControl {
         assert curtime != null : "fx:id=\"curtime\" was not injected: check your FXML file 'TeacherHomePage.fxml'.";
         assert txtGood1 != null : "fx:id=\"txtGood1\" was not injected: check your FXML file 'TeacherHomePage.fxml'.";
         assert picBell != null : "fx:id=\"picBell\" was not injected: check your FXML file 'TeacherHomePage.fxml'.";
-        
-   
+        assert manageBtn != null : "fx:id=\"manageBtn\" was not injected: check your FXML file 'TeacherHomePage.fxml'.";
+        assert ongoingNoti != null : "fx:id=\"ongoingNoti\" was not injected: check your FXML file 'TeacherHomePage.fxml'.";
+        assert verifyAmount != null : "fx:id=\"verifyAmount\" was not injected: check your FXML file 'TeacherHomePage.fxml'.";
+        assert verifyBtn != null : "fx:id=\"verifyBtn\" was not injected: check your FXML file 'TeacherHomePage.fxml'.";
+
+    	ArrayList<Object> parameters = new ArrayList<Object>();
+		parameters.add(UserControl.ConnectedUser.getuID()); //Get logged user id
+		
+		//Check if the teacher has exams to verify
+		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.HOW_MANY_VERIFY, parameters,
+				null, true);
+		App_client.chat.accept(data);
+		Integer howManyVerify=TeacherControl.verifyAmount;
+		TeacherControl.verifyAmount=0;
+		verifyAmount.setText(howManyVerify.toString());
+		System.out.println(howManyVerify.toString());
+		if (howManyVerify > 0) {
+			verifyBtn.setVisible(true);
+		}
+		
+		 //Check if there is an ongoing exam for the teacher
+		  data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.ONGOING_TO_MANAGE, parameters, null,
+					true);
+					App_client.chat.accept(data);
+
+					 Boolean ongoingExam=TeacherControl.manage;
+					System.out.println(ongoingExam);
+	if(ongoingExam==true) {
+		ongoingNoti.setVisible(true);
+		manageBtn.setVisible(true);
+	}
+	 StudentControl.ongoingExam=false;
+		
         //Initiate the current time
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         final String inittime = simpleDateFormat.format(new Date());

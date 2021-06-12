@@ -1,5 +1,6 @@
 package control;
 
 public class StudentControl {
-public static int ongoingExam;
+public static Boolean ongoingExam=false;
+public static int pendingGrades;
 }

@@ -55,5 +55,27 @@
             <Image url="@../../img/notifications_icon.png" />
          </image>
       </ImageView>
+      <Button fx:id="manageBtn" layoutX="285.0" layoutY="235.0" mnemonicParsing="false" text="manage the exam" visible="false" />
+      <Text fx:id="ongoingNoti" fill="#73255a" layoutX="24.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have an ongoing exam " visible="false">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#73255a" layoutX="24.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="verifyAmount" fill="#73255a" layoutX="122.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="39.33331298828125">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#73255a" layoutX="154.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exams to verify">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="verifyBtn" layoutX="298.0" layoutY="296.0" mnemonicParsing="false" text="verify exams" visible="false" />
    </children>
 </AnchorPane>

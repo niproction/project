@@ -34,7 +34,7 @@ public class PageProperties {
 		MAIN_PAGE {
 			@Override
 			String GET_Title() {
-				return "get exam page";
+				return "Home page";
 			}
 
 			@Override
@@ -501,7 +501,29 @@ public class PageProperties {
 			Animation GET_ON_Scene_Unload_Animation() {
 				return Animation.FADE_OUT;
 			}
-		}
+		}, 
+		
+		HISTORY_OF_EXAMS_STUDENT {
+			@Override
+			String GET_Title() {
+				return "History of exams";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/principal/InfoPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 
 		;
 
