@@ -35,6 +35,12 @@ public class createNewExamController {
 	Exam exam = new Exam();
 	SceneController sceen;
 	private double totalPoints = 0;
+	@FXML
+	private AnchorPane apSubmitedExam;
+	@FXML
+	private Button createNewExamBtn;
+	@FXML
+	private Button goToStartExamBtn;
 	@FXML // fx:id="ap"
 	private AnchorPane apComments;
 	@FXML
@@ -65,7 +71,8 @@ public class createNewExamController {
 	private TextArea studentComments;
 	@FXML
 	private Button submitBtn;
-
+	@FXML
+	private Button backToExamBtn;
 	@FXML
 	private Label totalPointsLabel;
 	@FXML
@@ -73,14 +80,17 @@ public class createNewExamController {
 	@FXML
 	private ChoiceBox<String> minutesChoiceBox;
 	@FXML
-	private ChoiceBox<String> secondsChoiceBox;
-	@FXML
 	private ChoiceBox<String> hourChoiceBox;
-	private int indexAtTable=0;
-	private ObservableList<TableEntry> data = FXCollections.observableArrayList();
+	private int indexAtBank;
+	private int indexAtExam;
+	private ArrayList<Button> removeBtnList = new ArrayList<>();
+	private ArrayList<Button> btnList = new ArrayList<>();
+	private ObservableList<TableEntry> dataBank = FXCollections.observableArrayList();
+	ObservableList<TableEntry> questionBank = FXCollections.observableArrayList();
 	@FXML
 	private AnchorPane ap;
-
+	@FXML
+	private Button addCommentsBtn;
 	@FXML
 	public void initialize() {
 		sceen = new SceneController(PageProperties.Page.CREATE_EXAM, ap);
@@ -115,35 +125,49 @@ public class createNewExamController {
 		ObservableList<String> questionsList = FXCollections.observableArrayList();
 		ClientControl.getInstance().accept(dataPacket);
 		questionsList.addAll(ExamControl.questions);
-		ObservableList<TableEntry> questionBank = FXCollections.observableArrayList();
+//		 ObservableList<TableEntry> questionBank =
+//		 FXCollections.observableArrayList();
 		insertQuestionToChooseQuestionTable(questionsList, questionBank);
 	}
 
 	private void insertQuestionToChooseQuestionTable(ObservableList<String> questionsList,
 			ObservableList<TableEntry> questionBank) {
+
 		for (int i = 0; i < ExamControl.questions.size(); i++) {
-			final Button addQuestioBtn = new Button("Add");
-			final TextField pointsTextField = new TextField();
-			addQuestioBtn.setAlignment(Pos.CENTER);
-			indexAtTable = i;
-			EventHandler<ActionEvent> addHandler = new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent event) {
-					if (checkInvalidInputsForAddQuestion(pointsTextField.getText()) == true) {
-						return;
-					}
-					addQuestioBtn.setText("Added");
-					addQuestioBtn.setDisable(true);
-					addQuestionToExam(pointsTextField.getText(), ExamControl.questions.get(indexAtTable));
-				}
-
-			};
-			addQuestioBtn.setOnAction(addHandler);
-			questionBank.add(new TableEntry(ExamControl.questions.get(i), pointsTextField, addQuestioBtn));
+			addButtonAndTextFieldToTable(questionBank,i);
 		}
 		chooseQuestionsTable.setItems(questionBank);
 		TableEntry.customResize(chooseQuestionsTable);
+	}
+
+	private void addButtonAndTextFieldToTable(ObservableList<TableEntry> questionBank,int i) {
+		final Button addQuestioBtn = new Button("Add");
+		final TextField pointsTextField = new TextField();
+		addQuestioBtn.setAlignment(Pos.CENTER);
+		btnList.add(addQuestioBtn);
+		EventHandler<ActionEvent> addHandler = new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (checkInvalidInputsForAddQuestion(pointsTextField.getText()) == true) {
+					return;
+				}
+				for (int j = 0; j < btnList.size(); j++) {// in order to find the correct row in the tableView
+					if (btnList.get(j).equals(addQuestioBtn)) {
+						indexAtBank = j;
+						btnList.remove(indexAtBank);
+						break;
+					}
+				}
+				addQuestionToExam(pointsTextField.getText(), (String) questionBank.get(indexAtBank).getCol1());
+				questionBank.remove(indexAtBank);
+				chooseQuestionsTable.setItems(questionBank);
+				TableEntry.customResize(chooseQuestionsTable);
+			}
+
+		};
+		addQuestioBtn.setOnAction(addHandler);
+		questionBank.add(new TableEntry(ExamControl.questions.get(i), pointsTextField, addQuestioBtn));
 	}
 
 	private void addQuestionToExam(String pointsForQuestion, String question) {
@@ -159,57 +183,103 @@ public class createNewExamController {
 		System.out.println(ExamControl.questionID + "      " + pointsForQuestion);
 		exam.addQuestionAndPoints(ExamControl.questionID, pointsForQuestion);
 		totalPoints += Double.parseDouble(pointsForQuestion);
-		System.out.println("total points:" + totalPoints);
 		totalPointsLabel.setText(String.valueOf(totalPoints));
+
 		insertDataOfQuestionToExam(question, pointsForQuestion);
 	}
 
 	private void insertDataOfQuestionToExam(String question, String pointsForQuestion) {
-//		for (int i = 0; i < data.size(); i++) {
-//			final Button removeQuestioBtn = new Button("Remove");
-//			final TextField pointsTextField = new TextField(pointsForQuestion);
-//			removeQuestioBtn.setAlignment(Pos.CENTER);
-//			indexAtTable = i;
-//			EventHandler<ActionEvent> removeHandler = new EventHandler<ActionEvent>() {
-//
-//				@Override
-//				public void handle(ActionEvent event) {
-//					removeQuestionFromExam(indexAtTable, pointsForQuestion);
-//				}
-//
-//			};
-//			removeQuestioBtn.setOnAction(removeHandler);
-//			data.add(new TableEntry(ExamControl.questions.get(i), pointsTextField, removeQuestioBtn));
-//		}
-//		examQuestionTable.setItems(data);
-//		TableEntry.customResize(examQuestionTable);
 		final Button removeQuestioBtn = new Button("Remove");
 		final Label pointsLabel = new Label(pointsForQuestion);
 		removeQuestioBtn.setAlignment(Pos.CENTER);
-
+		removeBtnList.add(removeQuestioBtn);
 		EventHandler<ActionEvent> removeHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				removeQuestionFromExam(--indexAtTable, pointsForQuestion);
+				for (int j = 0; j < removeBtnList.size(); j++) {// in order to find the correct row in the tableView
+					if (removeBtnList.get(j).equals(removeQuestioBtn))
+						indexAtExam = j;
+				}
+				removeQuestionFromExam(indexAtExam, pointsForQuestion);
 			}
 
 		};
 		removeQuestioBtn.setOnAction(removeHandler);
-		data.add(new TableEntry(question, pointsLabel, removeQuestioBtn));
-		examQuestionTable.setItems(data);
+		dataBank.add(new TableEntry(question, pointsLabel, removeQuestioBtn));
+		examQuestionTable.setItems(dataBank);
 		TableEntry.customResize(examQuestionTable);
 	}
 
 	protected void removeQuestionFromExam(int i, String pointsForQuestion) {
 		totalPoints -= Double.valueOf(pointsForQuestion);
 		totalPointsLabel.setText(String.valueOf(totalPoints));
-		data.remove(i);
-		examQuestionTable.setItems(data);
+		removeBtnList.remove(i);
+		String question = (String) dataBank.get(i).getCol1();
+		dataBank.remove(i);
+		final Button addQuestioBtn = new Button("Add");
+		final TextField pointsTextField = new TextField();
+		addQuestioBtn.setAlignment(Pos.CENTER);
+		btnList.add(addQuestioBtn);
+		EventHandler<ActionEvent> addHandler = new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (checkInvalidInputsForAddQuestion(pointsTextField.getText()) == true) {
+					return;
+				}
+				for (int j = 0; j < btnList.size(); j++) {// in order to find the correct row in the tableView
+					if (btnList.get(j).equals(addQuestioBtn)) {
+						indexAtBank = j;
+						btnList.remove(indexAtBank);
+						break;
+					}
+				}
+				addQuestionToExam(pointsTextField.getText(), (String) questionBank.get(indexAtBank).getCol1());
+				questionBank.remove(indexAtBank);
+				chooseQuestionsTable.setItems(questionBank);
+				TableEntry.customResize(chooseQuestionsTable);
+			}
+
+		};
+		addQuestioBtn.setOnAction(addHandler);
+		questionBank.add(new TableEntry(question, pointsTextField, addQuestioBtn));
+		chooseQuestionsTable.setItems(questionBank);
+		TableEntry.customResize(chooseQuestionsTable);
+		examQuestionTable.setItems(dataBank);
 		TableEntry.customResize(examQuestionTable);
 	}
 
 	public void handleOnAction(MouseEvent event) {
-		sumbit();
+		if(event.getSource()==submitBtn)
+		{
+			submit();
+		}
+		else if(event.getSource()==addCommentsBtn)
+		{
+			addComments();
+		}
+		else if(event.getSource()==backToExamBtn)
+		{
+			backToExam();
+		}
+		else if(event.getSource()==createNewExamBtn)
+		{
+			AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
+			App_client.pageContainer.setCenter(page);
+		}
+		else if(event.getSource()==goToStartExamBtn)
+		{
+			AnchorPane page = SceneController.getPage(PageProperties.Page.START_EXAM);
+			App_client.pageContainer.setCenter(page);
+		}
+	}
+
+	private void backToExam() {
+		apComments.setVisible(false);
+	}
+
+	private void addComments() {
+		apComments.setVisible(true);
 	}
 
 	private boolean checkInvalidInputsForAddQuestion(String pointsForQuestion) {
@@ -250,7 +320,7 @@ public class createNewExamController {
 		return false;
 	}
 
-	private void sumbit() {
+	private void submit() {
 		ArrayList<Object> parameters = new ArrayList<>();
 		if (checkInvalidInputsForSumbit() == true) {
 			return;
@@ -272,11 +342,7 @@ public class createNewExamController {
 		else {
 			duration += minutesChoiceBox.getValue() + ":";
 		}
-		if (secondsChoiceBox.getValue() == null)
-			duration += "00";
-		else {
-			duration += secondsChoiceBox.getValue();
-		}
+		duration += "00";//set the seconds
 		exam.setAuthorID(UserControl.ConnectedUser.getuID());
 		exam.setExamID(UserControl.ConnectedUser.getfid() + ExamControl.selectedCourseID);
 		exam.setDuration(duration);
@@ -293,8 +359,9 @@ public class createNewExamController {
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM_QUESTIONS, parameters,
 				null, true);
 		ClientControl.getInstance().accept(dataPacket);
-		errLabel.setText("exam submited");
-		errLabel.setVisible(true);
+//		errLabel.setText("exam submited");
+//		errLabel.setVisible(true);
+		apSubmitedExam.setVisible(true);
 	}
 
 	private boolean checkInvalidInputsForSumbit() {
@@ -314,8 +381,7 @@ public class createNewExamController {
 			errLabel.setVisible(true);
 			return true;
 		}
-		if (hourChoiceBox.getValue() == null && minutesChoiceBox.getValue() == null
-				&& secondsChoiceBox.getValue() == null) {
+		if (hourChoiceBox.getValue() == null && minutesChoiceBox.getValue() == null) {
 			errLabel.setText("*You must enter duration to the exam");
 			errLabel.setVisible(true);
 			return true;
@@ -331,20 +397,18 @@ public class createNewExamController {
 
 	protected void setupDuration() {
 		ObservableList<String> hourList = FXCollections.observableArrayList();
-		ObservableList<String> minAndSecondList = FXCollections.observableArrayList();
+		ObservableList<String> minList = FXCollections.observableArrayList();
 
 		errLabel.setVisible(false);
 		for (int i = 0; i < 60; i++) {
-			minAndSecondList.add(Integer.toString(i));
+			minList.add(Integer.toString(i));
 		}
-		for (int i = 0; i < 24; i++) {
+		for (int i = 0; i < 6; i++) {
 			hourList.add(Integer.toString(i));
 		}
 
 		hourChoiceBox.setItems(hourList);
-		minutesChoiceBox.setItems(minAndSecondList);
-		secondsChoiceBox.setItems(minAndSecondList);
-
+		minutesChoiceBox.setItems(minList);
 	}
 
 	protected boolean isNumeric(String text) {

@@ -161,7 +161,6 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			if (dataPacket.getData_parameters() == null)
 			{
 				ViewGradesControl.emptyGrades = true;
-				System.out.println("nullllllllll");
 			}
 
 			else {
@@ -232,6 +231,13 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				GetCopyOfExamControl.pointsForQuestion
 						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(3));
 			}
+		}
+		else if(dataPacket.getRequest() == DataPacket.Request.Get_Comments)
+		{
+			System.out.println("in the clienttttttt");
+			GetCopyOfExamControl.teacherComm=(String) dataPacket.getData_parameters().get(0);
+			System.out.println(GetCopyOfExamControl.teacherComm);
+			GetCopyOfExamControl.studentComm=(String) dataPacket.getData_parameters().get(1);
 		}
 
 		///////////////////////////////////////////////////////////

@@ -304,10 +304,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			Responce_dataPacket = getQuestionIdByDescription(dataPacket);
 			
 			
-			//////////////barak new change
-		} else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
-			Responce_dataPacket = getStudentGradeAndExamID(dataPacket);
-		}
+			
+		} 
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			Responce_dataPacket = getCourseID(dataPacket);
@@ -327,14 +325,24 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		} else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_NAME_BY_COURSE_ID) {
 			Responce_dataPacket = getCourseNameByCourseID(dataPacket);
 
-		} else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM_QUESTIONS) {
-			Responce_dataPacket = insertExamQuestion(dataPacket);
-
 		}
-		//////////////barak new change
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
+			Responce_dataPacket = getStudentGradeAndExamID(dataPacket);
+		}
+	
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COPY_OF_EXAM) {
 			Responce_dataPacket = getCopyOfExam(dataPacket);
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.Get_Comments) {
+			System.out.println("beforeee methodddddd");
+			Responce_dataPacket = getComments(dataPacket);
+		}//////////////end barak new change
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.INSERT_EXAM_QUESTIONS) {
+			Responce_dataPacket = insertExamQuestion(dataPacket);
+
+		}
+
 
 		/////////////////////////////////
 		// Teacher requests
@@ -1090,6 +1098,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 	///////////////////////////////////////////////////
 
+
+
 	private DataPacket getCopyOfExam(DataPacket dataPacket) {
 		Statement statement;
 		ArrayList<String> questionsID = new ArrayList<>();
@@ -1103,7 +1113,6 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		System.out.println("studID:" + studentID + "eiID:" + eiID);
 		try {
 			statement = mysqlConnection.getInstance().getCon().createStatement();
-			System.out.println("beforrreee qusss");
 			ResultSet rs = statement.executeQuery(
 					"SELECT edID from exams_done where (uid='" + studentID + "' and eiID='" + eiID + "');");
 			if (rs.next()) {
@@ -1159,6 +1168,32 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		System.out.println("question:" + questionsDescription.get(0));
 		return questionsDescription;
 	}
+	private DataPacket getComments(DataPacket dataPacket) {
+		String eID=(String) dataPacket.getData_parameters().get(0);
+		System.out.println("eid:"+eID);
+		ArrayList<Object> parameter=new ArrayList<>();
+		Statement statement;
+		try {
+			statement = mysqlConnection.getInstance().getCon().createStatement();
+
+				ResultSet rs = statement
+						.executeQuery("SELECT teacherComments,studentComments FROM exams WHERE eID='" + eID + "';");
+				if (rs.next()) {
+					parameter.add(rs.getString(1));//teacher comments
+					parameter.add(rs.getString(2));//student comments
+					System.out.println("commm:"+rs.getString(1));
+				}
+				else {
+					parameter.add("");
+					parameter.add("");
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.Get_Comments, parameter, "",
+				true);
+	}////////////////end barak new change
 
 	
 		private ArrayList<String> getCorrectAndStudentAnswersDescription(ArrayList<String> studentAnswersIndexes,
@@ -1235,7 +1270,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			return null;
 		}
 		return questionsID;
-	}////////////barak end new change
+	}////////////barak new change
 
 	private DataPacket getCourseNameByCourseID(DataPacket dataPacket) {
 		Statement statement;

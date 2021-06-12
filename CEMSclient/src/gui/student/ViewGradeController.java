@@ -1,7 +1,3 @@
-/**
- * Sample Skeleton for 'ViewGrades.fxml' Controller Class
- */
-
 package gui.student;
 
 import java.net.URL;
@@ -12,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import client.App_client;
 import common.DataPacket;
 import control.ClientControl;
+import control.GetCopyOfExamControl;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -59,7 +56,7 @@ public class ViewGradeController {
 	@FXML
 	private Label errLabel;
 	SceneController scene;
-
+	private int index;
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() {
 		errLabel.setVisible(false);
@@ -118,9 +115,12 @@ public class ViewGradeController {
 		for (int i = 0; i < ViewGradesControl.examsID.size(); i++) {
 			final Button getCopyBtn = new Button("Get copy of exam");
 			getCopyBtn.setAlignment(Pos.CENTER);
+			index=i;
 			EventHandler<ActionEvent> copyHandler = new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
+					System.out.println("eID:"+ViewGradesControl.getExamID(index));
+					GetCopyOfExamControl.eID=ViewGradesControl.getExamID(index);
 					AnchorPane page = SceneController.getPage(PageProperties.Page.GET_COPY_OF_EXAM);
 					App_client.pageContainer.setCenter(page);
 				}

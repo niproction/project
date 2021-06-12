@@ -25,6 +25,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -35,6 +37,8 @@ public class GetCopyOfExamController {
 	SceneController scene;
 	@FXML
 	private AnchorPane ap;
+	@FXML
+	private Button showCommentsBtn;
 	@FXML
 	private TableView<TableEntry> tableOfQuestion;
 	@FXML
@@ -48,21 +52,31 @@ public class GetCopyOfExamController {
 	@FXML
 	private Label gradeLabel;
 	@FXML
+	private TextArea teacherComments;
+	@FXML
+	private TextArea studentComments;
+	@FXML
+	private AnchorPane apComments;
+	@FXML
 	private Button prevPageBtn;
+	@FXML
+	private Button backToCopyBtn;
+	@FXML
+	private Label teacherCommLabel;
 
 	@FXML
 	public void initialize() {
 
-		GetCopyOfExamControl.correctAnswersDescription.clear();
-		GetCopyOfExamControl.studentAnswersDescription.clear();
-		GetCopyOfExamControl.pointsForQuestion.clear();
-		GetCopyOfExamControl.questionsDescription.clear();
 		scene = new SceneController(PageProperties.Page.GET_COPY_OF_EXAM, ap);
 		scene.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		ColQuestion.setCellValueFactory(new PropertyValueFactory("col1"));
 		ColStudentAnswer.setCellValueFactory(new PropertyValueFactory("col2"));
 		ColCorrectAnswer.setCellValueFactory(new PropertyValueFactory("col3"));
 		ColPoints.setCellValueFactory(new PropertyValueFactory("col4"));
+		GetCopyOfExamControl.correctAnswersDescription.clear();
+		GetCopyOfExamControl.studentAnswersDescription.clear();
+		GetCopyOfExamControl.pointsForQuestion.clear();
+		GetCopyOfExamControl.questionsDescription.clear();
 		ArrayList<Object> parameters = new ArrayList<>();
 		DataPacket dataPacket;
 		parameters.add(UserControl.ConnectedUser.getuID());
@@ -93,15 +107,38 @@ public class GetCopyOfExamController {
 		TableEntry.customResize(tableOfQuestion);
 	}
 
-	public void handleOnAction(ActionEvent event) {
-		if (UserControl.ConnectedUser instanceof Teacher) {
-			System.out.println("teacherrrrrr");
-			AnchorPane page = SceneController.getPage(PageProperties.Page.VERIFY_EXAM);
-			App_client.pageContainer.setCenter(page);
-		} else if (UserControl.ConnectedUser instanceof Student) {
-			System.out.println("studenttttttttt");
-			AnchorPane page = SceneController.getPage(PageProperties.Page.History_Of_Exams_Student);
-			App_client.pageContainer.setCenter(page);
+	public void handleOnAction(MouseEvent event) {
+		if (event.getSource() == prevPageBtn) {
+			if (UserControl.ConnectedUser instanceof Teacher) {
+				AnchorPane page = SceneController.getPage(PageProperties.Page.VERIFY_EXAM);
+				App_client.pageContainer.setCenter(page);
+			} else if (UserControl.ConnectedUser instanceof Student) {
+				AnchorPane page = SceneController.getPage(PageProperties.Page.History_Of_Exams_Student);
+				App_client.pageContainer.setCenter(page);
+			}
+		} else if (event.getSource() == showCommentsBtn) {
+			System.out.println("commmmmmmmmmmm");
+			ArrayList<Object> parameters = new ArrayList<>();
+			parameters.add(GetCopyOfExamControl.eID);
+			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.Get_Comments,
+					parameters, null, true);
+			ClientControl.getInstance().accept(dataPacket);
+			apComments.setVisible(true);
+			GetCopyOfExamControl.eID = null;
+			if (UserControl.ConnectedUser instanceof Student) {
+				teacherComments.setVisible(false);
+				teacherCommLabel.setVisible(false);
+				studentComments.setText(GetCopyOfExamControl.studentComm);
+				GetCopyOfExamControl.studentComm = null;
+			} 
+			else if (UserControl.ConnectedUser instanceof Teacher) {
+				teacherComments.setText(GetCopyOfExamControl.teacherComm);
+				studentComments.setText(GetCopyOfExamControl.studentComm);
+				GetCopyOfExamControl.teacherComm = null;
+				GetCopyOfExamControl.studentComm = null;
+			}
+		} else if (event.getSource() == backToCopyBtn) {
+			apComments.setVisible(false);
 		}
 	}
 
