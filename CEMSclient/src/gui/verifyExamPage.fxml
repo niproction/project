@@ -13,16 +13,16 @@
             <Font name="System Bold Italic" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="48.0" layoutY="121.0" prefHeight="382.0" prefWidth="874.0">
+      <TableView fx:id="tableView" layoutX="48.0" layoutY="121.0" prefHeight="382.0" prefWidth="837.0">
         <columns>
-          <TableColumn fx:id="colExamID" prefWidth="90.33331298828125" text="Exam ID" />
-          <TableColumn fx:id="colStudentID" prefWidth="116.66668701171875" text="Student ID" />
-            <TableColumn fx:id="colStartTime" prefWidth="90.99996948242188" text="Start Time" />
-            <TableColumn fx:id="colEndTime" prefWidth="115.6666259765625" text="End Time" />
-            <TableColumn fx:id="colGrade" prefWidth="58.0" text="Grade" />
-            <TableColumn fx:id="colGetCopy" prefWidth="83.0" text="Get Copy" />
-            <TableColumn fx:id="colStatus" prefWidth="199.0" text="Status" />
-            <TableColumn prefWidth="116.66668701171875" text="Suspected Cheating" />
+          <TableColumn fx:id="colExamID" prefWidth="57.666656494140625" text="Exam ID" />
+          <TableColumn fx:id="colStudentID" prefWidth="72.33334350585938" text="Student ID" />
+            <TableColumn fx:id="colStartTime" prefWidth="126.0" text="Start Time" />
+            <TableColumn fx:id="colEndTime" prefWidth="110.0" text="End Time" />
+            <TableColumn fx:id="colGrade" prefWidth="59.33331298828125" text="Grade" />
+            <TableColumn fx:id="colGetCopy" prefWidth="98.0" text="Get Copy" />
+            <TableColumn fx:id="colStatus" prefWidth="181.66668701171875" text="Status" />
+            <TableColumn prefWidth="128.33331298828125" text="Suspected Cheating" />
         </columns>
       </TableView>
    </children>
