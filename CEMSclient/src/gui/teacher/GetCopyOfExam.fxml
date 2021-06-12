@@ -9,34 +9,24 @@
 
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="956.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.GetCopyOfExamController">
    <children>
-      <TableView fx:id="tableOfQuestion" layoutX="14.0" layoutY="106.0" prefHeight="362.0" prefWidth="863.0">
+      <TableView fx:id="tableOfQuestion" layoutX="14.0" layoutY="106.0" prefHeight="362.0" prefWidth="861.0">
         <columns>
           <TableColumn fx:id="ColQuestion" prefWidth="215.0" text="Question" />
           <TableColumn fx:id="ColStudentAnswer" prefWidth="230.0" text="Student answer" />
-            <TableColumn fx:id="ColCorrectAnswer" prefWidth="328.0" text="Correct answer" />
-            <TableColumn fx:id="ColPoints" prefWidth="87.0" text="Points" />
+            <TableColumn fx:id="ColCorrectAnswer" prefWidth="272.0" text="Correct answer" />
+            <TableColumn fx:id="ColPoints" prefWidth="143.0" text="Points" />
         </columns>
       </TableView>
-      <Label layoutX="123.0" layoutY="48.0" text="Exam:">
+      <Label layoutX="369.0" layoutY="40.0" text="Grade:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="446.0" layoutY="48.0" text="Grade:">
+      <Label fx:id="gradeLabel" layoutX="433.0" layoutY="40.0" text="label_grade">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="gradeLabel" layoutX="510.0" layoutY="48.0" text="label_grade">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="examLabel" layoutX="180.0" layoutY="48.0" text="label_exam">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="prevPageBtn" layoutX="396.0" layoutY="485.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="135.0" text="Button" />
+      <Button fx:id="prevPageBtn" layoutX="396.0" layoutY="485.0" mnemonicParsing="false" onAction="#handleOnAction" prefHeight="27.0" prefWidth="135.0" text="Back" />
    </children>
 </AnchorPane>

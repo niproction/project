@@ -1,5 +1,9 @@
 package gui;
 
+import java.util.concurrent.atomic.AtomicLong;
+
+import javafx.scene.control.TableView;
+
 public class TableEntry{
 	private Object col1;
 	private Object col2;
@@ -135,5 +139,20 @@ public class TableEntry{
 	}
 	public void setCol9(Object col9) {
 		this.col9 = col9;
+	}
+	
+	public static void customResize(TableView<TableEntry> view) {
+
+		AtomicLong width = new AtomicLong();
+		view.getColumns().forEach(col -> {
+			width.addAndGet((long) col.getWidth());
+		});
+		double tableWidth = view.getWidth();
+
+		if (tableWidth > width.get()) {
+			view.getColumns().forEach(col -> {
+				col.setPrefWidth(col.getWidth() + ((tableWidth - width.get()) / view.getColumns().size()));
+			});
+		}
 	}
 }

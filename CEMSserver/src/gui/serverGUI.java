@@ -333,7 +333,6 @@ public class serverGUI {
 	void build_tables_button(MouseEvent event) {
 		initTables db = new initTables();
 		db.tables_reset();// delete to reset the tables
-
 		button_create_tables.setDisable(true);
 	}
 }

@@ -7,7 +7,7 @@ public class ViewGradesControl {
 	public static ArrayList<String> examsID=new ArrayList<>();
 	public static ArrayList<String> coursesName=new ArrayList<>();
 	public static ArrayList<Integer> examsInitID=new ArrayList<>();
-	public static Boolean emptyGrades;
+	public static Boolean emptyGrades=false;
 	//get data by index
 	public static String getExamID(int i)
 	{

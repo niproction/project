@@ -156,13 +156,18 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			}
 
 		}
-		//////changed 10.6
+		//////barak new change
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
-			if(dataPacket.getData_parameters()==null)
-				ViewGradesControl.emptyGrades=true;
+			if (dataPacket.getData_parameters() == null)
+			{
+				ViewGradesControl.emptyGrades = true;
+				System.out.println("nullllllllll");
+			}
+
 			else {
 				for (int i = 0; i < dataPacket.getData_parameters().size(); i += 3) {
-					ViewGradesControl.addExamsID((String) dataPacket.getData_parameters().get(i));// examID in order to get
+					ViewGradesControl.addExamsID((String) dataPacket.getData_parameters().get(i));// examID in order to
+																									// get
 																									// the course name
 					ViewGradesControl.addGrade((Integer) dataPacket.getData_parameters().get(i + 1));// Grade
 					ViewGradesControl.addExamsInitID((Integer) dataPacket.getData_parameters().get(i + 2));// examInitID
@@ -210,21 +215,22 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			ExamControl.selectedCourseID = (String) dataPacket.getData_parameters().get(0);
 		}
-		///////////changed at 10/6 barak
+		/////////////// barak new change
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COPY_OF_EXAM) {
-			System.out.println("belfnaelkfneklfanlkefaenfkl");
 			if (dataPacket.getData_parameters() == null) {
 				System.out.println("fasfjasfnkjanjssaffafaf");
 				GetCopyOfExamControl.emptyHistory = true;
 
 			} else {
-				System.out.println("$$$$$$$$$$$$$");
-				GetCopyOfExamControl.questionsDescription = (ArrayList<String>) dataPacket.getData_parameters().get(0);
-				GetCopyOfExamControl.studentAnswersDescription = (ArrayList<String>) dataPacket.getData_parameters()
-						.get(1);
-				GetCopyOfExamControl.correctAnswersDescription = (ArrayList<String>) dataPacket.getData_parameters()
-						.get(2);
-				GetCopyOfExamControl.pointsForQuestion = (ArrayList<String>) dataPacket.getData_parameters().get(3);
+				GetCopyOfExamControl.emptyHistory = false;
+				GetCopyOfExamControl.questionsDescription
+						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(0));
+				GetCopyOfExamControl.studentAnswersDescription
+						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(1));
+				GetCopyOfExamControl.correctAnswersDescription
+						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(2));
+				GetCopyOfExamControl.pointsForQuestion
+						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(3));
 			}
 		}
 

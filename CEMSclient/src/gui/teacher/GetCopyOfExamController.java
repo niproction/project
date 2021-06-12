@@ -2,9 +2,13 @@ package gui.teacher;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.DoubleAdder;
 
 import client.App_client;
 import common.DataPacket;
+import common.Student;
+import common.Teacher;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -14,7 +18,9 @@ import control.ViewGradesControl;
 import gui.TableEntry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -22,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 public class GetCopyOfExamController {
 	@FXML
@@ -41,12 +48,15 @@ public class GetCopyOfExamController {
 	@FXML
 	private Label gradeLabel;
 	@FXML
-	private Label examLabel;
-	@FXML
 	private Button prevPageBtn;
 
 	@FXML
 	public void initialize() {
+
+		GetCopyOfExamControl.correctAnswersDescription.clear();
+		GetCopyOfExamControl.studentAnswersDescription.clear();
+		GetCopyOfExamControl.pointsForQuestion.clear();
+		GetCopyOfExamControl.questionsDescription.clear();
 		scene = new SceneController(PageProperties.Page.GET_COPY_OF_EXAM, ap);
 		scene.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		ColQuestion.setCellValueFactory(new PropertyValueFactory("col1"));
@@ -58,17 +68,12 @@ public class GetCopyOfExamController {
 		parameters.add(UserControl.ConnectedUser.getuID());
 		for (int i = 0; i < ViewGradesControl.getSize(); i++) {
 			parameters.add(1, ViewGradesControl.getExamsInitID(i));
-			dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COPY_OF_EXAM,
-					parameters, null, true);
+			dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COPY_OF_EXAM, parameters, null,
+					true);
 			ClientControl.getInstance().accept(dataPacket);
 		}
-		if(GetCopyOfExamControl.emptyHistory==false)
-		{
-			insertDataToTable();
-		}
-		else {
-			
-		}
+
+		insertDataToTable();
 
 	}
 
@@ -79,17 +84,25 @@ public class GetCopyOfExamController {
 					GetCopyOfExamControl.getStudentAnswerDescription(i),
 					GetCopyOfExamControl.getCorrectAnswerDescription(i), GetCopyOfExamControl.getpointsForQuestion(i)));
 		}
+		double grade = 0;
+		for (int i = 0; i < GetCopyOfExamControl.pointsForQuestion.size(); i++) {
+			grade += Double.valueOf(GetCopyOfExamControl.getpointsForQuestion(i));
+		}
+		gradeLabel.setText(String.valueOf(grade));
 		tableOfQuestion.setItems(data);
-		GetCopyOfExamControl.correctAnswersDescription.clear();
-		GetCopyOfExamControl.studentAnswersDescription.clear();
-		GetCopyOfExamControl.pointsForQuestion.clear();
-		GetCopyOfExamControl.questionsDescription.clear();
+		TableEntry.customResize(tableOfQuestion);
 	}
-	
-	public void handleOnAction(MouseEvent event) {
-		if(event.getSource()==prevPageBtn)
-		{
-			
+
+	public void handleOnAction(ActionEvent event) {
+		if (UserControl.ConnectedUser instanceof Teacher) {
+			System.out.println("teacherrrrrr");
+			AnchorPane page = SceneController.getPage(PageProperties.Page.VERIFY_EXAM);
+			App_client.pageContainer.setCenter(page);
+		} else if (UserControl.ConnectedUser instanceof Student) {
+			System.out.println("studenttttttttt");
+			AnchorPane page = SceneController.getPage(PageProperties.Page.History_Of_Exams_Student);
+			App_client.pageContainer.setCenter(page);
 		}
 	}
+
 }
