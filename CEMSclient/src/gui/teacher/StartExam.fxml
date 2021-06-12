@@ -10,7 +10,7 @@
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.StartExamController">
    <children>
       <ChoiceBox fx:id="choicebox_exams" layoutX="427.0" layoutY="175.0" prefHeight="25.0" prefWidth="218.0" />
-      <Label layoutX="221.0" layoutY="178.0" text="Choose which eaxm to start:">
+      <Label layoutX="221.0" layoutY="178.0" text="Choose which exam to start:">
          <font>
             <Font size="14.0" />
          </font>

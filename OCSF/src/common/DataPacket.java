@@ -47,11 +47,10 @@ INSERT_Manuel_EXAM_FILE,
 GET_STUDENT_GRADES,
 GET_COURSE_NAME_BY_COURSE_ID,
 GET_COPY_OF_EXAM,
-		//daniel
 GET_ONGOING_EXAM, TERMINATE_EXAM
 		,GET_EXTRA_TIME_REQUESTS, EXTRA_TIME_DECISION
-		
-		,GET_INFO_COURSE,GET_INFO_USERS,GET_INFO_FIELD,GET_INFO_EXAM,GET_INFO_QUESTIONS,CHECK_TOOK_EXAM,GET_FOR_VERIFY, DISAPPROVED_GRADE, APPROVED_GRADE
+		                                                                                                                                                                                                                                                                                                              //Daniel2//           
+		,GET_INFO_COURSE,GET_INFO_USERS,GET_INFO_FIELD,GET_INFO_EXAM,GET_INFO_QUESTIONS,CHECK_TOOK_EXAM,GET_FOR_VERIFY, DISAPPROVED_GRADE, APPROVED_GRADE, GET_HOW_MANY_EXAMS, GET_IF_REQUEST, CHECK_FOR_EXAM, 
 	}
 
 

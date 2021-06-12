@@ -10,8 +10,17 @@ public class examInitiated implements Serializable {
 	private String password;
 	private String initiatedDate;
 	
+	public examInitiated(int eiID, String eID, int uID, String password, String initiatedDate) {
+		super();
+		this.eiID = eiID;
+		this.eID = eID;
+		this.uID = uID;
+		this.password = password;
+		this.initiatedDate = initiatedDate;
+	}
+	public examInitiated() {
 	
-	
+	}
 	public int getEiID() {
 		return eiID;
 	}

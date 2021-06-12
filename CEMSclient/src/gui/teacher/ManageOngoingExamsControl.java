@@ -1,8 +1,15 @@
 package gui.teacher;
 
+import java.awt.event.ActionListener;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.Timer;
 
 import client.App_client;
 import common.DataPacket;
@@ -10,8 +17,11 @@ import common.ExtraTimeRequest;
 import common.User;
 import control.ClientController;
 import control.ClientDataPacketHandler;
+import control.ExamControl;
+import control.ExamInitiatedControl;
 import control.ManageOngoingExams;
 import control.UserControl;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -75,6 +85,11 @@ public class ManageOngoingExamsControl {
 	@FXML // fx:id="status"
 	private Label status; // Value injected by FXMLLoader
 
+	@FXML // fx:id="Timer"
+	private Label time; // Value injected by FXMLLoader
+
+	private String exam_left_time = null;
+
 	/**
 	 * Initialize the page.
 	 */
@@ -99,33 +114,73 @@ public class ManageOngoingExamsControl {
 		assert commentField != null
 				: "fx:id=\"commentField\" was not injected: check your FXML file 'ManageOngoingExams.fxml'.";
 		assert status != null : "fx:id=\"status\" was not injected: check your FXML file 'ManageOngoingExams.fxml'.";
-
+		assert time != null : "fx:id=\"Timer\" was not injected: check your FXML file 'ManageOngoingExams.fxml'.";
 		// Set text for terminate button, set autosize and align to center status(if
 		// exams exist for the teacher) label
+time.setStyle("-fx-text-fill: blue;-fx-font-weight: bold;-fx-font-size: 12");
+		Timer tm;
 		terminate_exam.setText("Terminate exam");
 		status.autosize();
 		status.setAlignment(Pos.CENTER);
 
-		
+		System.out.println("loaded");
 		ArrayList<Object> parameter = new ArrayList<Object>();
 		parameter.add(UserControl.ConnectedUser);
 		// Send request to server to get ongoing exam for the teacher if there is one
-		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_ONGOING_EXAM, parameter,
-				null, true);
+		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_ONGOING_EXAM, parameter, null,
+				true);
 		App_client.chat.accept(data);
 
 		// If there is an ongoing exam for the teacher
 		if (ManageOngoingExams.isOngoingExams != null && ManageOngoingExams.isOngoingExams == true) {
-			String ongoingExam = "Exam initiated:";
+
+			time.setVisible(true);
+			exam_left_time = timeDiffrance(ExamControl.ServerTime, ExamControl.examInitiatedTime);
+			exam_left_time = timeDiffrance(ManageOngoingExams.OngoingExam.get(7), exam_left_time);
+			System.out.println("LEFT TIME: " + exam_left_time);
+time.setText(exam_left_time);
+			// start timer to end the exam on finish
+			tm = new Timer(1000, new ActionListener() {
+				String timer = exam_left_time;
+
+				@Override
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							if (ExamInitiatedControl.isExtraTimeRecived) {
+								ExamInitiatedControl.isExtraTimeRecived = false;
+								// ExamInitiatedControl.ExtraTime
+								timer = timeAdd(ExamInitiatedControl.ExtraTime, timer);
+								// ExamInitiatedControl.eiID =0;
+							}
+
+							timer = timerCountdown(timer);
+
+							time.setText(timer);
+						}
+					});
+				}
+			});
+			tm.start();
+
+			String leftTime = timeDiffrance(ExamControl.ServerTime, ExamControl.examInitiatedTime);
+			System.out.println(leftTime);
+			String ongoingExam = "Exam initiated: ";
 
 			// Append strings of ongoing exam info
+			int i = 0;
 			for (String str : ManageOngoingExams.OngoingExam) {
+				if (i == 5) {
+					break;
+				}
 				ongoingExam = ongoingExam + str + " ";
+				i++;
 			}
 
 			// Set text and style for exam info field
 			examField.setText(ongoingExam);
-			examField.setStyle(("-fx-font-weight: bold;-fx-font-size: 9"));
+			examField.setStyle(("-fx-font-weight: bold;-fx-font-size: 12"));
 
 			// Event handler for exam termination
 			EventHandler<ActionEvent> terminateHandler = new EventHandler<ActionEvent>() {
@@ -135,12 +190,10 @@ public class ManageOngoingExamsControl {
 					terminate_exam.setText("EXAM TERMINATED");
 					terminate_exam.setStyle(("-fx-text-fill: red;-fx-font-weight: bold"));
 
-					
-					
-					//UserControl.ConnectedUser.getuid()
+					// UserControl.ConnectedUser.getuid()
 					// Send request to server to get ongoing exam for the teacher if there is one
-					DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM, parameter,
-							null, true);
+					DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM,
+							parameter, null, true);
 					App_client.chat.accept(data);
 				}
 			};
@@ -161,6 +214,79 @@ public class ManageOngoingExamsControl {
 			status.setStyle(("-fx-font-weight: bold;-fx-font-size: 26;-fx-text-fill: red"));
 
 		}
+	}
+
+	/// time2 - time1
+	public String timeDiffrance(String time2, String time1) {
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+		Date date1 = null;
+		Date date2 = null;
+		long res = 0;
+		String time;
+
+		try {
+			date1 = format.parse(time1);
+			date2 = format.parse(time2);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// exam_duration
+		res = date2.getTime() - date1.getTime();
+		// System.out.println(res);
+
+		time = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(res),
+				TimeUnit.MILLISECONDS.toMinutes(res) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(res)),
+				TimeUnit.MILLISECONDS.toSeconds(res)
+						- TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(res)));
+
+		return time;
+	}
+
+	public static String timeAdd(String time2, String time1) {
+		int hour1 = Integer.parseInt(time1.substring(0, 2));
+		int min1 = Integer.parseInt(time1.substring(3, 5));
+		int sec1 = Integer.parseInt(time1.substring(6, 8));
+
+		int hour2 = Integer.parseInt(time2.substring(0, 2));
+		int min2 = Integer.parseInt(time2.substring(3, 5));
+		int sec2 = Integer.parseInt(time2.substring(6, 8));
+
+		int result_sec = (sec1 + sec2) % 60;
+		int result_min = ((min1 + min2) + (sec1 + sec2) / 60) % 60;
+		int result_hour = ((hour1 + hour2) + ((min1 + min2) + (sec1 + sec2) / 60) / 60) % 60;
+
+		return time_int_to_string(result_hour, result_min, result_sec);
+	}
+
+	public static String time_int_to_string(int hour, int min, int sec) {
+		String Shour = hour < 10 ? "0" + String.valueOf(hour) : String.valueOf(hour);
+		String Smin = min < 10 ? "0" + String.valueOf(min) : String.valueOf(min);
+		String Ssec = sec < 10 ? "0" + String.valueOf(sec) : String.valueOf(sec);
+
+		return Shour + ":" + Smin + ":" + Ssec;
+	}
+
+	public String timerCountdown(String time) {
+		int hour = Integer.parseInt(time.substring(0, 2));
+		int min = Integer.parseInt(time.substring(3, 5));
+		int sec = Integer.parseInt(time.substring(6, 8));
+		sec--;
+
+		if (sec < 0) {
+			sec = 59;
+			min--;
+
+			if (min < 0) {
+				hour--;
+			}
+		}
+
+		String Shour = hour < 10 ? "0" + String.valueOf(hour) : String.valueOf(hour);
+		String Smin = min < 10 ? "0" + String.valueOf(min) : String.valueOf(min);
+		String Ssec = sec < 10 ? "0" + String.valueOf(sec) : String.valueOf(sec);
+
+		return Shour + ":" + Smin + ":" + Ssec;
 	}
 
 }

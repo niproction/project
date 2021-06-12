@@ -7,7 +7,7 @@ import common.examInitiated;
 public class ExamInitiatedControl {
 	private static examInitiated examInitiated;
 	
-	private static Time timeLeft;
+	public static String timeLeft;
 	public static int eiID;
 	public static boolean isExtraTimeRecived;
 	public static String ExtraTime;

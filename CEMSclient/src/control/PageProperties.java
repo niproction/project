@@ -2,7 +2,7 @@ package control;
 
 public class PageProperties {
 	public enum Animation {
-		FADE_IN, FADE_OUT, SLIDE_LEFT, SLIDE_RIGHT, SLIDE_UP, SLIDE_DOWN
+		FADE_IN, FADE_OUT, SLIDE_LEFT, SLIDE_RIGHT, SLIDE_UP, SLIDE_DOWN,
 	}
 
 	public enum Page {
@@ -462,7 +462,7 @@ public class PageProperties {
 		EXTRA_TIME_REQUESTS {
 			@Override
 			String GET_Title() {
-				return "AddQuestion page";
+				return "Extra time requests page";
 			}
 
 			@Override

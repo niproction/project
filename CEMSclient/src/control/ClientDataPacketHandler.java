@@ -79,6 +79,18 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		////////////////////////////////////////////
 		// Students requests
 		////////////////////////////////////////////
+		
+		///DANIEL2///
+		else if (dataPacket.getRequest() == DataPacket.Request.CHECK_FOR_EXAM) {
+			if((int)dataPacket.getData_parameters().get(0)==1){
+				StudentControl.ongoingExam=1;
+			}
+			else {
+				StudentControl.ongoingExam=0;
+			}
+			}
+///DANIEL2///
+		
 
 		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 			if (dataPacket.getData_parameters() != null) {
@@ -218,7 +230,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		///////////////////////////////////////
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_NAME_BY_COURSE_ID) {
 			for (int i = 0; i < dataPacket.getData_parameters().size(); i++) {
-				System.out.println("ahfkhfa    "+(String) dataPacket.getData_parameters().get(i));
+				System.out.println("ahfkhfa    " + (String) dataPacket.getData_parameters().get(i));
 				ViewGradesControl.addCourseName((String) dataPacket.getData_parameters().get(i));
 			}
 		}
@@ -233,15 +245,34 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_ONGOING_EXAM) {
 			ManageOngoingExams.isOngoingExams = dataPacket.getResult_boolean();
 			ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
+
+			if (ManageOngoingExams.isOngoingExams) {
+				System.out.println((String)dataPacket.getData_parameters().get(5));
+				System.out.println((String)dataPacket.getData_parameters().get(6));
+
+				ExamControl.examInitiatedTime=((String)dataPacket.getData_parameters().get(5)).substring(11);
+				ExamControl.ServerTime= (String)dataPacket.getData_parameters().get(6);
+			}
 		} else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
 			ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
 		}
-///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+
 
 		//////////////////////////////
 		// Principal requests
 		/////////////////////////////////
 
+		 else if (dataPacket.getRequest() == DataPacket.Request.GET_HOW_MANY_EXAMS) {
+				PrincipalControl.HowManyExamsNow = (int) dataPacket.getData_parameters().get(0);
+			}
+		
+		
+/////////////////////////////////////////////////// Daniel2////////////////////////////////////////
+		 else if (dataPacket.getRequest() == DataPacket.Request.GET_IF_REQUEST) {
+				PrincipalControl.ifRequests = (int) dataPacket.getData_parameters().get(0);
+			}
+/////////////////////////////////////////////////// Daniel2////////////////////////////////////////
+		
 /////////////////////////////////////////////////// MAX////////////////////////////////////////M
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_COURSE) {
