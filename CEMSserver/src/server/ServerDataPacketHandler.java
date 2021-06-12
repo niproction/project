@@ -1016,7 +1016,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					Exam exam = null;
 
 					if (rs6.next()) {
-						exam = new Exam(null, (Integer) null, rs6.getString(1), rs6.getString(2), null, null, null);
+						exam = new Exam(null, null, rs6.getString(1), rs6.getString(2), null, null, null);
 						System.out.println("added");
 					}
 
