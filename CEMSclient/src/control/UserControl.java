@@ -33,6 +33,19 @@ public class UserControl {
 	
 	public static int ongoingExam;
 	
+
+	//rostik v10
+	private static int Notipications = 0;
+	
+	
+	public static int getNotipications() {
+		return Notipications;
+	}
+
+	public static void setNotipications(int notipications) {
+		Notipications = notipications;
+	}
+	//rostik v10
 	
 	public static String getCanOpenExam() {
 		return canOpenExam;

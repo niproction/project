@@ -75,8 +75,62 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		else if (dataPacket.getRequest() == DataPacket.Request.LOGOUT) {
 			System.out.println("User Logoutted");
 			UserControl.ConnectedUser = null;
+			UserControl.setNotipications(0);
+			PrincipalControl.setExtraTimeRequest_Recived(false);
+			ExamControl.setExamTerminated(false);
 		}
 
+		
+		
+		
+		// rostik v10
+				/////////////////////////
+				// notify requests
+				else if (dataPacket.getRequest() == DataPacket.Request.NOTIFY_PRINCIPALS_ABOUT_EXTRA_TIME_REQUEST) {
+					System.out.println("request >>>>>>>>>>>> NOTIFY_PRINCIPALS_ABOUT_EXTRA_TIME_REQUEST");
+					UserControl.setNotipications(UserControl.getNotipications() + 1);
+
+					PrincipalControl.setExtraTimeRequest_Recived(true);
+				}
+				else if (dataPacket.getRequest() == DataPacket.Request.NOTIFY_TEACHER_ABOUT_EXTRA_TIME_REQUEST) {
+					System.out.println("request >>>>>>>>>>>> NOTIFY_TEACHER_ABOUT_EXTRA_TIME_REQUEST");
+					UserControl.setNotipications(UserControl.getNotipications() + 1);
+
+					ExamControl.setNotifiedAboutExtraTime(true);
+					ExamControl.setExtraTimeApproved(((ExtraTimeRequest)dataPacket.getData_parameters().get(0)).getIsApproved().equals("yes"));
+					//UserControl.setNotipications(UserControl.getNotipications()+1);
+				}
+				else if (dataPacket.getRequest() == DataPacket.Request.NOTIFY_STUDENTS_DOING_SAME_EXAM_TERMINATE) {
+					System.out.println("request >>>>>>>>>>>> NOTIFY_STUDENTS_DOING_SAME_EXAM_TERMINATE");
+					//UserControl.setNotipications(UserControl.getNotipications() + 1);
+					System.out.println("sdasdasdas");
+					ExamControl.setExamTerminated(true);
+					//ExamControl.setExtraTimeApproved(((ExtraTimeRequest)dataPacket.getData_parameters().get(0)).getIsApproved().equals("yes"));
+					//UserControl.setNotipications(UserControl.getNotipications()+1);
+				}
+				else if (dataPacket.getRequest() == DataPacket.Request.NOTIFY_STUDENTS_OF_THIS_EXAM_ABOUT_EXTRA_TIME) {
+					// need to check for student state..
+					System.out.println("request >>>>>>>>>>>> NOTIFY_STUDENTS_OF_THIS_EXAM_ABOUT_EXTRA_TIME");
+					if (UserControl.isDoingExam
+							&& UserControl.whatInitiatedExamID == ((ExtraTimeRequest) dataPacket.getData_parameters().get(0))
+									.getEiID()) {
+						System.out.println("Storring the ei ID and time to be added");
+						ExamInitiatedControl.ExtraTime = ((ExtraTimeRequest) dataPacket.getData_parameters().get(0))
+								.getExtraTime();
+						System.out.println(
+								" testtt " + ((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getExtraTime());
+						ExamInitiatedControl.isExtraTimeRecived = true;
+
+					} else
+						System.out.println("this client skipped in exam?" + UserControl.isDoingExam);
+					System.out.println("end of Check if the client in exam state");
+				}
+				// rostik v10
+
+		
+		
+		
+		
 		////////////////////////////////////////////
 		// Students requests
 		////////////////////////////////////////////
@@ -123,6 +177,20 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 				ExamControl.ServerTime = (String) dataPacket.getData_parameters().get(1); // the server current time..
 
+				//rostik v10
+				if(dataPacket.getData_parameters().size() == 3 && dataPacket.getData_parameters().get(2) != null) {
+					System.out.println("Storring the ei ID and time to be added");
+					ExamInitiatedControl.ExtraTime = ((ExtraTimeRequest) dataPacket.getData_parameters().get(2))
+							.getExtraTime();
+					System.out.println(
+							" testtt " + ((ExtraTimeRequest) dataPacket.getData_parameters().get(2)).getExtraTime());
+					ExamInitiatedControl.isExtraTimeRecived = true;
+
+				
+					System.out.println("this client skipped in exam?" + UserControl.isDoingExam);
+					System.out.println("end of Check if the client in exam state");
+				}
+				//rostik v10
 				System.out.println("setted");
 			} else {
 				System.out.println("problemmmm");
@@ -319,9 +387,10 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				ExamControl.exam = (Exam) dataPacket.getData_parameters().get(4);
 				ExamControl.ServerTime = (String) dataPacket.getData_parameters().get(0);
 
-				if (dataPacket.getData_parameters().size() == 6)
-					ExamControl.extraTimeRequest = (String) dataPacket.getData_parameters().get(5);
 
+				if (dataPacket.getData_parameters().size() == 6 && dataPacket.getData_parameters().get(5) != null)
+					ExamControl.extraTimeRequest = (ExtraTimeRequest)dataPacket.getData_parameters().get(5);
+			
 			}
 		} else if (dataPacket.getRequest() == DataPacket.Request.MANAGE_EXAMS) {
 			if (dataPacket.getData_parameters() != null) {
@@ -333,7 +402,8 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
-			ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
+			//rostik v10
+			//ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
 		}
 
 		//////////////////////////////

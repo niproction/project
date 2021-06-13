@@ -1,46 +1,37 @@
 package gui.student;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
-import com.sun.javafx.scene.control.skin.ToggleButtonSkin;
-
-import client.App_client;
 import common.DataPacket;
 import common.Exam;
 import common.Question;
 import common.examInitiated;
-import control.PageProperties;
-import control.SceneController;
-import control.UserControl;
 import control.ClientControl;
 import control.ExamControl;
 import control.ExamInitiatedControl;
+import control.PageProperties;
+import control.SceneController;
+import control.UserControl;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import java.awt.event.ActionEvent;
-import java.util.Date;
 
 public class TakeExamController {
 	SceneController sceen;
@@ -97,6 +88,10 @@ public class TakeExamController {
 	private Label commentsLbl;
 	@FXML
 	private Label commentsTxt;
+
+	@FXML
+	private AnchorPane ap_exam_stats;
+
 	ArrayList<Question> testQuestions;
 	String answers[];
 	List<String> answerList;
@@ -152,32 +147,37 @@ public class TakeExamController {
 
 		examInitiated = ExamInitiatedControl.getExamInitiated();
 		initiated_time = examInitiated.getInitiatedDate().substring(11, 19);
-		
+
 		exam_duration = ExamControl.getExam().getDuration();
-		
-		
+
 		System.out.println(initiated_time);
 		ExamInitiatedControl.setExamInitiated(null);
 		ArrayList<Object> parameters = new ArrayList<>();
 		parameters.add(examInitiated);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_TEST_QUESTIONS,
 				parameters, null, true);
-		
+
 		System.out.println("trying to send exam");
 
 		ClientControl.getInstance().accept(dataPacket);
 		// will recive the time left for the exam
 
 		String serverCurrentTime = ExamControl.ServerTime;
-		
+
 		System.out.println(serverCurrentTime);
-		
+
 		exam_left_time = timeDiffrance(exam_duration, timeDiffrance(serverCurrentTime, initiated_time));
-		
+
 		label_timer.setText(exam_left_time); // set the left time
-		
-		
-		
+
+		// rostik v10
+		// check if already approved extra time to show it in timer..
+		if (ExamInitiatedControl.isExtraTimeRecived) {
+			ExamInitiatedControl.isExtraTimeRecived = false;
+			// ExamInitiatedControl.ExtraTime
+			exam_left_time = timeAdd(ExamInitiatedControl.ExtraTime, exam_left_time);
+		}
+		label_timer.setText(exam_left_time); // set the left time
 		// start timer to end the exam on finish
 		tm = new Timer(1000, new ActionListener() {
 			String timer = exam_left_time;
@@ -187,29 +187,30 @@ public class TakeExamController {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						if(ExamInitiatedControl.isExtraTimeRecived)
-						{
-							ExamInitiatedControl.isExtraTimeRecived=false;
-							//ExamInitiatedControl.ExtraTime
+						if (ExamInitiatedControl.isExtraTimeRecived) {
+							ExamInitiatedControl.isExtraTimeRecived = false;
 							timer = timeAdd(ExamInitiatedControl.ExtraTime, timer);
-							//ExamInitiatedControl.eiID =0;
 						}
 						
 						timer = timerCountdown(timer);
-						
+
 						if (timer.equals("00:00:00"))
 							submit();
-				
+
 						label_timer.setText(timer);
+
+						if (ExamControl.isExamTerminated()) {
+							exam_terminate();
+							ExamControl.setExamTerminated(false);
+						}
 					}
 				});
 			}
 		});
-		tm.start();
-		
+		SceneController.setInsidePageTimerThraed(tm);
+		SceneController.getInsidePageTimerThraed().start();
+		// rostik v10
 
-		
-		
 		back.setVisible(false);
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -244,6 +245,23 @@ public class TakeExamController {
 		}
 		// questionInfo.setText(testQuestions.get(1).getInfo());
 	}
+
+	private void exam_terminate() {
+		System.out.println("tttttttttttttttttttttttttersmdasda<<<<<<<<<<<<<<");
+		// hide all the labels
+		label_question.setVisible(false);
+		option1.setVisible(false);
+		option2.setVisible(false);
+		option3.setVisible(false);
+		option4.setVisible(false);
+		next.setVisible(false);
+		back.setVisible(false);
+		submitBtn.setVisible(false);
+		ap_exam_stats.setVisible(false);
+		testSubmited.setVisible(true);
+		testSubmited.setText("Exam terminated by teacher.");
+	}
+	
 	
 	/// time2 - time1
 	public String timeDiffrance(String time2, String time1) {
@@ -252,7 +270,7 @@ public class TakeExamController {
 		Date date2 = null;
 		long res = 0;
 		String time;
-		
+
 		try {
 			date1 = format.parse(time1);
 			date2 = format.parse(time2);
@@ -260,19 +278,18 @@ public class TakeExamController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//exam_duration
+		// exam_duration
 		res = date2.getTime() - date1.getTime();
-		//System.out.println(res);
-		
+		// System.out.println(res);
+
 		time = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(res),
-				TimeUnit.MILLISECONDS.toMinutes(res)
-						- TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(res)),
+				TimeUnit.MILLISECONDS.toMinutes(res) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(res)),
 				TimeUnit.MILLISECONDS.toSeconds(res)
 						- TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(res)));
-		
+
 		return time;
 	}
-	
+
 	public static String timeAdd(String time2, String time1) {
 		int hour1 = Integer.parseInt(time1.substring(0, 2));
 		int min1 = Integer.parseInt(time1.substring(3, 5));
@@ -296,7 +313,7 @@ public class TakeExamController {
 
 		return Shour + ":" + Smin + ":" + Ssec;
 	}
-	
+
 	public String timerCountdown(String time) {
 		int hour = Integer.parseInt(time.substring(0, 2));
 		int min = Integer.parseInt(time.substring(3, 5));
@@ -395,7 +412,7 @@ public class TakeExamController {
 			answers[index] = option1.isSelected() ? "1" : option2.isSelected() ? "2" : option3.isSelected() ? "3" : "4";
 			submit();
 		}
-		if(event.getSource()==getGuidelinesBtn) {
+		if (event.getSource() == getGuidelinesBtn) {
 			label_question.setVisible(false);
 			option1.setVisible(false);
 			option2.setVisible(false);
@@ -406,7 +423,7 @@ public class TakeExamController {
 			getGuidelinesBtn.setDisable(true);
 			commentsLbl.setVisible(true);
 		}
-		if(event.getSource()==continueExamBtn) {
+		if (event.getSource() == continueExamBtn) {
 			label_question.setVisible(true);
 			option1.setVisible(true);
 			option2.setVisible(true);
@@ -435,6 +452,7 @@ public class TakeExamController {
 		option4.setVisible(false);
 		next.setVisible(false);
 		back.setVisible(false);
+		ap_exam_stats.setVisible(false);
 		submitBtn.setVisible(false);
 		testSubmited.setVisible(true);
 		getGuidelinesBtn.setVisible(false);

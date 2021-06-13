@@ -1,8 +1,11 @@
 package gui;
 
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.swing.Timer;
 
 import client.App_client;
 import common.DataPacket;
@@ -10,7 +13,9 @@ import common.Principal;
 import common.Student;
 import common.Teacher;
 import control.ClientControl;
+import control.ExamControl;
 import control.PageProperties;
+import control.PrincipalControl;
 import control.SceneController;
 import control.UserControl;
 import javafx.application.Platform;
@@ -85,7 +90,7 @@ public class MainPageController {
 
 	@FXML
 	private MenuItem displayStatisticalReportTeacher;
-	
+
 	@FXML
 	private MenuItem takeExam;
 	@FXML
@@ -101,6 +106,12 @@ public class MainPageController {
 	@FXML
 	private MenuItem ManageOngoingExams;
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+	// rostik v10
+	@FXML
+	private Label label_notification;
+	@FXML
+	private ImageView image_notification;
+	// rostik v10
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
@@ -113,7 +124,7 @@ public class MainPageController {
 		SceneController.primaryStage.setWidth(850);
 		SceneController.primaryStage.setHeight(750);
 		App_client.pageContainer = page_box; // set page center container to load inside it other pagess
-		
+
 		displayStatisticalReport.setVisible(false);
 		checkRequest.setVisible(false);
 		information.setVisible(false);
@@ -124,8 +135,11 @@ public class MainPageController {
 		verifyExam.setVisible(false);
 		ManageOngoingExams.setVisible(false);
 		manageExams.setVisible(false);
-		
-		
+
+		// rostik v10
+		label_notification.setVisible(false);
+		image_notification.setVisible(false);
+		// rostik v10
 
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
@@ -160,6 +174,37 @@ public class MainPageController {
 		SceneController.primaryStage.widthProperty().addListener(listener);
 		SceneController.primaryStage.heightProperty().addListener(listener);
 
+//////////////////////////////////////////////rostik v10 /////////////////////////////////
+// check for notifications to show notification icon
+		Timer tm = new Timer(1000, new ActionListener() {
+
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						if (UserControl.ConnectedUser instanceof Principal && PrincipalControl.isExtraTimeRequest_Recived()) {
+							label_notification.setText(UserControl.getNotipications() + "");
+							label_notification.setVisible(true);
+							image_notification.setVisible(true);
+
+						} else if (UserControl.ConnectedUser instanceof Teacher && ExamControl.isNotifiedAboutExtraTime()) {
+							System.out.println("Showeddd ");
+							label_notification.setText(UserControl.getNotipications() + "");
+							label_notification.setVisible(true);
+							image_notification.setVisible(true);
+						} else {
+//label_notification.setText(UserControl.setNotipications(UserControl.getNotipications()-1) + "");
+							label_notification.setVisible(false);
+							image_notification.setVisible(false);
+						}
+					}
+				});
+			}
+		});
+		tm.start();
+// rostik v10 ///////////////////////////////////////////////////////////
+
 		if (UserControl.ConnectedUser instanceof Student) {
 			SceneController.primaryStage.setTitle("Cems: Student - home page");
 			takeExam.setVisible(true);
@@ -177,12 +222,12 @@ public class MainPageController {
 			createExam.setVisible(true);
 
 			displayStatisticalReportTeacher.setVisible(true);
-			
+
 			verifyExam.setVisible(true);
 			manageQuestions.setVisible(true);
 			ManageOngoingExams.setVisible(true);
 			manageExams.setVisible(true);
-			
+
 			label_bar_welcome.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " "
 					+ UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Teacher)");
@@ -205,16 +250,16 @@ public class MainPageController {
 			page_box.setCenter(page);
 		}
 	}
-	
+
 	@FXML
-    void button_homepage_clicked(ActionEvent event) {
+	void button_homepage_clicked(ActionEvent event) {
 		if (UserControl.ConnectedUser instanceof Student) {
 			// load Student home page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Student);
 			page_box.setCenter(page);
 
 		} else if (UserControl.ConnectedUser instanceof Teacher) {
-			
+
 			// load Teacher home page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Teacher);
 			page_box.setCenter(page);
@@ -225,7 +270,7 @@ public class MainPageController {
 			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Principal);
 			page_box.setCenter(page);
 		}
-    }
+	}
 
 	// teacher
 	@FXML
@@ -254,7 +299,6 @@ public class MainPageController {
 
 	}
 
-	
 	@FXML
 	public void button_manage_exams_clicked(ActionEvent event) {
 		System.out.println("clicked");
@@ -262,6 +306,7 @@ public class MainPageController {
 		// Pane screen = object.Sc();
 		page_box.setCenter(page);
 	}
+
 	@FXML
 	public void button_verify_exam_clicked(ActionEvent event) {
 		System.out.println("clicked");
@@ -290,7 +335,6 @@ public class MainPageController {
 		// SceneController.primaryStage.setMinHeight(700);
 	}
 
-
 	@FXML
 	void button_information(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.INFO_PAGE);
@@ -303,12 +347,14 @@ public class MainPageController {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.EXTRA_TIME_REQUESTS);
 		page_box.setCenter(page);
 	}
+
 	@FXML
 	void buttton_statistical_teacher_report(ActionEvent event) {
 		AnchorPane page = SceneController.getPage(PageProperties.Page.HISTOGRAM);
 		page_box.setCenter(page);
 
 	}
+
 	@FXML
 	void button_start_exam(ActionEvent event) {
 		System.out.println("clicked_startExam");
@@ -316,6 +362,7 @@ public class MainPageController {
 		page_box.setCenter(page);
 
 	}
+
 	@FXML
 	public void button_manage_questions_clicked(ActionEvent event) {
 		System.out.println("manage_questions_clicked");
@@ -325,6 +372,7 @@ public class MainPageController {
 		// page_box.setCenter(page);
 
 	}
+
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 	@FXML
 	void manage_ongoing_exam(ActionEvent event) {
@@ -333,8 +381,6 @@ public class MainPageController {
 	}
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 
-	
-	
 	@FXML
 	void button_logout_clicked(MouseEvent event) {
 		System.out.println("clicked to logout");
@@ -345,10 +391,9 @@ public class MainPageController {
 		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 		// will recive message from server and set user to null
 
-		
 		// break the connection with the server
 		ClientControl.getInstance().destroyInstance();
-		
+
 		// make animation and than load page
 		SceneController sceen = new SceneController(PageProperties.Page.LOGIN, ap);
 		sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);

@@ -16,6 +16,7 @@ import control.ClientControl;
 import control.ExamControl;
 import control.ExamInitiatedControl;
 import control.ManageOngoingExams;
+import control.SceneController;
 import control.UserControl;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -137,17 +138,26 @@ public class ManageOngoingExamsController {
 				true);
 		ClientControl.getInstance().accept(data);
 
-		if (ExamControl.extraTimeRequest.equals("waiting")) {
-			// time.setVisible(false);
-			label_message.setVisible(false);
-			label_message.setText("Extra time request waiting principal desition.");
-		} else if (ExamControl.extraTimeRequest.equals("yes")) {
-			label_message.setVisible(true);
-			label_message.setText("Extra time request been approved by principal.");
-		} else if (ExamControl.extraTimeRequest.equals("no")) {
-			// time.setVisible(false);
-			label_message.setVisible(true);
-			label_message.setText("Extra time request been dinaided by principal.");
+		// rostik v10
+		if (ExamControl.extraTimeRequest != null) {
+			System.out.println("sdasdasda");
+			if (ExamControl.extraTimeRequest.getIsApproved().equals("waiting")) {
+				ap_request_extra_time_box.setVisible(false);
+				label_message.setVisible(true);
+				label_message.setText("Extra time request waiting principal desition.");
+			} else if (ExamControl.extraTimeRequest.getIsApproved().equals("yes")) {
+				ap_request_extra_time_box.setVisible(false);
+				label_message.setVisible(true);
+				label_message.setText("Extra time request been approved by principal.");
+				label_message.setStyle("-fx-text-fill: #00C903;");
+			} else if (ExamControl.extraTimeRequest.getIsApproved().equals("no")) {
+				ap_request_extra_time_box.setVisible(false);
+				label_message.setVisible(true);
+				label_message.setText("Extra time request been dinaided by principal.");
+				label_message.setStyle("-fx-text-fill: #FF0000;");
+			} else {
+				label_message.setVisible(false);
+			}
 		} else
 			label_message.setVisible(false);
 
@@ -161,7 +171,10 @@ public class ManageOngoingExamsController {
 
 			System.out.println("LEFT TIME: " + exam_left_time);
 			time.setText(exam_left_time);
+
+			// rostik v10
 			// start timer to end the exam on finish
+
 			tm = new Timer(1000, new ActionListener() {
 				String timer = exam_left_time;
 
@@ -180,20 +193,30 @@ public class ManageOngoingExamsController {
 							timer = timerCountdown(timer);
 
 							time.setText(timer);
-							// if(timer.equals("00:00:00"))
-							// Thread.
+
+							if (ExamControl.isNotifiedAboutExtraTime()) {
+								if (ExamControl.isExtraTimeApproved()) {
+									label_message.setText("Extra time request approved by principal");
+									label_message.setStyle("-fx-text-fill: #00C903;");
+								} else {
+									label_message.setText("Extra time request denied by principal");
+									label_message.setStyle("-fx-text-fill: #FF0000;");
+								}
+								ExamControl.setNotifiedAboutExtraTime(false);
+							}
+
 						}
 					});
 				}
 			});
-			tm.start();
+			SceneController.setInsidePageTimerThraed(tm);
+			SceneController.getInsidePageTimerThraed().start();
+			// rostik v10
 
 			// leftTime = timeDiffrance(ExamControl.ServerTime,
 			// ExamControl.examInitiatedTime);
 			System.out.println(leftTime);
 			String ongoingExam = "";
-
-			
 
 			// Set text and style for exam info field
 			label_exam_info.setText("exam id : " + ExamControl.exam.getExamID() + " description : "
@@ -258,8 +281,11 @@ public class ManageOngoingExamsController {
 
 	@FXML
 	void button_terminate_clicked(MouseEvent event) {
-		ArrayList<Object> parameter = new ArrayList<Object>();
-		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM, parameter, null, true);
+		ArrayList<Object> parameters = new ArrayList<Object>();
+		parameters.add(UserControl.ConnectedUser);
+		parameters.add(ExamInitiatedControl.getExamInitiated());
+		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM, parameters, null,
+				true);
 		ClientControl.getInstance().accept(data);
 	}
 
