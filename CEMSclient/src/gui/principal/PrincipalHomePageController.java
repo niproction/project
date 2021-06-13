@@ -126,10 +126,10 @@ public class PrincipalHomePageController {
 				true);
 		ClientControl.getInstance().accept(data);
 
-		if (UserControl.HowManyExamsNow != 0) {
-			count = UserControl.HowManyExamsNow;
+		if (PrincipalControl.HowManyExamsNow != 0) {
+			count = PrincipalControl.HowManyExamsNow;
 		}
-		UserControl.HowManyExamsNow = 0;
+		PrincipalControl.HowManyExamsNow = 0;
 		examcount.setText(count.toString());
 		examcount.setStyle("-fx-font-weight: bold;-fx-font-size: 20;-fx-font-style: italic;-fx-font-color:#73255a");
 
@@ -137,8 +137,8 @@ public class PrincipalHomePageController {
 		data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_IF_REQUEST, null, null, true);
 		ClientControl.getInstance().accept(data);
 
-		count = UserControl.ifRequests;
-		UserControl.ifRequests = 0;
+		count = PrincipalControl.ifRequests;
+		PrincipalControl.ifRequests = 0;
 		reqNum.setText(count.toString());
 		reqNum.setStyle("-fx-font-weight: bold;-fx-font-size: 20;-fx-font-style: italic;-fx-font-color:#73255a");
 		reqNum.setVisible(true);

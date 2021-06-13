@@ -52,7 +52,7 @@
       </Label>
       <AnchorPane fx:id="GuidelinesTxt" layoutX="20.0" layoutY="115.0" prefHeight="486.0" prefWidth="642.0">
          <children>
-            <Label fx:id="commentsTxt" alignment="TOP_LEFT" prefHeight="486.0" prefWidth="642.0" text="rereer">
+            <Label fx:id="commentsTxt" alignment="TOP_LEFT" prefHeight="486.0" prefWidth="642.0" text="comments will appeare here">
                <font>
                   <Font size="22.0" />
                </font>

@@ -7,9 +7,11 @@ import client.App_client;
 import common.DataPacket;
 import common.ExamDone;
 import control.ClientControl;
+import control.GetCopyOfExamControl;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
+import control.ViewGradesControl;
 import control.examDoneControl;
 import gui.TableEntry;
 import javafx.collections.FXCollections;
@@ -31,6 +33,7 @@ public class verifyExamController {
 	@FXML // fx:id="ap"
 	private AnchorPane ap;
 	private ArrayList<ExamDone> examDoneList;
+	private ArrayList<Button> buttonList=new ArrayList<>();
 	@FXML
 	private TableView<TableEntry> tableView;
 	@FXML
@@ -49,6 +52,7 @@ public class verifyExamController {
 	public TableColumn<TableEntry, ?> colStatus;
 	@FXML
 	public TableColumn<TableEntry, ?> colCheating;
+	private int index;
 	@FXML
 	public void initialize (){
 		sceen = new SceneController(PageProperties.Page.VERIFY_EXAM, ap);
@@ -85,6 +89,7 @@ public class verifyExamController {
 				// create a HBox
 				final HBox status =  new HBox();
 				final Button getCopy=new Button("get copy");
+				buttonList.add(getCopy);
 				//final Button getcopy=new Button();
 				try {
 					//getcopy.setAlignment(Pos.CENTER);
@@ -100,7 +105,20 @@ public class verifyExamController {
 
 					Button Y = new Button("Y");
 					Button N = new Button("N");
-					
+					EventHandler<ActionEvent> getCopyHandler = new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent event) {
+							for(int i=0;i<buttonList.size();i++) {
+								if(buttonList.get(i).equals(getCopy))
+									index=i;
+									
+							}
+							GetCopyOfExamControl.studentID=Integer.valueOf(examDoneList.get(index).getuID());
+							GetCopyOfExamControl.eID=entry.getEiID();
+							AnchorPane page = SceneController.getPage(PageProperties.Page.GET_COPY_OF_EXAM);
+							App_client.pageContainer.setCenter(page);
+						}
+					};
 					EventHandler<ActionEvent> YHandler = new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent event) {
@@ -135,6 +153,7 @@ public class verifyExamController {
 					};
 					Y.setOnAction(YHandler);
 					N.setOnAction(NHandler);
+					getCopy.setOnAction(getCopyHandler);
 
 					// add buttons to HBox
 					status.getChildren().add(Y);

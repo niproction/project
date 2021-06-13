@@ -8,7 +8,7 @@ import common.Exam;
 public class ExamControl {
 	public static ArrayList<String> coursesNames;
 	public static String selectedCourse;
-	
+	public static boolean editExamFlag=false;
 	public static ArrayList<String> questions;
 	public static String questionID;
 	public static Exam exam;
@@ -18,9 +18,15 @@ public class ExamControl {
 	
 	public static String ServerTime;
 	public static String examInitiatedTime;
+	public static ArrayList<Exam> examsList;
 	
 	
-	
+	public static ArrayList<Exam> getExamsList() {
+		return examsList;
+	}
+	public static void setExamsList(ArrayList<Exam> examsList) {
+		ExamControl.examsList = examsList;
+	}
 	public static String extraTimeRequest;
 	
 	

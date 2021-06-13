@@ -89,6 +89,8 @@ public class MainPageController {
 	@FXML
 	private MenuItem takeExam;
 	@FXML
+	private MenuItem manageExams;
+	@FXML
 	private MenuItem historyOfExams;
 	@FXML
 	private MenuItem verifyExam;
@@ -121,6 +123,7 @@ public class MainPageController {
 		historyOfExams.setVisible(false);
 		verifyExam.setVisible(false);
 		ManageOngoingExams.setVisible(false);
+		manageExams.setVisible(false);
 		
 		
 
@@ -178,7 +181,7 @@ public class MainPageController {
 			verifyExam.setVisible(true);
 			manageQuestions.setVisible(true);
 			ManageOngoingExams.setVisible(true);
-
+			manageExams.setVisible(true);
 			
 			label_bar_welcome.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " "
 					+ UserControl.ConnectedUser.getLastName());
@@ -252,7 +255,13 @@ public class MainPageController {
 	}
 
 	
-
+	@FXML
+	public void button_manage_exams_clicked(ActionEvent event) {
+		System.out.println("clicked");
+		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_EXAMS);
+		// Pane screen = object.Sc();
+		page_box.setCenter(page);
+	}
 	@FXML
 	public void button_verify_exam_clicked(ActionEvent event) {
 		System.out.println("clicked");

@@ -10,6 +10,7 @@ public class GetCopyOfExamControl {
 	public static String eID;
 	public static Boolean emptyHistory;
 	public static String teacherComm;
+	public static int studentID;
 	public static String studentComm;
 	public static String getQuestionDescription(int i)
 	{

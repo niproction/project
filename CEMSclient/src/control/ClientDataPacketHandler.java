@@ -86,8 +86,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			} else {
 				UserControl.ongoingExam = 0;
 			}
-		}
-		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
+		} else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 			if (dataPacket.getData_parameters() != null) {
 				String seccess = (String) dataPacket.getData_parameters().get(0);
 				App_client.seccess = seccess; // message setter
@@ -165,8 +164,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_STUDENT_GRADES) {
-			if (dataPacket.getData_parameters() == null)
-			{
+			if (dataPacket.getData_parameters() == null) {
 				ViewGradesControl.emptyGrades = true;
 			}
 
@@ -180,9 +178,43 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				}
 			}
 
+		} else if (dataPacket.getRequest() == DataPacket.Request.CHECK_FOR_GRADES) {
+			if ((int) dataPacket.getData_parameters().get(0) != 0) {
+				StudentControl.pendingGrades = (int) dataPacket.getData_parameters().get(0);
+			} else {
+				StudentControl.pendingGrades = 0;
+			}
 		}
 
-		else if (dataPacket.getRequest() == DataPacket.Request.DISAPPROVED_GRADE) {
+		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
+			if (dataPacket.getData_parameters() != null) {
+				String seccess = (String) dataPacket.getData_parameters().get(0);
+				App_client.seccess = seccess; // message setter
+			} else
+				App_client.seccess = null;
+
+		}
+		 else if (dataPacket.getRequest() == DataPacket.Request.GET_HOW_MANY_EXAMS) {
+				PrincipalControl.HowManyExamsNow = (int) dataPacket.getData_parameters().get(0);
+			}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
+			if (dataPacket.getResult_boolean()) {
+
+				System.out.println("qqqqq");
+				examInitiated exam = (examInitiated) dataPacket.getData_parameters().get(0);
+				Exam exam2 = (Exam) dataPacket.getData_parameters().get(1);
+				ExamInitiatedControl.setExamInitiated(exam);
+				ExamControl.setExam(exam2);
+
+				UserControl.isDoingExam = true; // stated exam
+
+			} else {
+				System.out.println("no exam");
+				ExamInitiatedControl.setExamInitiated(null);
+				UserControl.setCanOpenExam((String) dataPacket.getMessage());
+			}
+
+		} else if (dataPacket.getRequest() == DataPacket.Request.DISAPPROVED_GRADE) {
 			String msg = (String) dataPacket.getData_parameters().get(0);
 			System.out.println(msg);
 		}
@@ -198,7 +230,13 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				examDoneControl.setExamDoneLIst((ArrayList<ExamDone>) dataPacket.getData_parameters().get(0));
 			}
 		}
-
+		
+		else if (dataPacket.getRequest() == DataPacket.Request.HOW_MANY_VERIFY) {
+			TeacherControl.verifyAmount = (int) dataPacket.getData_parameters().get(0);
+		}
+		else if (dataPacket.getRequest() == DataPacket.Request.ONGOING_TO_MANAGE) {
+			TeacherControl.manage = (boolean) dataPacket.getData_parameters().get(0);
+		}
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSES) {
 			ExamControl.coursesNames = (ArrayList<String>) dataPacket.getData_parameters().clone();
 
@@ -238,15 +276,12 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				GetCopyOfExamControl.pointsForQuestion
 						.addAll((ArrayList<String>) dataPacket.getData_parameters().get(3));
 			}
-		}
-		else if(dataPacket.getRequest() == DataPacket.Request.Get_Comments)
-		{
+		} else if (dataPacket.getRequest() == DataPacket.Request.Get_Comments) {
 			System.out.println("in the clienttttttt");
-			GetCopyOfExamControl.teacherComm=(String) dataPacket.getData_parameters().get(0);
+			GetCopyOfExamControl.teacherComm = (String) dataPacket.getData_parameters().get(0);
 			System.out.println(GetCopyOfExamControl.teacherComm);
-			GetCopyOfExamControl.studentComm=(String) dataPacket.getData_parameters().get(1);
+			GetCopyOfExamControl.studentComm = (String) dataPacket.getData_parameters().get(1);
 		}
-
 
 		///////////////////////////////////////////////////////////
 		/// teacher requests
@@ -288,6 +323,13 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 					ExamControl.extraTimeRequest = (String) dataPacket.getData_parameters().get(5);
 
 			}
+		} else if (dataPacket.getRequest() == DataPacket.Request.MANAGE_EXAMS) {
+			if (dataPacket.getData_parameters() != null) {
+				ExamControl.setExamsList((ArrayList<Exam>) dataPacket.getData_parameters().get(0));
+				System.out.println("succeded get exams");
+			} else
+				System.out.println("not succeded get exams");
+
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
@@ -299,8 +341,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		/////////////////////////////////
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_IF_REQUEST) {
 			UserControl.ifRequests = (int) dataPacket.getData_parameters().get(0);
-		}
-		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_COURSE) {
+		} else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_COURSE) {
 			CourseControl.courses = (ArrayList<Course>) dataPacket.getData_parameters().clone();
 		} else if (dataPacket.getRequest() == DataPacket.Request.CHECK_TOOK_EXAM) {
 			if (dataPacket.getData_parameters() != null)
@@ -330,14 +371,14 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXTRA_TIME_REQUESTS) {
 			PrincipalControl.requests = new ArrayList<ExtraTimeRequest>();
 			UserControl.user = new ArrayList<User>();
-			for(int i=0;i<dataPacket.getData_parameters().size();i++)
-			{
-				if(i%2==0)
-					PrincipalControl.requests.add( (ExtraTimeRequest) dataPacket.getData_parameters().get(i));
+			for (int i = 0; i < dataPacket.getData_parameters().size(); i++) {
+				if (i % 2 == 0)
+					PrincipalControl.requests.add((ExtraTimeRequest) dataPacket.getData_parameters().get(i));
 				else
 					UserControl.user.add((User) dataPacket.getData_parameters().get(i));
 			}
-			//PrincipalControl.requests = (ArrayList<ExtraTimeRequest>) dataPacket.getData_parameters().clone();
+			// PrincipalControl.requests = (ArrayList<ExtraTimeRequest>)
+			// dataPacket.getData_parameters().clone();
 		} else if (dataPacket.getRequest() == DataPacket.Request.EXTRA_TIME_DECISION) {
 			System.out.println("Decision acsepted");
 		}

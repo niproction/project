@@ -79,6 +79,15 @@ public class GetCopyOfExamController {
 		GetCopyOfExamControl.questionsDescription.clear();
 		ArrayList<Object> parameters = new ArrayList<>();
 		DataPacket dataPacket;
+//		if(UserControl.ConnectedUser instanceof Teacher)
+//		{
+//			parameters.add(GetCopyOfExamControl.studentID);
+//			GetCopyOfExamControl.studentID=0;
+//		}
+//		else if(UserControl.ConnectedUser instanceof Student) {
+//	
+//		}
+		//System.out.println("studID:"+GetCopyOfExamControl.studentID);
 		parameters.add(UserControl.ConnectedUser.getuID());
 		for (int i = 0; i < ViewGradesControl.getSize(); i++) {
 			parameters.add(1, ViewGradesControl.getExamsInitID(i));
