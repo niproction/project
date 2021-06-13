@@ -35,7 +35,7 @@ public class DataPacket implements Serializable {
 		
 		ADD_DONE_EXAM
 		
-		,GET_EXAMS_BY_TEACHER,START_EXAM,MANAGE_EXAMS,
+		,GET_EXAMS_BY_TEACHER,START_EXAM,MANAGE_EXAMS,EDIT_GRADE,
 		
 		TEACHER_REQUEST_EXTRA_TIME,
 /////////////////////barak

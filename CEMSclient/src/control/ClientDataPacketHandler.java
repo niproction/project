@@ -396,6 +396,13 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				System.out.println("not working 000");
 
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.EDIT_GRADE) {
+			if (dataPacket.getData_parameters() != null) {
+				System.out.println("zibi");
+				StudentControl.gradeChanged=(int)dataPacket.getData_parameters().get(0);
+			}
+		}
+		
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_ONGOING_EXAM) {
 			ManageOngoingExams.isOngoingExams = dataPacket.getResult_boolean();
