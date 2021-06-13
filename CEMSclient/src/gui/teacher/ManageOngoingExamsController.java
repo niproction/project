@@ -19,11 +19,14 @@ import control.ManageOngoingExams;
 import control.SceneController;
 import control.UserControl;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -56,9 +59,7 @@ public class ManageOngoingExamsController {
 	@FXML // fx:id="text3"
 	private Text text3; // Value injected by FXMLLoader
 
-	@FXML // fx:id="extra_time_request"
-	private TextField extra_time_request; // Value injected by FXMLLoader
-
+	
 	@FXML // fx:id="terminate_exam"
 	private Button terminate_exam; // Value injected by FXMLLoader
 
@@ -91,9 +92,13 @@ public class ManageOngoingExamsController {
 
 	@FXML
 	private AnchorPane ap_request_extra_time_box;
+	@FXML
+	private ChoiceBox<String> minutesChoiceBox;
+	@FXML
+	private ChoiceBox<String> hourChoiceBox;
 
 	private String exam_left_time = null;
-
+	private String duration = "";
 	/**
 	 * Initialize the page.
 	 */
@@ -105,8 +110,7 @@ public class ManageOngoingExamsController {
 		assert pic2 != null : "fx:id=\"pic2\" was not injected: check your FXML file 'ManageOngoingExams.fxml'.";
 		assert pic3 != null : "fx:id=\"pic3\" was not injected: check your FXML file 'ManageOngoingExams.fxml'.";
 		assert text3 != null : "fx:id=\"text3\" was not injected: check your FXML file 'ManageOngoingExams.fxml'.";
-		assert extra_time_request != null
-				: "fx:id=\"extra_time_request\" was not injected: check your FXML file 'ManageOngoingExams.fxml'.";
+		
 		assert terminate_exam != null
 				: "fx:id=\"terminate_exam\" was not injected: check your FXML file 'ManageOngoingExams.fxml'.";
 		assert pic1 != null : "fx:id=\"pic1\" was not injected: check your FXML file 'ManageOngoingExams.fxml'.";
@@ -125,8 +129,10 @@ public class ManageOngoingExamsController {
 		// exams exist for the teacher) label
 		time.setStyle("-fx-text-fill: blue;-fx-font-weight: bold;-fx-font-size: 12");
 		Timer tm;
-		terminate_exam.setText("Terminate exam");
-
+		//terminate_exam.setText("Terminate exam");
+		setupDuration();
+		
+		
 		status.autosize();
 		status.setAlignment(Pos.CENTER);
 
@@ -163,7 +169,6 @@ public class ManageOngoingExamsController {
 
 		// If there is an ongoing exam for the teacher
 		if (ManageOngoingExams.isOngoingExams != null && ManageOngoingExams.isOngoingExams == true) {
-			ap_request_extra_time_box.setVisible(true);
 			time.setVisible(true);
 			String leftTime = timeDiffrance(ExamControl.ServerTime,
 					ExamInitiatedControl.getExamInitiated().getInitiatedDate().substring(11));
@@ -180,30 +185,29 @@ public class ManageOngoingExamsController {
 
 				@Override
 				public void actionPerformed(java.awt.event.ActionEvent e) {
+					
 					Platform.runLater(new Runnable() {
+						
 						@Override
 						public void run() {
-							if (ExamInitiatedControl.isExtraTimeRecived) {
-								ExamInitiatedControl.isExtraTimeRecived = false;
-								// ExamInitiatedControl.ExtraTime
-								timer = timeAdd(ExamInitiatedControl.ExtraTime, timer);
-								// ExamInitiatedControl.eiID =0;
-							}
-
-							timer = timerCountdown(timer);
-
-							time.setText(timer);
-
+							
 							if (ExamControl.isNotifiedAboutExtraTime()) {
 								if (ExamControl.isExtraTimeApproved()) {
+									timer = timeAdd(ExamControl.extraTimeRequest.getExtraTime(), timer);
 									label_message.setText("Extra time request approved by principal");
 									label_message.setStyle("-fx-text-fill: #00C903;");
+									
 								} else {
 									label_message.setText("Extra time request denied by principal");
 									label_message.setStyle("-fx-text-fill: #FF0000;");
 								}
 								ExamControl.setNotifiedAboutExtraTime(false);
 							}
+							
+							timer = timerCountdown(timer);
+
+							time.setText(timer);
+
 
 						}
 					});
@@ -223,30 +227,14 @@ public class ManageOngoingExamsController {
 					+ ExamControl.exam.getDescription());
 			label_exam_info.setStyle(("-fx-font-weight: bold;-fx-font-size: 12"));
 
-			// Event handler for exam termination
-			/*
-			 * EventHandler<ActionEvent> terminateHandler = new EventHandler<ActionEvent>()
-			 * {
-			 * 
-			 * @Override public void handle(ActionEvent event) { // Set text and style for
-			 * exam termination button //terminate_exam.setText("EXAM TERMINATED");
-			 * //terminate_exam.setStyle(("-fx-text-fill: red;-fx-font-weight: bold"));
-			 * 
-			 * // UserControl.ConnectedUser.getuid() // Send request to server to get
-			 * ongoing exam for the teacher if there is one DataPacket data = new
-			 * DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM,
-			 * parameter, null, true); ClientControl.getInstance().accept(data); } };
-			 */
-
-			// Set action handler
-			// terminate_exam.setOnAction(terminateHandler);
+			
 		}
 
 		// If there is no ongoing exam for the teacher
 		else if (ManageOngoingExams.isOngoingExams == false) {
 
 			// Delete unnecessary page elements
-			ap.getChildren().removeAll(terminate_exam, label_exam_info, extra_time_request, text1, text2, text3, text4,
+			ap.getChildren().removeAll(terminate_exam, label_exam_info, hourChoiceBox, minutesChoiceBox, text1, text2, text3, text4,
 					pic1, pic2, pic3, pic4, sendBtn, commentField);
 
 			// Show status label(No exams found) and set it's style
@@ -258,11 +246,27 @@ public class ManageOngoingExamsController {
 
 	@FXML
 	void button_send_request_clicked(MouseEvent event) {
+		
+		
+		// bulding duration for the exam
+		if (hourChoiceBox.getValue() == null)
+			duration += "00:";
+		else {
+			duration += hourChoiceBox.getValue() + ":";
+		}
+		if (minutesChoiceBox.getValue() == null)
+			duration += "00:";
+		else {
+			duration += minutesChoiceBox.getValue() + ":";
+		}
+		duration += "00";//set the seconds
+		
+		
 		ArrayList<Object> parameters = new ArrayList<>();
 		parameters.add(UserControl.ConnectedUser);
 		parameters.add(ExamInitiatedControl.getExamInitiated());
 		parameters.add(commentField.getText());
-		parameters.add(extra_time_request.getText());
+		parameters.add(duration);
 		// Send request to server to get ongoing exam for the teacher if there is one
 		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TEACHER_REQUEST_EXTRA_TIME,
 				parameters, null, true);
@@ -288,6 +292,31 @@ public class ManageOngoingExamsController {
 				true);
 		ClientControl.getInstance().accept(data);
 	}
+	
+	
+	
+	
+	
+	protected void setupDuration() {
+		ObservableList<String> hourList = FXCollections.observableArrayList();
+		ObservableList<String> minList = FXCollections.observableArrayList();
+
+		//errLabel.setVisible(false);
+		for (int i = 0; i < 60; i++) {
+			minList.add(Integer.toString(i));
+		}
+		for (int i = 0; i < 4; i++) {
+			hourList.add(Integer.toString(i));
+		}
+
+		hourChoiceBox.setItems(hourList);
+		minutesChoiceBox.setItems(minList);
+	}
+	
+	
+	
+	
+	
 
 	/// time2 - time1
 	public String timeDiffrance(String time2, String time1) {

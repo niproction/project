@@ -98,6 +98,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 					ExamControl.setNotifiedAboutExtraTime(true);
 					ExamControl.setExtraTimeApproved(((ExtraTimeRequest)dataPacket.getData_parameters().get(0)).getIsApproved().equals("yes"));
+					ExamControl.extraTimeRequest = (ExtraTimeRequest)dataPacket.getData_parameters().get(0);
 					//UserControl.setNotipications(UserControl.getNotipications()+1);
 				}
 				else if (dataPacket.getRequest() == DataPacket.Request.NOTIFY_STUDENTS_DOING_SAME_EXAM_TERMINATE) {
@@ -367,6 +368,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		} else if (dataPacket.getRequest() == DataPacket.Request.TEACHER_REQUEST_EXTRA_TIME) {
 			System.out.println("request extra time delivered");
 			UserControl.RequestForExtraTimeSent = dataPacket.getResult_boolean();
+			
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEACHER_QUESTIONS) {
