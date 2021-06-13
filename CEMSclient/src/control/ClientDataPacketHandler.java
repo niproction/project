@@ -1,6 +1,7 @@
 package control;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import client.App_client;
 import common.Course;
@@ -243,7 +244,17 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
-			ExamControl.questions = (ArrayList<String>) dataPacket.getData_parameters().clone();
+			for (int i = 0; i < dataPacket.getData_parameters().size(); i++) {
+				if(i%2==0)
+				{
+					System.out.println("quest:"+(String) dataPacket.getData_parameters().get(i));
+					ExamControl.questions.add((String) dataPacket.getData_parameters().get(i));
+				}
+				else {
+					System.out.println("qID:"+(String) dataPacket.getData_parameters().get(i));
+					ExamControl.questionsID.add((String) dataPacket.getData_parameters().get(i));
+				}
+			}
 
 		}
 
@@ -334,6 +345,12 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 		else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
 			ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
+		}
+		///////////////////////barak 5
+		else if(dataPacket.getRequest()==DataPacket.Request.GET_EXAM_QUESTIONID_BY_EID)
+		{
+			ExamControl.questionsInExams=(ArrayList<Question>)dataPacket.getData_parameters().get(0);
+			ExamControl.questionNotInExams=(ArrayList<Question>)dataPacket.getData_parameters().get(1);
 		}
 
 		//////////////////////////////

@@ -3,10 +3,12 @@ package gui.teacher;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
+import common.Question;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -31,10 +33,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class createNewExamController {
+public class editExamsController {
 	Exam exam = new Exam();
 	SceneController sceen;
-	private double totalPoints = 0;
+	private double totalPoints = 100;
+	private ArrayList<Question> inExams;
+	private ArrayList<Question> notInExams;
 	@FXML
 	private AnchorPane apSubmitedExam;
 	@FXML
@@ -91,8 +95,18 @@ public class createNewExamController {
 	private AnchorPane ap;
 	@FXML
 	private Button addCommentsBtn;
+	private ArrayList<String> questionFromEditExam = new ArrayList<>();
+	private ArrayList<String> questionsForTable = new ArrayList<>();
+	private ArrayList<String> notInExamQuesitons;
+	private ArrayList<String> examControlQuestion;
+
 	@FXML
 	public void initialize() {
+		ExamControl.questions.clear();
+		ExamControl.pointsForQuestion.clear();
+		ExamControl.questionsID.clear();
+		ExamControl.questionsInExams.clear();
+		ExamControl.questionNotInExams.clear();
 		sceen = new SceneController(PageProperties.Page.CREATE_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		questionToAddCol.setCellValueFactory(new PropertyValueFactory("col1"));
@@ -101,7 +115,6 @@ public class createNewExamController {
 		questionAtExamCol.setCellValueFactory(new PropertyValueFactory("col1"));
 		pointsAtExamCol.setCellValueFactory(new PropertyValueFactory("col2"));
 		removeQuestionCol.setCellValueFactory(new PropertyValueFactory("col3"));
-		ExamControl.questions.clear();
 		apComments.setVisible(false);
 		setupDuration();
 		ArrayList<Object> parameters = new ArrayList<>();
@@ -115,7 +128,7 @@ public class createNewExamController {
 			fieldNameLabel.setText(fieldName);
 		}
 		errLabel.setVisible(false);
-		totalPointsLabel.setText("0");
+		totalPointsLabel.setText("100");
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSES, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
 		ObservableList<String> courseList = FXCollections.observableArrayList();
@@ -123,25 +136,63 @@ public class createNewExamController {
 		courses.setItems(courseList);
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_QUESTION_BY_FIELD_ID, parameters,
 				null, true);
+
 		ObservableList<String> questionsList = FXCollections.observableArrayList();
 		ClientControl.getInstance().accept(dataPacket);
-		questionsList.addAll(ExamControl.questions);
-//		 ObservableList<TableEntry> questionBank =
-//		 FXCollections.observableArrayList();
+		examControlQuestion = ExamControl.questions;
+		// ExamControl.questions=null;
+
+		removeQuestionFromBank();
+		insertQuestionToExamFromEdit();
+		ArrayList<String> descriptionList=new ArrayList<>();
+		for(Question question:notInExams)
+			descriptionList.add(question.getInfo());
+			
+		questionsList.addAll(descriptionList);
+
 		insertQuestionToChooseQuestionTable(questionsList, questionBank);
+	}
+
+	private void insertQuestionToExamFromEdit() {
+		for (int i = 0; i < inExams.size(); i++) {
+		//	insertDataOfQuestionToExam(questionsForTable.get(i), ExamControl.pointsForQuestion.get(i));
+			insertDataOfQuestionToExam(inExams.get(i).getInfo(), inExams.get(i).getPoints());
+
+		}
+	}
+
+	private void removeQuestionFromBank() {
+		ArrayList<Object> parameter = new ArrayList<>();
+		parameter.add(ExamControl.examID);
+		ExamControl.examID = null;
+		parameter.add(UserControl.ConnectedUser);
+		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAM_QUESTIONID_BY_EID,
+				parameter, null, true);
+		ClientControl.getInstance().accept(dataPacket);
+		inExams = (ArrayList<Question>) ExamControl.questionsInExams.clone();
+	
+		notInExams = (ArrayList<Question>) ExamControl.questionNotInExams.clone();
+
+		System.out.println(inExams.toString());
+		System.out.println(notInExams.toString());
+
+
 	}
 
 	private void insertQuestionToChooseQuestionTable(ObservableList<String> questionsList,
 			ObservableList<TableEntry> questionBank) {
 
-		for (int i = 0; i < ExamControl.questions.size(); i++) {
-			addButtonAndTextFieldToTable(questionBank,i);
+//		for (int i = 0; i < ExamControl.questions.size(); i++) {
+//			addButtonAndTextFieldToTable(questionBank, i);
+//		}
+		for (int i = 0; i <notInExams.size(); i++) {
+			addButtonAndTextFieldToTable(questionBank, i);
 		}
 		chooseQuestionsTable.setItems(questionBank);
 		TableEntry.customResize(chooseQuestionsTable);
 	}
 
-	private void addButtonAndTextFieldToTable(ObservableList<TableEntry> questionBank,int i) {
+	private void addButtonAndTextFieldToTable(ObservableList<TableEntry> questionBank, int i) {
 		final Button addQuestioBtn = new Button("Add");
 		final TextField pointsTextField = new TextField();
 		addQuestioBtn.setAlignment(Pos.CENTER);
@@ -168,7 +219,7 @@ public class createNewExamController {
 
 		};
 		addQuestioBtn.setOnAction(addHandler);
-		questionBank.add(new TableEntry(ExamControl.questions.get(i), pointsTextField, addQuestioBtn));
+		questionBank.add(new TableEntry(examControlQuestion.get(i), pointsTextField, addQuestioBtn));
 	}
 
 	private void addQuestionToExam(String pointsForQuestion, String question) {
@@ -205,6 +256,7 @@ public class createNewExamController {
 			}
 
 		};
+		System.out.println("fffff:"+question);
 		removeQuestioBtn.setOnAction(removeHandler);
 		dataBank.add(new TableEntry(question, pointsLabel, removeQuestioBtn));
 		examQuestionTable.setItems(dataBank);
@@ -251,25 +303,16 @@ public class createNewExamController {
 	}
 
 	public void handleOnAction(MouseEvent event) {
-		if(event.getSource()==submitBtn)
-		{
+		if (event.getSource() == submitBtn) {
 			submit();
-		}
-		else if(event.getSource()==addCommentsBtn)
-		{
+		} else if (event.getSource() == addCommentsBtn) {
 			addComments();
-		}
-		else if(event.getSource()==backToExamBtn)
-		{
+		} else if (event.getSource() == backToExamBtn) {
 			backToExam();
-		}
-		else if(event.getSource()==createNewExamBtn)
-		{
+		} else if (event.getSource() == createNewExamBtn) {
 			AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
 			App_client.pageContainer.setCenter(page);
-		}
-		else if(event.getSource()==goToStartExamBtn)
-		{
+		} else if (event.getSource() == goToStartExamBtn) {
 			AnchorPane page = SceneController.getPage(PageProperties.Page.START_EXAM);
 			App_client.pageContainer.setCenter(page);
 		}
@@ -306,7 +349,8 @@ public class createNewExamController {
 			return true;
 		}
 		double points = Double.valueOf(pointsForQuestion);
-
+		System.out.println("points:"+points);
+		System.out.println("total:"+totalPoints);
 		if (totalPoints + points > 100) {
 			errLabel.setText("*You exceed the 100 points for the exam");
 			errLabel.setVisible(true);
@@ -343,7 +387,7 @@ public class createNewExamController {
 		else {
 			duration += minutesChoiceBox.getValue() + ":";
 		}
-		duration += "00";//set the seconds
+		duration += "00";// set the seconds
 		exam.setAuthorID(UserControl.ConnectedUser.getuID());
 		exam.setExamID(UserControl.ConnectedUser.getfid() + ExamControl.selectedCourseID);
 		exam.setDuration(duration);
@@ -362,6 +406,7 @@ public class createNewExamController {
 		ClientControl.getInstance().accept(dataPacket);
 //		errLabel.setText("exam submited");
 //		errLabel.setVisible(true);
+		// apSubmitedExam.setVisible(true);
 		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_EXAMS);
 		App_client.pageContainer.setCenter(page);
 	}

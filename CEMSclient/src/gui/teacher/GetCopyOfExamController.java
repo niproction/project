@@ -79,22 +79,32 @@ public class GetCopyOfExamController {
 		GetCopyOfExamControl.questionsDescription.clear();
 		ArrayList<Object> parameters = new ArrayList<>();
 		DataPacket dataPacket;
-//		if(UserControl.ConnectedUser instanceof Teacher)
-//		{
-//			parameters.add(GetCopyOfExamControl.studentID);
-//			GetCopyOfExamControl.studentID=0;
-//		}
-//		else if(UserControl.ConnectedUser instanceof Student) {
-//	
-//		}
-		//System.out.println("studID:"+GetCopyOfExamControl.studentID);
-		parameters.add(UserControl.ConnectedUser.getuID());
-		for (int i = 0; i < ViewGradesControl.getSize(); i++) {
-			parameters.add(1, ViewGradesControl.getExamsInitID(i));
+		if(UserControl.ConnectedUser instanceof Student)
+		{
+			parameters.add(UserControl.ConnectedUser.getuID());
+			for (int i = 0; i < ViewGradesControl.getSize(); i++) {
+				parameters.add(1, ViewGradesControl.getExamsInitID(i));
+				dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COPY_OF_EXAM, parameters, null,
+						true);
+				ClientControl.getInstance().accept(dataPacket);
+			}
+		}
+		else if(UserControl.ConnectedUser instanceof Teacher)
+		{
+			System.out.println("before serverrrr");
+			parameters.add(GetCopyOfExamControl.studentID);
+			parameters.add(GetCopyOfExamControl.eID);
 			dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COPY_OF_EXAM, parameters, null,
 					true);
 			ClientControl.getInstance().accept(dataPacket);
+			System.out.println("afterr serverrr");
 		}
+//		for (int i = 0; i < ViewGradesControl.getSize(); i++) {
+//			parameters.add(1, ViewGradesControl.getExamsInitID(i));
+//			dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COPY_OF_EXAM, parameters, null,
+//					true);
+//			ClientControl.getInstance().accept(dataPacket);
+//		}
 
 		insertDataToTable();
 
@@ -126,14 +136,13 @@ public class GetCopyOfExamController {
 				App_client.pageContainer.setCenter(page);
 			}
 		} else if (event.getSource() == showCommentsBtn) {
-			System.out.println("commmmmmmmmmmm");
 			ArrayList<Object> parameters = new ArrayList<>();
 			parameters.add(GetCopyOfExamControl.eID);
 			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.Get_Comments,
 					parameters, null, true);
 			ClientControl.getInstance().accept(dataPacket);
 			apComments.setVisible(true);
-			GetCopyOfExamControl.eID = null;
+			GetCopyOfExamControl.eID = -1;
 			if (UserControl.ConnectedUser instanceof Student) {
 				teacherComments.setVisible(false);
 				teacherCommLabel.setVisible(false);

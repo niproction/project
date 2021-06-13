@@ -252,6 +252,27 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		EDIT_EXAMS {
+			@Override
+			String GET_Title() {
+				return "edit exam";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/teacher/editExamsPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 		VERIFY_EXAM {
 			@Override
 			String GET_Title() {

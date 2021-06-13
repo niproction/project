@@ -3,23 +3,27 @@ package control;
 import java.util.ArrayList;
 
 import common.Exam;
+import common.Question;
 
 
 public class ExamControl {
 	public static ArrayList<String> coursesNames;
 	public static String selectedCourse;
 	public static boolean editExamFlag=false;
-	public static ArrayList<String> questions;
 	public static String questionID;
 	public static Exam exam;
 	public static String selectedCourseID;
 	public static String examID;
 	public static ArrayList<Exam> exams;
-	
+	public static ArrayList<String> questions=new ArrayList<>();
+	public static ArrayList<String> questionsIDToRemove=new ArrayList<>();
+	public static ArrayList<String> pointsForQuestion=new ArrayList<>();
+	public static ArrayList<String> questionsID=new ArrayList<>();
 	public static String ServerTime;
 	public static String examInitiatedTime;
 	public static ArrayList<Exam> examsList;
-	
+	public static ArrayList<Question>questionsInExams=new ArrayList<>();
+	public static ArrayList<Question> questionNotInExams=new ArrayList<>();
 	
 	public static ArrayList<Exam> getExamsList() {
 		return examsList;
@@ -41,6 +45,18 @@ public class ExamControl {
 	}
 	public static void setExam(Exam exam) {
 		ExamControl.exam = exam;
+	}
+	public static ArrayList<String> getQuestionsID() {
+		return questionsID;
+	}
+	public static void setQuestionsID(ArrayList<String> questionsID) {
+		ExamControl.questionsID = questionsID;
+	}
+	public static ArrayList<String> getQuestions() {
+		return questions;
+	}
+	public static void setQuestions(ArrayList<String> questions) {
+		ExamControl.questions = questions;
 	}
 	
 	

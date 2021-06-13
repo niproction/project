@@ -13,7 +13,18 @@ public class Question implements Serializable {
 	private String option3;
 	private String option4;
 	private String answer;
+	private String points;
 	
+
+	public String getPoints() {
+		return points;
+	}
+
+
+	public void setPoints(String points) {
+		this.points = points;
+	}
+
 
 	public Question(String qID, int authorID, String info, String option1, String option2, String option3,
 			String option4, String answer) {

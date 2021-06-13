@@ -85,7 +85,7 @@ public class manageExamsController {
 					ExamControl.setExamID(entry.getExamID());
 					ExamControl.editExamFlag=true;
 					// UserControl.setCanManage(1);
-					AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
+					AnchorPane page = SceneController.getPage(PageProperties.Page.EDIT_EXAMS);
 					App_client.pageContainer.setCenter(page);
 				}
 			};
