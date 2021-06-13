@@ -35,7 +35,6 @@
             <Image url="@../../img/icon-request.jpeg" />
          </image>
       </ImageView>
-      <Button fx:id="terminate_exam" layoutX="159.0" layoutY="502.0" mnemonicParsing="false" onMouseClicked="#button_terminate_clicked" styleClass="beta" stylesheets="@../../../../../Desktop/button.css" text="Terminate exam" />
       <ImageView fx:id="pic1" fitHeight="51.0" fitWidth="64.0" layoutX="46.0" layoutY="141.0">
          <image>
             <Image url="@../../img/icon-initiated.jpeg" />
@@ -70,5 +69,6 @@
             <Button fx:id="sendBtn" layoutX="374.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#button_send_request_clicked" prefHeight="45.0" prefWidth="79.0" text="Send" />
          </children>
       </AnchorPane>
+      <Button fx:id="terminate_exam" layoutX="159.0" layoutY="502.0" mnemonicParsing="false" onMouseClicked="#button_terminate_clicked" styleClass="beta" stylesheets="@../../../../../Desktop/button.css" text="Terminate exam" />
    </children>
 </AnchorPane>

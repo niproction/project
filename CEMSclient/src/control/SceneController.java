@@ -3,7 +3,9 @@ package control;
 import java.io.IOException;
 import java.net.URL;
 
+import javax.swing.Timer;
 import javax.swing.text.View;
+
 
 import control.PageProperties.Animation;
 import control.PageProperties.Page;
@@ -23,8 +25,21 @@ public class SceneController {
 	private Page sceenPage;
 	private AnchorPane rootContainer; // the main container of the scene elements butons, box, checkbox and etc..
 	// private static AnchorPane view;
-
 	private Pane element;
+	
+	
+	//rostik v10
+	private static Timer InsidePageTimerThraed=null;
+	
+	public static Timer getInsidePageTimerThraed() {
+		return InsidePageTimerThraed;
+	}
+
+	public static void setInsidePageTimerThraed(Timer insidePageTimerThraed) {
+		InsidePageTimerThraed = insidePageTimerThraed;
+	}
+//////
+	
 
 	public enum ANIMATE_ON {
 		LOAD, UNLOAD
@@ -68,6 +83,10 @@ public class SceneController {
 
 	public static AnchorPane getPage(Page page) {
 		AnchorPane view = null;
+		//rostik v10
+		// close inside page time if there is any that runnig
+		if(InsidePageTimerThraed!=null)
+			InsidePageTimerThraed.stop();
 		try {
 			URL file = LoadInsidePage.class.getResource(page.GET_FxmlFile());
 			if (file == null) {
@@ -196,7 +215,13 @@ public class SceneController {
 	}
 
 	private void loadNextScene() {
+		//rostik v10
+		// close inside page time if there is any that runnig
+		if(InsidePageTimerThraed!=null)
+			InsidePageTimerThraed.stop();
+		
 		try {
+			
 			System.out.println(sceenPage.GET_FxmlFile());
 			Parent root = FXMLLoader.load(getClass().getResource(sceenPage.GET_FxmlFile()));
 			Scene scene = new Scene(root);

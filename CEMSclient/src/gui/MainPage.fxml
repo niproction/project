@@ -26,6 +26,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -59,6 +61,11 @@
                               <MenuItem fx:id="historyOfExams" mnemonicParsing="false" onAction="#button_history_of_exams_student_clicked" text="View history of exams" />
                           </items>
                         </MenuButton>
+                        <ImageView fx:id="image_notification" fitHeight="23.0" fitWidth="65.0" layoutX="15.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon-notification.png" />
+                           </image>
+                        </ImageView>
                      </children>
       						</Pane>
       						<Pane layoutX="74.0" layoutY="13.0" minHeight="40.0" minWidth="500.0">
@@ -84,6 +91,7 @@
       								<Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#button_logout_clicked" onMouseEntered="#button_logout_entered" onMouseExited="#button_logout_exited" prefHeight="32.0" prefWidth="47.0" styleClass="button-logout" stylesheets="@../css/Main_Style.css" />
                      </children>
       						</Pane>
+                  <Label fx:id="label_notification" layoutX="35.0" layoutY="5.0" text="[notification]" textFill="WHITE" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css">

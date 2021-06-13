@@ -8,7 +8,17 @@ public class PrincipalControl {
 public static ArrayList<ExtraTimeRequest> requests;
 
 
+private static boolean isExtraTimeRequest_Recived = false;
 
+
+public static boolean isExtraTimeRequest_Recived() {
+	return isExtraTimeRequest_Recived;
+}
+
+
+public static void setExtraTimeRequest_Recived(boolean isExtraTimeRequest_Recived) {
+	PrincipalControl.isExtraTimeRequest_Recived = isExtraTimeRequest_Recived;
+}
 
 
 

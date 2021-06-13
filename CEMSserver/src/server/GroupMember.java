@@ -14,6 +14,7 @@ public class GroupMember
 	{
 		this.user=user;
 		this.client=client;
+		System.out.println(user.toString()+" Groupmamber created");
 	}
 	
 	public void notify(Object msg)

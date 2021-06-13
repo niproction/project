@@ -50,6 +50,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 	@Override
 	public ArrayList<Object> ParsingDataPacket(DataPacket dataPacket) {
 		DataPacket Responce_dataPacket = null;
+		Notification notification1 = null;
+		Notification notification2 = null;
 		DataPacket Responce_Specific_Clients_dataPacket = null;
 		Integer Identifier = null;
 		WhoToNotify whoToNotify = null;
@@ -114,14 +116,25 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 								// CEMSServer.principals.add(new GroupMember(pass_user, client)); // add teacher
 								// and its cliet information
 
+								// rostik v10
+								CEMSServer.teachersOfOnGoingExams.add(new GroupMember(pass_user, client)); // add
+								// rostik v10																			// teachers
+																											// and their
+																											// cliet's
+																											// information
+																											// to array
+
 							} else if (roleType.equals("principle")) {
 								System.out.println("detected principal user");
 								Principal pass_user = new Principal(rs.getInt(1), rs.getString(2), rs.getString(3),
 										rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(9));
 								parameter.add(pass_user);
 
+								// rostik v10
 								CEMSServer.principals.add(new GroupMember(pass_user, client)); // add principle and its
-																								// cliet information
+								// rostik v10																// cliet information
+							
+							
 							} else {
 								System.out.println("detected Problem");
 							}
@@ -173,6 +186,20 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				ps.setString(2, String.valueOf(((User) dataPacket.getData_parameters().get(0)).getuID()));
 
 				int success = ps.executeUpdate();
+
+				
+				//rostik v10
+				if (dataPacket.getData_parameters().get(0) instanceof Teacher) {
+					for (int i = 0; i < CEMSServer.teachersOfOnGoingExams.size(); i++) {
+						if (CEMSServer.teachersOfOnGoingExams.equals((Teacher) dataPacket.getData_parameters().get(0))) {
+							CEMSServer.teachersOfOnGoingExams.remove(i);
+							System.out.println("Teacher removed from array");
+						}
+					}
+				} else if (dataPacket.getData_parameters().get(0) instanceof Principal) {
+					CEMSServer.principals.detach( new GroupMember((Principal)dataPacket.getData_parameters().get(0), client) );
+				}
+				//rostik v10
 
 				System.out.println("user logout");
 
@@ -241,6 +268,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 						"SELECT * from exams_initiated WHERE password='" + password + "' AND isFinished='started'");
 				System.out.println("select initiated exam");
 
+				
 				if (rs.next()) {
 					stmt1 = mysqlConnection.getInstance().getCon().createStatement();
 
@@ -256,7 +284,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 								null, "already attend this exam", false);
 
 						System.out.println("Made response packet false");
-					} else {
+					}
+					else {
 						System.out.println("student didnt made this exam yet");
 						ArrayList<Object> parameter = new ArrayList<Object>();
 						// Object pass_user=null;
@@ -289,6 +318,11 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 							exam.setStudentsComments(rs2.getString(6));
 							parameter.add(exam);
 						}
+						
+						//rostik v10
+						//parameter.add();
+						
+						//rostik v10
 
 						Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_EXAM,
 								parameter, null, true);
@@ -364,6 +398,20 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 				parameter.add(currentTime); // the server time
 
+				
+				
+				stmt = mysqlConnection.getInstance().getCon().createStatement();
+
+				ResultSet rs1 = stmt.executeQuery("SELECT * FROM extra_time_requests WHERE eiID='" + exam.getEiID()+ "' AND isApproved='yes';");
+				ExtraTimeRequest extraTimeRequest=null;
+				if (rs1.next()) {
+					System.out.println("<<<<<<<<<<found extra time");
+					extraTimeRequest = new ExtraTimeRequest(rs1.getInt(1), rs1.getInt(2), rs1.getString(3), rs1.getString(4), rs1.getString(5), null, null, null);
+				}
+				
+				
+				parameter.add(extraTimeRequest); // return back the
+				
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_TEST_QUESTIONS,
 						parameter, "", true);
 
@@ -835,6 +883,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.TEACHER_REQUEST_EXTRA_TIME) {
+			System.out.println("Request >>>>>>>>>>>>> TEACHER_REQUEST_EXTRA_TIME");
 			// ArrayList<Object> parameters = new ArrayList<>();
 
 			// String myStatement = " INSERT INTO exams_done (eiID, uID, duration,
@@ -855,6 +904,17 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 																						// contains true to indicate
 																						// that the user information
 																						// is correct
+
+				
+				//rostik v10
+				// notify all the principals that about the extra time request
+				Responce_Specific_Clients_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
+						DataPacket.Request.NOTIFY_PRINCIPALS_ABOUT_EXTRA_TIME_REQUEST, null, "", true);
+				Identifier=0;
+				whoToNotify = WhoToNotify.ALL_PRINCIPALS;
+				notification1 = new Notification(whoToNotify, Identifier, Responce_Specific_Clients_dataPacket);
+				//rostik v10
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
@@ -963,17 +1023,18 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 						exam = new Exam(null, null, rs6.getString(1), rs6.getString(2), null, null, null);
 						System.out.println("added");
 					}
-
+					
+					//rostik v10
 					Statement stmt7 = mysqlConnection.getInstance().getCon().createStatement();
 					ResultSet rs7 = stmt7
-							.executeQuery("SELECT isApproved from extra_time_requests WHERE uID='" + uID + "';");
-
-					String requestextratime = null;
-
+							.executeQuery("SELECT isApproved from extra_time_requests WHERE uID='" + uID + "' AND eiID='"+rs.getInt(1)+"';");
+					
+					
+					ExtraTimeRequest extra=null;
 					if (rs7.next()) {
 						System.out.println("found extra time request");
-
-						requestextratime = rs7.getString(1);
+						extra = new ExtraTimeRequest(0, 0, null, null, rs7.getString(1), null, null, null);
+						//requestextratime = rs7.getString(1);
 					}
 
 					parameters.add(currentTime);
@@ -981,8 +1042,10 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					parameters.add(courseName);
 					parameters.add(examInitiated);
 					parameters.add(exam);
-					parameters.add(requestextratime);
-
+					parameters.add(extra);
+					//rostik v10
+					
+					
 					// System.out.println(parameters);
 					Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_ONGOING_EXAM,
 							parameters, "yes exams", true);
@@ -996,29 +1059,38 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				return null;
 			}
 		}
-
+		
 		else if (dataPacket.getRequest() == DataPacket.Request.TERMINATE_EXAM) {
 			Statement stmt;
 
 			ArrayList<Object> parameters = new ArrayList<Object>();
 			int uID = ((User) dataPacket.getData_parameters().get(0)).getuID();
-			parameters.add("");
+			
 			try {
 				// stmt =
 				// mysqlConnection.getInstance().getCon().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				// ResultSet.CONCUR_UPDATABLE);
 				// stmt.executeUpdate("DELETE from exams_initiated WHERE uid='" + uID + "'
 				// isFinished='started';");
-				PreparedStatement ps = mysqlConnection.getInstance().getCon()
-						.prepareStatement("UPDATE exams_initiated SET isFinished=? WHERE uID=? AND isFinished=?");
+				PreparedStatement ps = mysqlConnection.getInstance().getCon().prepareStatement("UPDATE exams_initiated SET isFinished=? WHERE eiID=? AND isFinished=?");
 
 				ps.setString(1, "terminated");
-				ps.setInt(2, uID);
-				ps.setString(1, "started");
+				ps.setInt(2, ((examInitiated) dataPacket.getData_parameters().get(1)).getEiID());
+				ps.setString(3, "started");
 				int success = ps.executeUpdate();
 
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.TERMINATE_EXAM,
-						parameters, "", true);
+						null, "", true);
+				
+				
+				//rostik v10
+				// notify all the principals that about the extra time request
+				Responce_Specific_Clients_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
+						DataPacket.Request.NOTIFY_STUDENTS_DOING_SAME_EXAM_TERMINATE, null, "", true);
+				Identifier= ((examInitiated) dataPacket.getData_parameters().get(1)).getEiID();
+				whoToNotify = WhoToNotify.STUDENTS_DOING_THE_SAME_EXAM;
+				notification1 = new Notification(whoToNotify, Identifier, Responce_Specific_Clients_dataPacket);
+				//rostik v10
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -1220,25 +1292,25 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 			Statement statement1;
 			Statement statement2;
 
-
-			ResultSet rs1, rs,rs2;
+			ResultSet rs1, rs, rs2;
 			@SuppressWarnings("unchecked")
 			ArrayList<User> teacher = (ArrayList<User>) dataPacket.getData_parameters().get(0);
 			try {
 				System.out.println("the userID" + teacher.get(0).getuID());
 				statement = mysqlConnection.getInstance().getCon().createStatement();
 				statement1 = mysqlConnection.getInstance().getCon().createStatement();
-				rs = statement.executeQuery(						
-				"SELECT exam_initiated.eiID ,exams.eID FROM exams INNER JOIN exam_initiated ON exams.eID=exam_initiated.eID WHERE exams.authorID='" 
-				+ teacher.get(0).getuID() + "');" );
+				rs = statement.executeQuery(
+						"SELECT exam_initiated.eiID ,exams.eID FROM exams INNER JOIN exam_initiated ON exams.eID=exam_initiated.eID WHERE exams.authorID='"
+								+ teacher.get(0).getuID() + "');");
 				System.out.println("data collected sucssefully");
 				ArrayList<Object> params = new ArrayList<Object>();
-				//if()
+				// if()
 
 				while (rs.next()) {
 					System.out.println(rs.getString(1) + "im in whileee");
-					rs1 = statement1.executeQuery("SELECT grade FROM exams_done WHERE (eiID='" + rs.getString(1) + "');");
-					
+					rs1 = statement1
+							.executeQuery("SELECT grade FROM exams_done WHERE (eiID='" + rs.getString(1) + "');");
+
 					ArrayList<Double> grades = new ArrayList<Double>();
 					boolean flag = false;
 
@@ -1522,11 +1594,41 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 					parameters.add(((ExtraTimeRequest) dataPacket.getData_parameters().get(0))); // return back the
 																									// request
 
+					//rostik v10
 					Responce_Specific_Clients_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
-							DataPacket.Request.ADD_EXTRA_TIME_TO_EXAM, parameters, "", true);
+							DataPacket.Request.NOTIFY_STUDENTS_OF_THIS_EXAM_ABOUT_EXTRA_TIME, parameters, "", true);
 					Identifier = ((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getEiID();
 					System.out.println(Identifier + "dsd");
 					whoToNotify = WhoToNotify.STUDENTS_DOING_THE_SAME_EXAM;
+					
+					notification1 = new Notification(whoToNotify, Identifier, Responce_Specific_Clients_dataPacket);
+					
+					
+					parameters.clear();
+					parameters.add(dataPacket.getData_parameters().get(0)); // ExtraTimeRequest 
+					//parameters.add((ExtraTimeRequest) dataPacket.getData_parameters().get(0))
+					Responce_Specific_Clients_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
+							DataPacket.Request.NOTIFY_TEACHER_ABOUT_EXTRA_TIME_REQUEST, parameters, "", true);
+					Identifier = ((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getuID(); // teacher uID
+					System.out.println("teacher uID : "+Identifier);
+					whoToNotify = WhoToNotify.SPECIFIC_TEACHER;
+					
+					notification2 = new Notification(whoToNotify, Identifier, Responce_Specific_Clients_dataPacket);
+					
+					//rostik v10
+				}
+				else
+				{
+					parameters.add(dataPacket.getData_parameters().get(0)); // ExtraTimeRequest 
+					//parameters.add((ExtraTimeRequest) dataPacket.getData_parameters().get(0))
+					Responce_Specific_Clients_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT,
+							DataPacket.Request.NOTIFY_TEACHER_ABOUT_EXTRA_TIME_REQUEST, parameters, "", true);
+					Identifier = ((ExtraTimeRequest) dataPacket.getData_parameters().get(0)).getuID(); // teacher uID
+					System.out.println("teacher uID : "+Identifier);
+					whoToNotify = WhoToNotify.SPECIFIC_TEACHER;
+					
+					notification1 = new Notification(whoToNotify, Identifier, Responce_Specific_Clients_dataPacket);
+					
 				}
 
 			} catch (SQLException e) {
@@ -1541,13 +1643,9 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		// generate the list to return to the dataPackets and groups info
 		ArrayList<Object> ToBeReturened = new ArrayList<Object>();
 		ToBeReturened.add(Responce_dataPacket);
-
-		if (whoToNotify != null && Identifier != null && Responce_Specific_Clients_dataPacket != null) {
-			ToBeReturened.add(whoToNotify);
-			ToBeReturened.add(Identifier);
-			ToBeReturened.add(Responce_Specific_Clients_dataPacket);
-		}
-
+		ToBeReturened.add(notification1);
+		ToBeReturened.add(notification2);
+		
 		return ToBeReturened;
 	}
 

@@ -83,6 +83,10 @@ public class TakeExamController {
 
 	@FXML // fx:id="label_questions_amunt"
 	private Label label_questions_amunt; // Value injected by FXMLLoader
+	
+	 @FXML
+	 private AnchorPane ap_exam_stats;
+	 
 
 	ArrayList<Question> testQuestions;
 	String answers[];
@@ -137,10 +141,9 @@ public class TakeExamController {
 
 		examInitiated = ExamInitiatedControl.getExamInitiated();
 		initiated_time = examInitiated.getInitiatedDate().substring(11, 19);
-		
+
 		exam_duration = ExamControl.getExam().getDuration();
-		
-		
+
 		System.out.println(initiated_time);
 		ExamInitiatedControl.setExamInitiated(null);
 
@@ -155,15 +158,21 @@ public class TakeExamController {
 		// will recive the time left for the exam
 
 		String serverCurrentTime = ExamControl.ServerTime;
-		
+
 		System.out.println(serverCurrentTime);
-		
+
 		exam_left_time = timeDiffrance(exam_duration, timeDiffrance(serverCurrentTime, initiated_time));
-		
+
 		label_timer.setText(exam_left_time); // set the left time
-		
-		
-		
+
+		// rostik v10
+		// check if already approved extra time to show it in timer..
+		if (ExamInitiatedControl.isExtraTimeRecived) {
+			ExamInitiatedControl.isExtraTimeRecived = false;
+			// ExamInitiatedControl.ExtraTime
+			exam_left_time = timeAdd(ExamInitiatedControl.ExtraTime, exam_left_time);
+		}
+		label_timer.setText(exam_left_time); // set the left time
 		// start timer to end the exam on finish
 		tm = new Timer(1000, new ActionListener() {
 			String timer = exam_left_time;
@@ -173,29 +182,31 @@ public class TakeExamController {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						if(ExamInitiatedControl.isExtraTimeRecived)
-						{
-							ExamInitiatedControl.isExtraTimeRecived=false;
-							//ExamInitiatedControl.ExtraTime
+						if (ExamInitiatedControl.isExtraTimeRecived) {
+							ExamInitiatedControl.isExtraTimeRecived = false;
 							timer = timeAdd(ExamInitiatedControl.ExtraTime, timer);
-							//ExamInitiatedControl.eiID =0;
 						}
-						
+						// if exam_closed() // teacher close the exam
+
 						timer = timerCountdown(timer);
-						
+
 						if (timer.equals("00:00:00"))
 							submit();
-				
+
 						label_timer.setText(timer);
+
+						if (ExamControl.isExamTerminated()) {
+							exam_terminate();
+							ExamControl.setExamTerminated(false);
+						}
 					}
 				});
 			}
 		});
-		tm.start();
-		
+		SceneController.setInsidePageTimerThraed(tm);
+		SceneController.getInsidePageTimerThraed().start();
+		// rostik v10
 
-		
-		
 		back.setVisible(false);
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -230,7 +241,23 @@ public class TakeExamController {
 		}
 		// questionInfo.setText(testQuestions.get(1).getInfo());
 	}
-	
+
+	private void exam_terminate() {
+		System.out.println("tttttttttttttttttttttttttersmdasda<<<<<<<<<<<<<<");
+		// hide all the labels
+		label_question.setVisible(false);
+		option1.setVisible(false);
+		option2.setVisible(false);
+		option3.setVisible(false);
+		option4.setVisible(false);
+		next.setVisible(false);
+		back.setVisible(false);
+		submitBtn.setVisible(false);
+		ap_exam_stats.setVisible(false);
+		testSubmited.setVisible(true);
+		testSubmited.setText("Exam terminated by teacher.");
+	}
+
 	/// time2 - time1
 	public String timeDiffrance(String time2, String time1) {
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
@@ -238,7 +265,7 @@ public class TakeExamController {
 		Date date2 = null;
 		long res = 0;
 		String time;
-		
+
 		try {
 			date1 = format.parse(time1);
 			date2 = format.parse(time2);
@@ -246,19 +273,18 @@ public class TakeExamController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//exam_duration
+		// exam_duration
 		res = date2.getTime() - date1.getTime();
-		//System.out.println(res);
-		
+		// System.out.println(res);
+
 		time = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(res),
-				TimeUnit.MILLISECONDS.toMinutes(res)
-						- TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(res)),
+				TimeUnit.MILLISECONDS.toMinutes(res) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(res)),
 				TimeUnit.MILLISECONDS.toSeconds(res)
 						- TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(res)));
-		
+
 		return time;
 	}
-	
+
 	public static String timeAdd(String time2, String time1) {
 		int hour1 = Integer.parseInt(time1.substring(0, 2));
 		int min1 = Integer.parseInt(time1.substring(3, 5));
@@ -282,7 +308,7 @@ public class TakeExamController {
 
 		return Shour + ":" + Smin + ":" + Ssec;
 	}
-	
+
 	public String timerCountdown(String time) {
 		int hour = Integer.parseInt(time.substring(0, 2));
 		int min = Integer.parseInt(time.substring(3, 5));
@@ -399,6 +425,7 @@ public class TakeExamController {
 		option4.setVisible(false);
 		next.setVisible(false);
 		back.setVisible(false);
+		ap_exam_stats.setVisible(false);
 		submitBtn.setVisible(false);
 		testSubmited.setVisible(true);
 
@@ -418,5 +445,20 @@ public class TakeExamController {
 				null, true);
 		ClientControl.getInstance().accept(dataPacket);
 	}
+
+	// rostik v10
+	public void exam_closed() {
+		// hide all the labels
+		label_question.setVisible(false);
+		option1.setVisible(false);
+		option2.setVisible(false);
+		option3.setVisible(false);
+		option4.setVisible(false);
+		next.setVisible(false);
+		back.setVisible(false);
+
+		// testSubmited.setVisible(true);
+	}
+	// rostik v10
 
 }

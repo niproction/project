@@ -46,19 +46,20 @@ public class CEMSServer extends AbstractServer {
 		STUDENTS_DOING_THE_SAME_EXAM, ALL_PRINCIPALS, SPECIFIC_TEACHER
 	}
 
-	private void desideWhoToNotify(WhoToNotify notify, int groupIndex, DataPacket dataPacket) {
-		if (notify == WhoToNotify.STUDENTS_DOING_THE_SAME_EXAM) {
+	private void desideWhoToNotify(Notification notification) {
+		System.out.println("Notifing with >>> "+notification.getDataPacket().getRequest().toString());
+		if (notification.getWho() == WhoToNotify.STUDENTS_DOING_THE_SAME_EXAM) {
 			for (int i=0;i<OnGoingExams.size();i++) {
-				if(OnGoingExams.get(i) == groupIndex)
-				studentsOfOnGoingExam_Groups.get(i).notifyMembers(dataPacket); // will notify all the connected
+				if(OnGoingExams.get(i) == notification.getIdintifier())
+				studentsOfOnGoingExam_Groups.get(i).notifyMembers(notification.getDataPacket()); // will notify all the connected
 																						// user that doing exam right
 																						// now with dataPacket
 			}
-		} else if (notify == WhoToNotify.SPECIFIC_TEACHER) {
-			teachersOfOnGoingExams.get(groupIndex).notify(dataPacket); // will notify specific teacher with the
+		} else if (notification.getWho() == WhoToNotify.SPECIFIC_TEACHER) {
+			teachersOfOnGoingExams.get(notification.getIdintifier()).notify(notification.getDataPacket()); // will notify specific teacher with the
 																		// dataPacket
-		} else if (notify == WhoToNotify.ALL_PRINCIPALS) {
-			principals.notifyMembers(dataPacket); // will notify all the connected principals with the dataPacket
+		} else if (notification.getWho() == WhoToNotify.ALL_PRINCIPALS) {
+			principals.notifyMembers(notification.getDataPacket()); // will notify all the connected principals with the dataPacket
 		}
 	}
 
@@ -110,24 +111,40 @@ public class CEMSServer extends AbstractServer {
 				client.sendToClient((DataPacket) DATA.get(0));
 
 				System.out.println("Sending response to client");
-			} catch (IOException e) {
+			}
+			catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else {
+		}
+		else {
 			System.out.println("not generated response DataPacket");
 		}
 
 		// message to clients that needed to be notified after some action been taken by
 		// other client
-		if (DATA.size() == 4 && (WhoToNotify) DATA.get(1) != null && (Integer) DATA.get(2) != null
-				&& (DataPacket) DATA.get(3) != null) // check that the data is not null
+		if (DATA.get(1) != null) // check that the data is not null
 		{
-			System.out.println("tring send response to specific Group clients");
+			System.out.println("tring send response to specific clients");
 			try {
 				Thread.sleep(50);
 				// sendToAllClients(to_be_returend_DataPacket[1]); // send to all clients
-				desideWhoToNotify((WhoToNotify) DATA.get(1), (int) DATA.get(2), (DataPacket) DATA.get(3));
+				desideWhoToNotify((Notification)DATA.get(1));
 			} catch (Exception e) {
+				System.out.println("Error not notifing any clientssss");
+				e.printStackTrace();
+			}
+		} else {
+			// the array is smaller means that there is
+			System.out.println("No notify to other clients needed");
+		}
+		if (DATA.get(2) != null) // check that the data is not null
+		{
+			System.out.println("tring send response to specific clients");
+			try {
+				Thread.sleep(50);
+				desideWhoToNotify((Notification) DATA.get(2));
+			} catch (Exception e) {
+				System.out.println("Error not notifing any clientssss");
 				e.printStackTrace();
 			}
 		} else {

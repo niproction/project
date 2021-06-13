@@ -3,6 +3,7 @@ package control;
 import java.util.ArrayList;
 
 import common.Exam;
+import common.ExtraTimeRequest;
 
 
 public class ExamControl {
@@ -18,10 +19,40 @@ public class ExamControl {
 	
 	public static String ServerTime;
 	public static String examInitiatedTime;
+	public static ExtraTimeRequest extraTimeRequest;
+	
+	
+	//public static ExtraTimeRequest extraTimeRequestObj;
 	
 	
 	
-	public static String extraTimeRequest;
+
+	//rostik v10
+	private static boolean isExamTerminated=false;
+	private static boolean isNotifiedAboutExtraTime = false;
+	private static boolean isExtraTimeApproved = false;
+	
+	
+	
+	public static boolean isExamTerminated() {
+		return isExamTerminated;
+	}
+	public static void setExamTerminated(boolean isExamTerminated) {
+		ExamControl.isExamTerminated = isExamTerminated;
+	}
+	public static boolean isNotifiedAboutExtraTime() {
+		return isNotifiedAboutExtraTime;
+	}
+	public static void setNotifiedAboutExtraTime(boolean isNotifiedAboutExtraTime) {
+		ExamControl.isNotifiedAboutExtraTime = isNotifiedAboutExtraTime;
+	}
+	public static boolean isExtraTimeApproved() {
+		return isExtraTimeApproved;
+	}
+	public static void setExtraTimeApproved(boolean isExtraTimeApproved) {
+		ExamControl.isExtraTimeApproved = isExtraTimeApproved;
+	}
+	//rostik v10
 	
 	
 	public static String getExamID() {

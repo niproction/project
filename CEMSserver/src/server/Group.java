@@ -38,6 +38,7 @@ public class Group implements GroupBehavior {
 			if(members.get(i).equals(gm))
 			{
 				index=i;
+				System.out.println("removed member "+members.get(i).getUser().getFirstName());
 				System.out.println(members.remove(i));
 				System.out.println("removed member at index "+i);
 			}

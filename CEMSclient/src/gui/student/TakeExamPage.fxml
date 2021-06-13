@@ -8,21 +8,28 @@
 
 <AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.student.TakeExamController">
    <children>
-      <Label layoutX="677.0" layoutY="40.0" text="Questions" underline="true">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="676.0" layoutY="110.0" text="Total Time">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="676.0" layoutY="139.0" text="Time left:">
-         <font>
-            <Font name="Arial" size="15.0" />
-         </font>
-      </Label>
+      <AnchorPane fx:id="ap_exam_stats" layoutX="629.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label layoutX="53.0" layoutY="14.0" text="Questions" underline="true">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="107.0" text="Total Time">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="134.0" text="Time left:">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="label_questions" layoutX="49.0" layoutY="40.0" text="Current / Total" />
+            <Label fx:id="label_questions_amunt" layoutX="64.0" layoutY="69.0" text="[amount]" />
+            <Label fx:id="label_timer" layoutX="96.0" layoutY="134.0" text="[Timer]" />
+         </children>
+      </AnchorPane>
       <Label fx:id="label_question" layoutX="92.0" layoutY="139.0" text="[the question]">
          <font>
             <Font name="Arial" size="15.0" />
@@ -40,8 +47,5 @@
             <Font name="Arial" size="51.0" />
          </font>
       </Label>
-      <Label fx:id="label_timer" layoutX="746.0" layoutY="139.0" text="[Timer]" />
-      <Label fx:id="label_questions" layoutX="677.0" layoutY="66.0" text="Current / Total" />
-      <Label fx:id="label_questions_amunt" layoutX="692.0" layoutY="83.0" text="[amount]" />
    </children>
 </AnchorPane>

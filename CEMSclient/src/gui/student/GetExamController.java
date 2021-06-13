@@ -75,7 +75,7 @@ public class GetExamController {
 		if (ExamInitiatedControl.getExamInitiated() != null) {
 			System.out.println("ddddddddddd");
 			
-			UserControl.whatInitiatedExamID = ExamInitiatedControl.getExamInitiated().getEiID(); // se the eiID
+			//UserControl.whatInitiatedExamID = ExamInitiatedControl.getExamInitiated().getEiID(); // se the eiID
 			
 			
 			if (UserControl.isDoingExam) {

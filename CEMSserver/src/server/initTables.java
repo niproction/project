@@ -83,16 +83,19 @@ public class initTables {
 
 			stmt = con.createStatement();
 			int rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('s', '', 's@g.com', 'tomer', 'levi', '212352534', 'student','01', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('s', '', 's@g.com', 'tomer1', 'levi', '212352534', 'student','01', 'NO')");
 			rs = stmt.executeUpdate(
 					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('t', '', 't@g.com', 'Aviv', 'Jibly', '', 'teacher', '02', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('p', '', 'p@g.com', 'Elon', 'Musk', '', 'principle', '03', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('p', '', 'p@g.com', 'Elon1', 'Musk', '', 'principle', '03', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ss', '', 's@g.com', 'tomer', 'levi', '212352534', 'student','01', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('pp', '', 'p@g.com', 'Elon2', 'Musk', '', 'principle', '03', 'NO')");
 			
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('sss', '', 's@g.com', 'tomer', 'levi', '212352534', 'student','01', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ss', '', 's@g.com', 'tomer2', 'levi', '212352534', 'student','01', 'NO')");
+			
+			rs = stmt.executeUpdate(
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('sss', '', 's@g.com', 'tomer2', 'levi', '212352534', 'student','01', 'NO')");
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
