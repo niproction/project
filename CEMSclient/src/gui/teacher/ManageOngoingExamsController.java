@@ -144,6 +144,8 @@ public class ManageOngoingExamsController {
 				true);
 		ClientControl.getInstance().accept(data);
 
+		
+		
 		// rostik v10
 		if (ExamControl.extraTimeRequest != null) {
 			System.out.println("sdasdasda");
