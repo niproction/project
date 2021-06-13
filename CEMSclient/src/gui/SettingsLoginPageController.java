@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import control.ClientControl;
 import control.PageProperties;
 import control.SceneController;
 import javafx.fxml.FXML;
@@ -61,6 +62,10 @@ public class SettingsLoginPageController {
 		assert textfield_port != null
 				: "fx:id=\"textfield_port\" was not injected: check your FXML file 'SettingsLoginPage.fxml'.";
 
+		
+		ClientControl.destroyInstance(); // kill the connection to server if made any
+		
+		
 		// lead all information stored in save file
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("clientinfo.txt"));

@@ -41,7 +41,7 @@ public class ClientControl implements ChatIF {
 			//clientChat=null;
 		}
 	}
-
+	
 	public static ClientControl getInstance() {
 		if (clientChat == null)
 			clientChat = new ClientControl();

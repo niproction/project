@@ -130,7 +130,7 @@ public class LoginController implements Initializable {
 			ClientControl.host = temp == null ? "" : temp;
 			temp = br.readLine();
 			System.out.println(ClientControl.host);
-			ClientControl.port = isRepresentPortNumber(temp) ? 5555 : Integer.parseInt(temp)<9999?Integer.parseInt(temp):5555;
+			ClientControl.port = isRepresentPortNumber(temp) ? Integer.parseInt(temp)<9999? Integer.parseInt(temp) :  5555 : 5555 ;
 			System.out.println(ClientControl.port);
 			br.close();
 		} catch (FileNotFoundException e) {

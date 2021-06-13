@@ -1202,16 +1202,16 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 				// ResultSet.CONCUR_UPDATABLE);
 				// stmt.executeUpdate("DELETE from exams_initiated WHERE uid='" + uID + "'
 				// isFinished='started';");
-				PreparedStatement ps = mysqlConnection.getInstance().getCon()
-						.prepareStatement("UPDATE exams_initiated SET isFinished=? WHERE uID=? AND isFinished=?");
+				PreparedStatement ps = mysqlConnection.getInstance().getCon().prepareStatement("UPDATE exams_initiated SET isFinished=? WHERE eiID=? AND isFinished=?");
 
 				ps.setString(1, "terminated");
-				ps.setInt(2, uID);
-				ps.setString(1, "started");
+				ps.setInt(2, ((examInitiated) dataPacket.getData_parameters().get(1)).getEiID());
+				ps.setString(3, "started");
 				int success = ps.executeUpdate();
+				
 
 				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.TERMINATE_EXAM,
-						parameters, "", true);
+						null, "", true);
 
 				// rostik v10
 				// notify all the principals that about the extra time request
