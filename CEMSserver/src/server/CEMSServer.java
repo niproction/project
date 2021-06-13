@@ -99,8 +99,10 @@ public class CEMSServer extends AbstractServer {
 		}
 	}
 
+	
 	public void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		controller.setInput_logs(controller.getInput_logs().getText() + "Message received from " + client + "\n");
+
 
 		ServerDataPacketHandler handler = new ServerDataPacketHandler(client);
 		ArrayList<Object> DATA = handler.CheckRequestExecuteCreateResponce(msg);

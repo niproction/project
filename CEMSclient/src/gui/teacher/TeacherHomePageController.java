@@ -120,6 +120,9 @@ public class TeacherHomePageController {
 		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.HOW_MANY_VERIFY, parameters,
 				null, true);
 		ClientControl.getInstance().accept(data);
+		
+		
+		
 		Integer howManyVerify=TeacherControl.verifyAmount;
 		TeacherControl.verifyAmount=0;
 		verifyAmount.setText(howManyVerify.toString());
@@ -127,14 +130,16 @@ public class TeacherHomePageController {
 		if (howManyVerify > 0) {
 			verifyBtn.setVisible(true);
 		}
-		
-		 //Check if there is an ongoing exam for the teacher
-		  data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.ONGOING_TO_MANAGE, parameters, null,
+		System.out.println("ssssssssssssssadas");
+		//Check if there is an ongoing exam for the teacher
+		data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.ONGOING_TO_MANAGE, parameters, null,
 					true);
-					ClientControl.getInstance().accept(data);
-
-					 Boolean ongoingExam=TeacherControl.manage;
-					System.out.println(ongoingExam);
+		ClientControl.getInstance().accept(data);
+		System.out.println("ssssssssssssssadas");
+		Boolean ongoingExam=TeacherControl.manage;
+		System.out.println(ongoingExam);
+		
+		
 	if(ongoingExam==true) {
 		ongoingNoti.setVisible(true);
 		manageBtn.setVisible(true);

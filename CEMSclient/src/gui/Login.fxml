@@ -37,10 +37,10 @@
          <font>
             <Font size="15.0" />
          </font></PasswordField>
-      <Button fx:id="btnSignIn" layoutX="241.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" text="Sign in" />
+      <Button fx:id="btnSignIn" layoutX="312.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" text="Sign in" />
       <Label fx:id="lblErrors" alignment="CENTER" layoutX="104.0" layoutY="289.0" prefHeight="17.0" prefWidth="192.0" />
       <Accordion />
-      <Label fx:id="errorLable" alignment="CENTER" layoutX="104.0" layoutY="289.0" prefHeight="17.0" prefWidth="192.0" text="[Message]" textFill="#f80b0b" />
+      <Label fx:id="errorLable" alignment="CENTER" layoutX="104.0" layoutY="280.0" prefHeight="50.0" prefWidth="192.0" text="[Message]" textFill="#f80b0b" wrapText="true" />
       <Button fx:id="button_settings" layoutX="14.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#button_settings_clicked" prefHeight="32.0" prefWidth="32.0" styleClass="button-settings-login" stylesheets="@../css/Main_Style.css" />
    </children>
 </AnchorPane>

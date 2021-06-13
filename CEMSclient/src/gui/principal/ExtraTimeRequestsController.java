@@ -59,12 +59,13 @@ public class ExtraTimeRequestsController {
 	@FXML // fx:id="ExamId"
 	private TableColumn<TableEntry, ?> ExamId; // Value injected by FXMLLoader
 
-	@FXML // fx:id="RequestTime"
-	private TableColumn<TableEntry, ?> RequestTime; // Value injected by FXMLLoader
+	// @FXML // fx:id="RequestTime"
+	// private TableColumn<TableEntry, ?> RequestTime; // Value injected by
+	// FXMLLoader
 
 	@FXML // fx:id="ExtraTime"
 	private TableColumn<TableEntry, ?> ExtraTime; // Value injected by FXMLLoader
-	
+
 	@FXML // fx:id="ExtraTime"
 	private TableColumn<TableEntry, ?> Comment; // Value injected by FXMLLoader
 
@@ -81,103 +82,108 @@ public class ExtraTimeRequestsController {
 		assert Field != null : "fx:id=\"Field\" was not injected: check your FXML file 'Untitled'.";
 		assert Course != null : "fx:id=\"Course\" was not injected: check your FXML file 'Untitled'.";
 		assert ExamId != null : "fx:id=\"ExamId\" was not injected: check your FXML file 'Untitled'.";
-		assert RequestTime != null : "fx:id=\"RequestTime\" was not injected: check your FXML file 'Untitled'.";
+		// assert RequestTime != null : "fx:id=\"RequestTime\" was not injected: check
+		// your FXML file 'Untitled'.";
 		assert ExtraTime != null : "fx:id=\"ExtraTime\" was not injected: check your FXML file 'Untitled'.";
 		assert Comment != null : "fx:id=\"ExtraTime\" was not injected: check your FXML file 'Untitled'.";
 		assert Status != null : "fx:id=\"Status\" was not injected: check your FXML file 'Untitled'.";
 
-		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER,DataPacket.Request.GET_EXTRA_TIME_REQUESTS , null, null, true);
+		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXTRA_TIME_REQUESTS, null,
+				null, true);
 		ClientControl.getInstance().accept(data);
-		
+
 		TeacherName.setCellValueFactory(new PropertyValueFactory("col1"));
 		Field.setCellValueFactory(new PropertyValueFactory("col2"));
 		Course.setCellValueFactory(new PropertyValueFactory("col3"));
 		ExamId.setCellValueFactory(new PropertyValueFactory("col4"));
-		RequestTime.setCellValueFactory(new PropertyValueFactory("col5"));
-		ExtraTime.setCellValueFactory(new PropertyValueFactory("col6"));
-		Comment.setCellValueFactory(new PropertyValueFactory("col7"));
-		Status.setCellValueFactory(new PropertyValueFactory("col8"));
+
+		ExtraTime.setCellValueFactory(new PropertyValueFactory("col5"));
+		Comment.setCellValueFactory(new PropertyValueFactory("col6"));
+		Status.setCellValueFactory(new PropertyValueFactory("col7"));
 
 		ExtraTimeTable.setItems(getRequests());
-		ExtraTimeTable.getSortOrder().add(RequestTime);
+		// ExtraTimeTable.getSortOrder().add(RequestTime);
 	}
-	ExtraTimeRequest entry=null;
+
+	ExtraTimeRequest entry = null;
+
 	public ObservableList<TableEntry> getRequests() {
 		ObservableList<TableEntry> requests = FXCollections.observableArrayList();
-		//LocalDate date = LocalDate.of(1995, 10, 28);
 
-		
+		for (int i = 0; i < PrincipalControl.requests.size(); i++) {
+			entry = PrincipalControl.requests.get(i);
+			// for (ExtraTimeRequest entry : PrincipalControl.requests) {
+			System.out.println(entry.getEiID());
+			// create a HBox
+			final HBox status = new HBox();
+			;
+			try {
 
-		
-			System.out.println("Table rows= "+PrincipalControl.requests.size());
-			
-			for(int i=0;i<PrincipalControl.requests.size();i++) {
-				entry = PrincipalControl.requests.get(i);
-			//for (ExtraTimeRequest entry : PrincipalControl.requests) {
-				System.out.println(entry.getEiID());
-				// create a HBox
-				final HBox status =  new HBox();;
-				try {
-					
-					
-					// setAlignment
-					status.setAlignment(Pos.CENTER);
+				// setAlignment
+				status.setAlignment(Pos.CENTER);
 
-					// create a label
-					Label label = new Label("Approve?");
+				// create a label
+				Label label = new Label("Approve?");
 
-					// add label to hbox
-					status.getChildren().add(label);
+				// add label to hbox
+				status.getChildren().add(label);
 
-					Button Y = new Button("Y");
-					Button N = new Button("N");
-					
-					EventHandler<ActionEvent> YHandler = new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							System.out.println("Approved" );
-							label.setText("Approved");
-							label.setStyle(("-fx-text-fill: green;-fx-font-weight: bold"));
-							status.getChildren().remove(2);
-							status.getChildren().remove(1);
-							
-							ExtraTimeRequest respond=new ExtraTimeRequest(0, entry.getEiID(), null, entry.getExtraTime(), "yes", null, null, null);	
-							ArrayList<Object> parameter = new ArrayList<Object>();
-							parameter.add(respond);
-							DataPacket datapacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.EXTRA_TIME_DECISION, parameter, null, true);
-							ClientControl.getInstance().accept(datapacket);
-							
-						}
-					};
-					EventHandler<ActionEvent> NHandler = new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent event) {
-							System.out.println("Denied" );
+				Button Y = new Button("Y");
+				Button N = new Button("N");
+
+				EventHandler<ActionEvent> YHandler = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						System.out.println("Approved");
+						label.setText("Approved");
+						label.setStyle(("-fx-text-fill: green;-fx-font-weight: bold"));
+						status.getChildren().remove(2);
+						status.getChildren().remove(1);
+
+						ExtraTimeRequest respond = new ExtraTimeRequest(0, entry.getEiID(), null, entry.getExtraTime(),
+								"yes", null, null, null);
+						ArrayList<Object> parameter = new ArrayList<Object>();
+						parameter.add(respond);
+						DataPacket datapacket = new DataPacket(DataPacket.SendTo.SERVER,
+								DataPacket.Request.EXTRA_TIME_DECISION, parameter, null, true);
+						ClientControl.getInstance().accept(datapacket);
+
+					}
+				};
+				EventHandler<ActionEvent> NHandler = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						System.out.println("Denied");
 						label.setText("Denied");
 						label.setStyle(("-fx-text-fill: red;-fx-font-weight: bold"));
 						status.getChildren().remove(2);
 						status.getChildren().remove(1);
-						ExtraTimeRequest respond=new ExtraTimeRequest(0, entry.getEiID(), null, entry.getExtraTime(), "no", null, null,null);	
+						ExtraTimeRequest respond = new ExtraTimeRequest(0, entry.getEiID(), null, entry.getExtraTime(),
+								"no", null, null, null);
 						ArrayList<Object> parameter = new ArrayList<Object>();
 						parameter.add(respond);
-						DataPacket datapacket=new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.EXTRA_TIME_DECISION, parameter, null, true);
+						DataPacket datapacket = new DataPacket(DataPacket.SendTo.SERVER,
+								DataPacket.Request.EXTRA_TIME_DECISION, parameter, null, true);
 						ClientControl.getInstance().accept(datapacket);
-						}
-					};
-					Y.setOnAction(YHandler);
-					N.setOnAction(NHandler);
+					}
+				};
+				Y.setOnAction(YHandler);
+				N.setOnAction(NHandler);
 
-					// add buttons to HBox
-					status.getChildren().add(Y);
-					status.getChildren().add(N);
+				// add buttons to HBox
+				status.getChildren().add(Y);
+				status.getChildren().add(N);
 
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-				requests.add(new TableEntry(UserControl.user.get(i).getFirstName() +" "+UserControl.user.get(i).getLastName(),entry.getFieldName() ,entry.getCourseName(),entry.geteID(), null,entry.getExtraTime(),entry.getComment(),status,entry.getCourseName()));
-				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
 			}
-			
+			requests.add(
+					new TableEntry(UserControl.user.get(i).getFirstName() + " " + UserControl.user.get(i).getLastName(),
+							entry.getFieldName(), entry.getCourseName(), entry.geteID(), entry.getExtraTime(),
+							entry.getComment(), status));
+
+		}
+
 		return requests;
 	}
 }

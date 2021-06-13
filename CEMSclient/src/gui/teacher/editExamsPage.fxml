@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="640.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.editExamsController">
+   <children>
+      <Text layoutX="39.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exam Creation" wrappingWidth="257.083984375">
+         <font>
+            <Font name="System Bold Italic" size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="20.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sum of points:" wrappingWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Label fx:id="totalPointsLabel" layoutX="140.0" layoutY="616.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="submitBtn" layoutX="598.0" layoutY="586.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="SUBMIT" AnchorPane.topAnchor="586.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Text layoutX="258.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="hourChoiceBox" layoutX="329.0" layoutY="572.0" prefHeight="27.0" prefWidth="49.0" />
+      <ChoiceBox fx:id="minutesChoiceBox" layoutX="405.0" layoutY="572.0" prefHeight="27.0" prefWidth="49.0" />
+      <Text layoutX="330.0" layoutY="557.0" strokeType="OUTSIDE" strokeWidth="0.0" text="H" textAlignment="CENTER" wrappingWidth="47.13672637939453">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="404.0" layoutY="557.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M" textAlignment="CENTER" wrappingWidth="49.34033051133156">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="378.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="17.00000524520874">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Label fx:id="errLabel" layoutX="546.0" layoutY="538.0" text="Label" textFill="#e40a0a">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Text layoutX="337.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Field:" textAlignment="CENTER" wrappingWidth="117.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Label fx:id="fieldNameLabel" layoutX="425.0" layoutY="56.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Text layoutX="42.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Course:" textAlignment="CENTER" wrappingWidth="117.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="courses" layoutX="173.0" layoutY="92.0" prefWidth="150.0" />
+      <Label layoutX="24.0" layoutY="316.0" text="Exam questions:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Text layoutX="388.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of the exam:" textAlignment="CENTER" wrappingWidth="181.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="nameOfExam" layoutX="562.0" layoutY="92.0" />
+      <Label layoutX="24.0" layoutY="127.0" text="Choose questions:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="addCommentsBtn" layoutX="24.0" layoutY="564.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Add comments">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TableView fx:id="chooseQuestionsTable" layoutX="94.0" layoutY="150.0" prefHeight="158.0" prefWidth="588.0">
+        <columns>
+          <TableColumn fx:id="questionToAddCol" prefWidth="397.0" text="Question" />
+          <TableColumn fx:id="pointsToAddCol" prefWidth="119.0" text="Points" />
+            <TableColumn fx:id="addQuestionCol" prefWidth="71.0" text="Add" />
+        </columns>
+      </TableView>
+      <TableView fx:id="examQuestionTable" layoutX="94.0" layoutY="345.0" prefHeight="183.0" prefWidth="588.0">
+         <columns>
+            <TableColumn fx:id="questionAtExamCol" prefWidth="399.0" text="Question" />
+            <TableColumn fx:id="pointsAtExamCol" prefWidth="117.0" text="Points" />
+            <TableColumn fx:id="removeQuestionCol" prefWidth="71.0" text="Remove" />
+         </columns>
+      </TableView>
+      <AnchorPane fx:id="apComments" layoutY="28.0" prefHeight="634.0" prefWidth="760.0" styleClass="bg" stylesheets="@../../css/Main_Style.css" visible="false">
+         <children>
+            <TextArea fx:id="teacherComments" layoutX="187.0" layoutY="48.0" prefHeight="71.0" prefWidth="327.0" />
+            <Text layoutX="28.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments for teacher:" wrappingWidth="138.99999475479126">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text layoutX="22.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments for students:" wrappingWidth="150.0000035762787">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextArea fx:id="studentComments" layoutX="187.0" layoutY="207.0" prefHeight="71.0" prefWidth="343.0" />
+            <Button fx:id="backToExamBtn" layoutX="331.0" layoutY="406.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Add these comments">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="apSubmitedExam" layoutY="28.0" prefHeight="634.0" prefWidth="760.0" styleClass="bg" stylesheets="@../../css/Main_Style.css" visible="false">
+         <children>
+            <Label layoutX="246.0" layoutY="76.0" prefHeight="44.0" prefWidth="343.0" text="Exam submited" textFill="#356339">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="goToStartExamBtn" layoutX="463.0" layoutY="365.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Go to start exam">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="createNewExamBtn" layoutX="174.0" layoutY="365.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Create new Exam">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Label layoutX="209.0" layoutY="295.0" prefHeight="44.0" prefWidth="343.0" text="Choose your next step" textFill="#356339">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

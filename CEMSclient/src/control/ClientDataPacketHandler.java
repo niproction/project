@@ -304,17 +304,34 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			TeacherControl.verifyAmount = (int) dataPacket.getData_parameters().get(0);
 		}
 		else if (dataPacket.getRequest() == DataPacket.Request.ONGOING_TO_MANAGE) {
-			TeacherControl.manage = (boolean) dataPacket.getData_parameters().get(0);
+			TeacherControl.manage = dataPacket.getResult_boolean();
 		}
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSES) {
 			ExamControl.coursesNames = (ArrayList<String>) dataPacket.getData_parameters().clone();
 
 		}
+		//fixxx
+		//else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID11) {
+		//	ExamControl.questions = (ArrayList<String>) dataPacket.getData_parameters().clone();
 
+		//}
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_FIELD_ID) {
-			ExamControl.questions = (ArrayList<String>) dataPacket.getData_parameters().clone();
+			for (int i = 0; i < dataPacket.getData_parameters().size(); i++) {
+				if(i%2==0)
+				{
+					System.out.println("quest:"+(String) dataPacket.getData_parameters().get(i));
+					ExamControl.questions.add((String) dataPacket.getData_parameters().get(i));
+				}
+				else {
+					System.out.println("qID:"+(String) dataPacket.getData_parameters().get(i));
+					ExamControl.questionsID.add((String) dataPacket.getData_parameters().get(i));
+				}
+			}
 
 		}
+		
+		
+		
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION_BY_DESCRIPTION) {
 			ExamControl.questionID = (String) dataPacket.getData_parameters().get(0);
@@ -407,7 +424,13 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			//rostik v10
 			//ManageOngoingExams.OngoingExam = (ArrayList<String>) dataPacket.getData_parameters().clone();
 		}
-
+		else if(dataPacket.getRequest()==DataPacket.Request.GET_EXAM_QUESTIONID_BY_EID)
+		{
+			ExamControl.questionsInExams=(ArrayList<Question>)dataPacket.getData_parameters().get(0);
+			ExamControl.questionNotInExams=(ArrayList<Question>)dataPacket.getData_parameters().get(1);
+		}
+		
+		
 		//////////////////////////////
 		// Principal requests
 		/////////////////////////////////

@@ -7,7 +7,7 @@ public class GetCopyOfExamControl {
 	public static ArrayList<String> correctAnswersDescription=new ArrayList<>();
 	public static ArrayList<String> studentAnswersDescription=new ArrayList<>();
 	public static ArrayList<String> pointsForQuestion=new ArrayList<>();
-	public static String eID;
+	public static int eID;
 	public static Boolean emptyHistory;
 	public static String teacherComm;
 	public static int studentID;
@@ -31,4 +31,6 @@ public class GetCopyOfExamControl {
 	{
 		return pointsForQuestion.get(i);
 	}
+	
+	
 }

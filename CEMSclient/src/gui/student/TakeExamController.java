@@ -227,6 +227,7 @@ public class TakeExamController {
 			exam = ExamControl.getExam();
 			ExamControl.setExam(null);
 			commentsTxt.setText(exam.getStudentsComments());
+			System.out.println(exam.getStudentsComments());
 			testQuestions = exam.getQuestions();
 			answers = new String[testQuestions.size()];
 			System.out.println("size :" + testQuestions.size());
@@ -409,7 +410,7 @@ public class TakeExamController {
 			label_questions_amunt.setText(index + 1 + "");
 		}
 		if (event.getSource() == submitBtn) {
-			answers[index] = option1.isSelected() ? "1" : option2.isSelected() ? "2" : option3.isSelected() ? "3" : "4";
+			answers[index] = option1.isSelected() ? "1" : option2.isSelected() ? "2" : option3.isSelected() ? "3" :option4.isSelected()? "4":null;
 			submit();
 		}
 		if (event.getSource() == getGuidelinesBtn) {
@@ -422,6 +423,9 @@ public class TakeExamController {
 			continueExamBtn.setVisible(true);
 			getGuidelinesBtn.setDisable(true);
 			commentsLbl.setVisible(true);
+			back.setDisable(true);
+			next.setDisable(true);
+			
 		}
 		if (event.getSource() == continueExamBtn) {
 			label_question.setVisible(true);
@@ -433,6 +437,8 @@ public class TakeExamController {
 			continueExamBtn.setVisible(false);
 			getGuidelinesBtn.setDisable(false);
 			commentsLbl.setVisible(false);
+			back.setDisable(false);
+			next.setDisable(false);
 		}
 
 	}

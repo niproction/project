@@ -120,7 +120,7 @@ public class ViewGradeController {
 				@Override
 				public void handle(ActionEvent event) {
 					System.out.println("eID:"+ViewGradesControl.getExamID(index));
-					GetCopyOfExamControl.eID=ViewGradesControl.getExamID(index);
+					GetCopyOfExamControl.eID=Integer.parseInt(ViewGradesControl.getExamID(index));
 					AnchorPane page = SceneController.getPage(PageProperties.Page.GET_COPY_OF_EXAM);
 					App_client.pageContainer.setCenter(page);
 				}
@@ -134,5 +134,4 @@ public class ViewGradeController {
 	}
 
 	
-
 }

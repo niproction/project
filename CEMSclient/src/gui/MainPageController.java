@@ -14,6 +14,7 @@ import common.Student;
 import common.Teacher;
 import control.ClientControl;
 import control.ExamControl;
+import control.ManageOngoingExams;
 import control.PageProperties;
 import control.PrincipalControl;
 import control.SceneController;
@@ -102,9 +103,12 @@ public class MainPageController {
 
 	@FXML
 	private MenuItem manageQuestions;
+	
+	@FXML
+	private MenuItem startExam;
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 	@FXML
-	private MenuItem ManageOngoingExams;
+	private MenuItem ManageOngoingExam;
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 	// rostik v10
 	@FXML
@@ -133,8 +137,9 @@ public class MainPageController {
 		takeExam.setVisible(false);
 		historyOfExams.setVisible(false);
 		verifyExam.setVisible(false);
-		ManageOngoingExams.setVisible(false);
+		ManageOngoingExam.setVisible(false);
 		manageExams.setVisible(false);
+		startExam.setVisible(false);
 
 		// rostik v10
 		label_notification.setVisible(false);
@@ -198,6 +203,12 @@ public class MainPageController {
 							label_notification.setVisible(false);
 							image_notification.setVisible(false);
 						}
+						
+						if (UserControl.ConnectedUser instanceof Teacher && ManageOngoingExams.isOngoingExams != null && ManageOngoingExams.isOngoingExams == true) {
+							startExam.setVisible(false);
+						}
+						else if(UserControl.ConnectedUser instanceof Teacher)
+							startExam.setVisible(true);
 					}
 				});
 			}
@@ -225,8 +236,12 @@ public class MainPageController {
 
 			verifyExam.setVisible(true);
 			manageQuestions.setVisible(true);
-			ManageOngoingExams.setVisible(true);
+			ManageOngoingExam.setVisible(true);
 			manageExams.setVisible(true);
+			
+			if (ManageOngoingExams.isOngoingExams != null && ManageOngoingExams.isOngoingExams == true) {
+			}else
+				startExam.setVisible(true);
 
 			label_bar_welcome.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " "
 					+ UserControl.ConnectedUser.getLastName());
@@ -390,7 +405,7 @@ public class MainPageController {
 				true);
 		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 		// will recive message from server and set user to null
-
+		UserControl.resetAll();
 		// break the connection with the server
 		ClientControl.getInstance().destroyInstance();
 

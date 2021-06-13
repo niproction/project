@@ -35,16 +35,25 @@ public class ClientControl implements ChatIF {
 			client = new CEMSClient(host, port, this);
 			isConnected = true;
 		} catch (IOException exception) {
+			isConnected = false;
+			client=null;
+			this.clientChat=null;
 			System.out.println("Error: Can't setup connection!" + " Terminating client.");
 			// System.exit(1);
-			isConnected = false;
+			
 			//clientChat=null;
 		}
 	}
 	
 	public static ClientControl getInstance() {
-		if (clientChat == null)
+		if (client == null && !isConnected)
+		{
 			clientChat = new ClientControl();
+			System.out.println("in");
+		}
+		else {
+			System.out.println("dddd"+clientChat);
+		}
 		return clientChat;
 	}
 	
@@ -55,6 +64,8 @@ public class ClientControl implements ChatIF {
 			if(client != null)
 				client.connectionClosed();// quit();
 			clientChat = null;
+			client = null;
+			isConnected = false;
 			System.out.println("Disconnected from server");
 		}
 	}

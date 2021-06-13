@@ -1,6 +1,5 @@
 package gui.teacher;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import client.App_client;
@@ -11,7 +10,6 @@ import control.GetCopyOfExamControl;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
-import control.ViewGradesControl;
 import control.examDoneControl;
 import gui.TableEntry;
 import javafx.collections.FXCollections;
@@ -52,7 +50,7 @@ public class verifyExamController {
 	public TableColumn<TableEntry, ?> colStatus;
 	@FXML
 	public TableColumn<TableEntry, ?> colCheating;
-	private int index;
+	private int index=-1;
 	@FXML
 	public void initialize (){
 		sceen = new SceneController(PageProperties.Page.VERIFY_EXAM, ap);
@@ -108,13 +106,19 @@ public class verifyExamController {
 					EventHandler<ActionEvent> getCopyHandler = new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent event) {
+							System.out.println("the size is "+buttonList.size());
 							for(int i=0;i<buttonList.size();i++) {
-								if(buttonList.get(i).equals(getCopy))
+								if(buttonList.get(i).equals(getCopy)) {
 									index=i;
+									System.out.println("the index is "+index);
+									break;
+								}
 									
 							}
 							GetCopyOfExamControl.studentID=Integer.valueOf(examDoneList.get(index).getuID());
-							GetCopyOfExamControl.eID=entry.getEiID();
+							//System.out.println(examDoneList.get(index).getuID()+"----");
+							System.out.println(GetCopyOfExamControl.studentID+" eeeeeeeeeeeeeeee");
+							GetCopyOfExamControl.eID=Integer.parseInt( entry.getEiID());
 							AnchorPane page = SceneController.getPage(PageProperties.Page.GET_COPY_OF_EXAM);
 							App_client.pageContainer.setCenter(page);
 						}

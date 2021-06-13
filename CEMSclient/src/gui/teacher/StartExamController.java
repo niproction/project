@@ -19,6 +19,7 @@ import common.DataPacket;
 import common.Exam;
 import control.ClientControl;
 import control.ExamControl;
+import control.ManageOngoingExams;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
@@ -53,8 +54,7 @@ public class StartExamController {
 	private Label label_message; // Value injected by FXMLLoader
 	@FXML
 	private TextField textfielf_password;
-	
-	
+
 	SceneController sceen;
 
 	ObservableList<Exam> examsList = FXCollections.observableArrayList();
@@ -66,11 +66,13 @@ public class StartExamController {
 				: "fx:id=\"choicebox_exams\" was not injected: check your FXML file 'startExam.fxml'.";
 		assert button_start != null : "fx:id=\"button_start\" was not injected: check your FXML file 'startExam.fxml'.";
 
-		sceen = new SceneController(PageProperties.Page.START_EXAM, ap);
-		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
+		// sceen = new SceneController(PageProperties.Page.START_EXAM, ap);
+		// sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 
 		label_message.setVisible(true);
 		label_message.setText("");
+
+	
 
 		// send datapacket to recive the exams
 		ArrayList<Object> parameter = new ArrayList<>();
@@ -88,16 +90,16 @@ public class StartExamController {
 		// Set the list of Course items to the ChoiceBox
 		choicebox_exams.setItems(examsList);
 		choicebox_exams.setValue(examsList.get(0));
+		
 	}
 
 	@FXML
 	void button_start_exam_clicked(MouseEvent event) {
-		if(textfielf_password.getLength() == 0)
-		{
+		if (textfielf_password.getLength() == 0) {
 			label_message.setText("Password left empty");
 			return;
 		}
-		
+
 		String examID;
 		examID = choicebox_exams.getValue().getExamID();
 
@@ -138,7 +140,7 @@ public class StartExamController {
 
 		label_message.setText("Exam started");
 		button_start.setDisable(true);
-		
+
 		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_ONGOING_EXAM);
 		App_client.pageContainer.setCenter(page);
 	}

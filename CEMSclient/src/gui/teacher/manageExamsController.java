@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
-import common.Question;
 import control.ClientControl;
 import control.ExamControl;
 import control.PageProperties;
-import control.QuestionControl;
 import control.SceneController;
 import control.UserControl;
 import gui.TableEntry;
@@ -85,7 +83,7 @@ public class manageExamsController {
 					ExamControl.setExamID(entry.getExamID());
 					ExamControl.editExamFlag=true;
 					// UserControl.setCanManage(1);
-					AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
+					AnchorPane page = SceneController.getPage(PageProperties.Page.EDIT_EXAMS);
 					App_client.pageContainer.setCenter(page);
 				}
 			};
@@ -100,7 +98,7 @@ public class manageExamsController {
 
 	public void handleOnAction(MouseEvent event) {
 		if (event.getSource() == createNewExam) {
-			AnchorPane page = SceneController.getPage(PageProperties.Page.CREATE_EXAM);
+			AnchorPane page = SceneController.getPage(PageProperties.Page.CHOSSE_EXAM_TYPE);
 			App_client.pageContainer.setCenter(page);
 		}
 	}

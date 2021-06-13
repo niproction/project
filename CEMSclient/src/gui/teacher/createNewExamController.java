@@ -101,6 +101,7 @@ public class createNewExamController {
 		questionAtExamCol.setCellValueFactory(new PropertyValueFactory("col1"));
 		pointsAtExamCol.setCellValueFactory(new PropertyValueFactory("col2"));
 		removeQuestionCol.setCellValueFactory(new PropertyValueFactory("col3"));
+		ExamControl.questions.clear();
 		apComments.setVisible(false);
 		setupDuration();
 		ArrayList<Object> parameters = new ArrayList<>();
@@ -361,7 +362,8 @@ public class createNewExamController {
 		ClientControl.getInstance().accept(dataPacket);
 //		errLabel.setText("exam submited");
 //		errLabel.setVisible(true);
-		apSubmitedExam.setVisible(true);
+		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_EXAMS);
+		App_client.pageContainer.setCenter(page);
 	}
 
 	private boolean checkInvalidInputsForSumbit() {

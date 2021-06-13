@@ -54,7 +54,7 @@ public class PageProperties {
 		MAIN_PAGE {
 			@Override
 			String GET_Title() {
-				return "get exam page";
+				return "Home page";
 			}
 
 			@Override
@@ -102,7 +102,7 @@ public class PageProperties {
 		HomePage_Student {
 			@Override
 			String GET_Title() {
-				return "Student - home page";
+				return "Home page";
 			}
 
 			@Override
@@ -123,7 +123,7 @@ public class PageProperties {
 		MANAGE_EXAMS {
 			@Override
 			String GET_Title() {
-				return "manage exams page";
+				return "Manage exams";
 			}
 
 			@Override
@@ -141,10 +141,31 @@ public class PageProperties {
 				return Animation.FADE_OUT;
 			}
 		},
+		EDIT_EXAMS {
+			@Override
+			String GET_Title() {
+				return "Edit exam";
+			}
+
+			@Override
+			String GET_FxmlFile() {
+				return "../gui/teacher/editExamsPage.fxml";
+			}
+
+			@Override
+			Animation GET_ON_Scene_Load_Animation() {
+				return Animation.FADE_IN;
+			}
+
+			@Override
+			Animation GET_ON_Scene_Unload_Animation() {
+				return Animation.FADE_OUT;
+			}
+		},
 		GET_EXAM {
 			@Override
 			String GET_Title() {
-				return "get exam page";
+				return "Get exam";
 			}
 
 			@Override
@@ -165,7 +186,7 @@ public class PageProperties {
 		TAKE_EXAM {
 			@Override
 			String GET_Title() {
-				return "take exam page";
+				return "Take exam";
 			}
 
 			@Override
@@ -188,7 +209,7 @@ public class PageProperties {
 		History_Of_Exams_Student {
 			@Override
 			String GET_Title() {
-				return "Student - Grades";
+				return "My grades";
 			}
 
 			@Override
@@ -209,7 +230,7 @@ public class PageProperties {
 		GET_COPY_OF_EXAM {
 			@Override
 			String GET_Title() {
-				return "get copy of exam page";
+				return "Get exam copy";
 			}
 
 			@Override
@@ -234,7 +255,7 @@ public class PageProperties {
 		HomePage_Teacher {
 			@Override
 			String GET_Title() {
-				return "Teacher - home page";
+				return "Home page";
 			}
 
 			@Override
@@ -255,7 +276,7 @@ public class PageProperties {
 		VERIFY_EXAM {
 			@Override
 			String GET_Title() {
-				return "teacher - verify page";
+				return "Verify exams";
 			}
 
 			@Override
@@ -277,7 +298,7 @@ public class PageProperties {
 		ADD_NEW_QUESTION {
 			@Override
 			String GET_Title() {
-				return "AddQuestion page";
+				return "Add questions";
 			}
 
 			@Override
@@ -299,7 +320,7 @@ public class PageProperties {
 		EDIT_QUESTION {
 			@Override
 			String GET_Title() {
-				return "Edit question page";
+				return "Edit questions";
 			}
 
 			@Override
@@ -322,7 +343,7 @@ public class PageProperties {
 		CREATE_EXAM {
 			@Override
 			String GET_Title() {
-				return "Login page";
+				return "Create exam";
 			}
 
 			@Override
@@ -343,7 +364,7 @@ public class PageProperties {
 		START_EXAM {
 			@Override
 			String GET_Title() {
-				return "Login page";
+				return "Start exam";
 			}
 
 			@Override
@@ -364,7 +385,7 @@ public class PageProperties {
 		MANAGE_QUESTIONS {
 			@Override
 			String GET_Title() {
-				return "manage queetions page";
+				return "Manage questions";
 			}
 
 			@Override
@@ -388,7 +409,7 @@ public class PageProperties {
 		CHOSSE_EXAM_TYPE {
 			@Override
 			String GET_Title() {
-				return "ChooseExamType page";
+				return "Exam type";
 			}
 
 			@Override
@@ -409,7 +430,7 @@ public class PageProperties {
 		Create_MANUEL_EXAM {
 			@Override
 			String GET_Title() {
-				return "manuelExam page";
+				return "Manual exam";
 			}
 
 			@Override
@@ -459,7 +480,7 @@ public class PageProperties {
 		HomePage_Principal {
 			@Override
 			String GET_Title() {
-				return "Principal - home page";
+				return "Home page";
 			}
 
 			@Override
@@ -481,7 +502,7 @@ public class PageProperties {
 		STATISTICAL_REPORTS {
 			@Override
 			String GET_Title() {
-				return "AddQuestion page";
+				return "Statistical reports";
 			}
 
 			@Override
@@ -503,7 +524,7 @@ public class PageProperties {
 		EXTRA_TIME_REQUESTS {
 			@Override
 			String GET_Title() {
-				return "AddQuestion page";
+				return "Extra time requests";
 			}
 
 			@Override
@@ -525,7 +546,7 @@ public class PageProperties {
 		INFO_PAGE {
 			@Override
 			String GET_Title() {
-				return "get info page";
+				return "Info page";
 			}
 
 			@Override

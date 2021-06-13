@@ -59,4 +59,16 @@ public class UserControl {
 	public UserControl() {
 	}
 	
+	
+	
+	public static void resetAll() {
+		ConnectedUser=null;
+		canOpenExam=null;
+		names=null;
+		user=null;
+		teachers=null;
+		students=null;
+		requests=null;
+	}
+	
 }

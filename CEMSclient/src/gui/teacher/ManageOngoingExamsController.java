@@ -89,9 +89,15 @@ public class ManageOngoingExamsController {
 
 	@FXML
 	private Label label_message;
+	
+	@FXML
+    private AnchorPane ap_container_box;
 
 	@FXML
 	private AnchorPane ap_request_extra_time_box;
+
+    @FXML
+    private Label label_terminate_message;
 	@FXML
 	private ChoiceBox<String> minutesChoiceBox;
 	@FXML
@@ -130,6 +136,7 @@ public class ManageOngoingExamsController {
 		time.setStyle("-fx-text-fill: blue;-fx-font-weight: bold;-fx-font-size: 12");
 		Timer tm;
 		//terminate_exam.setText("Terminate exam");
+		label_terminate_message.setVisible(false);
 		setupDuration();
 		
 		
@@ -293,6 +300,11 @@ public class ManageOngoingExamsController {
 		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.TERMINATE_EXAM, parameters, null,
 				true);
 		ClientControl.getInstance().accept(data);
+		
+		
+		ap_container_box.setVisible(false);
+		label_terminate_message.setVisible(true);
+		ManageOngoingExams.isOngoingExams = false;
 	}
 	
 	

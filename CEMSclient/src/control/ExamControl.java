@@ -4,13 +4,14 @@ import java.util.ArrayList;
 
 import common.Exam;
 import common.ExtraTimeRequest;
+import common.Question;
 
 
 public class ExamControl {
 	public static ArrayList<String> coursesNames;
 	public static String selectedCourse;
 	public static boolean editExamFlag=false;
-	public static ArrayList<String> questions;
+	public static ArrayList<String> questions = new ArrayList<>();
 	public static String questionID;
 	public static Exam exam;
 	public static String selectedCourseID;
@@ -22,6 +23,12 @@ public class ExamControl {
 	public static ArrayList<Exam> examsList;
 	public static ExtraTimeRequest extraTimeRequest;
 	
+	
+	public static ArrayList<String> questionsIDToRemove=new ArrayList<>();
+	public static ArrayList<String> pointsForQuestion=new ArrayList<>();
+	public static ArrayList<String> questionsID=new ArrayList<>();
+	public static ArrayList<Question>questionsInExams=new ArrayList<>();
+	public static ArrayList<Question> questionNotInExams=new ArrayList<>();
 
 
 	//rostik v10

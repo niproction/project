@@ -327,8 +327,12 @@ public class serverGUI {
 
 		button_start_server.setDisable(false);
 		button_start_server.setVisible(true);
+		
+		
 	}
-
+	
+	
+	
 	@FXML
 	void build_tables_button(MouseEvent event) {
 		initTables db = new initTables();

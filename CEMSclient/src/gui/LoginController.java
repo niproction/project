@@ -78,12 +78,22 @@ public class LoginController implements Initializable {
 
 	private void logIn() {
 		errorLable.setVisible(false);
+		String username_email = txtUserName.getText().toString();
+		String password = txtPassword.getText().toString();
+		
+		if(username_email.length() == 0)
+		{
+			errorLable.setText("Username/Email field empty");
+			errorLable.setVisible(true);
+		}
+		else if(!isLegalUsernameOrEmail(username_email))
+		{
+			errorLable.setText("Illigal username or email(must be lowwer case)");
+			errorLable.setVisible(true);
+		}
+		else if (ClientControl.getInstance().isConnected()) {
 
-		// ClientController
-		if (ClientControl.getInstance().isConnected()) {
-
-			String username_email = txtUserName.getText().toString();
-			String password = txtPassword.getText().toString();
+			
 			ArrayList<Object> parameters = new ArrayList<Object>();
 			parameters.add(username_email);
 			parameters.add(password);
@@ -110,7 +120,11 @@ public class LoginController implements Initializable {
 			}
 			System.out.println("Sdasddsda");
 		} else
-			System.out.println("dont connected...");
+		{
+			errorLable.setText("Can not reach server..");
+			errorLable.setVisible(true);
+		}
+			
 		// App_client.chat.GET_client().quit();
 	}
 
@@ -161,6 +175,19 @@ public class LoginController implements Initializable {
 			if (c < '0' || c > '9') {
 				return false;
 			}
+		}
+		return true;
+	}
+	
+	
+	public static boolean isLegalUsernameOrEmail(String str) {
+		for (int i = 0; i < str.length(); i++) {
+			char c = str.charAt(i);
+			
+			if ( ('a' <= c && c <= 'z') || c == '@' || c == '.' || c=='_' || ('0' <= c && c <= '9')) {
+			}
+			else
+				return false;
 		}
 		return true;
 	}

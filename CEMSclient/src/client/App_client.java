@@ -57,6 +57,7 @@ public class App_client extends Application {
 					true);
 			ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
 			// will recive message from server and set user to null
+			UserControl.resetAll();
 		}
 
 		if(ClientControl.isConnected())
