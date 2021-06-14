@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXComboBox;
+
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
@@ -45,7 +47,7 @@ public class StartExamController {
 	private AnchorPane ap; // Value injected by FXMLLoader
 
 	@FXML // fx:id="choicebox_exams"
-	private ChoiceBox<Exam> choicebox_exams; // Value injected by FXMLLoader
+	private JFXComboBox<Exam> choicebox_exams; // Value injected by FXMLLoader
 
 	@FXML // fx:id="button_start"
 	private Button button_start; // Value injected by FXMLLoader

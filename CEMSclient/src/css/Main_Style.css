@@ -47,18 +47,17 @@
 }
 .button-logout{
 	-fx-background-color:transparent;
-	-fx-background-image: url("../img/logout-icon.png");
+	-fx-background-image: url("../img/icons8-exit-64.png");
 	-fx-background-repeat: stretch;   
 	-fx-background-size: 32 32;
 }
 
 .button-logout:hover {
 	-fx-background-color:transparent;
-    -fx-background-image: url("../img/logout-icon-hover.png");
+    -fx-background-image: url("../img/icons8-exit-64.png");
 	-fx-background-repeat: stretch;   
 	-fx-background-size: 32 32;
 }
-
 .left{
 	-fx-background-color: #4dafdC;
 }

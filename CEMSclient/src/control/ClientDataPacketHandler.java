@@ -387,6 +387,12 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			UserControl.RequestForExtraTimeSent = dataPacket.getResult_boolean();
 			
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.EDIT_GRADE) {
+			if (dataPacket.getData_parameters() != null) {
+				System.out.println("zibi");
+				StudentControl.gradeChanged=(int)dataPacket.getData_parameters().get(0);
+			}
+		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEACHER_QUESTIONS) {
 			if (dataPacket.getData_parameters() != null) {

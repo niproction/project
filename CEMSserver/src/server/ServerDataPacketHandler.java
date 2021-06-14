@@ -545,7 +545,28 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 
 			
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.EDIT_GRADE) {
+			String uID=(String)dataPacket.getData_parameters().get(0);
+			String grade=(String)dataPacket.getData_parameters().get(1);
+			String comments=(String)dataPacket.getData_parameters().get(2);
+			String examID=(String)dataPacket.getData_parameters().get(3);
+			try {
+				PreparedStatement ps = mysqlConnection.getInstance().getCon().prepareStatement("UPDATE exams_done SET grade=?, gradeComments=? WHERE uID=? AND edID=?");
 
+				ps.setString(1, grade);
+				ps.setString(2, comments);
+				ps.setString(3, uID);
+				ps.setString(4, examID);
+				int success = ps.executeUpdate();
+				ArrayList<Object> parameters=new ArrayList<>();
+				parameters.add(success);
+				Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.EDIT_GRADE,
+						parameters, "yes exams", true);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		else if (dataPacket.getRequest() == DataPacket.Request.ONGOING_TO_MANAGE) {
 
 			ArrayList<Object> parameters = new ArrayList<Object>();

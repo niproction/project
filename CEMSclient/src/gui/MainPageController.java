@@ -7,6 +7,10 @@ import java.util.ResourceBundle;
 
 import javax.swing.Timer;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+
 import client.App_client;
 import common.DataPacket;
 import common.Principal;
@@ -19,6 +23,7 @@ import control.PageProperties;
 import control.PrincipalControl;
 import control.SceneController;
 import control.UserControl;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -33,6 +38,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 public class MainPageController {
 
@@ -78,37 +84,71 @@ public class MainPageController {
 	private Pane bar_right_box;
 
 	@FXML
-	private MenuButton main_menu;
+	private JFXHamburger hamBurger = new JFXHamburger();
 
 	@FXML
-	private MenuItem displayStatisticalReport;
+	private JFXButton displayStatisticalReport = new JFXButton();
 	@FXML
-	private MenuItem checkRequest;
+	private JFXButton checkRequest = new JFXButton();
 	@FXML
-	private MenuItem information;
+	private JFXButton information = new JFXButton();
 	@FXML
-	private MenuItem createExam;
+	private JFXButton createExam = new JFXButton();
 
 	@FXML
-	private MenuItem displayStatisticalReportTeacher;
+	private JFXButton startExam = new JFXButton();
 
 	@FXML
-	private MenuItem takeExam;
-	@FXML
-	private MenuItem manageExams;
-	@FXML
-	private MenuItem historyOfExams;
-	@FXML
-	private MenuItem verifyExam;
+	private JFXButton homePage = new JFXButton();
 
 	@FXML
-	private MenuItem manageQuestions;
-	
+	private JFXButton displayStatisticalReportTeacher = new JFXButton();
+
 	@FXML
-	private MenuItem startExam;
+	private JFXButton takeExam = new JFXButton();
+	@FXML
+	private JFXButton historyOfExams = new JFXButton();
+	@FXML
+	private JFXButton verifyExam = new JFXButton();
+
+	@FXML
+	private JFXButton manageExams = new JFXButton();
+
+	@FXML
+	private JFXButton manageQuestions = new JFXButton();
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 	@FXML
-	private MenuItem ManageOngoingExam;
+	private JFXButton ManageOngoingExam = new JFXButton();
+///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
+	/*
+	 * @FXML private MenuButton main_menu;
+	 * 
+	 * @FXML private MenuItem displayStatisticalReport;
+	 * 
+	 * @FXML private MenuItem checkRequest;
+	 * 
+	 * @FXML private MenuItem information;
+	 * 
+	 * @FXML private MenuItem createExam;
+	 * 
+	 * @FXML private MenuItem displayStatisticalReportTeacher;
+	 * 
+	 * @FXML private MenuItem takeExam;
+	 * 
+	 * @FXML private MenuItem manageExams;
+	 * 
+	 * @FXML private MenuItem historyOfExams;
+	 * 
+	 * @FXML private MenuItem verifyExam;
+	 * 
+	 * @FXML private MenuItem manageQuestions;
+	 * 
+	 * @FXML private MenuItem startExam;
+	 * ///////////////////////////////////////////////DANIEL////////////////////////
+	 * ///////////////////////
+	 * 
+	 * @FXML private MenuItem ManageOngoingExam;
+	 */
 ///////////////////////////////////////////////DANIEL///////////////////////////////////////////////
 	// rostik v10
 	@FXML
@@ -119,32 +159,65 @@ public class MainPageController {
 
 	@FXML // This method is called sby the FXMLLoader when initialization is complete
 	void initialize() {
-		// set sizes
+		SceneController.primaryStage.setMinWidth(1193);
+		  SceneController.primaryStage.setMinHeight(868);
+		  
+		  SceneController.primaryStage.setMaxWidth(1193);
+		  SceneController.primaryStage.setMaxHeight(868);
+		  SceneController.primaryStage.setWidth(1193);
+		  SceneController.primaryStage.setHeight(868);
+		/*// set sizes
 		SceneController.primaryStage.setMinWidth(850);
 		SceneController.primaryStage.setMinHeight(750);
 
 		SceneController.primaryStage.setMaxWidth(850);
 		SceneController.primaryStage.setMaxHeight(750);
 		SceneController.primaryStage.setWidth(850);
-		SceneController.primaryStage.setHeight(750);
+		SceneController.primaryStage.setHeight(750);*/
 		App_client.pageContainer = page_box; // set page center container to load inside it other pagess
 
-		displayStatisticalReport.setVisible(false);
-		checkRequest.setVisible(false);
-		information.setVisible(false);
-		createExam.setVisible(false);
-		displayStatisticalReportTeacher.setVisible(false);
-		takeExam.setVisible(false);
-		historyOfExams.setVisible(false);
-		verifyExam.setVisible(false);
-		ManageOngoingExam.setVisible(false);
-		manageExams.setVisible(false);
-		startExam.setVisible(false);
+		displayStatisticalReport.setManaged(false);
+		checkRequest.setManaged(false);
+		information.setManaged(false);
+		createExam.setManaged(false);
+		displayStatisticalReportTeacher.setManaged(false);
+		takeExam.setManaged(false);
+		historyOfExams.setManaged(false);
+		verifyExam.setManaged(false);
+		ManageOngoingExam.setManaged(false);
+		manageExams.setManaged(false);
+		manageQuestions.setManaged(false);
+		startExam.setManaged(false);
 
 		// rostik v10
 		label_notification.setVisible(false);
 		image_notification.setVisible(false);
 		// rostik v10
+
+		// Hamburger tranlate JFoenix
+		HamburgerSlideCloseTransition trans = new HamburgerSlideCloseTransition(hamBurger);
+		trans.setRate(-1);
+		box_left.setTranslateX(-235); // width of slider is 235 so translate to hide
+
+		hamBurger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+			if (trans.getRate() == 1) {
+				TranslateTransition slide = new TranslateTransition(); // Smooth transition of the Menu items
+				slide.setDuration(Duration.seconds(0.4));
+				slide.setNode(box_left);
+				slide.setToX(-235);
+				slide.play();
+				box_left.setTranslateX(0);
+			} else {
+				TranslateTransition slide = new TranslateTransition();
+				slide.setDuration(Duration.seconds(0.4));
+				slide.setNode(box_left);
+				slide.setToX(0);
+				slide.play();
+				box_left.setTranslateX(-235);
+			}
+			trans.setRate(trans.getRate() * -1);
+			trans.play();
+		});
 
 		// animate page on load
 		SceneController sceen = new SceneController(PageProperties.Page.MAIN_PAGE, ap);
@@ -188,12 +261,14 @@ public class MainPageController {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						if (UserControl.ConnectedUser instanceof Principal && PrincipalControl.isExtraTimeRequest_Recived()) {
+						if (UserControl.ConnectedUser instanceof Principal
+								&& PrincipalControl.isExtraTimeRequest_Recived()) {
 							label_notification.setText(UserControl.getNotipications() + "");
 							label_notification.setVisible(true);
 							image_notification.setVisible(true);
 
-						} else if (UserControl.ConnectedUser instanceof Teacher && ExamControl.isNotifiedAboutExtraTime()) {
+						} else if (UserControl.ConnectedUser instanceof Teacher
+								&& ExamControl.isNotifiedAboutExtraTime()) {
 							System.out.println("Showeddd ");
 							label_notification.setText(UserControl.getNotipications() + "");
 							label_notification.setVisible(true);
@@ -203,12 +278,17 @@ public class MainPageController {
 							label_notification.setVisible(false);
 							image_notification.setVisible(false);
 						}
-						
-						if (UserControl.ConnectedUser instanceof Teacher && ManageOngoingExams.isOngoingExams != null && ManageOngoingExams.isOngoingExams == true) {
+
+						if (UserControl.ConnectedUser instanceof Teacher && ManageOngoingExams.isOngoingExams != null
+								&& ManageOngoingExams.isOngoingExams == true) {
+							startExam.setManaged(false);
 							startExam.setVisible(false);
-						}
-						else if(UserControl.ConnectedUser instanceof Teacher)
+						} else if (UserControl.ConnectedUser instanceof Teacher)
+						{
 							startExam.setVisible(true);
+							startExam.setManaged(true);
+						}
+						
 					}
 				});
 			}
@@ -218,11 +298,13 @@ public class MainPageController {
 
 		if (UserControl.ConnectedUser instanceof Student) {
 			SceneController.primaryStage.setTitle("Cems: Student - home page");
-			takeExam.setVisible(true);
-			historyOfExams.setVisible(true);
+			takeExam.setManaged(true);
+	
+			historyOfExams.setManaged(true);
 			label_bar_welcome.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " "
 					+ UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Student)");
+			
 
 			// load Student home page
 			AnchorPane page = SceneController.getPage(PageProperties.Page.HomePage_Student);
@@ -230,18 +312,18 @@ public class MainPageController {
 
 		} else if (UserControl.ConnectedUser instanceof Teacher) {
 			SceneController.primaryStage.setTitle("Cems: Teacher - home page");
-			createExam.setVisible(true);
+			createExam.setManaged(true);
 
-			displayStatisticalReportTeacher.setVisible(true);
+			displayStatisticalReportTeacher.setManaged(true);
 
-			verifyExam.setVisible(true);
-			manageQuestions.setVisible(true);
-			ManageOngoingExam.setVisible(true);
-			manageExams.setVisible(true);
-			
+			verifyExam.setManaged(true);
+			manageQuestions.setManaged(true);
+			ManageOngoingExam.setManaged(true);
+			manageExams.setManaged(true);
+
 			if (ManageOngoingExams.isOngoingExams != null && ManageOngoingExams.isOngoingExams == true) {
-			}else
-				startExam.setVisible(true);
+			} else
+				startExam.setManaged(true);
 
 			label_bar_welcome.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " "
 					+ UserControl.ConnectedUser.getLastName());
@@ -253,9 +335,9 @@ public class MainPageController {
 
 		} else if (UserControl.ConnectedUser instanceof Principal) {
 			SceneController.primaryStage.setTitle("Cems: Principal - home page");
-			displayStatisticalReport.setVisible(true);
-			checkRequest.setVisible(true);
-			information.setVisible(true);
+			displayStatisticalReport.setManaged(true);
+			checkRequest.setManaged(true);
+			information.setManaged(true);
 			label_bar_welcome.setText("Welcome back, " + UserControl.ConnectedUser.getFirstName() + " "
 					+ UserControl.ConnectedUser.getLastName());
 			label_bar_roletype.setText("(Principal)");

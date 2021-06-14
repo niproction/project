@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.CreateNewWordExamController">
+   <children>
+      <Label layoutX="204.0" layoutY="14.0" text="Manuel Exam Page">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="uploadExamBtn" layoutX="249.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Upload exam" />
+      <Button fx:id="submitBtn" layoutX="268.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="SUMBIT" />
+      <Label layoutX="134.0" layoutY="220.0" text="Duration:" />
+      <Label layoutX="480.0" layoutY="20.0" text="Field:" />
+      <Label fx:id="fieldNameLabel" layoutX="516.0" layoutY="20.0" text="Label" />
+      <Label layoutY="76.0" text="Select course:">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <ChoiceBox fx:id="courses" layoutX="118.0" layoutY="74.0" prefWidth="150.0" />
+      <Label fx:id="errLabel" layoutX="349.0" layoutY="262.0" text="Label" />
+      <ChoiceBox fx:id="hourChoiceBox" layoutX="205.0" layoutY="217.0" prefHeight="27.0" prefWidth="49.0" />
+      <ChoiceBox fx:id="secondsChoiceBox" layoutX="348.0" layoutY="217.0" prefHeight="27.0" prefWidth="49.0" />
+      <ChoiceBox fx:id="minutesChoiceBox" layoutX="281.0" layoutY="217.0" prefHeight="27.0" prefWidth="49.0" />
+      <Text layoutX="206.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="H" textAlignment="CENTER" wrappingWidth="47.13672637939453">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="280.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M" textAlignment="CENTER" wrappingWidth="49.34033051133156">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="349.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S" textAlignment="CENTER" wrappingWidth="47.13672637939453">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="254.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="17.00000524520874">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="331.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":" textAlignment="CENTER" wrappingWidth="17.00000524520874">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="268.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of the exam:" textAlignment="CENTER" wrappingWidth="181.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="nameOfExam" layoutX="436.0" layoutY="74.0" />
+   </children>
+</AnchorPane>

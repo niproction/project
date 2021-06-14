@@ -32,6 +32,7 @@ public class ClientControl implements ChatIF {
 	
 	private ClientControl() {
 		try {
+			System.out.println(host+ " "+port);
 			client = new CEMSClient(host, port, this);
 			isConnected = true;
 		} catch (IOException exception) {

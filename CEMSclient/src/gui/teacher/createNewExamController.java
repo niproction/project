@@ -4,6 +4,8 @@ import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
 
+import com.jfoenix.controls.JFXComboBox;
+
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
@@ -64,7 +66,7 @@ public class createNewExamController {
 	@FXML
 	private Label fieldNameLabel;
 	@FXML
-	private ChoiceBox<String> courses;
+	private JFXComboBox<String> courses;
 	@FXML
 	private TextArea teacherComments;
 	@FXML
@@ -78,9 +80,9 @@ public class createNewExamController {
 	@FXML
 	private TextField nameOfExam;
 	@FXML
-	private ChoiceBox<String> minutesChoiceBox;
+	private JFXComboBox<String> minutesChoiceBox;
 	@FXML
-	private ChoiceBox<String> hourChoiceBox;
+	private JFXComboBox<String> hourChoiceBox;
 	private int indexAtBank;
 	private int indexAtExam;
 	private ArrayList<Button> removeBtnList = new ArrayList<>();

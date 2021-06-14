@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Copyright (c) 2015, 2019, Gluon and/or its affiliates. All rights reserved. 
+	Use is subject to license terms. This file is available and licensed under 
+	the following license: Redistribution and use in source and binary forms, 
+	with or without modification, are permitted provided that the following conditions 
+	are met: - Redistributions of source code must retain the above copyright 
+	notice, this list of conditions and the following disclaimer. - Redistributions 
+	in binary form must reproduce the above copyright notice, this list of conditions 
+	and the following disclaimer in the documentation and/or other materials 
+	provided with the distribution. - Neither the name of Oracle Corporation 
+	nor the names of its contributors may be used to endorse or promote products 
+	derived from this software without specific prior written permission. THIS 
+	SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+	WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+	IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+	INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
+	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF 
+	USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+	THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+	EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ap" maxHeight="700.0" maxWidth="840.0" minHeight="700.0" minWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainPageController">
+ 
+
+	<children>
+      <VBox prefHeight="700.0" prefWidth="800.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane maxHeight="54.0" maxWidth="840.0" minHeight="54.0" minWidth="840.0" styleClass="menu" stylesheets="@../css/Main_Style.css">
+               <children>
+      						<Pane layoutX="14.0" layoutY="13.0" prefHeight="44.0" prefWidth="47.0">
+                     <children>
+                        <MenuButton fx:id="main_menu" mnemonicParsing="false" prefHeight="32.0" prefWidth="47.0" styleClass="button-menu" stylesheets="@../css/Main_Style.css">
+                          <items>
+                            <MenuItem fx:id="homePage" mnemonicParsing="false" onAction="#button_homepage_clicked" text="Home page" />
+                            <MenuItem fx:id="displayStatisticalReport" mnemonicParsing="false" onAction="#buttton_statistical_report" text="Display statistical Report" />
+                            <MenuItem fx:id="checkRequest" mnemonicParsing="false" onAction="#button_extra_time_requests" text="Check extra time requests" />
+                              <MenuItem fx:id="information" mnemonicParsing="false" onAction="#button_information" text="Information" />
+                              <MenuItem fx:id="manageQuestions" mnemonicParsing="false" onAction="#button_manage_questions_clicked" text="Manage Questions" />
+                              <MenuItem fx:id="createExam" mnemonicParsing="false" onAction="#button_create_exam" text="Create exam" />
+                              <MenuItem fx:id="startExam" mnemonicParsing="false" onAction="#button_start_exam" text="Start exam" />
+                              <MenuItem fx:id="ManageOngoingExam" mnemonicParsing="false" onAction="#manage_ongoing_exam" text="Manage ongoing exams" />
+                              <MenuItem fx:id="verifyExam" mnemonicParsing="false" onAction="#button_verify_exam_clicked" text="Verify exam" />
+                              <MenuItem fx:id="displayStatisticalReportTeacher" mnemonicParsing="false" onAction="#buttton_statistical_teacher_report" text="Display statistical report" />
+                              <MenuItem fx:id="takeExam" mnemonicParsing="false" onAction="#button_take_exam_clicked" text="Take exam" />
+                              <MenuItem fx:id="historyOfExams" mnemonicParsing="false" onAction="#button_history_of_exams_student_clicked" text="View history of exams" />
+                              <MenuItem fx:id="manageExams" mnemonicParsing="false" onAction="#button_manage_exams_clicked" text="manage Exam" />
+                          </items>
+                        </MenuButton>
+                        <ImageView fx:id="image_notification" fitHeight="23.0" fitWidth="65.0" layoutX="15.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon-notification.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+      						</Pane>
+      						<Pane layoutX="74.0" layoutY="13.0" minHeight="40.0" minWidth="500.0">
+      							<children>
+      								<HBox layoutY="1.0" minHeight="40.0" minWidth="500.0">
+      									<children>
+      										<Label fx:id="label_bar_welcome" text="Label">
+      											<font>
+      												<Font size="20.0" />
+      											</font>
+      										</Label>
+                              <Label fx:id="label_bar_roletype">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+      									</children>
+      								</HBox>
+      							</children>
+      						</Pane>
+      						<Pane layoutX="786.0" layoutY="14.0" prefHeight="42.0" prefWidth="40.0">
+                     <children>
+      								<Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#button_logout_clicked" onMouseEntered="#button_logout_entered" onMouseExited="#button_logout_exited" prefHeight="32.0" prefWidth="47.0" styleClass="button-logout" stylesheets="@../css/Main_Style.css" />
+                     </children>
+      						</Pane>
+      						<Label fx:id="label_notification" layoutX="35.0" layoutY="5.0" text="[notification]" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css">
+               <children>
+                  <BorderPane fx:id="page_box" minHeight="646.0" minWidth="840.0" styleClass="bg" stylesheets="@../css/Main_Style.css">
+                     <right>
+            				<Pane fx:id="box_right" styleClass="right" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
+                     </right>
+                     <left>
+                        <Pane fx:id="box_left" styleClass="left" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
+                     </left>
+                     <top>
+                        <Pane maxHeight="0.0" minHeight="0.0" prefHeight="0.0" BorderPane.alignment="CENTER" />
+                     </top>
+                     <bottom>
+                        <Pane maxHeight="0.0" minHeight="0.0" prefHeight="0.0" BorderPane.alignment="CENTER" />
+                     </bottom>
+                  </BorderPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+	</children>
+</AnchorPane>

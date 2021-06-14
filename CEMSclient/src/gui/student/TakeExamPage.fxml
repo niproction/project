@@ -1,67 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.student.TakeExamController">
+<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.student.TakeExamController">
    <children>
-      <AnchorPane fx:id="ap_exam_stats" layoutX="629.0" layoutY="14.0" prefHeight="239.0" prefWidth="200.0">
-         <children>
-            <Button fx:id="getGuidelinesBtn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="33.0" layoutY="169.0" mnemonicParsing="false" onMouseClicked="#handleAction" prefHeight="25.0" prefWidth="112.0" text="Show guide lines" />
-            <Label layoutX="53.0" layoutY="14.0" text="Questions" underline="true">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="18.0" layoutY="107.0" text="Total Time">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="16.0" layoutY="134.0" text="Time left:">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_questions" layoutX="49.0" layoutY="40.0" text="Current / Total" />
-            <Label fx:id="label_questions_amunt" layoutX="64.0" layoutY="69.0" text="[amount]" />
-            <Label fx:id="label_timer" layoutX="96.0" layoutY="134.0" text="[Timer]" />
-            <Button fx:id="continueExamBtn" alignment="CENTER" contentDisplay="TOP" layoutX="33.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#handleAction" prefHeight="25.0" prefWidth="112.0" text="Continue Exam" />
-         </children>
-      </AnchorPane>
-      <Label fx:id="label_question" layoutX="92.0" layoutY="139.0" text="[the question]">
+      <Label layoutX="694.0" layoutY="45.0" text="Questions" underline="true">
          <font>
-            <Font name="Arial" size="15.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <CheckBox fx:id="option1" layoutX="92.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#handleAction" text="option1" />
-      <CheckBox fx:id="option2" layoutX="92.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#handleAction" text="option2" />
-      <CheckBox fx:id="option3" layoutX="92.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#handleAction" text="option3" />
-      <CheckBox fx:id="option4" layoutX="92.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#handleAction" text="option4" />
-      <Button fx:id="next" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="460.0" layoutY="551.0" mnemonicParsing="false" onMouseClicked="#handleAction" prefHeight="25.0" prefWidth="71.0" text="Next" />
-      <Button fx:id="submitBtn" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="729.0" layoutY="551.0" mnemonicParsing="false" onMouseClicked="#handleAction" prefHeight="25.0" prefWidth="71.0" text="Submit" />
-      <Button fx:id="back" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="333.0" layoutY="551.0" mnemonicParsing="false" onMouseClicked="#handleAction" prefHeight="25.0" prefWidth="71.0" text="back" />
+      <Label layoutX="652.0" layoutY="120.0" text="Time left:" textFill="#1aae0a">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
       <Label fx:id="testSubmited" layoutX="61.0" layoutY="244.0" prefHeight="76.0" prefWidth="739.0" text="The Test Submited successfully" visible="false">
          <font>
             <Font name="Arial" size="51.0" />
          </font>
       </Label>
-      <Label fx:id="commentsLbl" layoutX="300.0" layoutY="59.0" text="Comments">
+      <Label fx:id="label_timer" layoutX="738.0" layoutY="117.0" text="[Timer]">
          <font>
-            <Font size="22.0" />
+            <Font size="18.0" />
+         </font></Label>
+      <Label fx:id="label_questions" layoutX="693.0" layoutY="66.0" prefHeight="17.0" prefWidth="84.0" text="Current / Total" textAlignment="CENTER" />
+      <Label fx:id="label_questions_amunt" layoutX="693.0" layoutY="81.0" text="[amount]">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <JFXButton fx:id="submitBtn" buttonType="RAISED" layoutX="689.0" layoutY="539.0" onMouseClicked="#handleAction" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #B39CD0; -fx-background-radius: 10pt;" text="Submit">
+         <font>
+            <Font name="System Bold" size="18.0" />
          </font>
-      </Label>
-      <AnchorPane fx:id="GuidelinesTxt" layoutX="20.0" layoutY="115.0" prefHeight="486.0" prefWidth="642.0">
+      </JFXButton>
+      <AnchorPane fx:id="GuidelinesTxt" layoutX="68.0" layoutY="74.0" prefHeight="531.0" prefWidth="590.0">
          <children>
-            <Label fx:id="commentsTxt" alignment="TOP_LEFT" prefHeight="486.0" prefWidth="642.0" text="comments will appeare here">
+            <Label fx:id="commentsTxt" alignment="TOP_LEFT" layoutX="54.0" layoutY="70.0" prefHeight="231.0" prefWidth="501.0" text="No comments" textFill="RED" wrapText="true">
                <font>
-                  <Font size="22.0" />
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="commentsLbl" layoutX="150.0" layoutY="20.0" text="Exam Comments:" underline="true">
+               <font>
+                  <Font name="Elephant" size="26.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="ap_exam_stats" layoutX="46.0" layoutY="94.0" prefHeight="504.0" prefWidth="618.0">
+         <children>
+            <JFXButton fx:id="next" buttonType="RAISED" layoutX="351.0" layoutY="441.0" onMouseClicked="#handleAction" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" text="Next">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="back" buttonType="RAISED" layoutX="224.0" layoutY="441.0" onMouseClicked="#handleAction" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" text="Back">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="label_question" alignment="TOP_LEFT" layoutX="54.0" layoutY="31.0" prefHeight="69.0" prefWidth="501.0" text="[the question]">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <JFXCheckBox fx:id="option1" alignment="TOP_LEFT" layoutX="54.0" layoutY="100.0" onMouseClicked="#handleAction" prefHeight="50.0" prefWidth="522.0" text="option1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="option3" alignment="TOP_LEFT" layoutX="54.0" layoutY="240.0" onMouseClicked="#handleAction" prefHeight="50.0" prefWidth="522.0" text="option3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="option2" alignment="TOP_LEFT" layoutX="54.0" layoutY="170.0" onMouseClicked="#handleAction" prefHeight="50.0" prefWidth="522.0" text="option2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXCheckBox>
+            <JFXCheckBox fx:id="option4" alignment="TOP_LEFT" layoutX="54.0" layoutY="310.0" onMouseClicked="#handleAction" prefHeight="50.0" prefWidth="522.0" text="option4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXCheckBox>
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="getGuidelinesBtn" buttonType="RAISED" layoutX="661.0" layoutY="173.0" onMouseClicked="#handleAction" style="-fx-background-color: #E5FF65; -fx-background-radius: 10pt;" text="Show comments">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

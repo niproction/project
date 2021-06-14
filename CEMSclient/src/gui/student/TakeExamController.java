@@ -82,8 +82,7 @@ public class TakeExamController {
 	private Button getGuidelinesBtn;
 	@FXML
 	private AnchorPane GuidelinesTxt;
-	@FXML
-	private Button continueExamBtn;
+	
 	@FXML
 	private Label commentsLbl;
 	@FXML
@@ -114,6 +113,7 @@ public class TakeExamController {
 	private int extra_time;
 	private String exam_timer;
 
+	private boolean clicked = false;
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() {
 		assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file 'TakeExamPage.fxml'.";
@@ -141,8 +141,8 @@ public class TakeExamController {
 		sceen = new SceneController(PageProperties.Page.TAKE_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		GuidelinesTxt.setVisible(false);
-		continueExamBtn.setVisible(false);
-		commentsLbl.setVisible(false);
+		//continueExamBtn.setVisible(false);
+		//commentsLbl.setVisible(false);
 		System.out.println("take exam page loaded");
 
 		examInitiated = ExamInitiatedControl.getExamInitiated();
@@ -413,34 +413,28 @@ public class TakeExamController {
 			answers[index] = option1.isSelected() ? "1" : option2.isSelected() ? "2" : option3.isSelected() ? "3" :option4.isSelected()? "4":null;
 			submit();
 		}
+		
+		
 		if (event.getSource() == getGuidelinesBtn) {
-			label_question.setVisible(false);
-			option1.setVisible(false);
-			option2.setVisible(false);
-			option3.setVisible(false);
-			option4.setVisible(false);
-			GuidelinesTxt.setVisible(true);
-			continueExamBtn.setVisible(true);
-			getGuidelinesBtn.setDisable(true);
-			commentsLbl.setVisible(true);
-			back.setDisable(true);
-			next.setDisable(true);
-			
+			if(!clicked)
+			{
+				clicked=true;
+				submitBtn.setVisible(false);
+				ap_exam_stats.setVisible(false);
+				GuidelinesTxt.setVisible(true);
+				getGuidelinesBtn.setText("Hide comments");
+				
+			}
+			else
+			{
+				clicked=false;
+				GuidelinesTxt.setVisible(false);
+				submitBtn.setVisible(true);
+				ap_exam_stats.setVisible(true);
+				getGuidelinesBtn.setText("Show comments");
+				
+			}
 		}
-		if (event.getSource() == continueExamBtn) {
-			label_question.setVisible(true);
-			option1.setVisible(true);
-			option2.setVisible(true);
-			option3.setVisible(true);
-			option4.setVisible(true);
-			GuidelinesTxt.setVisible(false);
-			continueExamBtn.setVisible(false);
-			getGuidelinesBtn.setDisable(false);
-			commentsLbl.setVisible(false);
-			back.setDisable(false);
-			next.setDisable(false);
-		}
-
 	}
 
 	public void submit() {

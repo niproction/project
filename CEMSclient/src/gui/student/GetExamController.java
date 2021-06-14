@@ -3,6 +3,9 @@ package gui.student;
 
 import java.util.ArrayList;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+
 import client.App_client;
 import common.DataPacket;
 import common.examInitiated;
@@ -25,18 +28,18 @@ public class GetExamController {
 	@FXML // fx:id="ap"
 	private AnchorPane ap;
 	@FXML
-	private TextField passwordfld;
+	private JFXPasswordField  passwordfld;
 	@FXML
 	private Label errorLabel;
 	@FXML
-	private Button getExamBtn;
+	private JFXButton getExamBtn;
 	/////////////////////////////////////////
 	@FXML
-	private TextField idPasswordfld;
+	private JFXPasswordField  idPasswordfld;
 	@FXML
 	private Label errorLabel2;
 	@FXML
-	private Button takeExambtn;
+	private JFXButton  takeExambtn;
 	@FXML
 	private Label insertIDlbl;
 
@@ -60,7 +63,7 @@ public class GetExamController {
 			errorLabel.setVisible(false);
 
 			ArrayList<Object> parameters = new ArrayList<>();
-			parameters.add(passwordfld.getText().toString());
+			parameters.add(passwordfld.getText());
 			parameters.add(UserControl.ConnectedUser);
 			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAM, parameters,
 					null, true);

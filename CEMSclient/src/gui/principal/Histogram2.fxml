@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -12,13 +11,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.principal.HistogramController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.principal.HistogramController">
    <children>
-      <Text layoutX="274.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistical Histogram">
+      <Text layoutX="278.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistical Histogram">
          <font>
-            <Font name="Elephant" size="27.0" />
+            <Font size="27.0" />
          </font>
       </Text>
+      <Button fx:id="backButton" layoutX="351.0" layoutY="579.0" mnemonicParsing="false" onAction="#GoBack" prefHeight="27.0" prefWidth="97.0" text="Back">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
       <ComboBox fx:id="comboBox" layoutX="389.0" layoutY="93.0" onAction="#OnChoose" prefWidth="150.0" />
       <Text layoutX="160.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average:">
          <font>
@@ -62,13 +65,5 @@
       </Text>
       <Circle fx:id="circle1" fill="#c381ae" layoutX="134.0" layoutY="158.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fx:id="circle2" fill="#91bc93" layoutX="389.0" layoutY="158.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
-      <JFXButton fx:id="backButton" buttonType="RAISED" layoutX="371.0" layoutY="565.0" onAction="#GoBack" prefHeight="49.0" prefWidth="96.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="BACK">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
    </children>
 </AnchorPane>

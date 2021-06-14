@@ -13,6 +13,9 @@ import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.ArrayList;
 import javax.swing.colorchooser.ColorChooserComponentFactory;
+
+import com.jfoenix.controls.JFXComboBox;
+
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
@@ -47,7 +50,7 @@ public class CreateNewWordExamController extends createNewExamController {
 	@FXML
 	private Label fieldNameLabel;
 	@FXML
-	private ChoiceBox<String> courses;
+	private JFXComboBox<String> courses;
 	@FXML
 	private Button submitBtn;
 	@FXML
@@ -57,11 +60,11 @@ public class CreateNewWordExamController extends createNewExamController {
 	@FXML
 	private ScrollBar scrollbar;
 	@FXML
-	private ChoiceBox<String> hourChoiceBox;
+	private JFXComboBox<String> hourChoiceBox;
 	@FXML
-	private ChoiceBox<String> minutesChoiceBox;
+	private JFXComboBox<String> minutesChoiceBox;
 	@FXML
-	private ChoiceBox<String> secondsChoiceBox;
+	private JFXComboBox<String> secondsChoiceBox;
 	private Exam exam;
 	@FXML
 	public void initialize() {

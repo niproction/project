@@ -97,7 +97,7 @@ public class ManageOngoingExamsController {
 	private AnchorPane ap_request_extra_time_box;
 
     @FXML
-    private Label label_terminate_message;
+    private Label label_notification_message;
 	@FXML
 	private ChoiceBox<String> minutesChoiceBox;
 	@FXML
@@ -136,7 +136,7 @@ public class ManageOngoingExamsController {
 		time.setStyle("-fx-text-fill: blue;-fx-font-weight: bold;-fx-font-size: 12");
 		Timer tm;
 		//terminate_exam.setText("Terminate exam");
-		label_terminate_message.setVisible(false);
+		label_notification_message.setVisible(false);
 		setupDuration();
 		
 		
@@ -213,11 +213,18 @@ public class ManageOngoingExamsController {
 								ExamControl.setNotifiedAboutExtraTime(false);
 							}
 							
-							timer = timerCountdown(timer);
-
-							time.setText(timer);
-
-
+							if(!timer.equals("00:00:00"))
+							{
+									timer = timerCountdown(timer);
+									time.setText(timer);
+							}
+							else
+							{
+								ap_container_box.setVisible(false);
+								label_notification_message.setText("Exam Finished");
+								label_notification_message.setVisible(true);
+								ManageOngoingExams.isOngoingExams = false;
+							}
 						}
 					});
 				}
@@ -243,8 +250,8 @@ public class ManageOngoingExamsController {
 		else if (ManageOngoingExams.isOngoingExams == false) {
 
 			// Delete unnecessary page elements
-			ap.getChildren().removeAll(terminate_exam, label_exam_info, hourChoiceBox, minutesChoiceBox, text1, text2, text3, text4,
-					pic1, pic2, pic3, pic4, sendBtn, commentField);
+			ap.getChildren().removeAll(terminate_exam, label_exam_info, hourChoiceBox, minutesChoiceBox, text1, time, text2, text3, text4,
+					pic1, pic2, pic3, pic4, sendBtn,terminate_exam, commentField);
 
 			// Show status label(No exams found) and set it's style
 			status.setVisible(true);
@@ -303,7 +310,8 @@ public class ManageOngoingExamsController {
 		
 		
 		ap_container_box.setVisible(false);
-		label_terminate_message.setVisible(true);
+		label_notification_message.setText("Exam terminated");
+		label_notification_message.setVisible(true);
 		ManageOngoingExams.isOngoingExams = false;
 	}
 	

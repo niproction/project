@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.TeacherHomePageController">
+   <children>
+      <Button fx:id="approve" layoutX="447.0" layoutY="258.0" mnemonicParsing="false" onAction="#reqHandles" prefHeight="25.0" prefWidth="155.0" text="take me to requests" visible="false" />
+      <Text fx:id="txtGood" fill="#73255a" layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good" wrappingWidth="100.66666666666652">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtTime" fill="#73255a" layoutX="116.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" wrappingWidth="224.0000101725259">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Text>
+      <Label fx:id="timedate" layoutX="14.0" layoutY="5.0" prefHeight="17.0" prefWidth="155.0" textFill="#73255a" />
+      <ImageView fx:id="sunset" fitHeight="78.0" fitWidth="81.0" layoutX="268.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../img/icon_evening.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="sunrise" fitHeight="78.0" fitWidth="81.0" layoutX="278.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../img/icon_morning.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="moon" fitHeight="78.0" fitWidth="81.0" layoutX="278.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../img/icon_night.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="sun" fitHeight="78.0" fitWidth="81.0" layoutX="278.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../img/icon_afternoon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="curtime" layoutX="122.0" layoutY="5.0" prefHeight="17.0" prefWidth="155.0" textFill="#73255a" />
+      <Text fx:id="txtGood1" fill="#73255a" layoutX="10.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notifications" wrappingWidth="224.00001017252595">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+      </Text>
+      <Line endX="684.0" endY="1.52587890625E-5" layoutX="116.0" layoutY="200.0" startX="-116.0" startY="1.52587890625E-5" />
+      <ImageView fx:id="picBell" fitHeight="51.0" fitWidth="72.0" layoutX="232.0" layoutY="144.0">
+         <image>
+            <Image url="@../../img/notifications_icon.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="manageBtn" layoutX="285.0" layoutY="235.0" mnemonicParsing="false" onAction="#manageHandle" text="manage the exam" visible="false" />
+      <Text fx:id="ongoingNoti" fill="#73255a" layoutX="24.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have an ongoing exam " visible="false">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#73255a" layoutX="24.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="verifyAmount" fill="#73255a" layoutX="122.0" layoutY="316.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="39.33331298828125">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#73255a" layoutX="154.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="exams to verify">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="verifyBtn" layoutX="298.0" layoutY="296.0" mnemonicParsing="false" onAction="#reqHandles" text="verify exams" visible="false" />
+   </children>
+</AnchorPane>

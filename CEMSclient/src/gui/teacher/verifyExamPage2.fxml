@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="840.0" stylesheets="@../../css/Main_Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.verifyExamController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.verifyExamController">
    <children>
-      <Label layoutX="82.0" layoutY="34.0" prefHeight="53.0" prefWidth="328.0" text="Verify Exams">
+      <Label layoutX="115.0" layoutY="31.0" prefHeight="53.0" prefWidth="328.0" text="Verify Exams">
          <font>
-            <Font name="Elephant" size="36.0" />
+            <Font name="System Bold Italic" size="36.0" />
          </font>
       </Label>
-      <TableView fx:id="tableView" layoutX="35.0" layoutY="114.0" prefHeight="442.0" prefWidth="779.0" stylesheets="@../../css/Main_Style.css">
+      <TableView fx:id="tableView" layoutX="20.0" layoutY="136.0" prefHeight="382.0" prefWidth="803.0">
         <columns>
           <TableColumn fx:id="colExamID" prefWidth="90.33331298828125" text="Exam ID" />
           <TableColumn fx:id="colStudentID" prefWidth="116.66668701171875" text="Student ID" />
@@ -24,11 +24,11 @@
             <TableColumn fx:id="colEndTime" prefWidth="115.6666259765625" text="End Time" />
             <TableColumn fx:id="colGrade" prefWidth="58.0" text="Grade" />
             <TableColumn fx:id="colGetCopy" prefWidth="83.0" text="Get Copy" />
-            <TableColumn fx:id="colStatus" prefWidth="95.0" text="Status" />
-            <TableColumn fx:id="colCheating" prefWidth="112.0" text="Suspect cheating" />
+            <TableColumn fx:id="colStatus" prefWidth="102.0" text="Status" />
+            <TableColumn fx:id="colCheating" prefWidth="136.0" text="Suspect Cheating" />
         </columns>
       </TableView>
-      <AnchorPane fx:id="gradeAnchorPane" layoutX="380.0" layoutY="150.0" prefHeight="283.0" prefWidth="371.0">
+      <AnchorPane fx:id="gradeAnchorPane" layoutX="293.0" layoutY="167.0" prefHeight="283.0" prefWidth="371.0">
          <children>
             <Button fx:id="gradeSend" layoutX="379.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Send" />
             <TextArea fx:id="gradeTextArea" layoutX="2.0" layoutY="48.0" prefHeight="247.0" prefWidth="420.0" />
@@ -43,7 +43,7 @@
             <TextField fx:id="examID" layoutX="192.0" layoutY="14.0" prefHeight="25.0" prefWidth="72.0" promptText="Exam ID" />
          </children>
       </AnchorPane>
-      <Button fx:id="editGrade" layoutX="742.0" layoutY="81.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Edit Grade" />
-      <Label fx:id="seccessLbl" layoutX="582.0" layoutY="85.0" prefHeight="17.0" prefWidth="141.0" text="Grade has been submited" textFill="#21f505" />
+      <Button fx:id="editGrade" layoutX="700.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Edit Grade" />
+      <Label fx:id="seccessLbl" layoutX="549.0" layoutY="88.0" prefHeight="17.0" prefWidth="141.0" text="Grade has been submited" textFill="#21f505" />
    </children>
 </AnchorPane>

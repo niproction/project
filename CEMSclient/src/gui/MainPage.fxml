@@ -22,10 +22,10 @@
 	NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
 	EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. -->
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,38 +35,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="700.0" maxWidth="840.0" minHeight="700.0" minWidth="840.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainPageController">
+<AnchorPane fx:id="ap" maxHeight="822.0" maxWidth="1173.0" minHeight="700.0" minWidth="840.0" prefHeight="822.0" prefWidth="1173.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainPageController">
  
 
 	<children>
-      <VBox prefHeight="700.0" prefWidth="800.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="828.0" prefWidth="1173.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane maxHeight="54.0" maxWidth="840.0" minHeight="54.0" minWidth="840.0" styleClass="menu" stylesheets="@../css/Main_Style.css">
+            <AnchorPane maxHeight="54.0" maxWidth="1173.0" minHeight="54.0" minWidth="840.0" prefHeight="54.0" prefWidth="1173.0" styleClass="menu" stylesheets="@../css/Main_Style.css">
                <children>
       						<Pane layoutX="14.0" layoutY="13.0" prefHeight="44.0" prefWidth="47.0">
                      <children>
-                        <MenuButton fx:id="main_menu" mnemonicParsing="false" prefHeight="32.0" prefWidth="47.0" styleClass="button-menu" stylesheets="@../css/Main_Style.css">
-                          <items>
-                            <MenuItem fx:id="homePage" mnemonicParsing="false" onAction="#button_homepage_clicked" text="Home page" />
-                            <MenuItem fx:id="displayStatisticalReport" mnemonicParsing="false" onAction="#buttton_statistical_report" text="Display statistical Report" />
-                            <MenuItem fx:id="checkRequest" mnemonicParsing="false" onAction="#button_extra_time_requests" text="Check extra time requests" />
-                              <MenuItem fx:id="information" mnemonicParsing="false" onAction="#button_information" text="Information" />
-                              <MenuItem fx:id="manageQuestions" mnemonicParsing="false" onAction="#button_manage_questions_clicked" text="Manage Questions" />
-                              <MenuItem fx:id="createExam" mnemonicParsing="false" onAction="#button_create_exam" text="Create exam" />
-                              <MenuItem fx:id="startExam" mnemonicParsing="false" onAction="#button_start_exam" text="Start exam" />
-                              <MenuItem fx:id="ManageOngoingExam" mnemonicParsing="false" onAction="#manage_ongoing_exam" text="Manage ongoing exams" />
-                              <MenuItem fx:id="verifyExam" mnemonicParsing="false" onAction="#button_verify_exam_clicked" text="Verify exam" />
-                              <MenuItem fx:id="displayStatisticalReportTeacher" mnemonicParsing="false" onAction="#buttton_statistical_teacher_report" text="Display statistical report" />
-                              <MenuItem fx:id="takeExam" mnemonicParsing="false" onAction="#button_take_exam_clicked" text="Take exam" />
-                              <MenuItem fx:id="historyOfExams" mnemonicParsing="false" onAction="#button_history_of_exams_student_clicked" text="View history of exams" />
-                              <MenuItem fx:id="manageExams" mnemonicParsing="false" onAction="#button_manage_exams_clicked" text="manage Exam" />
-                          </items>
-                        </MenuButton>
-                        <ImageView fx:id="image_notification" fitHeight="23.0" fitWidth="65.0" layoutX="15.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/icon-notification.png" />
-                           </image>
-                        </ImageView>
+                        <JFXHamburger fx:id="hamBurger" layoutY="-6.0" prefHeight="40.0" prefWidth="47.0" />
                      </children>
       						</Pane>
       						<Pane layoutX="74.0" layoutY="13.0" minHeight="40.0" minWidth="500.0">
@@ -75,41 +54,118 @@
       									<children>
       										<Label fx:id="label_bar_welcome" text="Label">
       											<font>
-      												<Font size="20.0" />
+      												<Font name="Elephant" size="24.0" />
       											</font>
       										</Label>
-                              <Label fx:id="label_bar_roletype">
+                              <Label fx:id="label_bar_roletype" textFill="#7e4669">
                                  <font>
-                                    <Font size="20.0" />
+                                    <Font name="System Bold" size="20.0" />
                                  </font>
                               </Label>
       									</children>
       								</HBox>
       							</children>
       						</Pane>
-      						<Pane layoutX="786.0" layoutY="14.0" prefHeight="42.0" prefWidth="40.0">
-                     <children>
-      								<Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#button_logout_clicked" onMouseEntered="#button_logout_entered" onMouseExited="#button_logout_exited" prefHeight="32.0" prefWidth="47.0" styleClass="button-logout" stylesheets="@../css/Main_Style.css" />
-                     </children>
-      						</Pane>
-      						<Label fx:id="label_notification" layoutX="35.0" layoutY="5.0" text="[notification]" textFill="WHITE" />
+      						<Pane layoutX="786.0" layoutY="14.0" prefHeight="42.0" prefWidth="40.0" />
+								<Button alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="1112.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#button_logout_clicked" onMouseEntered="#button_logout_entered" onMouseExited="#button_logout_exited" prefHeight="32.0" prefWidth="47.0" styleClass="button-logout" stylesheets="@../css/Main_Style.css" />
+                  <ImageView fx:id="image_notification" fitHeight="111.0" fitWidth="23.0" layoutX="51.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icon-notification.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="label_notification" layoutX="58.0" layoutY="3.0" text="[notification]" textFill="WHITE" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css">
+            <AnchorPane prefHeight="816.0" prefWidth="1173.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css">
                <children>
-                  <BorderPane fx:id="page_box" minHeight="646.0" minWidth="840.0" styleClass="bg" stylesheets="@../css/Main_Style.css">
+                  <BorderPane fx:id="page_box" minHeight="646.0" minWidth="840.0" prefHeight="766.0" prefWidth="1173.0" styleClass="bg" stylesheets="@../css/Main_Style.css">
                      <right>
             				<Pane fx:id="box_right" styleClass="right" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
                      </right>
-                     <left>
-                        <Pane fx:id="box_left" styleClass="left" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER" />
-                     </left>
                      <top>
                         <Pane maxHeight="0.0" minHeight="0.0" prefHeight="0.0" BorderPane.alignment="CENTER" />
                      </top>
                      <bottom>
                         <Pane maxHeight="0.0" minHeight="0.0" prefHeight="0.0" BorderPane.alignment="CENTER" />
                      </bottom>
+                     <left>
+                        <Pane fx:id="box_left" prefHeight="646.0" prefWidth="231.0" style="-fx-background-color: none;" styleClass="left" stylesheets="@../css/Main_Style.css" BorderPane.alignment="CENTER">
+                           <children>
+                              <AnchorPane fx:id="slider" prefHeight="768.0" prefWidth="231.0" style="-fx-background-color: #B39CD0;">
+                                 <children>
+                                    <VBox prefHeight="768.0" prefWidth="231.0">
+                                       <children>
+                                          <JFXButton fx:id="homePage" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" onAction="#button_homepage_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Home page">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="createExam" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" onAction="#button_create_exam" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Create exam">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="checkRequest" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="77.0" onAction="#button_extra_time_requests" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Check request">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="historyOfExams" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="546.0" onAction="#button_history_of_exams_student_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="History Of exams">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="information" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="597.0" onAction="#button_information" prefHeight="59.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Information">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="manageExams" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="713.0" onAction="#button_manage_exams_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Manage exam">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="manageQuestions" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="479.0" onAction="#button_manage_questions_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Manage question">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="ManageOngoingExam" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="591.0" onAction="#manage_ongoing_exam" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Manage ongoing exams">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="startExam" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="672.0" onAction="#button_start_exam" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Start exam">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="displayStatisticalReport" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="144.0" onAction="#buttton_statistical_report" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Statistical report">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="displayStatisticalReportTeacher" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="211.0" onAction="#buttton_statistical_teacher_report" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Statistical report">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="takeExam" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="412.0" onAction="#button_take_exam_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Take exam">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="verifyExam" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="345.0" onAction="#button_verify_exam_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Verify exam">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </children></Pane>
+                     </left>
                   </BorderPane>
                </children>
             </AnchorPane>

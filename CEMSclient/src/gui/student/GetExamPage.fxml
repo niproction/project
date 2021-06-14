@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.student.GetExamController">
    <children>
-      <Label layoutX="315.0" layoutY="91.0" text="Insert Exam Password">
+      <Label fx:id="insertIDlbl" layoutX="309.0" layoutY="379.0">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="passwordfld" layoutX="315.0" layoutY="148.0" prefHeight="25.0" prefWidth="124.0" promptText="Password" />
-      <Label fx:id="errorLabel" layoutX="373.0" layoutY="201.0" text="incorrct password" textFill="#ed0707" />
-      <Button fx:id="getExamBtn" layoutX="458.0" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" text="Get Exam" />
-      <Label fx:id="insertIDlbl" layoutX="315.0" layoutY="254.0" text="Insert ID">
+      <Label fx:id="errorLabel2" layoutX="364.0" layoutY="476.0" textFill="#ed0707" />
+      <Label layoutX="284.0" layoutY="51.0" prefHeight="48.0" prefWidth="289.0" text="Insert Exam Password">
          <font>
-            <Font size="22.0" />
+            <Font name="Elephant" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="idPasswordfld" layoutX="315.0" layoutY="311.0" prefHeight="25.0" prefWidth="124.0" promptText="ID" />
-      <Label fx:id="errorLabel2" layoutX="373.0" layoutY="364.0" text="incorrct ID" textFill="#ed0707" />
-      <Button fx:id="takeExambtn" layoutX="458.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" text="Get Exam" />
+      <Label fx:id="errorLabel" layoutX="365.0" layoutY="274.0" text="incorrect password" textFill="#ed0707">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <JFXPasswordField fx:id="passwordfld" layoutX="339.0" layoutY="128.0" prefHeight="40.0" prefWidth="194.0" promptText="Password" />
+      <JFXButton fx:id="getExamBtn" buttonType="RAISED" layoutX="373.0" layoutY="200.0" onMouseClicked="#handleButtonAction" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" text="Next">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="insertIDlbl" layoutX="357.0" layoutY="335.0" prefHeight="48.0" prefWidth="126.0" text="Insert ID">
+         <font>
+            <Font name="Elephant" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="errorLabel2" layoutX="386.0" layoutY="561.0" text="incorrect ID" textFill="#ed0707">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <JFXPasswordField fx:id="idPasswordfld" layoutX="346.0" layoutY="411.0" prefHeight="40.0" prefWidth="149.0" promptText="ID" />
+      <JFXButton fx:id="takeExambtn" buttonType="RAISED" layoutX="373.0" layoutY="484.0" onMouseClicked="#handleButtonAction" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" text="Get Exam">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
