@@ -56,7 +56,7 @@ public class GetExamController {
 
 	public void handleButtonAction(MouseEvent event) {
 		if (event.getSource() == getExamBtn) {
-			System.out.println("password clicked");
+			System.out.println("password clicked"); 
 			errorLabel.setVisible(false);
 
 			ArrayList<Object> parameters = new ArrayList<>();
@@ -100,7 +100,7 @@ public class GetExamController {
 			AnchorPane page = SceneController.getPage(PageProperties.Page.TAKE_EXAM);
 			App_client.pageContainer.setCenter(page);
 		} else
-			errorLabel.setText(UserControl.getCanOpenExam());
+			errorLabel.setText(UserControl.getCanOpenExam()); 
 
 	}
 

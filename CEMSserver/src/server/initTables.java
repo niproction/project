@@ -148,7 +148,7 @@ public class initTables {
 				+ " duration Time NOT NULL,\n"
 				+ " teacherComments TEXT  NULL,\n" 
 				+ " studentComments TEXT  NULL,\n" 
-				+ "password TEXT  NULL, \n"+
+				+ "isOnline varchar(10)  NULL, \n"+
 				 "PRIMARY KEY (eID));";
 		
 		try {
@@ -157,7 +157,7 @@ public class initTables {
 			stmt.execute(sql);
 			stmt = con.createStatement();
 			
-			String myStatement = " INSERT INTO exams (eID,authorID,description,  duration, teacherComments, studentComments) VALUES (?,?,?,?,?,?)";
+			String myStatement = " INSERT INTO exams (eID,authorID,description,  duration, teacherComments, studentComments,isOnline) VALUES (?,?,?,?,?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
 			statement.setString(1, "020110");
 			statement.setInt(2, 2);
@@ -165,6 +165,8 @@ public class initTables {
 			statement.setString(4, "02:30:00");
 			statement.setString(5, "hi lo");
 			statement.setString(6, "hola hola");
+			statement.setString(7, "Yes");
+
 			statement.executeUpdate();
 			PreparedStatement statement1 = con.prepareStatement(myStatement);
 			statement1.setString(1, "020111");
@@ -173,6 +175,8 @@ public class initTables {
 			statement1.setString(4, "02:32:00");
 			statement1.setString(5, "hi lo");
 			statement1.setString(6, "hola hola");
+			statement1.setString(7, "No");
+
 			statement1.executeUpdate();
 			PreparedStatement statement2 = con.prepareStatement(myStatement);
 			statement2.setString(1, "020112");
@@ -181,6 +185,8 @@ public class initTables {
 			statement2.setString(4, "03:21:00");
 			statement2.setString(5, "hi lo");
 			statement2.setString(6, "hola hola");
+			statement2.setString(7, "No");
+
 			statement2.executeUpdate();
 			PreparedStatement statement3 = con.prepareStatement(myStatement);
 			statement3.setString(1, "020113");
@@ -189,6 +195,8 @@ public class initTables {
 			statement3.setString(4, "02:10:00");
 			statement3.setString(5, "hi lo");
 			statement3.setString(6, "hola hola");
+			statement3.setString(7, "Yes");
+
 			statement3.executeUpdate();
 			
 		} catch (SQLException e) {

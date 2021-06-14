@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
+import common.ExamDone;
 import common.Field;
 import common.Question;
 import common.User;
@@ -23,6 +24,7 @@ import control.PageProperties;
 import control.QuestionControl;
 import control.SceneController;
 import control.UserControl;
+import control.examDoneControl;
 import gui.TableEntry;
 import control.ExamControl;
 import javafx.collections.FXCollections;
@@ -64,7 +66,7 @@ public class infoPageController {
 		scene = new SceneController(PageProperties.Page.INFO_PAGE, ap);
 		scene.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		comboBox.getItems().removeAll(comboBox.getItems());
-		comboBox.getItems().addAll("select", "users", "courses", "fields", "exams", "questions");
+		comboBox.getItems().addAll("select", "users", "courses", "fields", "exams", "questions","exams done");
 		comboBox.getSelectionModel().select("select");
 		backButton.setVisible(false);
 	}
@@ -99,6 +101,9 @@ public class infoPageController {
 		case "questions":
 			generateQuestionTable(tc, data, dataPacket, columnsNames);
 			break;
+		case "exams done":
+			generateExamsDone(tc, data, dataPacket, columnsNames);
+
 		}
 		tableOfInfo.setItems(data);
 	}
@@ -228,7 +233,34 @@ public class infoPageController {
 		}
 
 	}
+	
+	
+	
+    void generateExamsDone(ArrayList<TableColumn<TableEntry, ?>> tc, ObservableList<TableEntry> data,
+			DataPacket dataPacket, ArrayList<String> columnsNames) { 
+		backButton.setVisible(false);
 
+    		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_INFO_EXAMSDONE, null, null, true);
+    		ClientControl.getInstance().accept(dataPacket);// send and wait for response from server
+    		String[] columnsNamesArray = { "exam done ID", "exam ID", "student ID", "Start Time", "End Time","Aprroved?","grade","cheating"};
+
+    		for (String tmp : columnsNamesArray) {
+    			columnsNames.add(tmp);
+    		}
+    		buildColumns(tc, columnsNames); 
+
+    		for (ExamDone examTmp : examDoneControl.getExamDoneLIst()) {
+    			data.add(new TableEntry(examTmp.getEdID(), examTmp.geteID(), examTmp.getuID(),
+    					examTmp.getStartTime(), examTmp.getEndTime(),examTmp.getGrade(),examTmp.getIsCheating()));
+    		}
+    	}
+    	
+    
+
+
+    
+    
+    
 	void buildColumns(ArrayList<TableColumn<TableEntry, ?>> tc, ArrayList<String> columnsNames) {
 		int i = 0;
 		int j = 1;
@@ -253,7 +285,8 @@ public class infoPageController {
 		generateExamTable(tc2, data2, dataPacket, columnsNames1);
 		tableOfInfo.setItems(data2);
     }
-
+    
+    
 
 
 }

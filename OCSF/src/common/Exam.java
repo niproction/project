@@ -16,6 +16,10 @@ public class Exam implements Serializable {
 	private String duration;
 	private String teacherComments;
 	private String studentsComments;
+	private String isOnline;
+	
+	
+
 	private ArrayList<Question> questions;
 	private HashMap<String, String> questionToPointsMap=new HashMap<>();
 	
@@ -27,6 +31,13 @@ public class Exam implements Serializable {
 	public Exam(){
 		
 	}
+	public String getIsOnline() {
+		return isOnline;
+	}
+	public void setIsOnline(String isOnline) {
+		this.isOnline = isOnline;
+	}
+
 
 	public Exam(String examID,Integer authorID, String description, String duration, String teacherComments, String studentsComments,ArrayList<Question> questions) {
 		this.examID=examID;

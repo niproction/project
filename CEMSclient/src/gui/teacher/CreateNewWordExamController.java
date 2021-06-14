@@ -1,27 +1,19 @@
 package gui.teacher;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
 import java.util.ArrayList;
-import javax.swing.colorchooser.ColorChooserComponentFactory;
+
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
-import control.PageProperties;
-import control.PageProperties.Page;
-import control.SceneController;
-import control.UserControl;
+import common.MyFile;
 import control.ClientControl;
 import control.ExamControl;
+import control.PageProperties;
+import control.SceneController;
+import control.UserControl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,9 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.Window;
-import common.MyFile;
 
 public class CreateNewWordExamController extends createNewExamController {
 	private File examFile;
@@ -62,6 +52,8 @@ public class CreateNewWordExamController extends createNewExamController {
 	private ChoiceBox<String> minutesChoiceBox;
 	@FXML
 	private ChoiceBox<String> secondsChoiceBox;
+	
+	private FileChooser fileChooser;
 	private Exam exam;
 	@FXML
 	public void initialize() {
@@ -123,6 +115,7 @@ public class CreateNewWordExamController extends createNewExamController {
 		exam=new Exam(UserControl.ConnectedUser.getfid() + ExamControl.selectedCourseID, UserControl.ConnectedUser.getuID(), nameOfExam.getText(), duration);
 		parameters.clear();
 		parameters.add(exam);
+		exam.setIsOnline("No");
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
 		exam.setExamID(ExamControl.examID);
@@ -130,7 +123,7 @@ public class CreateNewWordExamController extends createNewExamController {
 		String LocalfilePath = examFile.getPath();
 		try {
 
-			File newFile = new File(LocalfilePath);
+			File newFile = new File(LocalfilePath); 
 			byte[] mybytearray = new byte[(int) newFile.length()];
 			FileInputStream fis = new FileInputStream(newFile);
 			BufferedInputStream bis = new BufferedInputStream(fis);
@@ -183,7 +176,7 @@ public class CreateNewWordExamController extends createNewExamController {
 	private void uploadExam() {
 		Window window = null;
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("choose exam");
+		fileChooser.setTitle("choose exam"); 
 		examFile = fileChooser.showOpenDialog(window);
 		errLabel.setText(examFile.getName() + " uploaded");
 		errLabel.setVisible(true);

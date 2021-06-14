@@ -102,6 +102,7 @@ public class createNewExamController {
 		pointsAtExamCol.setCellValueFactory(new PropertyValueFactory("col2"));
 		removeQuestionCol.setCellValueFactory(new PropertyValueFactory("col3"));
 		apComments.setVisible(false);
+		
 		setupDuration();
 		ArrayList<Object> parameters = new ArrayList<>();
 		parameters.add(UserControl.ConnectedUser);
@@ -230,7 +231,7 @@ public class createNewExamController {
 				for (int j = 0; j < btnList.size(); j++) {// in order to find the correct row in the tableView
 					if (btnList.get(j).equals(addQuestioBtn)) {
 						indexAtBank = j;
-						btnList.remove(indexAtBank);
+						btnList.remove(indexAtBank); 
 						break;
 					}
 				}
@@ -349,6 +350,7 @@ public class createNewExamController {
 		exam.setDescription(nameOfExam.getText());
 		exam.setStudentsComments(studentComments.getText());
 		exam.setTeacherComments(teacherComments.getText());
+		exam.setIsOnline("Yes");
 		parameters.clear();
 		parameters.add(exam);
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);

@@ -13,9 +13,31 @@ public class ExamDone implements Serializable {
 	private String grade;
 	private String isCheating;
 	
+	public String geteID() {
+		return eID;
+	}
+	public void seteID(String eID) {
+		this.eID = eID;
+	}
+	private String eID;
+	
 	
 	public String getIsCheating() {
 		return isCheating;
+	}
+	public ExamDone() {
+		
+	}
+	public ExamDone(String edID, String eID, String uID, String startTime, String endTime, String grade,
+			String isCheating) {
+		super();
+		this.edID = edID;
+		this.eID = eID;
+		this.uID = uID;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.grade = grade;
+		this.isCheating = isCheating;
 	}
 	public void setIsCheating(String isCheating) {
 		this.isCheating = isCheating;

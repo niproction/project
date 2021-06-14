@@ -1,6 +1,6 @@
 127.0.0.1
 root
-Bianka123
+braude
 db_cems
 3306
 5555

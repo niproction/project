@@ -1,5 +1,8 @@
 package control;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import client.App_client;
@@ -11,14 +14,23 @@ import common.ExtraTimeRequest;
 import common.Field;
 import common.HistogramInfo;
 import common.IncomingDataPacketHandler;
-import javafx.stage.Stage;
+import common.MyFile;
+import common.Principal;
+import common.Question;
 import common.Student;
 import common.Teacher;
 import common.User;
 import common.examInitiated;
-
-import common.Principal;
-import common.Question;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 	private DataPacket Responce_dataPacket;
@@ -89,15 +101,15 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 			if (dataPacket.getData_parameters() != null) {
-				String seccess = (String) dataPacket.getData_parameters().get(0);
+				String seccess = (String) dataPacket.getData_parameters().get(0); 
 				App_client.seccess = seccess; // message setter
 			} else
 				App_client.seccess = null;
 
 		}
-
+//////////////////////////////////////////MAX UPDATEEEEEEEEEEEEEEEEEEEEEEEEEE
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
-			if (dataPacket.getResult_boolean()) {
+			if (dataPacket.getResult_boolean()&&dataPacket.getMessage().equals("online")) {
 
 				System.out.println("qqqqq");
 				examInitiated exam = (examInitiated) dataPacket.getData_parameters().get(0);
@@ -107,13 +119,96 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 				UserControl.isDoingExam = true; // stated exam
 
-			} else {
+			} else if(dataPacket.getMessage().equals("manual")) {
+				int fileSize = ((MyFile) dataPacket.getData_parameters().get(0)).getSize();
+				Window window = null;
+				
+				
+				examInitiated exam = (examInitiated) dataPacket.getData_parameters().get(2);
+				Exam exam2 = (Exam) dataPacket.getData_parameters().get(3);
+				ExamInitiatedControl.setExamInitiated(exam);
+				ExamControl.setExam(exam2);
+				
+				
+				
+				//int fileSize = ((MyFile) dataPacket.getData_parameters().get(0)).getSize();
+				
+				File newFile = new File("manuel_exams/" + (String) dataPacket.getData_parameters().get(1));
+				//Parent root=
+				System.out.println(dataPacket.getData_parameters().get(1));
+				System.out.println("feesfsf   " + newFile.getName());
+				try {
+					FileOutputStream fos = new FileOutputStream(newFile);
+					BufferedOutputStream bos = new BufferedOutputStream(fos);
+					bos.write(((MyFile) dataPacket.getData_parameters().get(0)).getMybytearray(), 0,
+							((MyFile) dataPacket.getData_parameters().get(0)).getSize());
+					
+					
+					
+					ImageView imgView = new ImageView("img/Save.png");
+				
+				      imgView.setFitWidth(20);
+				      imgView.setFitHeight(20);
+				     Menu file = new Menu("File");
+					MenuItem item = new MenuItem("Save", imgView);
+				      file.getItems().addAll(item);
+				      //Creating a File chooser
+				      FileChooser fileChooser = new FileChooser();
+				      fileChooser.setTitle("Save");
+				 
+				      fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+				      //Adding action on the menu item
+			        	System.out.println("huyna1");
+			        	System.out.println("huyna12");
+
+				      item.setOnAction(new EventHandler<ActionEvent>() {
+				         public void handle(ActionEvent event) {
+				            //Opening a dialog box			            
+				        	 fileChooser.showSaveDialog(new Stage());
+
+				            		;
+				         } 
+				      });
+				
+			       
+					bos.flush();
+					fos.flush();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+				
+				
+				
+				/*FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Save Exam");
+			      fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
+
+				File newFile = new File("manuel_exams/" + (String) dataPacket.getData_parameters().get(1));
+				System.out.println(dataPacket.getData_parameters().get(1));
+				System.out.println("feesfsf   " + newFile.getName());
+				try {
+					fileChooser.showOpenDialog(window);
+					FileOutputStream fos = new FileOutputStream(newFile);
+					BufferedOutputStream bos = new BufferedOutputStream(fos);
+					bos.write(((MyFile) dataPacket.getData_parameters().get(0)).getMybytearray(), 0,
+							((MyFile) dataPacket.getData_parameters().get(0)).getSize());
+					bos.flush();
+					fos.flush();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}*/
+			}
+			
+			else{
 				System.out.println("no exam");
 				ExamInitiatedControl.setExamInitiated(null);
 				UserControl.setCanOpenExam((String) dataPacket.getMessage());
 			}
 
 		}
+//////////////////////////////////////////MAX UPDATEEEEEEEEEEEEEEEEEEEEEeeeeeeeeeeeEEEEE
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEST_QUESTIONS) {
 			System.out.println("get test questions");
@@ -318,6 +413,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_QUESTIONS) {
 			QuestionControl.setQuestions((ArrayList<Question>) dataPacket.getData_parameters().clone());
 		}
+		else if (dataPacket.getRequest() == DataPacket.Request.GET_INFO_EXAMSDONE) {
+			examDoneControl.setExamDoneLIst((ArrayList<ExamDone>) dataPacket.getData_parameters().clone());
+		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME) {
 			ExamControl.selectedCourseID = (String) dataPacket.getData_parameters().get(0);
@@ -369,7 +467,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		ToBeReturened.add(Responce_dataPacket);
 		return ToBeReturened;
 	}
-
+	
 	public DataPacket GET_responce_DataPacket() {
 		return Responce_dataPacket;
 	}
