@@ -63,6 +63,7 @@ public class CreateNewWordExamController extends createNewExamController {
 	@FXML
 	private ChoiceBox<String> secondsChoiceBox;
 	private Exam exam;
+
 	@FXML
 	public void initialize() {
 		sceen = new SceneController(PageProperties.Page.Create_MANUEL_EXAM, ap);
@@ -103,34 +104,36 @@ public class CreateNewWordExamController extends createNewExamController {
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER,
 				DataPacket.Request.GET_COURSE_ID_BY_COURSE_NAME, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
-		String duration="";
-		//bulding duration for the exam
-		if(hourChoiceBox.getValue()==null)
-			duration+="00:";
+		String duration = "";
+		// bulding duration for the exam
+		if (hourChoiceBox.getValue() == null)
+			duration += "00:";
 		else {
-			duration+=hourChoiceBox.getValue()+":";
+			duration += hourChoiceBox.getValue() + ":";
 		}
-		if(minutesChoiceBox.getValue()==null)
-			duration+="00:";
+		if (minutesChoiceBox.getValue() == null)
+			duration += "00:";
 		else {
-			duration+=minutesChoiceBox.getValue()+":";
+			duration += minutesChoiceBox.getValue() + ":";
 		}
-		if(secondsChoiceBox.getValue()==null)
-			duration+="00";
+		if (secondsChoiceBox.getValue() == null)
+			duration += "00";
 		else {
-			duration+=secondsChoiceBox.getValue();
+			duration += secondsChoiceBox.getValue();
 		}
-		exam=new Exam(UserControl.ConnectedUser.getfid() + ExamControl.selectedCourseID, UserControl.ConnectedUser.getuID(), nameOfExam.getText(), duration);
+		exam = new Exam(UserControl.ConnectedUser.getfid() + ExamControl.selectedCourseID,
+				UserControl.ConnectedUser.getuID(), nameOfExam.getText(), duration);
 		parameters.clear();
 		parameters.add(exam);
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
 		exam.setExamID(ExamControl.examID);
+		ExamControl.examID = null;
 		MyFile msg = new MyFile(examFile.getName());
-		String LocalfilePath = examFile.getPath();
+
 		try {
 
-			File newFile = new File(LocalfilePath);
+			File newFile = new File(examFile.getPath());
 			byte[] mybytearray = new byte[(int) newFile.length()];
 			FileInputStream fis = new FileInputStream(newFile);
 			BufferedInputStream bis = new BufferedInputStream(fis);
@@ -138,40 +141,40 @@ public class CreateNewWordExamController extends createNewExamController {
 			msg.setSize(mybytearray.length);
 
 			bis.read(msg.getMybytearray(), 0, mybytearray.length);
-			parameters.add(0, msg);
-			parameters.add(1, exam.getExamID() + ".docx");
-			dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_Manuel_EXAM_FILE,
-					parameters, null, true);
-			ClientControl.getInstance().accept(dataPacket);
 		} catch (Exception e) {
 			System.out.println("Error send (Files)msg) to Server");
 		}
+		parameters.clear();
+		parameters.add(msg);
+		parameters.add(exam.getExamID());
+		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_Manuel_EXAM_FILE, parameters,
+				null, true);
+		ClientControl.getInstance().accept(dataPacket);
+
 		errLabel.setText(examFile.getName() + " submited");
 		errLabel.setVisible(true);
 	}
 
 	private boolean checkInvalidInputsForSumbit() {
-		if(courses.getValue()==null)
-		{
+		if (courses.getValue() == null) {
 			System.out.println("no course");
 			errLabel.setText("*You must choose course");
 			errLabel.setVisible(true);
 			return true;
 		}
-		if (hourChoiceBox.getValue()==null && minutesChoiceBox.getValue()==null  && secondsChoiceBox.getValue()==null) {
+		if (hourChoiceBox.getValue() == null && minutesChoiceBox.getValue() == null
+				&& secondsChoiceBox.getValue() == null) {
 			errLabel.setText("*You must enter duration to the exam");
 			errLabel.setVisible(true);
 			return true;
 		}
-		if(nameOfExam.getText().equals(""))
-		{
+		if (nameOfExam.getText().equals("")) {
 			System.out.println("empty name of the exam");
 			errLabel.setText("*You must enter name for the exam! ");
 			errLabel.setVisible(true);
 			return true;
 		}
-		if(examFile==null)
-		{
+		if (examFile == null) {
 			System.out.println("empty exam");
 			errLabel.setText("*You must upload exam! ");
 			errLabel.setVisible(true);

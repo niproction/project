@@ -45,9 +45,13 @@ public class MyFile implements Serializable {
 	}
 
 	public void setMybytearray(byte[] mybytearray) {
-		
+		System.out.println("ilyaaaaa");
 		for(int i=0;i<mybytearray.length;i++)
-		this.mybytearray[i] = mybytearray[i];
+		{
+			System.out.println("ilyaaaa loopppp");
+			this.mybytearray[i] = mybytearray[i];
+		}
+		
 	}
 
 	public String getDescription() {

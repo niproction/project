@@ -149,7 +149,9 @@ public class initTables {
 				+ " teacherComments TEXT  NULL,\n" 
 				+ " studentComments TEXT  NULL,\n" 
 				+ "password TEXT  NULL, \n"+
-				 "PRIMARY KEY (eID));";
+				"isOnline varchar(10)  NULL,\n"+
+				"file BLOB(65000) NULL ,"+
+				 "PRIMARY KEY (eID))\n;";
 		
 		try {
 			Statement stmt = con.createStatement();
