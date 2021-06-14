@@ -31,7 +31,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		// this.primaryStage = primaryStage;
 		// if(primaryStage == null)
 		// System.out.println("prob");
-	}
+	} 
 
 	@Override
 	public ArrayList<Object> CheckRequestExecuteCreateResponce(Object msg) {

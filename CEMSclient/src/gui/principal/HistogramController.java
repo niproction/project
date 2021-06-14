@@ -75,7 +75,7 @@ public class HistogramController {
 	/** The y. */
 	@FXML
 	private NumberAxis Y;
-	
+
 	/** The circle 1. */
 	@FXML
 	private Circle circle1;
@@ -86,9 +86,12 @@ public class HistogramController {
 
 	/** The data series 1. */
 	private Series dataSeries1 = new XYChart.Series();
-	
+
 	/** The data series 2. */
 	private Series dataSeries2 = new XYChart.Series();
+
+	private String[] gradesValue = { "0-54.9", "55-64", "65-69", "70-74", "75-79", "80-84", "85-89", "90-94",
+			"95-100" };
 
 	/**
 	 * Go back.
@@ -109,6 +112,14 @@ public class HistogramController {
 	@FXML
 	void OnChoose(ActionEvent event) {
 		String examID = comboBox.getValue();
+		boolean flag1 = false;
+		boolean flag2 = false;
+		if (HistogramControl.CourseExamGradeList == null)
+			flag1 = true;
+
+		if (HistogramControl.examOfTeacher == null)
+			flag2 = true;
+
 		if (examID.equals("Select Exam ID")) {
 			avgTextField.setText("");
 			MedianTextField.setText("");
@@ -122,7 +133,7 @@ public class HistogramController {
 				listOfExams = HistogramControl.CourseExamGradeList;
 			}
 			for (HistogramInfo tmp : listOfExams) {
-				if (examID == tmp.getExamID()) {
+				if (examID == tmp.getExamID() && (flag1 || flag2)) {
 					avg = df.format(tmp.getAvg());
 					mdi = df.format(tmp.getMedian());
 					avgTextField.setText(avg);
@@ -149,18 +160,17 @@ public class HistogramController {
 		ArrayList<Object> param = new ArrayList<>();
 		boolean flagStudent = false;
 
-		Y.setAutoRanging(false);
+		Y.setAutoRanging(true);
 		Y.setLowerBound(0);
-		Y.setUpperBound(100);
-		Y.setTickUnit(10);
-		// checks if the user connected is teacher		
+		Y.setTickUnit(5);
+		// checks if the user connected is teacher
 		if ((UserControl.ConnectedUser) instanceof Teacher) {
 			HistogramControl.examsOfuser = new ArrayList<User>();
-			HistogramControl.examsOfuser.add((User)(UserControl.ConnectedUser));
+			HistogramControl.examsOfuser.add((User) (UserControl.ConnectedUser));
 			teacherHistogram(param);
 			backButton.setVisible(false);
-			
-		//else if the user is a principal
+
+			// else if the user is a principal
 		} else if (HistogramControl.examsOfCourse.size() != 0) {
 			CourseHistogram(param);
 
@@ -196,7 +206,6 @@ public class HistogramController {
 		comboBox.getSelectionModel().select("Select Exam ID");
 	}
 
-	
 	/**
 	 * Course histogram.
 	 *
@@ -208,12 +217,18 @@ public class HistogramController {
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_COURSE_GRADES, param,
 				null, true);
 		ClientControl.getInstance().accept(dataPacket); // send and wait for response from server
+		if (HistogramControl.CourseExamGradeList.size() != 0) {
+			int[] counter = HistogramControl.CourseExamGradeList.get(0).getCounterList();
 
-		for (HistogramInfo tmp : HistogramControl.CourseExamGradeList) {
-			dataSeries1.getData().add(new XYChart.Data(tmp.getExamID(), tmp.getAvg()));
-			dataSeries2.getData().add(new XYChart.Data(tmp.getExamID(), tmp.getMedian()));
-			comboBox.getItems().add(tmp.getExamID());
-			System.out.println(tmp.getAvg());
+			for (int i = 0; i < 9; i++) {
+				dataSeries1.getData().add(new XYChart.Data(gradesValue[i], counter[i]));
+			}
+			for (HistogramInfo tmp : HistogramControl.CourseExamGradeList) {
+//			dataSeries1.getData().add(new XYChart.Data(tmp.getExamID(), tmp.getAvg()));
+//			dataSeries2.getData().add(new XYChart.Data(tmp.getExamID(), tmp.getMedian()));
+				comboBox.getItems().add(tmp.getExamID());
+				System.out.println(tmp.getAvg());
+			}
 		}
 	}
 
@@ -223,28 +238,37 @@ public class HistogramController {
 	 * @param param the param
 	 */
 	void teacherHistogram(ArrayList<Object> param) {
-		if ((UserControl.ConnectedUser)instanceof Teacher) {
+		if ((UserControl.ConnectedUser) instanceof Teacher) {
 			textField.setText(UserControl.ConnectedUser.toString());
-			//HistogramControl.examsOfuser.add(UserControl.ConnectedUser);
-			System.out.println(HistogramControl.examsOfuser.size());
-			
+			// HistogramControl.examsOfuser.add(UserControl.ConnectedUser);
+			// System.out.println(HistogramControl.examsOfuser.size());
+
 		}
 
 		else {
 			textField.setText(HistogramControl.examsOfuser.get(0).toString());
-			
+
 		}
 		System.out.println(HistogramControl.examsOfuser.get(0).getFirstName());
 		param.add(HistogramControl.examsOfuser);
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_TEACHER_GRADES, param,
 				null, true);
 		ClientControl.getInstance().accept(dataPacket); // send and wait for response from server
+		//if (HistogramControl.examOfTeacher.get(0).getGrade() != null)
+			if (HistogramControl.examOfTeacher.get(0).getGrades().size() != 0) {
+				int[] counter = HistogramControl.examOfTeacher.get(0).getCounterList();
+				for (int i = 0; i < 9; i++) {
+					dataSeries1.getData().add(new XYChart.Data(gradesValue[i], counter[i]));
+				}
+			}
 
 		for (HistogramInfo tmp : HistogramControl.examOfTeacher) {
-			dataSeries1.getData().add(new XYChart.Data(tmp.getExamID(), tmp.getAvg()));
-			dataSeries2.getData().add(new XYChart.Data(tmp.getExamID(), tmp.getMedian()));
+			// dataSeries1.getData().add(new XYChart.Data(tmp.getExamID(), tmp.getAvg()));
+			// dataSeries2.getData().add(new XYChart.Data(tmp.getExamID(),
+			// tmp.getMedian()));
 			comboBox.getItems().add(tmp.getExamID());
 		}
+
 	}
 
 	/**
@@ -259,17 +283,22 @@ public class HistogramController {
 		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER,
 				DataPacket.Request.GET_STUDENT_GRADES_AND_COURSE, param, null, true);
 		ClientControl.getInstance().accept(dataPacket); // send and wait for response from server
+		Y.setAutoRanging(true);
+		Y.setLowerBound(0);
+		Y.setUpperBound(100);
 
 		for (int i = 0; i < HistogramControl.examOfStudent.size(); i++) {
 			System.out.println("im the shit");
 			dataSeries1.getData()
 					.add(new XYChart.Data(HistogramControl.examOfStudent.get(0).getCoursesName().get(i).toString(),
-							Double.valueOf(HistogramControl.examOfStudent.get(0).getGrades().get(i).toString())));		
+							Double.valueOf(HistogramControl.examOfStudent.get(0).getGrades().get(i).toString())));
 			comboBox.getItems().add(HistogramControl.examOfStudent.get(i).getCoursesName().get(0).toString());
 		}
 
-		avgTextField.setText(String.valueOf(HistogramControl.examOfStudent.get(0).getAvg()));
-		MedianTextField.setText(String.valueOf(HistogramControl.examOfStudent.get(0).getMedian()));
+		if (HistogramControl.examOfStudent.size() != 0) {
+			avgTextField.setText(String.valueOf(HistogramControl.examOfStudent.get(0).getAvg()));
+			MedianTextField.setText(String.valueOf(HistogramControl.examOfStudent.get(0).getMedian()));
+		}
 		Y.setLabel("Grade");
 		X.setLabel("Course");
 		comboBox.setVisible(false);

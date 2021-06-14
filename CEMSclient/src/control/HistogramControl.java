@@ -36,7 +36,7 @@ public class HistogramControl {
 
 	public static String getMedianSt() {
 		double sum = 0, median = 0;
-		int size = examOfStudent.size(), i = 0;
+		int size = examOfStudent.size(), i = 0; 
 		double[] grades = new double[size];
 		for (HistogramInfo tmp : examOfStudent) {
 			grades[i] += tmp.getGrade();

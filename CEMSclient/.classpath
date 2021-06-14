@@ -8,6 +8,6 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="src" path="/OCSF"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
-	<classpathentry kind="lib" path="jfoenix-9.0.10.jar"/>
+	<classpathentry exported="true" kind="lib" path="jfoenix-9.0.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
