@@ -1,4 +1,4 @@
-  
+
 package gui.student;
 
 import java.util.ArrayList;
@@ -58,23 +58,29 @@ public class GetExamController {
 		if (event.getSource() == getExamBtn) {
 			System.out.println("password clicked");
 			errorLabel.setVisible(false);
-
-			ArrayList<Object> parameters = new ArrayList<>();
-			parameters.add(passwordfld.getText().toString());
-			parameters.add(UserControl.ConnectedUser);
-			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAM, parameters,
-					null, true);
-			System.out.println("tring to send");
-			ClientControl.getInstance().accept(dataPacket);
-
-			if (ExamInitiatedControl.getExamInitiated() != null) {
-				System.out.println("ddddddddddd");
-				idPasswordfld.setVisible(true);
-				takeExambtn.setVisible(true);
-				insertIDlbl.setVisible(true);
-			} else {
-				passwordfld.setText("");
+			if (passwordfld.getText().length() > 4) {
+				errorLabel.setText("The password must contain 4 digits");
 				errorLabel.setVisible(true);
+			}
+			else {
+				ArrayList<Object> parameters = new ArrayList<>();
+				parameters.add(passwordfld.getText().toString());
+				parameters.add(UserControl.ConnectedUser);
+				DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_EXAM,
+						parameters, null, true);
+				System.out.println("tring to send");
+				ClientControl.getInstance().accept(dataPacket);
+
+				if (ExamInitiatedControl.getExamInitiated() != null) {
+					System.out.println("ddddddddddd");
+					idPasswordfld.setVisible(true);
+					takeExambtn.setVisible(true);
+					insertIDlbl.setVisible(true);
+				} else {
+					passwordfld.setText("");
+					errorLabel.setText("Wrong Password");
+					errorLabel.setVisible(true);
+				}
 			}
 
 		}

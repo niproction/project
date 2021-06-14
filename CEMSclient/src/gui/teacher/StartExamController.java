@@ -17,24 +17,36 @@ import java.util.ResourceBundle;
 import client.App_client;
 import common.DataPacket;
 import common.Exam;
+import common.ExamDone;
 import control.ClientControl;
 import control.ExamControl;
+import control.GetCopyOfExamControl;
 import control.ManageOngoingExams;
 import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
+import gui.TableEntry;
+import gui.principal.infoPageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class StartExamController {
-
+	
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
 
@@ -46,7 +58,18 @@ public class StartExamController {
 
 	@FXML // fx:id="choicebox_exams"
 	private ChoiceBox<Exam> choicebox_exams; // Value injected by FXMLLoader
-
+	@FXML
+	private TableView<TableEntry> tableView;
+	@FXML
+	public TableColumn<TableEntry, ?> colExamID;
+	@FXML
+	public TableColumn<TableEntry, ?> colDescription;
+	@FXML
+	public TableColumn<TableEntry, ?> colstartExam;
+	@FXML
+	public TableColumn<TableEntry, ?> colPassword;
+	@FXML
+	private TableColumn<TableEntry, ?> colAmountOfQuestions;
 	@FXML // fx:id="button_start"
 	private Button button_start; // Value injected by FXMLLoader
 
@@ -54,10 +77,10 @@ public class StartExamController {
 	private Label label_message; // Value injected by FXMLLoader
 	@FXML
 	private TextField textfielf_password;
-
+	private ArrayList<Exam> examList;
+	private ArrayList<Integer> amountOfQuestions;
 	SceneController sceen;
-
-	ObservableList<Exam> examsList = FXCollections.observableArrayList();
+	private ArrayList<Button> ButtonList=new ArrayList<>();
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
 	void initialize() {
@@ -68,10 +91,11 @@ public class StartExamController {
 
 		// sceen = new SceneController(PageProperties.Page.START_EXAM, ap);
 		// sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
-
-		label_message.setVisible(true);
-		label_message.setText("");
-
+		colExamID.setCellValueFactory(new PropertyValueFactory<>("col1"));
+		colDescription.setCellValueFactory(new PropertyValueFactory<>("col2"));
+		colstartExam.setCellValueFactory(new PropertyValueFactory<>("col3"));
+		colPassword.setCellValueFactory(new PropertyValueFactory<>("col4"));
+		colAmountOfQuestions.setCellValueFactory(new PropertyValueFactory<>("col5"));
 	
 
 		// send datapacket to recive the exams
@@ -83,65 +107,52 @@ public class StartExamController {
 
 		ClientControl.getInstance().accept(dataPacket);
 
-		examsList.addAll(ExamControl.exams);
-
-		System.out.print(examsList.get(0).toString());
-
-		// Set the list of Course items to the ChoiceBox
-		choicebox_exams.setItems(examsList);
-		choicebox_exams.setValue(examsList.get(0));
-		
+		examList=ExamControl.exams;
+		ExamControl.exams=null;
+		amountOfQuestions=ExamControl.amountOfQuestions;
+		ExamControl.amountOfQuestions=null;
+		tableView.setItems(getRequests());
 	}
+	int index=0,i=0;
+	public ObservableList<TableEntry> getRequests() {
+		ObservableList<TableEntry> requests = FXCollections.observableArrayList();
+		// LocalDate date = LocalDate.of(1995, 10, 28);
+		for (Exam entry : examList) {
+			
+			final Button start = new Button("Start Exam");
+			final TextField passwordField=new TextField();
+			try {
+				for(int i=0;i<ButtonList.size();i++) {
+					if(ButtonList.get(i).equals(start))
+						index=i;
+				}
+				start.setAlignment(Pos.CENTER);
+				EventHandler<ActionEvent> startExmHandler = new EventHandler<ActionEvent>() {
+					int indexer=index;
+					@Override
+					public void handle(ActionEvent event) {
+						ArrayList<Object> parameter=new ArrayList<>();
+						parameter.add(examList.get(indexer));
+						parameter.add(UserControl.ConnectedUser);
+						parameter.add(passwordField.getText());
+						DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.START_EXAM,
+								parameter, null, true);
+						ClientControl.getInstance().accept(dataPacket);
+						AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_ONGOING_EXAM);
+						App_client.pageContainer.setCenter(page);
+					}
+				};
+				start.setOnAction(startExmHandler);
 
-	@FXML
-	void button_start_exam_clicked(MouseEvent event) {
-		if (textfielf_password.getLength() == 0) {
-			label_message.setText("Password left empty");
-			return;
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			requests.add(new TableEntry(entry.getExamID(), entry.getDescription(), start,passwordField,amountOfQuestions.get(i++)));
+
 		}
 
-		String examID;
-		examID = choicebox_exams.getValue().getExamID();
-
-		// choicebox_exams.getValue();
-		ArrayList<Object> parameter = new ArrayList<>();
-		parameter.add(choicebox_exams.getValue());
-		parameter.add(UserControl.ConnectedUser);
-		parameter.add(textfielf_password.getText()); // password needs to be here
-
-		DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.START_EXAM, parameter, null,
-				true);
-		ClientControl.getInstance().accept(dataPacket);
-
-		for (int i = 0; i < examsList.size(); i++) {
-			if (examsList.get(i).equals(choicebox_exams.getValue()))
-				examsList.remove(i);
-		}
-
-		// choicebox_exams.getValue();
-
-		choicebox_exams.setItems(examsList);
-		choicebox_exams.setValue(examsList.get(0));
-		textfielf_password.clear();
-		// Create the ChoiceBox
-		// ChoiceBox<Exam> cbCourses = new ChoiceBox<>();
-
-		// Sample list of Courses
-		/*
-		 * StringProperty courseName = new SimpleStringProperty();
-		 * 
-		 * public Course(String courseName) { this.courseName.set(courseName); }
-		 */
-
-		// Now, let's add sample data to our list
-		// for (int i = 0; i < examControl.exams.size(); i++) {
-
-		// }
-
-		label_message.setText("Exam started");
-		button_start.setDisable(true);
-
-		AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_ONGOING_EXAM);
-		App_client.pageContainer.setCenter(page);
+		return requests;
 	}
+	
+	
 }

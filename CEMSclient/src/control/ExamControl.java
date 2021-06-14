@@ -16,7 +16,7 @@ public class ExamControl {
 	public static Exam exam;
 	public static String selectedCourseID;
 	public static String examID;
-	public static ArrayList<Exam> exams;
+	public static ArrayList<Exam> exams=new ArrayList<>();
 	
 	public static String ServerTime;
 	public static String examInitiatedTime;
@@ -35,6 +35,7 @@ public class ExamControl {
 	private static boolean isExamTerminated=false;
 	private static boolean isNotifiedAboutExtraTime = false;
 	private static boolean isExtraTimeApproved = false;
+	public static ArrayList<Integer> amountOfQuestions;
 	
 	
 	

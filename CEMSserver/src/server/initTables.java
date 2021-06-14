@@ -85,15 +85,21 @@ public class initTables {
 			int rs = stmt.executeUpdate(
 					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('s', '', 's@g.com', 'tomer', 'levi', '212352534', 'student','01', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('t', '', 't@g.com', 'Aviv', 'Jibly', '', 'teacher', '02', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ss', '', 's2@g.com', 'haim', 'fogel', '314567890', 'student','02', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('p', '', 'p@g.com', 'Elon', 'Musk', '', 'principle', '03', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('sss', '', 's3@g.com', 'noam', 'shor', '454215678', 'student', '03', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ss', '', 's@g.com', 'tomer', 'levi', '212352534', 'student','01', 'NO')");
-			
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('t', '', 't@g.com', 'ami', 'bor', '', 'teacher', '01', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('sss', '', 's@g.com', 'tomer', 'levi', '212352534', 'student','01', 'NO')");
-			
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('tt', '', 't2@g.com', 'Elon', 'Musk', '346312345', 'teacher', '02', 'NO')");
+			rs = stmt.executeUpdate(
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ttt', '', 't3@g.com', 'br', 'sohan', '356890743', 'teacher','03', 'NO')");
+			rs = stmt.executeUpdate(
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('p', '', 'p@g.com', 'miri', 'bohadana', '123456789', 'principle','01', 'NO')");
+			rs = stmt.executeUpdate(
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('pp', '', 'p2@g.com', 'mike', 'goren', '543543443', 'principle','02', 'NO')");
+			rs = stmt.executeUpdate(
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ppp', '', 'p2@g.com', 'mike', 'goren', '543543443', 'principle','03', 'NO')");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -132,6 +138,9 @@ public class initTables {
 			int rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('01', '01', 'Algebra')");
 			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('02', '02', 'physica1')");
 			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('03', '03', 'art1')");
+			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('04', '01', 'Algebra')");
+			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('05', '02', 'physica1')");
+			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('06', '03', 'art1')");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 
@@ -148,48 +157,15 @@ public class initTables {
 				+ " duration Time NOT NULL,\n"
 				+ " teacherComments TEXT  NULL,\n" 
 				+ " studentComments TEXT  NULL,\n" 
-				+ "password TEXT  NULL, \n"+
-				 "PRIMARY KEY (eID));";
+				+ "password TEXT  NULL, \n"
+				+"isConnected varchar(10) NULL,\n"
+				 +"PRIMARY KEY (eID));";
 		
 		try {
 			Statement stmt = con.createStatement();
 			// create a new table
 			stmt.execute(sql);
 			stmt = con.createStatement();
-			
-			String myStatement = " INSERT INTO exams (eID,authorID,description,  duration, teacherComments, studentComments) VALUES (?,?,?,?,?,?)";
-			PreparedStatement statement = con.prepareStatement(myStatement);
-			statement.setString(1, "020110");
-			statement.setInt(2, 2);
-			statement.setString(3, "this is a math exam end of semester");
-			statement.setString(4, "02:30:00");
-			statement.setString(5, "hi lo");
-			statement.setString(6, "hola hola");
-			statement.executeUpdate();
-			PreparedStatement statement1 = con.prepareStatement(myStatement);
-			statement1.setString(1, "020111");
-			statement1.setInt(2, 2);
-			statement1.setString(3, "this is a test of this shit ");
-			statement1.setString(4, "02:32:00");
-			statement1.setString(5, "hi lo");
-			statement1.setString(6, "hola hola");
-			statement1.executeUpdate();
-			PreparedStatement statement2 = con.prepareStatement(myStatement);
-			statement2.setString(1, "020112");
-			statement2.setInt(2, 2);
-			statement2.setString(3, "this is a test of this shit ");
-			statement2.setString(4, "03:21:00");
-			statement2.setString(5, "hi lo");
-			statement2.setString(6, "hola hola");
-			statement2.executeUpdate();
-			PreparedStatement statement3 = con.prepareStatement(myStatement);
-			statement3.setString(1, "020113");
-			statement3.setInt(2, 2);
-			statement3.setString(3, "this is a test of this shit ");
-			statement3.setString(4, "02:10:00");
-			statement3.setString(5, "hi lo");
-			statement3.setString(6, "hola hola");
-			statement3.executeUpdate();
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -212,35 +188,57 @@ public class initTables {
 
 			String myStatement = " INSERT INTO questions (qID, authorID, question, option1, option2, option3, option4, answer) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement statement = con.prepareStatement(myStatement);
-			statement.setString(1, "02001");
-			statement.setInt(2, 2);
-			statement.setString(3, "Is it true?");
-			statement.setString(4, "Yes");
-			statement.setString(5, "No");
-			statement.setString(6, "I don't know");
-			statement.setString(7, "Maybe");
-			statement.setString(8, "4");
+			statement.setString(1, "01001");
+			statement.setInt(2, 4);
+			statement.setString(3, "1+1=?");
+			statement.setString(4, "2");
+			statement.setString(5, "3");
+			statement.setString(6, "4");
+			statement.setString(7, "5");
+			statement.setString(8, "1");
 			statement.executeUpdate();
 			PreparedStatement statement1 = con.prepareStatement(myStatement);
 			statement1.setString(1, "02002");
-			statement1.setInt(2, 2);
-			statement1.setString(3, "daniel is gever?");
+			statement1.setInt(2, 5);
+			statement1.setString(3, "is the sun hot?");
 			statement1.setString(4, "no");
 			statement1.setString(5, "yes");
-			statement1.setString(6, "pipi");
-			statement1.setString(7, "khdg");
+			statement1.setString(6, "maybe");
+			statement1.setString(7, "dont know");
 			statement1.setString(8, "2");
 			statement1.executeUpdate();
 			PreparedStatement statement2 = con.prepareStatement(myStatement);
 			statement2.setString(1, "02003");
-			statement2.setInt(2, 2);
-			statement2.setString(3, "daniel is gever?");
-			statement2.setString(4, "no");
-			statement2.setString(5, "yes");
-			statement2.setString(6, "pipi");
-			statement2.setString(7, "khdg");
-			statement2.setString(8, "2");
+			statement2.setInt(2, 5);
+			statement2.setString(3, "the freezing point of water is?");
+			statement2.setString(4, "0 degrees");
+			statement2.setString(5, "no");
+			statement2.setString(6, "its hot");
+			statement2.setString(7, "dont know");
+			statement2.setString(8, "1");
 			statement2.executeUpdate();
+			PreparedStatement statement3 = con.prepareStatement(myStatement);
+			statement3.setString(1, "01002");
+			statement3.setInt(2, 4);
+			statement3.setString(3, "2+2-1=?");
+			statement3.setString(4, "0");
+			statement3.setString(5, "cat");
+			statement3.setString(6, "quick maths");
+			statement3.setString(7, "3");
+			statement3.setString(8, "4");
+			statement3.executeUpdate();
+			PreparedStatement statement4 = con.prepareStatement(myStatement);
+			statement3.setString(1, "01003");
+			statement3.setInt(2, 4);
+			statement3.setString(3, "2+2=?");
+			statement3.setString(4, "4");
+			statement3.setString(5, "cat");
+			statement3.setString(6, "quick maths");
+			statement3.setString(7, "3");
+			statement3.setString(8, "1");
+			statement3.executeUpdate();
+
+
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

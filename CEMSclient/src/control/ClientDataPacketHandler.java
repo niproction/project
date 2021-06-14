@@ -381,7 +381,8 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAMS_BY_TEACHER) {
 			System.out.println("dannnnny");
-			ExamControl.exams = (ArrayList<Exam>) dataPacket.getData_parameters().clone();
+			ExamControl.exams = (ArrayList<Exam>) dataPacket.getData_parameters().get(0);
+			ExamControl.amountOfQuestions=(ArrayList<Integer>) dataPacket.getData_parameters().get(1);
 		} else if (dataPacket.getRequest() == DataPacket.Request.TEACHER_REQUEST_EXTRA_TIME) {
 			System.out.println("request extra time delivered");
 			UserControl.RequestForExtraTimeSent = dataPacket.getResult_boolean();
