@@ -1,6 +1,8 @@
-  
 package gui.student;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
@@ -8,6 +10,7 @@ import com.jfoenix.controls.JFXPasswordField;
 
 import client.App_client;
 import common.DataPacket;
+import common.MyFile;
 import common.examInitiated;
 import control.PageProperties;
 import control.SceneController;
@@ -22,6 +25,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Window;
 
 public class GetExamController {
 	SceneController sceen;
@@ -69,30 +75,40 @@ public class GetExamController {
 					null, true);
 			System.out.println("tring to send");
 			ClientControl.getInstance().accept(dataPacket);
-
-			if (ExamInitiatedControl.getExamInitiated() != null) {
-				System.out.println("ddddddddddd");
-				idPasswordfld.setVisible(true);
-				takeExambtn.setVisible(true);
-				insertIDlbl.setVisible(true);
-			} else {
-				passwordfld.setText("");
-				errorLabel.setVisible(true);
-			}
-
-		}
-		if (event.getSource() == takeExambtn) {
-			System.out.println("ID clicked");
-			errorLabel2.setVisible(false);
-			if (UserControl.ID.equals(idPasswordfld.getText()))
+			if(ExamControl.isManual==true)
+			{
 				getExam();
-			else {
-				idPasswordfld.setText("");
-				errorLabel2.setVisible(true);
 			}
-		}
+			else {
+				if (ExamInitiatedControl.getExamInitiated() != null) {
+					System.out.println("ddddddddddd");
+					idPasswordfld.setVisible(true);
+					takeExambtn.setVisible(true);
+					insertIDlbl.setVisible(true);
+				} else {
+					passwordfld.setText("");
+					errorLabel.setVisible(true);
+				}
 
+			}
+			if (event.getSource() == takeExambtn) {
+				System.out.println("ID clicked");
+				errorLabel2.setVisible(false);
+				if (UserControl.ID.equals(idPasswordfld.getText()))
+					getExam();
+				else {
+					idPasswordfld.setText("");
+					errorLabel2.setVisible(true);
+				}
+			}
+
+			}
+			
+			
+		
 	}
+
+	
 
 	public void getExam() {
 

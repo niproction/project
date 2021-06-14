@@ -135,15 +135,12 @@ public class TeacherHomePageController {
 		data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.ONGOING_TO_MANAGE, parameters, null,
 					true);
 		ClientControl.getInstance().accept(data);
-		System.out.println("ssssssssssssssadas");
+		
 		Boolean ongoingExam=TeacherControl.manage;
 		System.out.println(ongoingExam);
 		
 		
-	if(ongoingExam==true) {
-		ongoingNoti.setVisible(true);
-		manageBtn.setVisible(true);
-	}
+	
 	 StudentControl.ongoingExam=false;
 		
         //Initiate the current time
