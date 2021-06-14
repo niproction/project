@@ -9,9 +9,9 @@
 
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.StartExamController">
    <children>
-      <Label layoutX="214.0" layoutY="194.0" text="Choose which exam to start:">
+      <Label layoutX="215.0" layoutY="176.0" text="Choose which exam to start:">
          <font>
-            <Font size="14.0" />
+            <Font size="16.0" />
          </font>
       </Label>
       <Label layoutX="262.0" layoutY="66.0" text="Start Exam Page:" underline="true">
@@ -19,8 +19,14 @@
             <Font name="Elephant" size="36.0" />
          </font>
       </Label>
-      <Label fx:id="label_message" layoutX="386.0" layoutY="310.0" text="label message" textAlignment="CENTER" />
-      <Label layoutX="214.0" layoutY="252.0" text="Password to enter the exam:" />
+      <Label fx:id="label_message" alignment="TOP_CENTER" layoutX="211.0" layoutY="310.0" prefHeight="17.0" prefWidth="456.0" text="label message" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="215.0" layoutY="234.0" text="Password to enter the exam:">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
       <JFXComboBox fx:id="choicebox_exams" layoutX="446.0" layoutY="173.0" prefHeight="31.0" prefWidth="218.0" />
       <JFXTextField fx:id="textfielf_password" layoutX="448.0" layoutY="231.0" prefHeight="31.0" prefWidth="218.0" />
       <JFXButton fx:id="button_start" buttonType="RAISED" layoutX="375.0" layoutY="371.0" onMouseClicked="#button_start_exam_clicked" prefHeight="49.0" prefWidth="116.0" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" text="Start exam">

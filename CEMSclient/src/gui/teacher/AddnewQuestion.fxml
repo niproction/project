@@ -14,6 +14,11 @@
 
 <AnchorPane fx:id="ap" maxHeight="640.0" maxWidth="840.0" minHeight="640.0" minWidth="840.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.addNewQuestionController">
    <children>
+      <Label layoutX="616.0" layoutY="280.0" prefHeight="80.0" prefWidth="183.0" text="Press on the question to choose the right answer" textAlignment="JUSTIFY" textFill="RED" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
       <Label layoutX="105.0" layoutY="21.0" prefHeight="53.0" prefWidth="361.0" text="Add New Question">
          <font>
             <Font name="Elephant" size="36.0" />

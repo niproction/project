@@ -105,17 +105,7 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </JFXButton>
-                                          <JFXButton fx:id="checkRequest" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="77.0" onAction="#button_extra_time_requests" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Check request">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </JFXButton>
-                                          <JFXButton fx:id="historyOfExams" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="546.0" onAction="#button_history_of_exams_student_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="History Of exams">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </JFXButton>
-                                          <JFXButton fx:id="information" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="597.0" onAction="#button_information" prefHeight="59.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Information">
+                                          <JFXButton fx:id="startExam" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="672.0" onAction="#button_start_exam" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Start exam">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
@@ -125,17 +115,22 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </JFXButton>
-                                          <JFXButton fx:id="manageQuestions" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="479.0" onAction="#button_manage_questions_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Manage question">
-                                             <font>
-                                                <Font name="System Bold" size="18.0" />
-                                             </font>
-                                          </JFXButton>
                                           <JFXButton fx:id="ManageOngoingExam" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="591.0" onAction="#manage_ongoing_exam" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Manage ongoing exams">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </JFXButton>
-                                          <JFXButton fx:id="startExam" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="672.0" onAction="#button_start_exam" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Start exam">
+                                          <JFXButton fx:id="manageQuestions" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="479.0" onAction="#button_manage_questions_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Manage questions">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="checkRequest" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="77.0" onAction="#button_extra_time_requests" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Check extra time requests">
+                                             <font>
+                                                <Font name="System Bold" size="17.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="information" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="597.0" onAction="#button_information" prefHeight="59.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Information">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
@@ -156,6 +151,11 @@
                                              </font>
                                           </JFXButton>
                                           <JFXButton fx:id="verifyExam" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="345.0" onAction="#button_verify_exam_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="Verify exam">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="historyOfExams" alignment="BASELINE_LEFT" buttonType="RAISED" contentDisplay="CENTER" layoutX="10.0" layoutY="546.0" onAction="#button_history_of_exams_student_clicked" prefHeight="67.0" prefWidth="231.0" stylesheets="@../css/JFXButtonHover.css" text="History of exams">
                                              <font>
                                                 <Font name="System Bold" size="18.0" />
                                              </font>

@@ -158,6 +158,7 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				Exam exam2 = (Exam) dataPacket.getData_parameters().get(1);
 				ExamInitiatedControl.setExamInitiated(exam);
 				ExamControl.setExam(exam2);
+				UserControl.ID=(String) dataPacket.getData_parameters().get(2);
 
 				UserControl.isDoingExam = true; // stated exam
 

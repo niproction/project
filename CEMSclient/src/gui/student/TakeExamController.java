@@ -236,7 +236,7 @@ public class TakeExamController {
 			option2.setText(testQuestions.get(0).getOption2());
 			option3.setText(testQuestions.get(0).getOption3());
 			option4.setText(testQuestions.get(0).getOption4());
-			label_questions_amunt.setText("1/sda");
+			label_questions_amunt.setText("1/"+testQuestions.size());
 			// totalQuestion.setText("" + testQuestions.size());
 
 			//////////////////////////////////////////////////
@@ -384,6 +384,7 @@ public class TakeExamController {
 			 * option1.setSelected(false); option2.setSelected(false);
 			 * option3.setSelected(false); option4.setSelected(false);
 			 */
+			label_questions_amunt.setText((index+1)+"/"+testQuestions.size());
 			System.out.println(answers.length);
 
 		}
@@ -407,7 +408,7 @@ public class TakeExamController {
 			option3.setText(testQuestions.get(index).getOption3());
 			option4.setText(testQuestions.get(index).getOption4());
 
-			label_questions_amunt.setText(index + 1 + "");
+			label_questions_amunt.setText((index+1)+"/"+testQuestions.size());
 		}
 		if (event.getSource() == submitBtn) {
 			answers[index] = option1.isSelected() ? "1" : option2.isSelected() ? "2" : option3.isSelected() ? "3" :option4.isSelected()? "4":null;

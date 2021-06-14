@@ -12,6 +12,22 @@
 
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="956.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.GetCopyOfExamController">
    <children>
+      <JFXButton fx:id="showCommentsBtn" buttonType="RAISED" layoutX="676.0" layoutY="485.0" onMouseClicked="#handleOnAction" prefHeight="49.0" prefWidth="199.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="SHOW GUIDELINES">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="prevPageBtn" buttonType="RAISED" layoutX="347.0" layoutY="485.0" onMouseClicked="#handleOnAction" prefHeight="49.0" prefWidth="96.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="BACK">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
       <TableView fx:id="tableOfQuestion" layoutX="49.0" layoutY="104.0" prefHeight="362.0" prefWidth="861.0" stylesheets="@../../css/Main_Style.css">
         <columns>
           <TableColumn fx:id="ColQuestion" prefWidth="215.0" text="Question" />
@@ -30,42 +46,26 @@
             <Font name="Elephant" size="24.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="apComments" layoutX="3.0" layoutY="6.0" prefHeight="557.0" prefWidth="946.0" styleClass="bg" stylesheets="@../../css/Main_Style.css" visible="false">
+      <AnchorPane fx:id="apComments" layoutX="18.0" layoutY="6.0" prefHeight="557.0" prefWidth="902.0" styleClass="bg" stylesheets="@../../css/Main_Style.css" visible="false">
          <children>
             <TextArea fx:id="studentComments" layoutX="264.0" layoutY="34.0" prefHeight="204.0" prefWidth="433.0" />
-            <Label layoutX="33.0" layoutY="136.0" text="Comments for studnet:">
+            <Label layoutX="33.0" layoutY="136.0" text="Comments for student:">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="teacherCommLabel" layoutX="35.0" layoutY="361.0" text="Comments for teacher">
+            <Label fx:id="teacherCommLabel" layoutX="35.0" layoutY="361.0" text="Comments for teacher:">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Label>
             <TextArea fx:id="teacherComments" layoutX="264.0" layoutY="282.0" prefHeight="204.0" prefWidth="433.0" />
-            <Button fx:id="backToCopyBtn" layoutX="402.0" layoutY="499.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Prev">
+            <Button fx:id="backToCopyBtn" layoutX="442.0" layoutY="496.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" text="Prev">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="prevPageBtn" buttonType="RAISED" layoutX="347.0" layoutY="485.0" onMouseClicked="#handleOnAction" prefHeight="49.0" prefWidth="96.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="BACK">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
-      <JFXButton fx:id="showCommentsBtn" buttonType="RAISED" layoutX="676.0" layoutY="485.0" onMouseClicked="#handleOnAction" prefHeight="49.0" prefWidth="199.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="SHOW GUIDELINES">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
    </children>
 </AnchorPane>

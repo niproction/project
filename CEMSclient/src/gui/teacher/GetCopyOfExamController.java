@@ -136,6 +136,7 @@ public class GetCopyOfExamController {
 				App_client.pageContainer.setCenter(page);
 			}
 		} else if (event.getSource() == showCommentsBtn) {
+			System.out.println("commmmentssssss");
 			ArrayList<Object> parameters = new ArrayList<>();
 			parameters.add(GetCopyOfExamControl.eID);
 			DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.Get_Comments,

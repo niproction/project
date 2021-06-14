@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.TeacherHomePageController">
    <children>
-      <Button fx:id="approve" layoutX="447.0" layoutY="258.0" mnemonicParsing="false" onAction="#reqHandles" prefHeight="25.0" prefWidth="155.0" text="take me to requests" visible="false" />
+      <Button fx:id="approve" layoutX="447.0" layoutY="258.0" mnemonicParsing="false" onAction="#reqHandles" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" text="take me to requests" visible="false" />
       <Text fx:id="txtGood" fill="#73255a" layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good" wrappingWidth="100.66666666666652">
          <font>
             <Font name="System Bold Italic" size="35.0" />
@@ -55,7 +55,7 @@
             <Image url="@../../img/notifications_icon.png" />
          </image>
       </ImageView>
-      <Button fx:id="manageBtn" layoutX="285.0" layoutY="235.0" mnemonicParsing="false" onAction="#manageHandle" text="manage the exam" visible="false" />
+      <Button fx:id="manageBtn" layoutX="285.0" layoutY="235.0" mnemonicParsing="false" onAction="#manageHandle" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" text="manage the exam" visible="false" />
       <Text fx:id="ongoingNoti" fill="#73255a" layoutX="24.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have an ongoing exam " visible="false">
          <font>
             <Font name="System Bold Italic" size="20.0" />

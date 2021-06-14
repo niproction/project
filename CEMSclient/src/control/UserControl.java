@@ -15,7 +15,7 @@ public class UserControl {
 	public static ArrayList<User> user; // Create an ArrayList object
 	public static ArrayList<User> teachers; // Create an ArrayList object
 	public static ArrayList<User> students; // Create an ArrayList object
-	
+	public static String ID;
 	
 	public static boolean isDoingExam = false; // user status about if he doing exam right now
 	public static int whatInitiatedExamID = -1; // user status about if he doing exam right now

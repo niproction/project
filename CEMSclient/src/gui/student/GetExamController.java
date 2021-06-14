@@ -84,7 +84,7 @@ public class GetExamController {
 		if (event.getSource() == takeExambtn) {
 			System.out.println("ID clicked");
 			errorLabel2.setVisible(false);
-			if (UserControl.ConnectedUser.getuID() == Integer.parseInt(idPasswordfld.getText().toString()))
+			if (UserControl.ID.equals(idPasswordfld.getText()))
 				getExam();
 			else {
 				idPasswordfld.setText("");

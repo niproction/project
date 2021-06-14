@@ -101,6 +101,11 @@ public class StartExamController {
 			label_message.setText("Password left empty");
 			return;
 		}
+		else if(textfielf_password.getLength() != 4)
+		{
+			label_message.setText("Password must have 4 digits");
+			return;
+		}
 
 		String examID;
 		examID = choicebox_exams.getValue().getExamID();

@@ -312,7 +312,6 @@ public class MainPageController {
 
 		} else if (UserControl.ConnectedUser instanceof Teacher) {
 			SceneController.primaryStage.setTitle("Cems: Teacher - home page");
-			createExam.setManaged(true);
 
 			displayStatisticalReportTeacher.setManaged(true);
 

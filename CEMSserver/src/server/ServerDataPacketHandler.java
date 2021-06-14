@@ -303,7 +303,20 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 		// nissan
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
 			System.out.println("Entered GET_EXAM");
+			String ID="";
+			User user=(User)dataPacket.getData_parameters().get(1);
+			Statement st;
+			try {
+				st = mysqlConnection.getInstance().getCon().createStatement();
 
+				ResultSet rs2 = st.executeQuery(
+						"SELECT ID from users WHERE uid='" + user.getuID() + "'");
+				if (rs2.next()) {
+					ID=rs2.getString(1);
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			String password = (String) dataPacket.getData_parameters().get(0);
 			Statement stmt, stmt1, stmt2;
 
@@ -362,7 +375,7 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 							exam.setStudentsComments(rs2.getString(6));
 							parameter.add(exam);
 						}
-
+						parameter.add(ID);
 						Responce_dataPacket = new DataPacket(DataPacket.SendTo.CLIENT, DataPacket.Request.GET_EXAM,
 								parameter, null, true);
 
@@ -1899,7 +1912,8 @@ public class ServerDataPacketHandler implements IncomingDataPacketHandler {
 	}
 
 	private DataPacket getComments(DataPacket dataPacket) {
-		String eID = (String) dataPacket.getData_parameters().get(0);
+		int tmpeID = (Integer) dataPacket.getData_parameters().get(0);
+		String eID=String.valueOf(tmpeID);
 		System.out.println("eid:" + eID);
 		ArrayList<Object> parameter = new ArrayList<>();
 		Statement statement;
