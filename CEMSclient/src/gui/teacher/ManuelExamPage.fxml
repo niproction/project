@@ -5,6 +5,8 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -69,5 +71,10 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <ImageView fitHeight="69.0" fitWidth="67.0" layoutX="226.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/hand-with-pen-icon-png-50-px-hand-writing-with-pen-png-1600_1600.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

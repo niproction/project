@@ -6,6 +6,8 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -14,7 +16,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.principal.HistogramController">
    <children>
-      <Text layoutX="274.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistical Histogram">
+      <Text layoutX="274.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistical Histogram" underline="true">
          <font>
             <Font name="Elephant" size="27.0" />
          </font>
@@ -70,5 +72,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <ImageView fitHeight="80.0" fitWidth="114.0" layoutX="194.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/graph-icon-green.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

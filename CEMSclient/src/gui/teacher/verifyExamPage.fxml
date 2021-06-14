@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="840.0" stylesheets="@../../css/Main_Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.verifyExamController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleOnAction" prefHeight="640.0" prefWidth="840.0" stylesheets="@../../css/Main_Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.verifyExamController">
    <children>
       <Label layoutX="82.0" layoutY="34.0" prefHeight="53.0" prefWidth="328.0" text="Verify Exams">
          <font>
@@ -28,10 +31,9 @@
             <TableColumn fx:id="colCheating" prefWidth="112.0" text="Suspect cheating" />
         </columns>
       </TableView>
-      <AnchorPane fx:id="gradeAnchorPane" layoutX="380.0" layoutY="150.0" prefHeight="283.0" prefWidth="371.0">
+      <AnchorPane fx:id="gradeAnchorPane" layoutX="380.0" layoutY="150.0" prefHeight="297.0" prefWidth="422.0">
          <children>
-            <Button fx:id="gradeSend" layoutX="379.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Send" />
-            <TextArea fx:id="gradeTextArea" layoutX="2.0" layoutY="48.0" prefHeight="247.0" prefWidth="420.0" />
+            <TextArea fx:id="gradeTextArea" layoutX="-8.0" layoutY="48.0" prefHeight="262.0" prefWidth="430.0" />
             <Label fx:id="gradeCommentsLbl" layoutY="11.0" prefHeight="31.0" prefWidth="200.0" text="Comments For Student">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
@@ -41,9 +43,29 @@
             <TextField fx:id="studentIDTxt" layoutX="264.0" layoutY="14.0" prefHeight="25.0" prefWidth="72.0" promptText="Student ID" />
             <TextField fx:id="newGrade" layoutX="336.0" layoutY="14.0" prefHeight="25.0" prefWidth="78.0" promptText="New Grade" />
             <TextField fx:id="examID" layoutX="192.0" layoutY="14.0" prefHeight="25.0" prefWidth="72.0" promptText="Exam ID" />
+            <JFXButton fx:id="gradeSend" buttonType="RAISED" layoutX="362.0" layoutY="286.0" onMouseClicked="#handleOnAction" prefHeight="17.0" prefWidth="52.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="Edit grade">
+               <font>
+                  <Font name="System Bold" size="8.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
          </children>
       </AnchorPane>
-      <Button fx:id="editGrade" layoutX="742.0" layoutY="81.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Edit Grade" />
       <Label fx:id="seccessLbl" layoutX="582.0" layoutY="85.0" prefHeight="17.0" prefWidth="141.0" text="Grade has been submited" textFill="#21f505" />
+      <JFXButton fx:id="editGrade" buttonType="RAISED" layoutX="598.0" layoutY="45.0" onMouseClicked="#handleOnAction" prefHeight="31.0" prefWidth="93.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="Edit grade">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <ImageView fitHeight="69.0" fitWidth="67.0" layoutX="14.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/validate-interface-searching-icon-png-and-vector-for-free-validate-png-512_511.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -67,5 +69,10 @@
             </Button>
          </children>
       </AnchorPane>
+      <ImageView fitHeight="69.0" fitWidth="67.0" layoutX="280.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/R2da53804acf48a7eea53ff0018a8811e.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

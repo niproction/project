@@ -74,8 +74,6 @@ public class StartExamController {
 		label_message.setVisible(true);
 		label_message.setText("");
 
-	
-
 		// send datapacket to recive the exams
 		ArrayList<Object> parameter = new ArrayList<>();
 		parameter.add(UserControl.ConnectedUser);
@@ -84,15 +82,18 @@ public class StartExamController {
 				parameter, null, true);
 
 		ClientControl.getInstance().accept(dataPacket);
+		System.out.println(ExamControl.exams);
 
 		examsList.addAll(ExamControl.exams);
-
-		System.out.print(examsList.get(0).toString());
-
-		// Set the list of Course items to the ChoiceBox
-		choicebox_exams.setItems(examsList);
-		choicebox_exams.setValue(examsList.get(0));
 		
+		// DANIEL LAST UPDATE
+		ExamControl.exams = null;
+		if (examsList != null && examsList.size() > 0) {
+			// Set the list of Course items to the ChoiceBox
+			choicebox_exams.setItems(examsList);
+			choicebox_exams.setValue(examsList.get(0));
+		//DANIEL LAST UPDATE
+		}
 	}
 
 	@FXML
@@ -100,9 +101,7 @@ public class StartExamController {
 		if (textfielf_password.getLength() == 0) {
 			label_message.setText("Password left empty");
 			return;
-		}
-		else if(textfielf_password.getLength() != 4)
-		{
+		} else if (textfielf_password.getLength() != 4) {
 			label_message.setText("Password must have 4 digits");
 			return;
 		}

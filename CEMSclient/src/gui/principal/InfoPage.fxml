@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -10,22 +11,29 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.principal.infoPageController">
+<AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.principal.infoPageController">
    <children>
       <TableView fx:id="tableOfInfo" layoutX="21.0" layoutY="170.0" onSort="#goBackToExamTable" prefHeight="399.0" prefWidth="789.0" />
-      <ImageView fitHeight="80.0" fitWidth="114.0" layoutX="737.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="80.0" fitWidth="114.0" layoutX="258.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/logo.png" />
+            <Image url="@../../img/R29bfeefd0ac73dd505bc3cccb98ab2d8.png" />
          </image>
       </ImageView>
-      <Text layoutX="346.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info Page" wrappingWidth="183.2265625">
+      <Text layoutX="346.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info Page" underline="true" wrappingWidth="183.2265625">
          <font>
-            <Font size="36.0" />
+            <Font name="Elephant" size="36.0" />
          </font>
       </Text>
       <Line endX="834.0" endY="120.0" layoutX="-1.0" layoutY="-14.0" startX="6.2928924560546875" startY="119.99998474121094" />
       <ComboBox fx:id="comboBox" layoutX="188.0" layoutY="124.0" onAction="#OnChoose" prefWidth="150.0" />
       <Text layoutX="21.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select type of information:" />
-      <Button fx:id="backButton" layoutX="374.0" layoutY="124.0" mnemonicParsing="false" onAction="#goBackToExamTable" text="Back" />
+      <JFXButton fx:id="backButton" buttonType="RAISED" layoutX="355.0" layoutY="121.0" onAction="#goBackToExamTable" prefHeight="32.0" prefWidth="74.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="BACK">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

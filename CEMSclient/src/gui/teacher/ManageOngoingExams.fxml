@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="ap" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.ManageOngoingExamsController">
    <children>
-      <Text layoutX="41.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage ongoing exams" underline="true" wrappingWidth="289.3333333333333">
+      <Text layoutX="108.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage ongoing exams" underline="true" wrappingWidth="289.3333333333333">
          <font>
             <Font name="Elephant" size="24.0" />
          </font>
@@ -98,5 +98,10 @@
             <Font size="28.0" />
          </font>
       </Label>
+      <ImageView fitHeight="69.0" fitWidth="67.0" layoutX="39.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/R6ba4d8555d7838dcb7545f59eb0db249.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
