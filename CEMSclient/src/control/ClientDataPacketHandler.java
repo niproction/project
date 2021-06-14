@@ -1,5 +1,8 @@
 package control;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import client.App_client;
@@ -11,6 +14,7 @@ import common.ExtraTimeRequest;
 import common.Field;
 import common.HistogramInfo;
 import common.IncomingDataPacketHandler;
+import common.MyFile;
 import javafx.stage.Stage;
 import common.Student;
 import common.Teacher;
@@ -151,8 +155,8 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		}
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
-			if (dataPacket.getResult_boolean()) {
-
+			if (dataPacket.getResult_boolean()&& dataPacket.getMessage().equals("online")) {
+				ExamControl.isManual=false;
 				System.out.println("qqqqq");
 				examInitiated exam = (examInitiated) dataPacket.getData_parameters().get(0);
 				Exam exam2 = (Exam) dataPacket.getData_parameters().get(1);
@@ -162,7 +166,25 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 
 				UserControl.isDoingExam = true; // stated exam
 
-			} else {
+			} 
+			else if(dataPacket.getMessage().equals("manual"))
+			{
+				examInitiated exam = (examInitiated) dataPacket.getData_parameters().get(1);
+				Exam exam2 = (Exam) dataPacket.getData_parameters().get(2);
+				ExamInitiatedControl.setExamInitiated(exam);
+				ExamControl.setExam(exam2);
+				
+				
+				ExamControl.isManual=true;
+				System.out.println("mannnnnnnnnnn");
+				int fileSize = ((MyFile) dataPacket.getData_parameters().get(0)).getSize();
+				//ExamControl.mFile.initArray(fileSize);
+				ExamControl.mFile=(MyFile) dataPacket.getData_parameters().get(0);
+				
+
+				UserControl.isDoingExam = true; // stated exam
+			}
+			else {
 				System.out.println("no exam");
 				ExamInitiatedControl.setExamInitiated(null);
 				UserControl.setCanOpenExam((String) dataPacket.getMessage());

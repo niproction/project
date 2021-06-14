@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import common.Exam;
 import common.ExtraTimeRequest;
+import common.MyFile;
 import common.Question;
 
 
@@ -17,12 +18,12 @@ public class ExamControl {
 	public static String selectedCourseID;
 	public static String examID;
 	public static ArrayList<Exam> exams;
-	
+	public static MyFile mFile;
 	public static String ServerTime;
 	public static String examInitiatedTime;
 	public static ArrayList<Exam> examsList;
 	public static ExtraTimeRequest extraTimeRequest;
-	
+	public static boolean isManual;
 	
 	public static ArrayList<String> questionsIDToRemove=new ArrayList<>();
 	public static ArrayList<String> pointsForQuestion=new ArrayList<>();

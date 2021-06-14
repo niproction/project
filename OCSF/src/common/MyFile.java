@@ -7,7 +7,7 @@ public class MyFile implements Serializable {
 	private String Description=null;
 	private String fileName=null;	
 	private int size=0;
-	public  byte[] mybytearray;
+	public  byte[] mybytearray; 
 	
 	
 	public void initArray(int size)

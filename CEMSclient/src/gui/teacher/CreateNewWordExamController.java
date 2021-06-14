@@ -63,8 +63,6 @@ public class CreateNewWordExamController extends createNewExamController {
 	private JFXComboBox<String> hourChoiceBox;
 	@FXML
 	private JFXComboBox<String> minutesChoiceBox;
-	@FXML
-	private JFXComboBox<String> secondsChoiceBox;
 	private Exam exam;
 	@FXML
 	public void initialize() {
@@ -118,19 +116,21 @@ public class CreateNewWordExamController extends createNewExamController {
 		else {
 			duration+=minutesChoiceBox.getValue()+":";
 		}
-		if(secondsChoiceBox.getValue()==null)
-			duration+="00";
-		else {
-			duration+=secondsChoiceBox.getValue();
-		}
+		duration+="00";
 		exam=new Exam(UserControl.ConnectedUser.getfid() + ExamControl.selectedCourseID, UserControl.ConnectedUser.getuID(), nameOfExam.getText(), duration);
 		parameters.clear();
 		parameters.add(exam);
 		dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_EXAM, parameters, null, true);
 		ClientControl.getInstance().accept(dataPacket);
 		exam.setExamID(ExamControl.examID);
+		
+		
+		
+		// upload file block
 		MyFile msg = new MyFile(examFile.getName());
 		String LocalfilePath = examFile.getPath();
+		System.out.println("fileName:"+examFile.getName());
+		System.out.println("path:"+examFile.getPath());
 		try {
 
 			File newFile = new File(LocalfilePath);
@@ -142,13 +142,21 @@ public class CreateNewWordExamController extends createNewExamController {
 
 			bis.read(msg.getMybytearray(), 0, mybytearray.length);
 			parameters.add(0, msg);
-			parameters.add(1, exam.getExamID() + ".docx");
+			parameters.add(1, exam);
 			dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.INSERT_Manuel_EXAM_FILE,
 					parameters, null, true);
 			ClientControl.getInstance().accept(dataPacket);
+			
+			
+			
+			
 		} catch (Exception e) {
 			System.out.println("Error send (Files)msg) to Server");
 		}
+		
+		
+		
+		
 		errLabel.setText(examFile.getName() + " submited");
 		errLabel.setVisible(true);
 	}
@@ -161,7 +169,7 @@ public class CreateNewWordExamController extends createNewExamController {
 			errLabel.setVisible(true);
 			return true;
 		}
-		if (hourChoiceBox.getValue()==null && minutesChoiceBox.getValue()==null  && secondsChoiceBox.getValue()==null) {
+		if (hourChoiceBox.getValue()==null && minutesChoiceBox.getValue()==null  ) {
 			errLabel.setText("*You must enter duration to the exam");
 			errLabel.setVisible(true);
 			return true;

@@ -2,6 +2,11 @@ package gui.student;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -15,8 +20,11 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
+import com.jfoenix.controls.JFXButton;
+
 import common.DataPacket;
 import common.Exam;
+import common.MyFile;
 import common.Question;
 import common.examInitiated;
 import control.ClientControl;
@@ -32,13 +40,17 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class TakeExamController {
 	SceneController sceen;
-
+	private File file;
 	@FXML // ResourceBundle that was given to the FXMLLoader
 	private ResourceBundle resources;
-
+	@FXML
+	private Label errLabel;
 	@FXML // fx:id="ap"
 	private AnchorPane ap; // Value injected by FXMLLoader
 
@@ -77,6 +89,13 @@ public class TakeExamController {
 
 	@FXML // fx:id="label_questions_amunt"
 	private Label label_questions_amunt; // Value injected by FXMLLoader
+	@FXML
+	private AnchorPane ap_manual_box;
+	@FXML
+	private JFXButton button_upload;
+	@FXML
+	private JFXButton button_download_exam;
+
 	//////////////////////////////////////
 	@FXML
 	private Button getGuidelinesBtn;
@@ -96,6 +115,7 @@ public class TakeExamController {
 	List<String> answerList;
 
 	private Exam exam;
+	private MyFile myFile;
 	private examInitiated examInitiated;
 	private int hour, min, sec, index;
 	private String endTime;
@@ -136,11 +156,21 @@ public class TakeExamController {
 				: "fx:id=\"label_questions_amunt\" was not injected: check your FXML file 'TakeExamPage.fxml'.";
 		// hide
 		testSubmited.setVisible(false);
-
+		errLabel.setVisible(false);
 		// animate page on load
 		sceen = new SceneController(PageProperties.Page.TAKE_EXAM, ap);
 		sceen.AnimateSceen(SceneController.ANIMATE_ON.LOAD);
 		GuidelinesTxt.setVisible(false);
+		
+		if(ExamControl.isManual)
+		{
+			ap_exam_stats.setVisible(false);
+			ap_manual_box.setVisible(true);
+		}
+		else {
+			ap_manual_box.setVisible(false);
+			ap_exam_stats.setVisible(true);
+		}
 		//continueExamBtn.setVisible(false);
 		//commentsLbl.setVisible(false);
 		System.out.println("take exam page loaded");
@@ -222,7 +252,7 @@ public class TakeExamController {
 		// System.out.println(date+" "+startTime);
 		// duration.setText(examInitiated.getTime());
 
-		if (ExamControl.getExam() != null) {
+		if (ExamControl.getExam() != null && !ExamControl.isManual) {
 			System.out.println("exam is not null");
 			exam = ExamControl.getExam();
 			ExamControl.setExam(null);
@@ -411,8 +441,40 @@ public class TakeExamController {
 			label_questions_amunt.setText((index+1)+"/"+testQuestions.size());
 		}
 		if (event.getSource() == submitBtn) {
-			answers[index] = option1.isSelected() ? "1" : option2.isSelected() ? "2" : option3.isSelected() ? "3" :option4.isSelected()? "4":null;
-			submit();
+			if(ExamControl.isManual==true)
+			{
+				if(myFile!=null)
+				{
+					errLabel.setVisible(false);
+					ArrayList<Object> parameters=new ArrayList<>();
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+					LocalDateTime now = LocalDateTime.now();
+					endTime = dtf.format(now).substring(11, 19);
+					
+					parameters.add(examInitiated);
+					parameters.add(UserControl.ConnectedUser);
+					parameters.add(label_timer.getText());
+					parameters.add(startTime);
+					parameters.add(endTime);
+					parameters.add(myFile);
+					DataPacket dataPacket = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.ADD_DONE_MANUAL_EXAM, parameters,
+							null, true);
+					ClientControl.getInstance().accept(dataPacket);
+					testSubmited.setVisible(true);
+					ap_manual_box.setVisible(false);
+				
+				}
+				else {
+					errLabel.setVisible(true);
+					errLabel.setText("Not selected exam");
+				}
+			}
+			else {
+				errLabel.setVisible(false);
+				answers[index] = option1.isSelected() ? "1" : option2.isSelected() ? "2" : option3.isSelected() ? "3" :option4.isSelected()? "4":null;
+				submit();
+			}
+
 		}
 		
 		
@@ -438,6 +500,79 @@ public class TakeExamController {
 		}
 	}
 
+	@FXML
+	public void button_download_clicked(MouseEvent event)
+	{
+		getManualExam();
+	}
+	@FXML
+	public void button_upload_clicked(MouseEvent event)
+	{
+		uploadExam();
+	}
+	
+	
+	private void getManualExam() {
+		Window ownerWindow=null;
+		FileChooser fileChooser = new FileChooser();
+		//fileChooser.setSelectedExtensionFilter(d);
+		
+		File localFile=fileChooser.showSaveDialog(ownerWindow);
+		fileChooser.setTitle("Save exam");
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Word document", "*.docx"));
+		
+		String path=localFile.getPath();
+		String fileName=localFile.getName();
+		File newFile = new File(path);
+		
+		System.out.println("path :"+path);
+		System.out.println("file name:   " + fileName);
+		
+		try {
+			FileOutputStream fos = new FileOutputStream(newFile);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			bos.write(ExamControl.mFile.getMybytearray(), 0,
+					ExamControl.mFile.getSize());
+			bos.flush();
+			fos.flush();
+			System.out.println("saved to local pathhhhhh");
+		} catch (Exception e) {
+			System.out.println("error loadinggggg");
+			e.printStackTrace();
+		}  
+	}
+	public void uploadExam()
+	{
+		Window window = null;
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("choose exam");
+		file = fileChooser.showOpenDialog(window);
+		//ArrayList<Object> parameters=new ArrayList<>();
+		
+		 myFile = new MyFile(file.getName());
+		String LocalfilePath = file.getPath();
+		System.out.println("fileName:"+file.getName());
+		System.out.println("path:"+file.getPath());
+		try {
+
+			File newFile = new File(LocalfilePath);
+			byte[] mybytearray = new byte[(int) newFile.length()];
+			FileInputStream fis = new FileInputStream(newFile);
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			myFile.initArray(mybytearray.length);
+			myFile.setSize(mybytearray.length);
+
+			bis.read(myFile.getMybytearray(), 0, myFile.mybytearray.length);
+			//parameters.add(0, myFile);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+	
 	public void submit() {
 		ArrayList<Object> parameters = new ArrayList<>();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
