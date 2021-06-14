@@ -114,15 +114,15 @@ public class HistogramController {
 		String examID = comboBox.getValue();
 		boolean flag1 = false;
 		boolean flag2 = false;
-		if (HistogramControl.CourseExamGradeList == null)
+		if (HistogramControl.CourseExamGradeList != null)
 			flag1 = true;
 
-		if (HistogramControl.examOfTeacher == null)
+		if (HistogramControl.examOfTeacher != null)
 			flag2 = true;
 
 		if (examID.equals("Select Exam ID")) {
 			avgTextField.setText("");
-			MedianTextField.setText("");
+			MedianTextField.setText(""); 
 		} else {
 			DecimalFormat df = new DecimalFormat("#.##");
 			String avg, mdi;
@@ -135,6 +135,7 @@ public class HistogramController {
 			for (HistogramInfo tmp : listOfExams) {
 				if (examID == tmp.getExamID() && (flag1 || flag2)) {
 					avg = df.format(tmp.getAvg());
+					System.out.println("hellooooooo");
 					mdi = df.format(tmp.getMedian());
 					avgTextField.setText(avg);
 					MedianTextField.setText(mdi);

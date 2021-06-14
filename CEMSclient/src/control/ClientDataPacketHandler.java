@@ -20,12 +20,27 @@ import common.examInitiated;
 import common.Principal;
 import common.Question;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ClientDataPacketHandler.
+ */
 public class ClientDataPacketHandler implements IncomingDataPacketHandler {
+	
+	/** The Responce data packet. */
 	private DataPacket Responce_dataPacket;
 
+	/**
+	 * Instantiates a new client data packet handler.
+	 */
 	public ClientDataPacketHandler() {
 	}
 
+	/**
+	 * Instantiates a new client data packet handler.
+	 *
+	 * @param primaryStage the primary stage
+	 * @param controller the controller
+	 */
 	public ClientDataPacketHandler(Stage primaryStage, Object controller) {
 		// this.controller = controller;
 		// this.primaryStage = primaryStage;
@@ -33,6 +48,12 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		// System.out.println("prob");
 	} 
 
+	/**
+	 * Check request execute create responce.
+	 *
+	 * @param the msg that the client try sending to the server
+	 * @return the array list
+	 */
 	@Override
 	public ArrayList<Object> CheckRequestExecuteCreateResponce(Object msg) {
 		if (msg instanceof DataPacket) {
@@ -44,6 +65,12 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		return null;
 	}
 
+	/**
+	 * Parsing data packet.
+	 *this mathod parsing the data coming from the server and send the new data to the correct control
+	 * @param the data packet is the object we use for parsing the data from the server
+	 * @return the array list
+	 */
 	@Override
 	public ArrayList<Object> ParsingDataPacket(DataPacket dataPacket) {
 		Responce_dataPacket = null;
@@ -135,13 +162,22 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		////////////////////////////////////////////
 		// Students requests
 		////////////////////////////////////////////
+		/**
+		 * CHECK_FOR_EXAM-check if there is an ongoing exam running right now
+		 */
 		else if (dataPacket.getRequest() == DataPacket.Request.CHECK_FOR_EXAM) {
 			if ((int) dataPacket.getData_parameters().get(0) == 1) {
 				UserControl.ongoingExam = 1;
 			} else {
 				UserControl.ongoingExam = 0;
 			}
-		} else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
+			
+		}
+		/**
+		 * ADD_DONE_EXAM-check if the exams done added to the data base
+		 * and notify the client 
+		 */
+		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 			if (dataPacket.getData_parameters() != null) {
 				String seccess = (String) dataPacket.getData_parameters().get(0);
 				App_client.seccess = seccess; // message setter
@@ -149,6 +185,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				App_client.seccess = null;
 
 		}
+		/**
+		 * get the correct exam from the server and send to the right class
+		 */
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_EXAM) {
 			if (dataPacket.getResult_boolean()) {
@@ -169,7 +208,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			}
 
 		}
-
+		/**
+		 * GET_TEST_QUESTIONS-get all the tests questions from the server and update the right class with the questions
+		 */
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_TEST_QUESTIONS) {
 			System.out.println("get test questions");
 			if (dataPacket.getData_parameters() != null) {
@@ -199,7 +240,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				ExamControl.setExam(null);
 			}
 		}
-
+		/**
+		 * 
+		 */
 		else if (dataPacket.getRequest() == DataPacket.Request.ADD_EXTRA_TIME_TO_EXAM) {
 			// need to check for student state..
 			System.out.println("Check if the client in exam state");
@@ -217,14 +260,18 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				System.out.println("this client skipped in exam?" + UserControl.isDoingExam);
 			System.out.println("end of Check if the client in exam state");
 		}
-
+		/**
+		 * GET_QUESTION-get spesific question from the data base and send for edit question class
+		 */
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_QUESTION) {
 			System.out.println("login insert to get question");
 
 			if (dataPacket.getData_parameters() != null)
 				QuestionControl.setQuestions((ArrayList<Question>) dataPacket.getData_parameters().get(0));
 		}
-
+		/**
+		 * 
+		 */
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_FIELD_NAME) {
 			if (dataPacket.getData_parameters() != null) {
 				System.out.println("$$$$$$$$$$$$got field name " + (String) dataPacket.getData_parameters().get(0));
@@ -255,7 +302,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				StudentControl.pendingGrades = 0;
 			}
 		}
-
+		/**
+		 * ADD_DONE_EXAM-get notification if the test was subbmited
+		 */
 		else if (dataPacket.getRequest() == DataPacket.Request.ADD_DONE_EXAM) {
 			if (dataPacket.getData_parameters() != null) {
 				String seccess = (String) dataPacket.getData_parameters().get(0);
@@ -283,7 +332,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				ExamInitiatedControl.setExamInitiated(null);
 				UserControl.setCanOpenExam((String) dataPacket.getMessage());
 			}
-
+			/**
+			 * DISAPPROVED_GRADE-notify to the teacher that the approve/disapprove has been submitted
+			 */
 		} else if (dataPacket.getRequest() == DataPacket.Request.DISAPPROVED_GRADE) {
 			String msg = (String) dataPacket.getData_parameters().get(0);
 			System.out.println(msg);
@@ -293,6 +344,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 			String msg = (String) dataPacket.getData_parameters().get(0);
 			System.out.println(msg);
 		}
+		/**
+		 * GET_FOR_VERIFY-getting the needed exams for letting the teacher verify them
+		 */
 
 		else if (dataPacket.getRequest() == DataPacket.Request.GET_FOR_VERIFY) {
 			if (dataPacket.getData_parameters() != null) {
@@ -300,7 +354,9 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 				examDoneControl.setExamDoneLIst((ArrayList<ExamDone>) dataPacket.getData_parameters().get(0));
 			}
 		}
-		
+		/**
+		 * 
+		 */
 		else if (dataPacket.getRequest() == DataPacket.Request.HOW_MANY_VERIFY) {
 			TeacherControl.verifyAmount = (int) dataPacket.getData_parameters().get(0);
 		}
@@ -513,6 +569,11 @@ public class ClientDataPacketHandler implements IncomingDataPacketHandler {
 		return ToBeReturened;
 	}
 
+	/**
+	 * GE T responce data packet.
+	 *
+	 * @return the data packet
+	 */
 	public DataPacket GET_responce_DataPacket() {
 		return Responce_dataPacket;
 	}

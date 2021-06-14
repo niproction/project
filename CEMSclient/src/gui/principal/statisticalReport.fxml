@@ -75,5 +75,10 @@
             <Image url="@../../img/logo.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="80.0" fitWidth="114.0" layoutX="187.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/Ra699aae89a40e453e38627bc0b6fc14b.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -5,6 +5,7 @@ import java.io.IOException;
 import common.ChatIF;
 import common.DataPacket;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class constructs the UI for a chat client. It implements the chat
  * interface in order to activate the display() method. Warning: Some of the
@@ -16,20 +17,37 @@ import common.DataPacket;
  * @version July 2000
  */
 public class ClientControl implements ChatIF {
+	
+	/** The Constant DEFAULT_PORT.
+	 *  */
 	final public static int DEFAULT_PORT = 5555;
+	
+	/** The host. */
 	public static String host = "localhost";
+	
+	/** The port. */
 	public static int port = 5555;
+	
+	/** check if the client is connected. */
 	private static boolean isConnected = false;
 	
+	/** The client. */
 	private static CEMSClient client = null;
 
+	/** The await response. */
 	public static boolean awaitResponse;
+	
+	/** The message recived. */
 	public static String message_recived;
 
+	/** The client chat. */
 	private static ClientControl clientChat = null;
 	// chat = new ClientController("localhost", 5555);
 
 	
+	/**
+	 * Instantiates a new client control.
+	 */
 	private ClientControl() {
 		try {
 			System.out.println(host+ " "+port);
@@ -46,6 +64,11 @@ public class ClientControl implements ChatIF {
 		}
 	}
 	
+	/**
+	 * Gets the single instance of ClientControl.
+	 *using singelton for sending objects from the client to server
+	 * @return single instance of ClientControl
+	 */
 	public static ClientControl getInstance() {
 		if (client == null && !isConnected)
 		{
@@ -58,6 +81,9 @@ public class ClientControl implements ChatIF {
 		return clientChat;
 	}
 	
+	/**
+	 * Destroy instance.
+	 */
 	// metod to destroy the connection and the instance
 	public static void destroyInstance() {
 		if (clientChat != null)
@@ -71,14 +97,24 @@ public class ClientControl implements ChatIF {
 		}
 	}
 	
+	/**
+	 * Checks if is connected.
+	 *
+	 * @return true, if is connected
+	 */
 	public static boolean isConnected() {
 		return isConnected;
 	}
 
 	
 	
-	public void accept(DataPacket dataPacket) {
-		if (dataPacket != null) {
+	/**
+	 * Accept.
+	 *
+	 * @param dataPacket the data packet
+	 */
+	public void accept(DataPacket dataPacket) { 
+		if (dataPacket != null) { 
 			try {
 				client.handleMessageFromClientUI(dataPacket);
 			} catch (Exception ex) {
@@ -87,10 +123,20 @@ public class ClientControl implements ChatIF {
 		}
 	}
 
+	/**
+	 * Display.
+	 *
+	 * @param message the message
+	 */
 	public void display(String message) {
 		System.out.println("> " + message);
 	}
 
+	/**
+	 * GE T client.
+	 *
+	 * @return the CEMS client
+	 */
 	public static CEMSClient GET_client() {
 		return client;
 	}

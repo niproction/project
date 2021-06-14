@@ -6,10 +6,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor" fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.examHistoryController">
+<AnchorPane id="anchor" fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.examHistoryController">
    <children>
       <TableView fx:id="TakenExamsTable" layoutX="138.0" layoutY="171.0" prefHeight="405.0" prefWidth="481.0">
         <columns>
@@ -19,12 +18,11 @@
             <TableColumn fx:id="viewColumn" prefWidth="135.0" text="View" />
         </columns>
       </TableView>
-      <Label layoutX="203.0" layoutY="26.0" prefHeight="53.0" prefWidth="261.0" text="Exams History">
+      <Label layoutX="203.0" layoutY="26.0" prefHeight="53.0" prefWidth="292.0" text="Exams History" textAlignment="CENTER" underline="true">
          <font>
-            <Font name="System Bold Italic" size="36.0" />
+            <Font name="Elephant" size="36.0" />
          </font>
       </Label>
-      <Line endX="840.0" endY="92.0" startX="-1.52587890625E-5" startY="92.0" />
       <ImageView fitHeight="80.0" fitWidth="114.0" layoutX="691.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/logo.png" />
@@ -40,5 +38,10 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <ImageView fitHeight="80.0" fitWidth="75.0" layoutX="130.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/img_530089.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -32,83 +32,85 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PrincipalHomePageController.
+ */
 public class PrincipalHomePageController {
 
-	@FXML // ResourceBundle that was given to the FXMLLoader
-	private ResourceBundle resources;
+    /** The resources. */
+    @FXML // ResourceBundle that was given to the FXMLLoader
+    private ResourceBundle resources;
 
-	@FXML // URL location of the FXML file that was given to the FXMLLoader
-	private URL location;
+    /** The location. */
+    @FXML // URL location of the FXML file that was given to the FXMLLoader
+    private URL location;
 
-	@FXML // fx:id="ap"
-	private AnchorPane ap; // Value injected by FXMLLoader
+    /** The ap. */
+    @FXML // fx:id="ap"
+    private AnchorPane ap; // Value injected by FXMLLoader
 
-	@FXML // fx:id="approve"
-	private Button approve; // Value injected by FXMLLoader
+    /** The notification. */
+    @FXML // fx:id="notification"
+    private Label notification; // Value injected by FXMLLoader
 
-	@FXML // fx:id="notification"
-	private Label notification; // Value injected by FXMLLoader
+    /** The txt good. */
+    @FXML // fx:id="txtGood"
+    private Text txtGood; // Value injected by FXMLLoader
 
-	@FXML // fx:id="txtGood"
-	private Text txtGood; // Value injected by FXMLLoader
+    /** The txt time. */
+    @FXML // fx:id="txtTime"
+    private Text txtTime; // Value injected by FXMLLoader
 
-	@FXML // fx:id="txtTime"
-	private Text txtTime; // Value injected by FXMLLoader
+    /** The timedate. */
+    @FXML // fx:id="timedate"
+    private Label timedate; // Value injected by FXMLLoader
 
-	@FXML // fx:id="timedate"
-	private Label timedate; // Value injected by FXMLLoader
+    /** The sunset. */
+    @FXML // fx:id="sunset"
+    private ImageView sunset; // Value injected by FXMLLoader
 
-	@FXML // fx:id="sunset"
-	private ImageView sunset; // Value injected by FXMLLoader
+    /** The sunrise. */
+    @FXML // fx:id="sunrise"
+    private ImageView sunrise; // Value injected by FXMLLoader
 
-	@FXML // fx:id="sunrise"
-	private ImageView sunrise; // Value injected by FXMLLoader
+    /** The moon. */
+    @FXML // fx:id="moon"
+    private ImageView moon; // Value injected by FXMLLoader
 
-	@FXML // fx:id="moon"
-	private ImageView moon; // Value injected by FXMLLoader
+    /** The sun. */
+    @FXML // fx:id="sun"
+    private ImageView sun; // Value injected by FXMLLoader
 
-	@FXML // fx:id="sun"
-	private ImageView sun; // Value injected by FXMLLoader
+    /** The curtime. */
+    @FXML // fx:id="curtime"
+    private Label curtime; // Value injected by FXMLLoader
 
-	@FXML // fx:id="curtime"
-	private Label curtime; // Value injected by FXMLLoader
+    /** The examcount. */
+    @FXML // fx:id="examcount"
+    private Label examcount; // Value injected by FXMLLoader
 
-	@FXML // fx:id="examcount"
-	private Label examcount; // Value injected by FXMLLoader
+    /** The txt good 1. */
+    @FXML // fx:id="txtGood1"
+    private Text txtGood1; // Value injected by FXMLLoader
 
-	@FXML // fx:id="reqNum"
-	private Label reqNum; // Value injected by FXMLLoader
-
-	@FXML // fx:id="txtGood1"
-	private Text txtGood1; // Value injected by FXMLLoader
-
-	@FXML
-	void reqHandles(ActionEvent event) {
-		AnchorPane page = SceneController.getPage(PageProperties.Page.EXTRA_TIME_REQUESTS);
-		App_client.pageContainer.setCenter(page);
-	}
-
-	/**
-	 * Initialize the page.
-	 */
-	@FXML // This method is called by the FXMLLoader when initialization is complete
-	void initialize() {
-		assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert approve != null : "fx:id=\"approve\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert notification != null
-				: "fx:id=\"notification\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert txtGood != null : "fx:id=\"txtGood\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert txtTime != null : "fx:id=\"txtTime\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert timedate != null : "fx:id=\"timedate\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert sunset != null : "fx:id=\"sunset\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert sunrise != null : "fx:id=\"sunrise\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert moon != null : "fx:id=\"moon\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert sun != null : "fx:id=\"sun\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert curtime != null : "fx:id=\"curtime\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert examcount != null
-				: "fx:id=\"examcount\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert reqNum != null : "fx:id=\"reqNum\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
-		assert txtGood1 != null : "fx:id=\"txtGood1\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+    /**
+     * Initialize.
+     */
+    @FXML // This method is called by the FXMLLoader when initialization is complete
+    void initialize() {
+        assert ap != null : "fx:id=\"ap\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert notification != null : "fx:id=\"notification\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert txtGood != null : "fx:id=\"txtGood\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert txtTime != null : "fx:id=\"txtTime\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert timedate != null : "fx:id=\"timedate\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert sunset != null : "fx:id=\"sunset\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert sunrise != null : "fx:id=\"sunrise\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert moon != null : "fx:id=\"moon\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert sun != null : "fx:id=\"sun\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert curtime != null : "fx:id=\"curtime\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert examcount != null : "fx:id=\"examcount\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
+        assert txtGood1 != null : "fx:id=\"txtGood1\" was not injected: check your FXML file 'PrincipalHomePage.fxml'.";
 
 		// Show label on load
 		Integer count = 0;
@@ -139,15 +141,8 @@ public class PrincipalHomePageController {
 
 		count = PrincipalControl.ifRequests;
 		PrincipalControl.ifRequests = 0;
-		reqNum.setText(count.toString());
-		reqNum.setStyle("-fx-font-weight: bold;-fx-font-size: 20;-fx-font-style: italic;-fx-font-color:#73255a");
-		reqNum.setVisible(true);
+		
 
-		// If the are requests
-		if (count > 0) {
-			approve.setVisible(true);
-
-		}
 
 		// Display current time every second
 		Thread timerThread = new Thread(() -> {

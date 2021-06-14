@@ -15,15 +15,34 @@ import javafx.application.Application;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class App_client.
+ * the client app witch run the first page of the CEMS project
+ */
 public class App_client extends Application {
-	public static Stage primaryStage = null;
 	
+	/** The primary stage.
+	 *  */
+	public static Stage primaryStage = null; 
+	
+	/** The page container. */
 	public static BorderPane pageContainer;
 
+	/** The Question. */
 	public static Question Question = null;
+	
+	/** The field name. */
 	public static String fieldName = null;
+	
+	/** The seccess. */
 	public static String seccess = null;
-
+	
+	/**
+	 * Start.
+	 *
+	 * @param primaryStage the primary stage
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		SceneController.primaryStage = primaryStage;
@@ -35,6 +54,10 @@ public class App_client extends Application {
 		// SceneController.primaryStage.setMaxHeight(700);
 	}
 
+	/**
+	 * Stop.
+	 * this method update the client control when the client try to log out
+	 */ 
 	@Override
 	public void stop() {
 		// check if there is on going exam
@@ -70,6 +93,11 @@ public class App_client extends Application {
 		System.exit(0);
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
