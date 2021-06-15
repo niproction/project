@@ -86,7 +86,6 @@ public class StartExamController {
 		examsList.addAll(ExamControl.exams);
 		ExamControl.exams = null;
 
-		System.out.print(examsList.get(0).toString());
 		if (examsList != null && examsList.size() > 0) {
 
 			// Set the list of Course items to the ChoiceBox
