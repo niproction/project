@@ -16,12 +16,12 @@ import java.util.ResourceBundle;
 
 import client.App_client;
 import common.DataPacket;
-import control.PageProperties.Animation;
 import control.ClientControl;
 import control.PageProperties;
 import control.PrincipalControl;
 import control.SceneController;
 import control.UserControl;
+import control.PageProperties.Animation;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

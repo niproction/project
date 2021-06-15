@@ -8,10 +8,12 @@ import common.Student;
 import common.User;
 import control.ClientControl;
 import control.ClientControl;
-import control.PageProperties;
 import control.SceneController;
 import control.UserControl;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -46,10 +48,21 @@ public class App_client extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		SceneController.primaryStage = primaryStage;
+		System.out.println("loginnnnnn");
+//		SceneController sceen = new SceneController(primaryStage, PageProperties.Page.LOGIN);
+//		sceen.LoadSceen(SceneController.ANIMATE_ON.LOAD);
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/gui/Login.fxml"));
+			Scene scene = new Scene(root, 492, 598);
 
-		SceneController sceen = new SceneController(primaryStage, PageProperties.Page.LOGIN);
-		sceen.LoadSceen(SceneController.ANIMATE_ON.LOAD);
+			System.out.println("Server manager started");
 
+			primaryStage.setTitle("Server manager");
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		// SceneController.primaryStage.setMaxWidth(800);
 		// SceneController.primaryStage.setMaxHeight(700);
 	}

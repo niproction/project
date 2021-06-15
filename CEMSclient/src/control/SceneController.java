@@ -233,6 +233,7 @@ public class SceneController {
 			primaryStage.show();
 
 		} catch (IOException e) {
+			System.out.println("catchhh");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

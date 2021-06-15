@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -8,17 +7,15 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="640.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.editExamsController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="640.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.editExamsController">
    <children>
-      <Text layoutX="119.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Exam" wrappingWidth="217.75067138671875">
+      <Text layoutX="39.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exam Creation" wrappingWidth="257.083984375">
          <font>
-            <Font name="Elephant" size="36.0" />
+            <Font name="System Bold Italic" size="36.0" />
          </font>
       </Text>
       <Text layoutX="20.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sum of points:" wrappingWidth="110.0">
@@ -31,9 +28,14 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Text layoutX="238.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:">
+      <Button fx:id="submitBtn" layoutX="598.0" layoutY="586.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="SUBMIT" AnchorPane.topAnchor="586.0">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Text layoutX="258.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duration:">
+         <font>
+            <Font size="18.0" />
          </font>
       </Text>
       <ChoiceBox fx:id="hourChoiceBox" layoutX="329.0" layoutY="572.0" prefHeight="27.0" prefWidth="49.0" />
@@ -68,28 +70,33 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Text layoutX="33.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Course:" textAlignment="CENTER" wrappingWidth="127.99999237060547">
+      <Text layoutX="42.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Course:" textAlignment="CENTER" wrappingWidth="117.0">
          <font>
-            <Font name="Elephant" size="17.0" />
+            <Font size="18.0" />
          </font>
       </Text>
       <ChoiceBox fx:id="courses" layoutX="173.0" layoutY="92.0" prefWidth="150.0" />
-      <Label layoutX="6.0" layoutY="345.0" prefHeight="61.0" prefWidth="91.0" text="Exam questions:" wrapText="true">
+      <Label layoutX="24.0" layoutY="316.0" text="Exam questions:">
          <font>
-            <Font name="System Bold" size="17.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Text layoutX="446.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set name:" textAlignment="CENTER" wrappingWidth="117.00000241398811">
+      <Text layoutX="388.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of the exam:" textAlignment="CENTER" wrappingWidth="181.0">
          <font>
-            <Font name="Elephant" size="18.0" />
+            <Font size="18.0" />
          </font>
       </Text>
       <TextField fx:id="nameOfExam" layoutX="562.0" layoutY="92.0" />
-      <Label layoutX="6.0" layoutY="150.0" prefHeight="80.0" prefWidth="91.0" text="Choose questions:" wrapText="true">
+      <Label layoutX="24.0" layoutY="127.0" text="Choose questions:">
          <font>
-            <Font name="System Bold" size="17.0" />
+            <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id="addCommentsBtn" layoutX="24.0" layoutY="564.0" mnemonicParsing="false" onMouseClicked="#handleOnAction" text="Add comments">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
       <TableView fx:id="chooseQuestionsTable" layoutX="94.0" layoutY="150.0" prefHeight="158.0" prefWidth="588.0">
         <columns>
           <TableColumn fx:id="questionToAddCol" prefWidth="397.0" text="Question" />
@@ -149,20 +156,5 @@
             </Label>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="submitBtn1" layoutX="504.0" layoutY="566.0" onMouseClicked="#handleOnAction" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="Submit">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="addCommentsBtn" layoutX="54.0" layoutY="563.0" onMouseClicked="#handleOnAction" style="-fx-background-radius: 10pt; -fx-background-color: #E5FF65;" text="Add comments">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </JFXButton>
-      <ImageView fitHeight="69.0" fitWidth="67.0" layoutX="54.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../img/Rf89c99cacda50347a486404f50d4dfce.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

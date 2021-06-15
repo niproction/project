@@ -402,6 +402,7 @@ public class ManageOngoingExamsController {
 			min--;
 
 			if (min < 0) {
+				min=59;
 				hour--;
 			}
 		}

@@ -17,7 +17,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/SettingsLoginPage.fxml";
+				return "/gui/SettingsLoginPage.fxml";
 			}
 
 			@Override
@@ -38,7 +38,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/Login.fxml";
+				return "/gui/Login.fxml";
 			}
 
 			@Override
@@ -59,7 +59,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/MainPage.fxml";
+				return "/gui/MainPage.fxml";
 			}
 
 			@Override
@@ -80,7 +80,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/principal/Histogram.fxml";
+				return "/gui/principal/Histogram.fxml";
 			}
 
 			@Override
@@ -107,7 +107,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/student/StudentHomePage.fxml";
+				return "/gui/student/StudentHomePage.fxml";
 			}
 
 			@Override
@@ -128,7 +128,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/manageExamPage.fxml";
+				return "/gui/teacher/manageExamPage.fxml";
 			}
 
 			@Override
@@ -149,7 +149,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/editExamsPage.fxml";
+				return "/gui/teacher/editExamsPage.fxml";
 			}
 
 			@Override
@@ -170,7 +170,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/student/GetExamPage.fxml";
+				return "/gui/student/GetExamPage.fxml";
 			}
 
 			@Override
@@ -191,7 +191,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/student/TakeExamPage.fxml";
+				return "/gui/student/TakeExamPage.fxml";
 			}
 
 			@Override
@@ -214,7 +214,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/student/ViewGrades.fxml";
+				return "/gui/student/ViewGrades.fxml";
 			}
 
 			@Override
@@ -235,7 +235,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/GetCopyOfExam.fxml";
+				return "/gui/teacher/GetCopyOfExam.fxml";
 			}
 
 			@Override
@@ -260,7 +260,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/TeacherHomePage.fxml";
+				return "/gui/teacher/TeacherHomePage.fxml";
 			}
 
 			@Override
@@ -281,7 +281,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/verifyExamPage.fxml";
+				return "/gui/teacher/verifyExamPage.fxml";
 			}
 
 			@Override
@@ -303,7 +303,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/AddnewQuestion.fxml";
+				return "/gui/teacher/AddnewQuestion.fxml";
 			}
 
 			@Override
@@ -325,7 +325,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/editQuestion.fxml";
+				return "/gui/teacher/editQuestion.fxml";
 			}
 
 			@Override
@@ -348,7 +348,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/CreateExam.fxml";
+				return "/gui/teacher/CreateExam.fxml";
 			}
 
 			@Override
@@ -369,7 +369,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/StartExam.fxml";
+				return "/gui/teacher/StartExam.fxml";
 			}
 
 			@Override
@@ -390,7 +390,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/ManageQuestionPage.fxml";
+				return "/gui/teacher/ManageQuestionPage.fxml";
 			}
 
 			@Override
@@ -414,7 +414,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/ChooseExamType.fxml";
+				return "/gui/teacher/ChooseExamType.fxml";
 			}
 
 			@Override
@@ -435,7 +435,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/ManuelExamPage.fxml";
+				return "/gui/teacher/ManuelExamPage.fxml";
 			}
 
 			@Override
@@ -459,7 +459,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/teacher/ManageOngoingExams.fxml";
+				return "/gui/teacher/ManageOngoingExams.fxml";
 			}
 
 			@Override
@@ -485,7 +485,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/principal/PrincipalHomePage.fxml";
+				return "/gui/principal/PrincipalHomePage.fxml";
 			}
 
 			@Override
@@ -507,7 +507,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/principal/statisticalReport.fxml";
+				return "/gui/principal/statisticalReport.fxml";
 			}
 
 			@Override
@@ -529,7 +529,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/principal/ExtraTimeRequests.fxml";
+				return "/gui/principal/ExtraTimeRequests.fxml";
 			}
 
 			@Override
@@ -551,7 +551,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/principal/InfoPage.fxml";
+				return "/gui/principal/InfoPage.fxml";
 			}
 
 			@Override
