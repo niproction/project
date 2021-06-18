@@ -18,81 +18,7 @@
             <Font name="Elephant" size="24.0" />
          </font>
       </Text>
-      <ImageView fx:id="pic4" fitHeight="51.0" fitWidth="56.0" layoutX="50.0" layoutY="489.0">
-         <image>
-            <Image url="@../../img/icon-terminate.jpeg" />
-         </image>
-      </ImageView>
-      <Text fx:id="text2" layoutX="137.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time left:">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></Text>
-      <ImageView fx:id="pic2" fitHeight="51.0" fitWidth="56.0" layoutX="50.0" layoutY="232.0">
-         <image>
-            <Image url="@../../img/icon-clock.jpeg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="pic3" fitHeight="63.0" fitWidth="64.0" layoutX="46.0" layoutY="355.0">
-         <image>
-            <Image url="@../../img/icon-request.jpeg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="pic1" fitHeight="51.0" fitWidth="64.0" layoutX="46.0" layoutY="141.0">
-         <image>
-            <Image url="@../../img/icon-initiated.jpeg" />
-         </image>
-      </ImageView>
-      <Text fx:id="text1" layoutX="137.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ongoing exam:">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></Text>
       <Label fx:id="status" layoutX="120.0" layoutY="140.0" prefHeight="32.0" prefWidth="259.0" text="No exams found" textAlignment="CENTER" visible="false" />
-      <Label fx:id="time" layoutX="210.0" layoutY="246.0" prefHeight="17.0" prefWidth="79.0" text="[timer]">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Label fx:id="label_exam_info" layoutX="250.0" layoutY="158.0" text="[exam information]">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Label fx:id="label_message" layoutX="140.0" layoutY="380.0" text="[message]" textFill="#0044ff">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <AnchorPane fx:id="ap_request_extra_time_box" layoutX="117.0" layoutY="308.0" prefHeight="158.0" prefWidth="484.0">
-         <children>
-            <Text fx:id="text3" layoutX="22.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request extra time:">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-            <Text fx:id="text4" layoutX="22.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comment:" wrappingWidth="79.00000154972076">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Text>
-            <JFXTextField fx:id="commentField" layoutX="144.0" layoutY="87.0" />
-            <JFXButton fx:id="sendBtn" buttonType="RAISED" layoutX="359.0" layoutY="55.0" onMouseClicked="#button_send_request_clicked" prefHeight="49.0" prefWidth="96.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="SEND">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
-            <ChoiceBox fx:id="hourChoiceBox" layoutX="163.0" layoutY="41.0" prefHeight="25.0" prefWidth="49.0" />
-            <ChoiceBox fx:id="minutesChoiceBox" layoutX="230.0" layoutY="41.0" prefHeight="25.0" prefWidth="49.0" />
-         </children>
-      </AnchorPane>
-      <JFXButton fx:id="terminate_exam" buttonType="RAISED" layoutX="169.0" layoutY="490.0" onMouseClicked="#button_terminate_clicked" prefHeight="49.0" prefWidth="169.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #FF5F5F;" text="Terminate exam">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
       <Label fx:id="label_notification_message" alignment="TOP_CENTER" layoutX="78.0" layoutY="191.0" prefHeight="82.0" prefWidth="644.0" text="[message]">
          <font>
             <Font size="28.0" />
@@ -103,5 +29,87 @@
             <Image url="@../../img/R6ba4d8555d7838dcb7545f59eb0db249.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="ap_container_box" layoutX="14.0" layoutY="105.0" prefHeight="500.0" prefWidth="600.0">
+         <children>
+            <Text fx:id="text2" layoutX="119.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time left:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Label fx:id="label_message" layoutX="126.0" layoutY="273.0" text="[message]" textFill="#0044ff">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="terminate_exam" buttonType="RAISED" layoutX="119.0" layoutY="389.0" onMouseClicked="#button_terminate_clicked" prefHeight="49.0" prefWidth="169.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #FF5F5F;" text="Terminate exam">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <ImageView fx:id="pic3" fitHeight="63.0" fitWidth="64.0" layoutX="24.0" layoutY="250.0">
+               <image>
+                  <Image url="@../../img/icon-request.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pic2" fitHeight="51.0" fitWidth="56.0" layoutX="28.0" layoutY="134.0">
+               <image>
+                  <Image url="@../../img/icon-clock.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pic1" fitHeight="51.0" fitWidth="64.0" layoutX="24.0" layoutY="35.0">
+               <image>
+                  <Image url="@../../img/icon-initiated.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="pic4" fitHeight="51.0" fitWidth="56.0" layoutX="28.0" layoutY="388.0">
+               <image>
+                  <Image url="@../../img/icon-terminate.jpeg" />
+               </image>
+            </ImageView>
+            <Label fx:id="time" layoutX="195.0" layoutY="140.0" prefHeight="17.0" prefWidth="79.0" text="[timer]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Text fx:id="text1" layoutX="119.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ongoing exam:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Label fx:id="label_exam_info" layoutX="229.0" layoutY="51.0" text="[exam information]">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <AnchorPane fx:id="ap_request_extra_time_box" layoutX="105.0" layoutY="203.0" prefHeight="158.0" prefWidth="484.0">
+               <children>
+                  <Text fx:id="text3" layoutX="22.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request extra time:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="text4" layoutX="22.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comment:" wrappingWidth="79.00000154972076">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <JFXTextField fx:id="commentField" layoutX="144.0" layoutY="87.0" />
+                  <JFXButton fx:id="sendBtn" buttonType="RAISED" layoutX="359.0" layoutY="55.0" onMouseClicked="#button_send_request_clicked" prefHeight="49.0" prefWidth="96.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="SEND">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <ChoiceBox fx:id="hourChoiceBox" layoutX="163.0" layoutY="41.0" prefHeight="25.0" prefWidth="49.0" />
+                  <ChoiceBox fx:id="minutesChoiceBox" layoutX="230.0" layoutY="41.0" prefHeight="25.0" prefWidth="49.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

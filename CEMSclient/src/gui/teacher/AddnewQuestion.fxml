@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="ap" maxHeight="640.0" maxWidth="840.0" minHeight="640.0" minWidth="840.0" styleClass="pages-bg" stylesheets="@../css/Main_Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.teacher.addNewQuestionController">
    <children>
-      <Label layoutX="616.0" layoutY="280.0" prefHeight="80.0" prefWidth="183.0" text="Press on the question to choose the right answer" textAlignment="JUSTIFY" textFill="RED" wrapText="true">
+      <Label layoutX="631.0" layoutY="241.0" prefHeight="53.0" prefWidth="204.0" text="Press on the option to choose the right answer" textAlignment="JUSTIFY" textFill="RED" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -46,7 +46,10 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="option1txt" layoutX="133.0" layoutY="32.0" prefHeight="31.0" prefWidth="450.0" />
+                        <JFXTextField fx:id="option1txt" layoutX="133.0" layoutY="32.0" prefHeight="31.0" prefWidth="450.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font></JFXTextField>
                      </children>
                   </Pane>
                   <Pane fx:id="answer2" minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_2" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
@@ -56,7 +59,10 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="option2txt" layoutX="136.0" layoutY="32.0" prefHeight="31.0" prefWidth="450.0" />
+                        <JFXTextField fx:id="option2txt" layoutX="136.0" layoutY="32.0" prefHeight="31.0" prefWidth="450.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font></JFXTextField>
                      </children>
                   </Pane>
                   <Pane fx:id="answer3" minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_3" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
@@ -66,7 +72,10 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="option3txt" layoutX="136.0" layoutY="34.0" prefHeight="31.0" prefWidth="450.0" />
+                        <JFXTextField fx:id="option3txt" layoutX="136.0" layoutY="34.0" prefHeight="31.0" prefWidth="450.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font></JFXTextField>
                      </children>
                   </Pane>
                   <Pane fx:id="answer4" minHeight="80.0" minWidth="550.0" onMouseClicked="#set_correct_answer_4" styleClass="option" stylesheets="@../css/AddNewQuestion.css">
@@ -76,7 +85,10 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="option4txt" layoutX="136.0" layoutY="25.0" prefHeight="31.0" prefWidth="450.0" />
+                        <JFXTextField fx:id="option4txt" layoutX="136.0" layoutY="25.0" prefHeight="31.0" prefWidth="450.0">
+                           <font>
+                              <Font size="16.0" />
+                           </font></JFXTextField>
                      </children>
                   </Pane>
                </children>
@@ -88,22 +100,12 @@
             <Image url="@../../img/logo.png" />
          </image>
       </ImageView>
-      <Label fx:id="answerErrorLbl" layoutX="670.0" layoutY="449.0" text="error" textFill="#f40909">
+      <Label fx:id="answerErrorLbl" alignment="CENTER" layoutX="640.0" layoutY="409.0" prefHeight="80.0" prefWidth="185.0" text="[message]" textFill="#f40909" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="685.0" layoutY="219.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="seccessLabel" layoutX="657.0" layoutY="472.0" text="Question has been added!" textFill="#0af254">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="609.0" layoutY="117.0" text="Field Name:">
+      <Label layoutX="616.0" layoutY="117.0" text="Field Name:">
          <font>
             <Font size="18.0" />
          </font>
@@ -118,8 +120,11 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextArea fx:id="questionInfotxt" layoutX="146.0" layoutY="117.0" prefHeight="80.0" prefWidth="450.0" />
-      <JFXButton fx:id="saveBtn" buttonType="RAISED" layoutX="695.0" layoutY="506.0" onMouseClicked="#handleOnAction" prefHeight="39.0" prefWidth="76.0" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" text="ADD">
+      <JFXTextArea fx:id="questionInfotxt" layoutX="146.0" layoutY="117.0" prefHeight="80.0" prefWidth="450.0">
+         <font>
+            <Font size="16.0" />
+         </font></JFXTextArea>
+      <JFXButton fx:id="saveBtn" layoutX="695.0" layoutY="506.0" onMouseClicked="#handleOnAction" prefHeight="39.0" prefWidth="76.0" style="-fx-background-color: #81D657; -fx-background-radius: 10pt;" styleClass="buttontest" stylesheets="@../../css/Main_Style.css" text="ADD">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

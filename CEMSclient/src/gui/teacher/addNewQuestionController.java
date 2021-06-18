@@ -85,17 +85,16 @@ public class addNewQuestionController {
 		//fieldBox.setItems(field);
 		question=new Question();
     }
+	
 	public void handleOnAction(MouseEvent event) {
 		if(event.getSource()==backHomebtn) {
 			//SceneController sceen = new SceneController(PageProperties.Page.HOME, ap);
-			sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
+			//sceen.LoadSceen(SceneController.ANIMATE_ON.UNLOAD);
 		}
 		if(event.getSource()==saveBtn) {
 			answerErrorLbl.setVisible(false);
 			seccessLabel.setVisible(false);
 			save();
-			AnchorPane page = SceneController.getPage(PageProperties.Page.MANAGE_QUESTIONS);
-			App_client.pageContainer.setCenter(page);
 		}
 		if(event.getSource()==clearBtn) {
 			seccessLabel.setVisible(false);
@@ -103,13 +102,9 @@ public class addNewQuestionController {
 		}
 		
 	}
-	public void clear() {
-		questionInfotxt.setText("");
-		option1txt.setText("");
-		option2txt.setText("");
-		option3txt.setText("");
-		option4txt.setText("");
-	}
+	
+	
+	
 	public void save() {
 		ArrayList<Object> parameters=new ArrayList<>();
 		if(question.getAnswer()==null) {
@@ -133,6 +128,8 @@ public class addNewQuestionController {
 		question.setOption2(option2txt.getText().toString());
 		question.setOption3(option3txt.getText().toString());
 		question.setOption4(option4txt.getText().toString());
+		
+		
 		//already have the answer
 		parameters.add(question);
 		parameters.add(UserControl.ConnectedUser);
@@ -142,21 +139,15 @@ public class addNewQuestionController {
 		clear();
 		ClientControl.getInstance().accept(dataPacket);
 	}
-	public String getFieldNum(String field) {
-		if(field.equals("Chemistry"))
-			return "01";
-		else if(field.equals("Art"))
-			return "02";
-		else if(field.equals("Mathematics"))
-			return "03";
-		else
-			return "04";
+	
+	
+	public void clear() {
+		questionInfotxt.setText("");
+		option1txt.setText("");
+		option2txt.setText("");
+		option3txt.setText("");
+		option4txt.setText("");
 	}
-	
-	
-	
-	
-	
 	
 	
 	
@@ -173,9 +164,8 @@ public class addNewQuestionController {
     	answer2.getStyleClass().add("option");
     	answer3.getStyleClass().add("option");
     	answer4.getStyleClass().add("option");
-    	question.setAnswer("1");
     	
-
+    	question.setAnswer("1"); // set the answer
     }
 
     @FXML
@@ -189,8 +179,9 @@ public class addNewQuestionController {
     	answer1.getStyleClass().add("option");
     	answer3.getStyleClass().add("option");
     	answer4.getStyleClass().add("option");
-    	question.setAnswer("2");
-
+    	
+    	
+    	question.setAnswer("2"); // set the answer
     }
 
     @FXML
@@ -204,8 +195,8 @@ public class addNewQuestionController {
     	answer1.getStyleClass().add("option");
     	answer2.getStyleClass().add("option");
     	answer4.getStyleClass().add("option");
-    	question.setAnswer("3");
     	
+    	question.setAnswer("3"); // set the answer
     }
 
     @FXML
@@ -219,13 +210,7 @@ public class addNewQuestionController {
     	answer1.getStyleClass().add("option");
     	answer2.getStyleClass().add("option");
     	answer3.getStyleClass().add("option");
-    	question.setAnswer("4");
-    
+    	
+    	question.setAnswer("4"); // set the answer
     }
-	
-	
-	
-	
-	
-	
 }

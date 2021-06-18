@@ -86,7 +86,7 @@ public class StartExamController {
 		examsList.addAll(ExamControl.exams);
 		ExamControl.exams = null;
 
-		System.out.print(examsList.get(0).toString());
+		//System.out.print(examsList.get(0).toString());
 		if (examsList != null && examsList.size() > 0) {
 
 			// Set the list of Course items to the ChoiceBox
@@ -119,31 +119,11 @@ public class StartExamController {
 				true);
 		ClientControl.getInstance().accept(dataPacket);
 
-		for (int i = 0; i < examsList.size(); i++) {
-			if (examsList.get(i).equals(choicebox_exams.getValue()))
-				examsList.remove(i);
-		}
 
-		// choicebox_exams.getValue();
-
-		choicebox_exams.setItems(examsList);
-		choicebox_exams.setValue(examsList.get(0));
-		textfielf_password.clear();
-		// Create the ChoiceBox
-		// ChoiceBox<Exam> cbCourses = new ChoiceBox<>();
-
-		// Sample list of Courses
-		/*
-		 * StringProperty courseName = new SimpleStringProperty();
-		 * 
-		 * public Course(String courseName) { this.courseName.set(courseName); }
-		 */
-
-		// Now, let's add sample data to our list
-		// for (int i = 0; i < examControl.exams.size(); i++) {
-
-		// }
-
+		
+		
+		
+		
 		label_message.setText("Exam started");
 		button_start.setDisable(true);
 

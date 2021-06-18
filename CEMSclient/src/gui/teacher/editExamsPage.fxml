@@ -149,7 +149,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="submitBtn1" layoutX="504.0" layoutY="566.0" onMouseClicked="#handleOnAction" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="Submit">
+      <JFXButton fx:id="submitBtn" layoutX="504.0" layoutY="566.0" onMouseClicked="#handleOnAction" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="Submit">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

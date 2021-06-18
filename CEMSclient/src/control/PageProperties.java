@@ -17,7 +17,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/SettingsLoginPage.fxml";
+				return "/gui/SettingsLoginPage.fxml";
 			}
 
 			@Override
@@ -38,7 +38,7 @@ public class PageProperties {
 
 			@Override
 			String GET_FxmlFile() {
-				return "../gui/Login.fxml";
+				return "/gui/Login.fxml";
 			}
 
 			@Override

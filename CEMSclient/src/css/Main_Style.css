@@ -18,6 +18,10 @@
 }
 
 
+.buttontest{
+	  -jfx-button-type: RAISED;
+}
+
 
 .button-settings-login{
 	-fx-background-color:transparent;

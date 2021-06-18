@@ -83,23 +83,23 @@ public class initTables {
 
 			stmt = con.createStatement();
 			int rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('s', '', 's@g.com', 'tomer', 'levi', '212352534', 'student','01', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('s', '1111', 's@g.com', 'tomer', 'levi', '212352534', 'student','01', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ss', '', 's2@g.com', 'haim', 'fogel', '314567890', 'student','02', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ss', '1111', 's2@g.com', 'haim', 'fogel', '314567890', 'student','02', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('sss', '', 's3@g.com', 'noam', 'shor', '454215678', 'student', '03', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('sss', '1111', 's3@g.com', 'noam', 'shor', '454215678', 'student', '03', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('t', '', 't@g.com', 'ami', 'bor', '', 'teacher', '01', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('t', '1111', 't@g.com', 'ami', 'bor', '', 'teacher', '01', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('tt', '', 't2@g.com', 'Elon', 'Musk', '346312345', 'teacher', '02', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('tt', '1111', 't2@g.com', 'Elon', 'Musk', '346312345', 'teacher', '02', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ttt', '', 't3@g.com', 'br', 'sohan', '356890743', 'teacher','03', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ttt', '1111', 't3@g.com', 'br', 'sohan', '356890743', 'teacher','03', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('p', '', 'p@g.com', 'miri', 'bohadana', '123456789', 'principle','01', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('p', '1111', 'p@g.com', 'miri', 'bohadana', '123456789', 'principle','01', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('pp', '', 'p2@g.com', 'mike', 'goren', '543543443', 'principle','02', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('pp', '1111', 'p2@g.com', 'mike', 'goren', '543543443', 'principle','02', 'NO')");
 			rs = stmt.executeUpdate(
-					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ppp', '', 'p2@g.com', 'mike', 'goren', '543543443', 'principle','03', 'NO')");
+					"INSERT INTO users (username, password, email, firstName, LastName, ID, roleType, fID, isConnected) VALUES ('ppp', '1111', 'p2@g.com', 'mike', 'goren', '543543443', 'principle','03', 'NO')");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -138,9 +138,7 @@ public class initTables {
 			int rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('01', '01', 'Algebra')");
 			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('02', '02', 'physica1')");
 			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('03', '03', 'art1')");
-//			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('04', '01', 'Algebra')");
-//			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('05', '02', 'physica1')");
-//			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('06', '03', 'art1')");
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 

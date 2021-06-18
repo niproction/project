@@ -146,6 +146,8 @@ public class ManageOngoingExamsController {
 		System.out.println("loaded");
 		ArrayList<Object> parameter = new ArrayList<Object>();
 		parameter.add(UserControl.ConnectedUser);
+		
+		
 		// Send request to server to get ongoing exam for the teacher if there is one
 		DataPacket data = new DataPacket(DataPacket.SendTo.SERVER, DataPacket.Request.GET_ONGOING_EXAM, parameter, null,
 				true);
@@ -159,7 +161,7 @@ public class ManageOngoingExamsController {
 			if (ExamControl.extraTimeRequest.getIsApproved().equals("waiting")) {
 				ap_request_extra_time_box.setVisible(false);
 				label_message.setVisible(true);
-				label_message.setText("Extra time request waiting principal desition.");
+				label_message.setText("Extra time request waiting principal decision.");
 			} else if (ExamControl.extraTimeRequest.getIsApproved().equals("yes")) {
 				ap_request_extra_time_box.setVisible(false);
 				label_message.setVisible(true);
@@ -175,7 +177,9 @@ public class ManageOngoingExamsController {
 			}
 		} else
 			label_message.setVisible(false);
-
+		
+		//ap_.setVisible(false);
+		
 		// If there is an ongoing exam for the teacher
 		if (ManageOngoingExams.isOngoingExams != null && ManageOngoingExams.isOngoingExams == true) {
 			time.setVisible(true);
@@ -402,6 +406,7 @@ public class ManageOngoingExamsController {
 			min--;
 
 			if (min < 0) {
+				min=59;
 				hour--;
 			}
 		}
