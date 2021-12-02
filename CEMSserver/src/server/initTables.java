@@ -138,9 +138,9 @@ public class initTables {
 			int rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('01', '01', 'Algebra')");
 			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('02', '02', 'physica1')");
 			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('03', '03', 'art1')");
-//			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('04', '01', 'Algebra')");
-//			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('05', '02', 'physica1')");
-//			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('06', '03', 'art1')");
+			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('04', '01', 'Algebra')");
+			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('05', '02', 'physica1')");
+			rs = stmt.executeUpdate("INSERT INTO courses (cID, fID, courseName) VALUES ('06', '03', 'art1')");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 

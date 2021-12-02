@@ -25,7 +25,7 @@ public class App_server extends Application {
 
 		System.out.println("Server manager starting");
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../gui/serverGUI.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/gui/serverGUI.fxml"));
 			Scene scene = new Scene(root, 492, 598);
 
 			System.out.println("Server manager started");

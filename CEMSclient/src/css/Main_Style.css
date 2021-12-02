@@ -2,7 +2,7 @@
 	-fx-background-color:transparent;
 	-fx-background-image: url("../img/logo.png");
 	-fx-background-repeat: stretch;   
-	-fx-background-size: 200 200;
+	-fx-background-size: 200.0 200.0;
 }
 .bg{
 	-fx-background-image: url("../img/bg.png");
@@ -18,45 +18,57 @@
 }
 
 
+.button-naveen-green{
+	-fx-font-size:18pt;
+	-fx-background-radius:10.0pt;
+	-fx-background-color: #81D657;
+	-fx-font-size:18pt;
+	-fx-font-weight:bold;
+	-fx-blend-mode:SRC-OVER;
+	-jfx-button-type:RAISED;
+	
+}
+
+
 
 .button-settings-login{
 	-fx-background-color:transparent;
 	-fx-background-image: url("../img/icon-settings.png");
 	-fx-background-repeat: stretch;   
-	-fx-background-size: 32 32;
+	-fx-background-size: 32.0 32.0;
 }
 
 .button-settings-login:hover {
 	-fx-background-color:transparent;
     -fx-background-image: url("../img/icon-settings.png");
 	-fx-background-repeat: stretch;   
-	-fx-background-size: 32 32;
+	-fx-background-size: 32.0 32.0;
 }
 .button-menu{
 	-fx-background-color:transparent;
 	-fx-background-image: url("../img/menu-icon.png");
 	-fx-background-repeat: stretch;   
-	-fx-background-size: 32 32;
+	-fx-background-size: 32.0 32.0;
 }
 
 .button-menu:hover {
 	-fx-background-color:transparent;
     -fx-background-image: url("../img/menu-icon-hover.png");
 	-fx-background-repeat: stretch;   
-	-fx-background-size: 32 32;
+	-fx-background-size: 32.0 32.0;
 }
 .button-logout{
 	-fx-background-color:transparent;
 	-fx-background-image: url("../img/icons8-exit-64.png");
 	-fx-background-repeat: stretch;   
-	-fx-background-size: 32 32;
+	-fx-background-size: 32.0 32.0;
 }
 
 .button-logout:hover {
 	-fx-background-color:transparent;
     -fx-background-image: url("../img/icons8-exit-64.png");
 	-fx-background-repeat: stretch;   
-	-fx-background-size: 32 32;
+	-fx-background-size: 32.0 32.0;
 }
 .left{
 	-fx-background-color: #4dafdC;
@@ -95,12 +107,17 @@
 }
 
 
+
+
+
+
+
 .context-menu {
     /*-fx-skin: "javafx.scene.control.skin.ContextMenuSkin";*/
     -fx-background-color: #7e4669;
     
-    -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+    -fx-background-insets: 0.0, 1.0, 2.0;
+    -fx-background-radius: 0.0 6.0 6.0 6.0, 0.0 5.0 5.0 5.0, 0.0 4.0 4.0 4.0;
 /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
     -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CEMSclient/CEMSclient.iml" filepath="$PROJECT_DIR$/CEMSclient/CEMSclient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CEMSserver/CEMSserver.iml" filepath="$PROJECT_DIR$/CEMSserver/CEMSserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OCSF/OCSF.iml" filepath="$PROJECT_DIR$/OCSF/OCSF.iml" />
+    </modules>
+  </component>
+</project>

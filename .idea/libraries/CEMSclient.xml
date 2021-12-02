@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="CEMSclient">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/CEMSclient/controlsfx-8.40.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CEMSclient/jfoenix-8.0.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CEMSclient/fxsampler-1.0.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CEMSclient/jfoenix-9.0.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/CEMSclient/controlsfx-samples-8.40.14.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

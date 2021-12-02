@@ -33,13 +33,14 @@
                   <Button fx:id="button_settings" layoutX="369.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#button_settings_clicked" prefHeight="32.0" prefWidth="32.0" styleClass="button-settings-login" />
                   <AnchorPane fx:id="ap_login_box" layoutX="53.0" layoutY="53.0" prefHeight="425.0" prefWidth="325.0">
                      <children>
-                        <JFXPasswordField fx:id="txtPassword" alignment="CENTER" layoutX="45.0" layoutY="217.0" onKeyPressed="#check_enter_pressed" prefHeight="42.0" prefWidth="241.0" promptText="Password" />
-                        <Label fx:id="errorLable" alignment="CENTER" layoutX="52.0" layoutY="61.0" prefHeight="76.0" prefWidth="221.0" text="Wrong Username/Password" textFill="#f50303" wrapText="true" />
                         <Label alignment="CENTER" layoutX="74.0" layoutY="14.0" prefHeight="39.0" prefWidth="178.0" text="LOGIN" underline="true">
                            <font>
                               <Font name="Elephant" size="24.0" />
                            </font>
                         </Label>
+                        <JFXTextField fx:id="txtUserName" alignment="CENTER" layoutX="43.0" layoutY="150.0" onKeyPressed="#check_enter_pressed" prefHeight="41.0" prefWidth="240.0" promptText="Username" />
+                        <JFXPasswordField fx:id="txtPassword" alignment="CENTER" layoutX="45.0" layoutY="217.0" onKeyPressed="#check_enter_pressed" prefHeight="42.0" prefWidth="241.0" promptText="Password" />
+                        <Label fx:id="errorLable" alignment="CENTER" layoutX="52.0" layoutY="61.0" prefHeight="76.0" prefWidth="221.0" text="Wrong Username/Password" textFill="#f50303" wrapText="true" />
                         <JFXButton fx:id="btnSignIn" buttonType="RAISED" layoutX="115.0" layoutY="321.0" onMouseClicked="#handleButtonAction" prefHeight="49.0" prefWidth="96.0" ripplerFill="BLACK" style="-fx-background-radius: 10pt; -fx-background-color: #81D657;" text="SIGN IN">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -48,7 +49,6 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXTextField fx:id="txtUserName" alignment="CENTER" layoutX="43.0" layoutY="150.0" onKeyPressed="#check_enter_pressed" prefHeight="41.0" prefWidth="240.0" promptText="Username" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="ap_settings_box" layoutX="50.0" layoutY="50.0" prefHeight="400.0" prefWidth="300.0">
